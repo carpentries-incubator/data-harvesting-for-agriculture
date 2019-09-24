@@ -1,0 +1,18 @@
+---
+title: "Introduction to R and RStudio"
+objectives:
+- "Describe the purpose of each pane in the RStudio IDE"
+- "Create a project to manage scripts and data"
+- "Assign a value to a variable"
+- "Perform arithmetic"
+- "Import data from spreadsheet software"
+- "Install packages"
+- "Make a scatter plot using ggplot2"
+source: Rmd
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+

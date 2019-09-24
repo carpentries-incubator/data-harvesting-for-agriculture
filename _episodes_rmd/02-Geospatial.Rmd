@@ -1,0 +1,14 @@
+---
+title: "Introduction to Geospatial Data"
+objectives:
+- "Determine whether data are stored in vector or raster format"
+- "Identify the coordinate system for a dataset"
+- "Import geospatial files into your R environment"
+- "Visualize geospatial data with R"
+source: Rmd
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
