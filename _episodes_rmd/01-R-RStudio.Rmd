@@ -5,6 +5,8 @@ objectives:
 - "Create a project to manage scripts and data"
 - "Assign a value to a variable"
 - "Perform arithmetic"
+- "Use a function"
+- "View the help page for a function"
 - "Import data from spreadsheet software"
 - "Install packages"
 - "Make a scatter plot using ggplot2"
