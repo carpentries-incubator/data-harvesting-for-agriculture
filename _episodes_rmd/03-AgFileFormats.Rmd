@@ -1,0 +1,13 @@
+---
+title: "Agricultural File Formats"
+objectives:
+- "Describe the contents of files generated during planting, fertilization, and harvest"
+- "Describe the contents of files used to control seeding and fertilization rate"
+- "Describe the format of public weather and soil datasets"
+- "Import agricultural datasets into R"
+source: Rmd
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```

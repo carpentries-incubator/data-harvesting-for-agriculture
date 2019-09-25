@@ -1,0 +1,14 @@
+---
+title: "Rasterization"
+objectives:
+- "Understand the purpose of interpolation"
+- "Convert point measurements into an interpolated grid of values"
+- "Generate raster files containing these values"
+keypoints:
+
+source: Rmd
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```

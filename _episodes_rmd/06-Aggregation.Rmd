@@ -1,0 +1,13 @@
+---
+title: "Aggregation of spatial data"
+objectives:
+- "Split raster data into a grid representing units one wants to analyze"
+- "Calculate a mean value for each cell in the grid"
+keypoints:
+
+source: Rmd
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
