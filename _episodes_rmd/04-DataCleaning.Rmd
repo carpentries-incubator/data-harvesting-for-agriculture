@@ -2,6 +2,7 @@
 title: "Data Cleaning"
 objectives:
 - "Confirm that data are formatted correctly"
+- "Enumerate common problems encountered with data formatting."
 - "Visualize the distribution of recorded values"
 - "Identify and remove outliers in a dataset"
 - "Correct other issues specific to how data were collected"
