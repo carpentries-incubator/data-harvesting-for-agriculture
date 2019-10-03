@@ -3,6 +3,7 @@ title: "Aggregation of spatial data"
 objectives:
 - "Split raster data into a grid representing units one wants to analyze"
 - "Calculate a mean value for each cell in the grid"
+- "Aggregate across multiple variables types and with various ways of aggregating (sum, mean, etc.)."
 keypoints:
 
 source: Rmd
