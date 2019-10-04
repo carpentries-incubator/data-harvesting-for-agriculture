@@ -3,8 +3,11 @@ title: "Introduction to Geospatial Data"
 objectives:
 - "Determine whether data are stored in vector or raster format"
 - "Identify the coordinate system for a dataset"
+- "Determine UTM zone of a dataset" 
+- "Reproject the dataset into UTM"
 - "Import geospatial files into your R environment"
 - "Visualize geospatial data with R"
+- "Create geospatial files from lat/long coordinates"
 source: Rmd
 ---
 
