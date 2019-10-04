@@ -5,6 +5,13 @@ objectives:
 - "Describe the contents of files used to control seeding and fertilization rate"
 - "Describe the format of public weather and soil datasets"
 - "Import agricultural datasets into R"
+- "Import weather data from the internet, eg. daymetr"
+- "Access to elevation and ssurgo data with higher resolution"
+- "Derive topography data from elevation data"
+keypoints:
+- "Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif"
+
+
 source: Rmd
 ---
 
