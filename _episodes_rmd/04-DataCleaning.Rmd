@@ -6,8 +6,11 @@ objectives:
 - "Visualize the distribution of recorded values"
 - "Identify and remove outliers in a dataset"
 - "Correct other issues specific to how data were collected"
+- "Identify and remove outliers in arcgis/qgis"
+
 keypoints:
 - "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
+- "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in qrcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
 - "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
 source: Rmd
 ---
