@@ -5,6 +5,7 @@ objectives:
 - "Convert point measurements into an interpolated grid of values"
 - "Generate raster files containing these values"
 keypoints:
+- "The type of interpolation used will depend on the nature of the variable and the trial design."
 
 source: Rmd
 ---
