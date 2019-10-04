@@ -3,11 +3,16 @@ title: "Introduction to Geospatial Data"
 objectives:
 - "Determine whether data are stored in vector or raster format"
 - "Identify the coordinate system for a dataset"
+- "Talk about when data don't have a projection defined (missing .prj file)"
 - "Determine UTM zone of a dataset" 
 - "Reproject the dataset into UTM"
 - "Import geospatial files into your R environment"
 - "Visualize geospatial data with R"
 - "Create geospatial files from lat/long coordinates"
+- "How to creat an ab-line"
+- "Know when to use a simple feature and when to use a SpatialPolygonsDataFrame"
+keypoints:
+- "sf is prefereable for data analysis; it is easier to access the dataframe"
 source: Rmd
 ---
 
