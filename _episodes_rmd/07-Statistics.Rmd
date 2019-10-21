@@ -1,5 +1,8 @@
 ---
 title: "Statistical analysis"
+questions:
+- "How can I tell if the relationship between nitrogen and yield is real vs. just being noise in my data?"
+- "How can my results help me choose an optimal application rate?"
 objectives:
 - "Visualize relationship between yield and input variables"
 - "Understand basic principles of linear regression"

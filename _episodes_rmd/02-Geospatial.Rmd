@@ -1,5 +1,8 @@
 ---
 title: "Introduction to Geospatial Data"
+questions:
+- "What are the types of spatially-referenced data that I might encounter in agriculture?"
+- "How can I work with geospatial data in R and QGIS?"
 objectives:
 - "Determine whether data are stored in vector or raster format"
 - "Identify the coordinate system for a dataset"
@@ -9,7 +12,7 @@ objectives:
 - "Import geospatial files into your R environment"
 - "Visualize geospatial data with R"
 - "Create geospatial files from lat/long coordinates"
-- "How to creat an ab-line"
+- "Create an ab-line"
 - "Know when to use a simple feature and when to use a SpatialPolygonsDataFrame"
 keypoints:
 - "sf is prefereable for data analysis; it is easier to access the dataframe"

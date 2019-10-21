@@ -1,5 +1,10 @@
 ---
 title: "Agricultural File Formats"
+questions:
+- "Why do I need to understand file formats before proceeding with my analysis?"
+- "What are common formats that I might encounter as inputs to and outputs from my equipment?"
+- "What are common formats that I might encounter from public resources on weather, soil, and topography?"
+- "How do I adjust R import functions and parameters for a particular file format?"
 objectives:
 - "Describe the contents of files generated during planting, fertilization, and harvest"
 - "Describe the contents of files used to control seeding and fertilization rate"
@@ -9,7 +14,7 @@ objectives:
 - "Access to elevation and ssurgo data with higher resolution"
 - "Derive topography data from elevation data"
 keypoints:
-- "Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif"
+- "Different data formats include gpkg, shp(cpg,dbf,prj,sbn,sbx), geojson, tif"
 
 
 source: Rmd
