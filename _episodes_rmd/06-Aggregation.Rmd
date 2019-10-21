@@ -1,11 +1,14 @@
 ---
 title: "Aggregation of spatial data"
+questions:
+- "How can I calculate the mean value for a plot within my trial?"
+- "How can I combine multiple geospatial layers?"
 objectives:
 - "Split raster data into a grid representing units one wants to analyze"
 - "Calculate a mean value for each cell in the grid"
-- "stack data from different dataset together"
+- "Stack data from different datasets together"
 keypoints:
-- "clip the different dataset to one size"
+- "Geospatial layers that will be analyzed together should all be clipped to one size."
 source: Rmd
 ---
 

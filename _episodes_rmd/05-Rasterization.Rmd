@@ -1,5 +1,8 @@
 ---
 title: "Rasterization"
+questions:
+- "How can I estimate values for points in between where I took measurements?"
+- "Why would it be useful to convert point measurements to a grid?"
 objectives:
 - "Understand the purpose of interpolation"
 - "Convert point measurements into an interpolated grid of values"
