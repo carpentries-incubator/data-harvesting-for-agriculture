@@ -37,7 +37,7 @@ opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98")
 - Import geospatial files into your R environment
 - Visualize geospatial data with R
 - Create geospatial files from lat/long coordinates
-- How to creat an ab-line
+- Create an ab-line
 
 ####Objectives with Agricultural Data Types
 - Describe the contents of files generated during planting, fertilization, and harvest
@@ -45,13 +45,13 @@ opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98")
 - Describe the format of public weather and soil datasets
 - Import agricultural datasets into R
 - Import weather data from the internet, eg. daymetr
-- Access to elevation and ssurgo data with higher resolution
+- Access elevation and ssurgo data with higher resolution
 - Derive topography data from elevation data
 
 ####Keypoints:
 - sf is prefereable for data analysis; it is easier to access the dataframe
 - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
-- Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
+- Different data formats that you are likely to encounter include gpkg, shp (cpg, dbf, prj, sbn, sbx), geojson, and tif
 
 ###Introducing Spatial Data with an Example Using Trial Design Data
 
