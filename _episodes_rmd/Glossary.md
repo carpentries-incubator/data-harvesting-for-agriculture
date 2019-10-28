@@ -13,6 +13,10 @@ the object and what kinds of computation can be done with the object.
 * **comment**: A line or section of code that will be ignored by the interpreter.
 In R the `#` symbol is used to indicate a comment.  Comments are useful for
 explaining in human terms what your code is doing.
+* **data frame**: Spreadsheet-like data in R.  Each column must be all one data
+type, although different columns can be different data types from each other.
+We will also encounter **tibbles**, which are essentially data frames that are
+designed to be a little more user-friendly.
 * **environment**: Part of your computer's RAM (memory) that contains all the
 objects that you are working with in R, and the names pointing to them.
 * **function**: A named command that performs some sort of computation.
@@ -31,6 +35,10 @@ complex piece of data with a name pointing to it, so that it can be referred to
 by that name in your code.
 * **operator**: A symbol, like `<-`, `+`, or `$` that performs some sort of
 operation involving one or two objects.
+* **script**: A plain text file containing a series of R commands. Ideally you
+can reproduce your analysis by simply rerunning the script.
+* **vector**: A one-dimensional collection of values, all of the same data type.
+Every column of a data frame is a vector.
 
 ## Geospatial analysis
 

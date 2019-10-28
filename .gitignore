@@ -9,3 +9,4 @@ _site
 .Rhistory
 .RData
 *.Rproj
+_episodes_rmd/*.html
