@@ -1,0 +1,254 @@
+---
+title: "Ag Carpentry - Data Cleaning and Rasterization"
+author: "Aolin Gong"
+date: "11/4/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library("sf")
+library("fasterize")
+library("gstat")
+library("raster")
+library("rjson")
+library("httr")
+library("rgdal")
+library(rgeos)
+library(maptools)
+library(knitr)
+require("tmap")
+require("ggplot2")
+require("gridExtra")
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Downloads/data carpentry - data cleaning")
+```
+
+```{r functions}
+st_over = function(x, y) {
+  sapply(sf::st_intersects(x, y), function(z)
+    if (length(z) == 0)
+      NA_integer_
+    else
+      z[1])
+}
+
+st_interpolate <- function(obj, v, rst, type = "idw") {
+  obj_sp <- as(obj, "Spatial")
+  
+  fml <- as.formula(paste0(v, " ~ 1"))
+  if (!(type %in% c("idw", "nng"))) {
+    stop(paste0(
+      "Type not implemented! ",
+      "Choose between idw (inverse distance weighted), ",
+      "and nng (nearest neighbor)."
+    ))
+  }
+  
+  if (type == "idw") {
+    # Setting nmax to 5 and idp to 1 is an
+    #  inverse weighted interpolation:
+    gs <- gstat::gstat(formula = fml, locations = obj_sp,
+                       nmax = 5, set = list(idp = 1))
+  } else {
+    # Setting nmax to 1 and idp to 0 is equivalent to
+    #  nearest neighbor interpolation:
+    gs <- gstat::gstat(formula = fml, locations = obj_sp,
+                       nmax = 1, set = list(idp = 0))
+  }
+  
+  x <- raster::interpolate(rst, gs)
+  return(x)
+}
+```
+####Motivating Questions:
+- "Why is it important to clean the data before proceeding with analysis?"
+- "How can I quickly and efficiently identify problems with my data?"
+- "How can identify and remove incorrect values from my dataset?"
+####Objectives:
+- "Confirm that data are formatted correctly"
+- "Enumerate common problems encountered with data formatting."
+- "Visualize the distribution of recorded values"
+- "Identify and remove outliers in a dataset using R and QGIS"
+- "Correct other issues specific to how data were collected"
+####Keypoints:
+- "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
+- "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
+- "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
+
+### Make raster of field 
+We make rasters of the field data as we are cleaning the data.
+### Trial Layout
+The following steps read in a trial design shapefile, transform the projection of file to utm projection, and then save the file in a geopackage. In many cases, the trial design shapefile is already in the correct form, and we are just checking the file in advance of making a raster of the field.
+####Read in the trial design
+```{r readtrial}
+trial <- read_sf("hord_f98_trialdesign_2017.shp")
+```
+
+####Check the coordinate reference system
+```{r checkCRS}
+crs(trial)
+```
+
+####Calculate the UTM zone from the longitude
+```{r calcutm}
+long2UTM = function(long) {(floor((long + 180)/6) %% 60) + 1}
+utmzone = long2UTM(mean(st_bbox(trial)[c(1,3)]))
+```
+
+####Projection for utm
+```{r setcrs}
+projutm <<- st_crs(paste0("+init=epsg:326", utmzone))
+```
+
+####Transform the projection of file
+```{r transform}
+trialutm<-st_transform(trial,projutm)
+```
+
+####Save the file with trial design in a geopackage
+```{r save trial}
+st_write(trialutm,"trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+```
+####Recording the ID name for the plots
+```{r numbering}
+trialutm$ID<-1:nrow(trialutm)
+```
+
+### Bring in boundary and remove headlands for clipping raster ###
+
+####read in and check the boundary file
+```{r boundary}
+boundary <- read_sf("boundary.gpkg")
+crs(boundary)
+boundary<-st_set_crs(boundary,4326)
+boundary_utm<-st_transform(boundary, projutm)
+```
+####creating a buffer for the boundary file
+```{r buffer}
+boundary_buffer<-st_buffer(boundary_utm,-10)
+```
+
+####Visualize the boundary
+```{r plotboundary}
+plot(boundary_utm$geom)
+plot(boundary_buffer$geom,add=TRUE)
+```
+
+###Make raster of field using the trialdesign file
+
+####Make raster
+We start the pixel in the rounded coordinated to be consistent, and then we an 'ID' for each raster grid.
+
+```{r raster}
+orig <- floor(st_bbox(trialutm)[1:2])
+frst <- fasterize::raster(trialutm, orig, res = 1)
+```
+
+```{r ID}
+frst <- fasterize::fasterize(trialutm, frst, "ID")
+names(frst) <- "ID"
+plot(frst$ID)
+```
+
+### bring in edited yield 
+When we bring in the edited yield data, we transform it into utm projection as well.
+```{r yield}
+yield <- read_sf("hord_f98_trialyield_2017.shp")
+yield_utm<-st_transform(yield, projutm)
+```
+
+### remove yield observations on border and also the ends of plots with st_buffer 
+####Remove yield observations on boarder
+```{r observations on boarder}
+buffer<-st_buffer(trialutm,-4) # plots are 24 m wide and 2 yield passes
+ov<-st_over(yield_utm,st_geometry(buffer))
+yield$out<- is.na(ov) # demarcate the yield values removed
+yield_clean<-subset(yield,out==FALSE)
+```
+####Remove yield observations that are without three standard deviations
+```{view the distribution of original yield data}
+hist(yield_clean$Yld_Vol_Dr)
+```
+
+```{r 3sd}
+sd<-sd(yield_clean$Yld_Vol_Dr)
+mean<-mean(yield_clean$Yld_Vol_Dr)
+yield_clean<-subset(yield_clean,yield_clean$Yld_Vol_Dr>mean-3*sd & yield_clean$Yld_Vol_Dr<mean+3*sd)
+```
+
+```{view the distribution of cleaned yield data}
+hist(yield_clean$Yld_Vol_Dr)
+```
+
+```{r reprojection of yield data}
+yield_clean<-st_transform(yield_clean, projutm)
+```
+
+####Save the cleaned yield data in a geopackage
+```{r save yield}
+st_write(yield_clean,"yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+```
+
+###  Yield Interpolation 
+We interpolate by each plot rather than across plots, and therefore we need to add the trial id to the yield data. We use a function over from the sp package, and assignt the accoordingly trial ID to each yield point. Since we are using the function from the sp package, we need to convert both the yield data and trial data to spatial data.
+
+###check the crs for the yield file and trialutm file
+```{r check crs}
+st_crs(yield_clean)
+st_crs(trialutm)
+```
+
+#### use over to find id for each yield point 
+```{r yield point ID}
+merge<-sp::over(as(yield_clean, "Spatial"),as(trialutm,"Spatial"))
+yield_clean$ID<-merge$ID
+```
+
+### interpolating yield inside each trial plot 
+```{r creating an empty list}
+rastlist<-list()
+```
+```{r create new variable ID}
+ID<-unique(yield_clean$ID)
+```
+# interpolating yield inside each trial plot #
+rastlist<-list()
+ID<-unique(yield_clean$ID)
+j = 0
+for (i in ID) {
+  j = j +1
+  print(i)
+  ploti<-subset(trialutm,ID==i)
+  frsti <- crop(frst, extent(ploti))
+  rastlist[j]<-st_interpolate(subset(yield_clean,ID==i), "Yld_Vol_Dr", frsti, "idw")
+}
+
+yield<-raster::merge(rastlist[2][[1]],rastlist[3][[1]])
+for (i in 4:length(rastlist)) {
+  yield<-raster::merge(yield,rastlist[i][[1]])
+}
+#frst$yield<-yield
+st_crs(yield)
+plot(yield)
+plot(boundary_buffer$geom,add=TRUE)
+
+### Clip raster to the extent of the boundary buffer ###
+## crop and mask
+yield <- crop(yield, boundary_buffer)
+frst <- crop(frst, yield)
+
+plot(yield)
+aggdata = stack(yield,frst)
+names(aggdata)[1]<-"yield"
+
+####Other Files To Be Cleaned or Rasterized
+1. As-applied Data
+2. As-planted Data
+4. EC Data
+5. Elevation Data (from Internet or Trial Yield/As-planted file)
+6. Topography Data (Slope and Aspect generated from Elevation Data)
+7. SSURGO Data (Specify the soil content)
+8. Weather Data (daily/weekly/monthly data)
+
+
+
