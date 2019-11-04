@@ -12,6 +12,7 @@ objectives:
 - "Perform arithmetic"
 - "Use a function"
 - "View the help page for a function"
+- "Create a new function"
 - "Import data from spreadsheet software"
 - "Install packages"
 - "Make a scatter plot using ggplot2"
@@ -229,6 +230,62 @@ fert_use$NP <- fert_use$Nitrogen + fert_use$Phosphate
 fert_use$NP_centered <- fert_use$NP - mean(fert_use$NP, na.rm = TRUE)
 head(fert_use)
 ```
+
+## Creating your own functions
+
+Let's say we want to convert short tons to metric tons so that we can compare
+these numbers to some reported from Europe.  Similarly to above, we can do
+
+```{r}
+fert_use$Nitrogen_metric_tons <- fert_use$Nitrogen_short_tons * 0.907
+```
+
+We can make similar lines for phosphate and potash.  There's nothing
+particularly wrong with this, but we can make the code a bit easier to read and
+edit by defining a new function for the conversion.
+
+```{r}
+ShortTonsToMetricTons <- function(val){
+  out <- val * 0.907
+  return(out)
+}
+
+ShortTonsToMetricTons(5)
+fert_use$Nitrogen_metric_tons <- 
+  ShortTonsToMetricTons(fert_use$Nitrogen_short_tons)
+```
+
+What did I just do there?  I used the `function` keyword to create a new
+function, and I used the assignment operator (`<-`) to give that function a
+name.  The object `val` is an *argument* for the function, and you'll notice that
+neither `val` nor `out` appear in your global environment aftern running the
+function.  Between the curly brackets (`{}`), is what we call the
+*function body*, which describes what computations the function should perform.
+There is also a `return` statement that shows what the function *returns*,
+*i.e.* what the output should be.
+
+Now, when reading back through your code, you don't have to remember what the
+number 0.907 was for; you have a function name that describes what it does.
+Additionally, say you later decide that you want to make the conversion with
+more precision.
+
+```{r}
+ShortTonsToMetricTons <- function(val){
+  out <- val * 0.907185
+  return(out)
+}
+```
+
+There's only one place that you have to edit the number, even if you use the
+function dozens of times in your code.  That's a lot less error-prone than
+going back and editing the number in dozens of places.  You still have to
+re-run the code to change all of the results, but at least the editing is
+minimal.
+
+That was a relatively simple example, but later when you write much larger
+chunks of code and want to avoid having to copy and paste it all, functions
+can be very helpful.  We'll make a few functions in later episodes of this
+lesson, which is why we at least wanted to introduce the concept here.
 
 ## Installing packages
 
