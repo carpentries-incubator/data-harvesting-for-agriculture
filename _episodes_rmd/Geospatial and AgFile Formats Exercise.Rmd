@@ -19,6 +19,7 @@ library(knitr)
 require("tmap")
 require("ggplot2")
 require("gridExtra")
+require("grid")
 knitr::opts_chunk$set(echo = TRUE)
 opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98")
 ```
@@ -136,15 +137,15 @@ transformations and related units of measurement. The ESPG is one way to assign
 or transform the CRS in R. The ESPG for UTM always begins with "326" and the
 last numbers are the number of the zone. The code below pastes together the full
 ESPG code for any `utmzone` we calculate with `long2UTM`. `paste0()` pastes
-together the two arguments `"+init=epsg:326"` and `utmzone`.
+together the two arguments `"326"` and `utmzone` as string. But when we transform `trial` into UTM, we only need the ESPG number. So we convert that to numeric with `as.numeric()`, giving us a final ESPG of 32617.
 
 ```{r setcrs}
-projutm <- st_crs(paste0("+init=epsg:326", utmzone)) 
+projutm <- as.numeric(paste0("326", utmzone))
+projutm
 ```
 
-**Challenge**: What does `st_crs()` do? Why do we take this step? Hint: Use help
-to look up the function and check the class and contents of `projutm`.  How does
-this compare to the output of `crs(trial)`?
+The ESPG for latitude and longitude or WGS84 is 4326. This is the projection your equipment reads, so any trial design files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude.
+
 
 ####Transform the projection of file
 
@@ -155,40 +156,63 @@ object `projutm`.
 trialutm <- st_transform(trial, projutm)
 ```
 
+**Exercise**
+1. Bring the file called "hord_f98_asplanted_2017.shp" in your environment. Name the object `planting`. This file contains the planting information for 2017.
+2. Identify the CRS of the object.
+3. Look at the geometry features. What kind of geometric features are in this dataset?
+4. Transform the file to UTM or Lat/Long, depending on the current CRS.
+
+**Solution**
+```{r transform}
+planting<-read_sf("asplanted_clean.shp")
+
+crs(planting)
+
+planting$geometry
+
+planting_latlong<-st_transform(planting,4326)
+
+crs(planting_latlong)
+```
+The cleaned planting file was in UTM initially. The zone is 17 which is to be expected as it is from the same field as the trial design file we worked with earlier. When we look at the geometry features, they are 6,277 points defined in x and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new file called `planting_latlong` with the CRS of WGS84.
+
+```{r transform}
+trialutm <- st_transform(trial, projutm)
+```
+
 ####Save the file 
+
+Use `st_write()` to save an sf object. If you do not specify a directory, the working directory will be used. We include the object we are saving `trialutm` and the name we would like to give the saved file `"trial.gpkg"`. Additionally, we specify the `layer_options` and `update` values to enable overwriting an existing file with the same name. 
 
 You can save the file as a .gpkg or .shp file. The advantage of a .gpkg file is
 that you only save one file rather than four files in a shapefile. Because
 shapefiles contain multiple files, they can be corrupted if one piece is missing.
 One example is a .prj file. In this case, the shapefile will have no CRS, and
-you will need to determine the CRS of the object. 
-
-**Challenge**: How would you go about determining the CRS of an object with no
-.prj? Hint: Use what you can view in R.
-
-
-The new .gpkg file will be visible in your working directory. One common problem
-with these files is that when you try to open a .gpkg file for the first time in
-R, it might not work if you haven't opened it in QGIS before.
+you will need to determine the CRS of the object. You will often need to transform a file from UTM to lat/long and save the new file during trial design, so this is an important step.
 
 ```{r save}
 st_write(trialutm,"trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
+The new .gpkg file will be visible in your working directory. One common problem
+with these files is that when you try to open a .gpkg file for the first time in
+R, it might not work if you haven't opened it in QGIS before.
+
 ####Visualize the trial map
 
-First, we need to know what variables are in the trial dataset.
+We often want to visualize the contents of geospatial files. When we design a trial, we need to see the resulting applications. With yield data, we look for spatial patterns in the field, where is the yield higher or more varied. Before making a map, we need to know what variables are in the trial dataset.
 Use `names()` to view the different variables in `trialutm`. Say we want to make a
 map of the nitrogen rates. We need to identify the variable name for the target
 nitrogen.
+
 
 ```{r trialsumm}
 names(trialutm)
 ```
 
-The following map is created with functions from a package called `tmap`. We are
-filling the polygons with a color based on the variable `NRATE` inside the object
-`trialutm `. There are other arguments here choosing the position of the map
+In `trialutm` there are 11 variables, but the variable we might want to map are `NRATE` and `SEEDRATE`. The following map is created with functions from a package called `tmap`. We are using `tm_polygon()`
+fill the polygons with a color based on the variable `NRATE` inside the object
+`trialutm `. For a different kind of geospatial data such as points, we need to use `tm_dots()` or `tm_squares()`. `tmap` provides many options for displaying data, including text markers on the map. Text labels might be good for making a map of several land parcels with their names as the label. We use other arguments in the code below to choose the position of the map
 legend, title of the variable, size of text, and width of legend.
 
 ```{r map}
@@ -200,11 +224,75 @@ tm_shape(trialutm) + tm_polygons('NRATE', title = "Nitrogen Rate") +
             bg.color = "white")
 ```
 
-**Challenge**: Use the code to answer the following questions: Why do we supply
-a title in `tm_polygons ` and why is `legend.outside = TRUE`?
 
-#####Your turn:
-Map a map of the seeding rate.
+**Exercise**
+Make a map of the seed application rate from the `planting` file.
+Find the column name with the variable seeding rate in the dataset. There are many variables in this dataset, and some of the names may look unclear. Looking at the summary of the variables will help determine which variable is the applied rate and which is the target rate. 
+
+
+**Solution**
+```{r seedvars}
+names(planting)
+```
+We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we laoded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
+
+```{r seedmap}
+tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+```
+
+**Challenge** 
+Use the code above to answer the following questions: Why do we supply
+a title in `tm_dots` and why is `legend.outside = TRUE`?
+
+**Solution**
+If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the grpah likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
+
+```{r seedmap2}
+tm_shape(planting) + tm_dots('Rt_A_C_') +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+```
+
+If we add `legend.outside = FALSE`, the legend will block part of the map. In some cases, the map may have a vacant section where the legend can go, but here we need to move the legend outside to be able to see all of the points on the field. 
+
+```{r seedmap3}
+tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
+  tm_layout(legend.outside = FALSE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+```
+
+####Side-by-Side Maps
+
+Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the asapplied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to eachother, so we have two columns and one row. 
+
+```{r parex }
+map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
+  tm_layout(legend.outside = FALSE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+map_tgts <- tm_shape(planting) + tm_dots('Tgt_Rt_', title = "Target Seeding Rate") +
+  tm_layout(legend.outside = FALSE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1)
+```
+
+From the applied and target seeding rate maps, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
 
 ####Creating Spatial Objects
 
@@ -216,7 +304,7 @@ coordinates.
 
 ####AB-line File (reading it in or creating it)
 
-Define the latitude and longitude of the two points.
+Some of you may have a shapefile of your ab-line, but most of you will have the two endpoints. This is all you need to make a geospatial object for your ab_line in R. First, we define the latitude and longitude of the two points. We will call these point A and point B.
 
 ```{r points }
 LongA <- -82.97452
@@ -226,9 +314,7 @@ LongB <- -82.97452
 LatB <- 40.74480
 ```
 
-Combine the two points into a dataframe with `rbind()` and create a `sf` object
-using `st_sf()`. `st_sfc()` creates a simple feature geometry column from a set
-of geometries like our coordinates in `ab_string`. 
+`st_linestring()` creates an object of class sf from a matrix. `rbind(c(LongA, LatA), c(LongB, LatB))` creates a matrix with two rows, one for point A and one for point B. This object is then piped into the function `st_linestring()` to create the `sf` object. Finally, using `st_sf()` and  `st_sfc()` we create a simple feature geometry column from the set of geometries in `ab_string`. 
 
 ```{r abline }
 ab_string <- rbind(c(LongA, LatA), c(LongB, LatB)) %>% st_linestring() 
