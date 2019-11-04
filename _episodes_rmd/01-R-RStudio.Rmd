@@ -410,3 +410,54 @@ ggplot(fert_use, aes(x = Potash, y = Nitrogen, color = Crop)) +
   facet_wrap(~ Year > 1980)
 ```
 
+## Quick intro to `dplyr`
+
+Since we'll use it a little bit in later episodes, we will introduce the
+`dplyr` package.  It has some tools to make code a little more intuitive and
+readable, especially when working with data frames.
+
+```{r eval = FALSE}
+install.packages("dplyr") # install it if you haven't already
+```
+```{r}
+library(dplyr)
+```
+
+One handy thing in `dplyr` is the *pipe symbol*, `%>%`.  Whatever is to the
+left of the symbol gets sent to the first argument of the function to the right
+of the symbol.  Consider:
+
+```{r}
+mean(ShortTonsToMetricTons(fert_use$Potash * 1000), na.rm = TRUE)
+```
+
+versus:
+
+```{r}
+(fert_use$Potash * 1000) %>%
+  ShortTonsToMetricTons() %>%
+  mean(na.rm = TRUE)
+```
+
+Both are just one command, but in the second version it is a bit easier to see
+the series of computations being performed.
+
+There are many handy functions in `dplyr`, and you can learn more at
+https://dplyr.tidyverse.org/.  One more that we'll cover here is `filter`.
+
+```{r}
+filter(fert_use, Year > 2013, Crop != "Other")
+```
+
+This function returns a new data frame that just has the rows we specify.  It
+can be handy for subsetting the data before plotting with ggplot.
+
+```{r}
+fert_use %>%
+  filter(Year > 1980) %>%
+  ggplot(aes(x = Year, y = Nitrogen, color = Crop, group = Crop)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~ Crop, scales = "free_y")
+```
+
