@@ -242,11 +242,11 @@ tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
 ```
 
 **Challenge** 
-Use the code above to answer the following questions: Why do we supply
+Try modifying code above to answer the following questions: Why do we supply
 a title in `tm_dots` and why is `legend.outside = TRUE`?
 
 **Solution**
-If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the grpah likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
+If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the graph likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
 
 ```{r seedmap2}
 tm_shape(planting) + tm_dots('Rt_A_C_') +
