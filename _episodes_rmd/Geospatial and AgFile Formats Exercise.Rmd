@@ -144,7 +144,7 @@ projutm <- as.numeric(paste0("326", utmzone))
 projutm
 ```
 
-The ESPG for latitude and longitude or WGS84 is 4326. This is the projection your equipment reads, so any trial design files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude.
+All modern latitude and longitude coordinates use a standard called WGS84.  The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude.
 
 
 ####Transform the projection of file
