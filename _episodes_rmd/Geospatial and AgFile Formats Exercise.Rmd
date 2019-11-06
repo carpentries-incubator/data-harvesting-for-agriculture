@@ -206,7 +206,7 @@ nitrogen.
 names(trialutm)
 ```
 
-In `trialutm` there are 11 variables, but the variable we might want to map are `NRATE` and `SEEDRATE`. The following map is created with functions from a package called `tmap`. We are using `tm_polygon()`
+In `trialutm` there are 11 variables, but the variables we might want to map are `NRATE` and `SEEDRATE`. The following map is created with functions from a package called `tmap`. We are using `tm_polygon()`
 fill the polygons with a color based on the variable `NRATE` inside the object
 `trialutm `. For a different kind of geospatial data such as points, we need to use `tm_dots()` or `tm_squares()`. `tmap` provides many options for displaying data, including text markers on the map. Text labels might be good for making a map of several land parcels with their names as the label. We use other arguments in the code below to choose the position of the map
 legend, title of the variable, size of text, and width of legend.
@@ -230,7 +230,7 @@ Find the column name with the variable seeding rate in the dataset. There are ma
 ```{r seedvars}
 names(planting)
 ```
-We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we laoded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
+We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
 
 ```{r seedmap}
 tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
