@@ -176,10 +176,6 @@ crs(planting_latlong)
 ```
 The cleaned planting file was in UTM initially. The zone is `r utmzone` which is to be expected as it is from the same field as the trial design file we worked with earlier. When we look at the geometry features, they are `r nrow(planting)` points defined in x and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new file called `planting_latlong` with the CRS of WGS84.
 
-```{r transform}
-trialutm <- st_transform(trial, projutm)
-```
-
 ####Save the file 
 
 Use `st_write()` to save an sf object. If you do not specify a directory, the working directory will be used. We include the object we are saving `trialutm` and the name we would like to give the saved file `"trial.gpkg"`. Additionally, we specify the `layer_options` and `update` values to enable overwriting an existing file with the same name. 
