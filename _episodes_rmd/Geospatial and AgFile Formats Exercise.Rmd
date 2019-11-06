@@ -137,7 +137,7 @@ transformations and related units of measurement. The ESPG is one way to assign
 or transform the CRS in R. The ESPG for UTM always begins with "326" and the
 last numbers are the number of the zone. The code below pastes together the full
 ESPG code for any `utmzone` we calculate with `long2UTM`. `paste0()` pastes
-together the two arguments `"326"` and `utmzone` as string. But when we transform `trial` into UTM, we only need the ESPG number. So we convert that to numeric with `as.numeric()`, giving us a final ESPG of 32617.
+together the two arguments `"326"` and `utmzone` as string. But when we transform `trial` into UTM, we only need the ESPG number. So we convert that to numeric with `as.numeric()`, giving us a final ESPG of `r paste0("326", utmzone)`.
 
 ```{r setcrs}
 projutm <- as.numeric(paste0("326", utmzone))
