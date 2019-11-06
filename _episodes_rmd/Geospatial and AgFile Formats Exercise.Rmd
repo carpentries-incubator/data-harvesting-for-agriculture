@@ -270,7 +270,7 @@ tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
 
 ####Side-by-Side Maps
 
-Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the asapplied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to eachother, so we have two columns and one row. 
+Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the as-applied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to each other, so we have two columns and one row. 
 
 ```{r parex }
 map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
