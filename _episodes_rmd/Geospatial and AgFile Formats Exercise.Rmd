@@ -164,13 +164,13 @@ trialutm <- st_transform(trial, projutm)
 
 **Solution**
 ```{r transform}
-planting<-read_sf("asplanted_clean.shp")
+planting <- read_sf("asplanted_clean.shp")
 
 crs(planting)
 
 planting$geometry
 
-planting_latlong<-st_transform(planting,4326)
+planting_latlong <- st_transform(planting, 4326)
 
 crs(planting_latlong)
 ```
@@ -191,7 +191,7 @@ One example is a .prj file. In this case, the shapefile will have no CRS, and
 you will need to determine the CRS of the object. You will often need to transform a file from UTM to lat/long and save the new file during trial design, so this is an important step.
 
 ```{r save}
-st_write(trialutm,"trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
 The new .gpkg file will be visible in your working directory. One common problem
