@@ -177,6 +177,21 @@ value across all of them.  We can get the maximum phosphate this way:
 max(fert_use$Phosphate, na.rm = TRUE)
 ```
 
+### Looking at distributions of all numerical columns at once
+
+The `summary` function gives us values like the minimum, maximu, mean, and
+median for every column in the data frame at once, and, along with `str`,
+can be a good way to get an overview of our data immediately after we import
+it.
+
+```{r}
+summary(fert_use)
+```
+
+Why bother using `mean`, `median`, and `max` then?  As we'll see below, because
+those functions give us single numbers, we can use those numbers to do further
+arithmetic.
+
 ## Arithmetic
 
 A handy feature of R is vectorized arithmetic, meaning we can do arithmetic on
@@ -258,7 +273,7 @@ fert_use$Nitrogen_metric_tons <-
 What did I just do there?  I used the `function` keyword to create a new
 function, and I used the assignment operator (`<-`) to give that function a
 name.  The object `val` is an *argument* for the function, and you'll notice that
-neither `val` nor `out` appear in your global environment aftern running the
+neither `val` nor `out` appear in your global environment after running the
 function.  Between the curly brackets (`{}`), is what we call the
 *function body*, which describes what computations the function should perform.
 There is also a `return` statement that shows what the function *returns*,
@@ -448,6 +463,9 @@ https://dplyr.tidyverse.org/.  One more that we'll cover here is `filter`.
 ```{r}
 filter(fert_use, Year > 2013, Crop != "Other")
 ```
+
+(Here, `>` means "greater than" and `!=` means "not equal to".  If we wanted
+"equal to", we would use `==`.)
 
 This function returns a new data frame that just has the rows we specify.  It
 can be handy for subsetting the data before plotting with ggplot.
