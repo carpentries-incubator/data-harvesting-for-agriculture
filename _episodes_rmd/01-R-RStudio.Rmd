@@ -114,8 +114,9 @@ https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx.
 Table 2 of this dataset, showing 1,000 nutrient short tons of nitrogen,
 phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the
 US from 1964-2016, has been reformatted into a CSV file for ease of import into
-R.  You can download the CSV from (insert link to raw file on GitHub here).  It
-can be opened in Excel if you want to get a quick look at it that way, or we can
+R.  You can download the CSV from
+https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv.
+It can be opened in Excel if you want to get a quick look at it that way, or we can
 dive straight into looking at it in R.  Save it into your `data` folder in
 your RStudio project for this lesson.
 
