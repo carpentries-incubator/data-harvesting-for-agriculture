@@ -25,7 +25,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Getting to know R and RStudio
 
-Blah blah
+In this episode we'll cover the basics of using R, which is a programming
+language for statistics, data analysis, and data visualization.  In the past
+decade or so, R has become very popular in both science and business, largely
+because (1) it is free, and (2) thousands of people have written new code
+extending its functionality, and that code is also free.  If you perform an
+analysis in R, you can share that analysis so that anyone in the world can
+reproduce it without having to purchase proprietary software.
 
 If you're already proficient with Excel, you will probably already know how to
 accomplish a lot of what we are doing in this episode using Excel instead of
@@ -38,6 +44,66 @@ and to rerun your analysis you can simply rerun the same script.  Scripts are
 also fairly easy to edit and repurpose (for example, redoing the exact same
 analysis with next year's dataset) as well as share with other people (your
 neighbor who wants to try your analysis but with his or her own data).
+
+Separately from R, we asked you to install a piece of software called RStudio,
+which will make R a lot easier to use.  Although there are paid, "enterprise"
+versions of RStudio, the free version does everything that a typical user
+needs.
+
+Launch RStudio.  If this is the first time you have opened it, the entire left
+pane will be taken up by something called the Console.  This has a prompt where
+commands can be entered.
+
+```{r}
+5 + 7
+```
+
+After you hit enter, you will see the result of the command.  But usually we
+don't run commands from here, since we want to keep a record of everything we
+did.  If you go to File &rarr; New File &rarr; R Script, the text editor will open in
+the upper left, and you will be able to type commands there and save them in
+a file.  To run a command from the script editor, put your cursor on the line
+where the command starts and press the "Run" button.  Alternatively, you can
+press Ctrl+Enter.
+
+In addition to putting commands in your script, you can put *comments*.  A
+comment is a line, or part of a line, that is ignored by R.  This means you can
+use comments to explain what is happening in the code or why you did something
+a certain way.  Comments start with the `#` character, and can take up the
+whole line or just the end of a line.  As we go through this workshop, I
+encourage you to put lots of comments in your code. Think of them as a way to
+take notes!
+
+```{r}
+# Performing arithmetic
+6 + 2
+
+2 ^ 3 # this raises two to the third power
+```
+
+We can save this script to a file on our computer, with the .R extension so that
+RStudio knows to treat it like an R script (even though it is plain text).
+We'll want to keep our scripts organized though, and probably store them with
+the data that they will be processing.  Luckily RStudio has a feature called
+"Projects" that makes it easy to stay organized.
+
+Go to File &rarr; New Project.  Select "New Directory".  Here you will put the
+name of a new folder and where you want it to be located on your computer.
+For example, you can call the project "R_lesson".  Once the project is created,
+you'll find that you can get to that same folder through Windows Explorer, or
+on a Mac, Finder.  In RStudio, we see the contents of the folder in the "Files"
+pane in the lower right.  Right now the only file there is called
+`R_lesson.Rproj` (or whatever you called your project), which stores
+settings for the project and can be ignored for now.  Use the "New Folder"
+button to make a folder called "data", one called "scripts", and one called
+"results".  We will put datasets into the data folder, keep all of our R scripts
+in the scripts folder, and put any output files into the results folder.  While
+it isn't strictly necessary to organize files in this way, it makes it a lot
+easier to keep track of things.
+
+Create a new script called `R_intro.R` and save it in your "scripts" folder.
+We will work off of this file for the remainder of the episode, then start a
+new script for the next episode.
 
 ## Dataset for this lesson
 
@@ -67,6 +133,9 @@ where we will store the data.
 ```{r}
 fert_use <- read.csv("data/fertilizer_use.csv")
 ```
+
+Now in the upper right pane of RStudio, we see `fert_use` listed within our
+*environment*.
 
 Immediately after loading a dataset, it is a good idea to inspect it and make
 sure it looks like it is formatted correctly.  The `str` function is helpful
