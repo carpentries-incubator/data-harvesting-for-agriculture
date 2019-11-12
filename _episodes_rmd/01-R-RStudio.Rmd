@@ -249,7 +249,7 @@ max(fert_use$Phosphate, na.rm = TRUE)
 
 ### Looking at distributions of all numerical columns at once
 
-The `summary` function gives us values like the minimum, maximu, mean, and
+The `summary` function gives us values like the minimum, maximum, mean, and
 median for every column in the data frame at once, and, along with `str`,
 can be a good way to get an overview of our data immediately after we import
 it.
@@ -370,7 +370,7 @@ minimal.
 That was a relatively simple example, but later when you write much larger
 chunks of code and want to avoid having to copy and paste it all, functions
 can be very helpful.  We'll make a few functions in later episodes of this
-lesson, which is why we at least wanted to introduce the concept here.
+lesson, which is why we introduced the concept here.
 
 ## Installing packages
 
