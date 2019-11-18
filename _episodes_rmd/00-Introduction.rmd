@@ -1,0 +1,13 @@
+Welcome to Data Carpentry for Agriculture! (or substitute non-Carpentry name here)
+
+By the end of this workshop, you will know more about:
+* How to understand more about the data coming from your agricultural equipment
+* What you can do with it yourself using free and open source tools
+* Where to find historical data relevant to your own farm and/or county's location and land
+* How to use both current and historical data about your own farm and/or county to develop custom fertilizing strategies 
+that can improve cost effective application in your particular location
+
+To do this, we'll be introducing you to:
+* R Studio, free and open source software used for creating both programs and visualizations
+* Several data types used by agricultural equipment
+(etc, will write more after next meeting)
