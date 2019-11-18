@@ -1,0 +1,255 @@
+---
+title: "Ag Carpentry - Data Cleaning and Aggregation"
+author: "Aolin Gong"
+date: "11/4/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library("sf")
+library("fasterize")
+library("gstat")
+library("raster")
+library("rjson")
+library("httr")
+library("rgdal")
+library(rgeos)
+library(maptools)
+library(knitr)
+require("tmap")
+require("ggplot2")
+require("gridExtra")
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Downloads/data carpentry - data cleaning")
+```
+
+```{r functions}
+st_over = function(x, y) {
+  sapply(sf::st_intersects(x, y), function(z)
+    if (length(z) == 0)
+      NA_integer_
+    else
+      z[1])
+}
+
+st_interpolate <- function(obj, v, rst, type = "idw") {
+  obj_sp <- as(obj, "Spatial")
+  
+  fml <- as.formula(paste0(v, " ~ 1"))
+  if (!(type %in% c("idw", "nng"))) {
+    stop(paste0(
+      "Type not implemented! ",
+      "Choose between idw (inverse distance weighted), ",
+      "and nng (nearest neighbor)."
+    ))
+  }
+  
+  if (type == "idw") {
+    # Setting nmax to 5 and idp to 1 is an
+    #  inverse weighted interpolation:
+    gs <- gstat::gstat(formula = fml, locations = obj_sp,
+                       nmax = 5, set = list(idp = 1))
+  } else {
+    # Setting nmax to 1 and idp to 0 is equivalent to
+    #  nearest neighbor interpolation:
+    gs <- gstat::gstat(formula = fml, locations = obj_sp,
+                       nmax = 1, set = list(idp = 0))
+  }
+  
+  x <- raster::interpolate(rst, gs)
+  return(x)
+}
+```
+####Motivating Questions:
+- "Why is it important to clean the data before proceeding with analysis?"
+- "How can I quickly and efficiently identify problems with my data?"
+- "How can identify and remove incorrect values from my dataset?"
+####Objectives:
+- "Confirm that data are formatted correctly"
+- "Enumerate common problems encountered with data formatting."
+- "Visualize the distribution of recorded values"
+- "Identify and remove outliers in a dataset using R and QGIS"
+- "Correct other issues specific to how data were collected"
+####Keypoints:
+- "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
+- "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
+- "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
+
+After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinary error and such. The common data that we collect for analysis includes yield(dry), as-planted, as-applied, Electronic Conductivity(EC), SSURGO, Soil test, weather, and etc. Particularly, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For the other types of data, we simply import them into our aggregated data set.
+
+For different types of data, we have different ways to clean them. Here are the main concerns of the original data for the major varaibles:
+- Yield data:
+ •	We take out the yield observations where the harvester is moving too slow or too fast;
+ •	We take out the yield observations that are not in the middle of the plot;
+ •	We take out the yield observations that are below or above three standard deviations
+ •	We then aggregate them onto our units of observation.
+- As-planted/As-applied data:
+ •	We take out the as-planted/as-applied observations where the planter/applicator is moving too slow or too fast;
+ •	We take out the as-planted/as-applied observations that are not in the middle of the plot;
+ •	We take out the as-planted/as-applied observations that are below or above three standard deviations
+ •	We then aggregate them onto our units of observation.
+- EC data:
+ •	We take out the EC observations that are below or above three standard deviations
+ 
+For aggregation, we need to generate subplots(units of observation) of the original trial design, and then aggregate the cleaned datasets for different variables onto the subplots.
+
+### Trial Layout
+The following steps read in a trial design shapefile, transform the projection of file to utm projection, and then save the file in a geopackage. In many cases, the trial design shapefile is already in the correct form, and we are just checking the file in advance of creating the subplots of the trial design.
+
+####Read in the trial design
+```{r readtrial}
+trial <- read_sf("hord_f98_trialdesign_2017.shp")
+```
+
+####Check the coordinate reference system
+```{r checkCRS}
+crs(trial)
+```
+
+####Calculate the UTM zone from the longitude
+```{r calcutm}
+long2UTM = function(long) {(floor((long + 180)/6) %% 60) + 1}
+utmzone = long2UTM(mean(st_bbox(trial)[c(1,3)]))
+```
+
+####Projection for utm
+```{r setcrs}
+projutm <<- st_crs(paste0("+init=epsg:326", utmzone))
+```
+
+####Transform the projection of file
+```{r transform}
+trialutm<-st_transform(trial,projutm)
+```
+
+####Save the file with trial design in a geopackage
+```{r save trial}
+st_write(trialutm,"trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+```
+####read in and check the boundary file
+```{r boundary}
+boundary <- read_sf("boundary.gpkg")
+crs(boundary)
+boundary<-st_set_crs(boundary,4326)
+boundary_utm<-st_transform(boundary, projutm)
+```
+###After we read in the trial design file, we use a function to generate the subplots for this trial. Here I have not made the function yet, so we just read in the subplot generated with the supplementary code. (This part of the code can be later on transformed into a function as needed.)
+
+```{r read subplot}
+subplots <- read_sf("hord_f98_subplots_2017.shp")
+subplots_utm <- st_transform(subplots,projutm)
+```
+
+```{r vis subplots}
+plot(subplots)
+```
+
+```{r visulize subplots}
+plot(subplots_utm$geometry)
+plot(boundary_utm$geom ,add=TRUE)
+```
+
+### bring in yield data for cleaning
+When we bring in the edited yield data, we transform it into utm projection as well.
+```{r yield}
+yield <- read_sf("hord_f98_trialyield_2017.shp")
+yield_utm<-st_transform(yield, projutm)
+```
+
+```{r vis yield data}
+hist(yield_utm$Yld_Vol_Dr)
+```
+
+### remove yield observations on border and also the ends of plots with st_buffer 
+####Remove yield observations on boarder
+
+```{r observations on boarder}
+buffer<-st_buffer(trialutm,-4) # plots are 24 m wide and 2 yield passes
+ov<-st_over(yield_utm,st_geometry(buffer))
+yield$out<- is.na(ov) # demarcate the yield values removed
+yield_clean<-subset(yield,out==FALSE)
+```
+
+####Remove yield observations that are without three standard deviations
+```{r view the distribution of yield data after taking out the yield points on the boader}
+hist(yield_clean$Yld_Vol_Dr)
+```
+
+```{r 3sd}
+sd<-sd(yield_clean$Yld_Vol_Dr)
+mean<-mean(yield_clean$Yld_Vol_Dr)
+yield_clean<-subset(yield_clean,yield_clean$Yld_Vol_Dr>mean-3*sd & yield_clean$Yld_Vol_Dr<mean+3*sd)
+```
+
+```{r view the distribution of cleaned yield data}
+hist(yield_clean$Yld_Vol_Dr)
+```
+
+```{r reprojection of yield data}
+yield_clean<-st_transform(yield_clean, projutm)
+```
+
+####Save the cleaned yield data in a geopackage
+```{r save yield}
+st_write(yield_clean,"yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+```
+
+###  Yield Interpolation/Aggregation
+We interpolate the yield data onto the subplot we generated. There are multiple yield observations in each subplot. We take the median of these yield observations and assign the median to the according subplot. We would clean and aggregate the other variables the same way.
+
+#Let us aggregate variables inside each subplot
+#convert the yield data into sp
+```{r sf2sp}
+subplots_sp <- as(subplots_utm, "Spatial")
+yield_sp <- as(yield_clean, "Spatial")
+```
+#Yield
+```{r aggregate yield data}
+#proj4string(yield_sp)<- CRS("+proj=longlat +datum=WGS84")
+merge<-sp::over(subplots_sp,yield_sp,fn=median)
+subplots_merge<-SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE)
+```
+
+#ec
+proj4string(ec)<- CRS("+proj=longlat +datum=WGS84")
+merge2<-sp::over(subplots,ec,fn=median)
+subplots@data<-cbind(merge2,subplots@data)
+
+#asplanted and elevation
+proj4string(asplanted)<- CRS("+proj=longlat +datum=WGS84")
+merge3<-sp::over(subplots,asplanted,fn=median)
+subplots@data<-cbind(merge3,subplots@data)
+head(merge3)
+
+#asapplied
+proj4string(asapplied)<- CRS("+proj=longlat +datum=WGS84")
+merge5<-sp::over(subplots,asapplied,fn=mean)
+subplots@data<-cbind(merge5,subplots@data)
+head(subplots@data)
+
+#topography
+topo <- spTransform(topography, CRS("+proj=longlat +datum=WGS84"))
+slopemerge <- sp::over(subplots,topo,fn=median)
+subplots@data <-cbind(slopemerge,subplots@data)
+
+head(subplots@data)
+
+
+####Other Files To Be Cleaned/Aggregated
+1. As-applied Data
+2. As-planted Data
+4. EC Data
+5. Elevation Data (from Internet or Trial Yield/As-planted file)
+6. Topography Data (Slope and Aspect generated from Elevation Data)
+7. SSURGO Data (Specify the soil content)
+8. Weather Data (daily/weekly/monthly data)
+
+####Supplementary Code/Function
+1. Code to generate the suplots(unit of observations) of the orginal trial design.
+2. Code to clean yield data.
+3. Code to generate Topography data.
+4. Code to process SSURGO data.
+5. Code to download weather data.
+
+
+
