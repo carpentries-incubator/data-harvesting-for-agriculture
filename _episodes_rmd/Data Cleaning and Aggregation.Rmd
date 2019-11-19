@@ -6,25 +6,51 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-library("sf")
-library("fasterize")
-library("gstat")
-library("raster")
-library("rjson")
-library("httr")
-library("rgdal")
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
+```
+
+#### Motivating Questions:
+- "Why is it important to clean the data before proceeding with analysis?"
+- "How can I quickly and efficiently identify problems with my data?"
+- "How can identify and remove incorrect values from my dataset?"
+#### Objectives:
+- "Confirm that data are formatted correctly"
+- "Enumerate common problems encountered with data formatting."
+- "Visualize the distribution of recorded values"
+- "Identify and remove outliers in a dataset using R and QGIS"
+- "Correct other issues specific to how data were collected"
+#### Keypoints:
+- "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
+- "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
+- "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
+
+## Setup
+
+First we will load the packages needed for this episode.  You should already
+have these installed from the last episode.
+
+```{r}
+library(sf)
+library(fasterize)
+library(gstat)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
 library(rgeos)
 library(maptools)
 library(knitr)
-require("tmap")
-require("ggplot2")
-require("gridExtra")
-knitr::opts_chunk$set(echo = TRUE)
-setwd("~/Downloads/data carpentry - data cleaning")
+library(tmap)
+library(ggplot2)
+library(gridExtra)
 ```
 
+Next, we will define a few functions that we will be using.  Feel free to copy
+and paste this code into your script.
+
 ```{r functions}
-st_over = function(x, y) {
+st_over <- function(x, y) {
   sapply(sf::st_intersects(x, y), function(z)
     if (length(z) == 0)
       NA_integer_
@@ -60,20 +86,33 @@ st_interpolate <- function(obj, v, rst, type = "idw") {
   return(x)
 }
 ```
-####Motivating Questions:
-- "Why is it important to clean the data before proceeding with analysis?"
-- "How can I quickly and efficiently identify problems with my data?"
-- "How can identify and remove incorrect values from my dataset?"
-####Objectives:
-- "Confirm that data are formatted correctly"
-- "Enumerate common problems encountered with data formatting."
-- "Visualize the distribution of recorded values"
-- "Identify and remove outliers in a dataset using R and QGIS"
-- "Correct other issues specific to how data were collected"
-####Keypoints:
-- "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
-- "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
-- "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
+
+In the last episode, we also imported our trial design.  We will include the
+code again here, in case you are just joining us.
+
+The following steps read in a trial design shapefile, transform the projection
+of file to utm projection, and then save the file in a geopackage. In many
+cases, the trial design shapefile is already in the correct form, and we are
+just checking the file in advance of creating the subplots of the trial design.
+
+```{r}
+trial <- read_sf("hord_f98_trialdesign_2017.shp")
+
+long2UTM <- function(long){
+  utm <- (floor((long + 180)/6) %% 60) + 1
+  return(utm)
+}
+utmzone <- long2UTM(mean(st_bbox(trial)[c(1,3)]))
+
+projutm <- as.numeric(paste0("326", utmzone))
+
+trialutm <- st_transform(trial, projutm)
+
+st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+```
+
+
+## Introduction to data cleaning
 
 After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinary error and such. The common data that we collect for analysis includes yield(dry), as-planted, as-applied, Electronic Conductivity(EC), SSURGO, Soil test, weather, and etc. Particularly, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For the other types of data, we simply import them into our aggregated data set.
 
@@ -93,39 +132,6 @@ For different types of data, we have different ways to clean them. Here are the 
  
 For aggregation, we need to generate subplots(units of observation) of the original trial design, and then aggregate the cleaned datasets for different variables onto the subplots.
 
-### Trial Layout
-The following steps read in a trial design shapefile, transform the projection of file to utm projection, and then save the file in a geopackage. In many cases, the trial design shapefile is already in the correct form, and we are just checking the file in advance of creating the subplots of the trial design.
-
-####Read in the trial design
-```{r readtrial}
-trial <- read_sf("hord_f98_trialdesign_2017.shp")
-```
-
-####Check the coordinate reference system
-```{r checkCRS}
-crs(trial)
-```
-
-####Calculate the UTM zone from the longitude
-```{r calcutm}
-long2UTM = function(long) {(floor((long + 180)/6) %% 60) + 1}
-utmzone = long2UTM(mean(st_bbox(trial)[c(1,3)]))
-```
-
-####Projection for utm
-```{r setcrs}
-projutm <<- st_crs(paste0("+init=epsg:326", utmzone))
-```
-
-####Transform the projection of file
-```{r transform}
-trialutm<-st_transform(trial,projutm)
-```
-
-####Save the file with trial design in a geopackage
-```{r save trial}
-st_write(trialutm,"trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
-```
 ####read in and check the boundary file
 ```{r boundary}
 boundary <- read_sf("boundary.gpkg")
