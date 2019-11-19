@@ -266,7 +266,7 @@ arithmetic.
 
 A handy feature of R is vectorized arithmetic, meaning we can do arithmetic on
 a whole vector at once.  For example, to convert the units for nitrogen application
-from 1,000 short tons to short tons, we could multiply by 1000.
+from thousands of short tons to short tons, we could multiply by 1000.
 
 ```{r}
 fert_use$Nitrogen * 1000
