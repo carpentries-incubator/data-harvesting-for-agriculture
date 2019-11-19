@@ -8,6 +8,6 @@ By the end of this workshop, you will know more about:
 that can improve cost effective application in your particular location
 
 To do this, we'll be introducing you to:
-* R Studio, free and open source software used for creating both programs and visualizations
+* RStudio, free and open source software used for creating both programs and visualizations
 * Several data types used by agricultural equipment
 (etc, will write more after next meeting)
