@@ -306,7 +306,8 @@ Make a new column called `NP` that is the sum of nitrogen and phosphate applied.
 Then make another column called `NP_centered`, which is the value of `NP` minus
 the mean of `NP`.  This new column will have negative values if the total amount
 of nitrogen and phosphorus applied was less than average, and positive if it was
-more than average.
+more than average.  Centering like this can be useful in various statistical
+analyses.
 
 **Solution:**
 
