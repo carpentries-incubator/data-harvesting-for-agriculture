@@ -6,22 +6,9 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-library("sf")
-library("fasterize")
-library("gstat")
-library("raster")
-library("rjson")
-library("httr")
-library("rgdal")
-library(rgeos)
-library(maptools)
-library(knitr)
-require("tmap")
-require("ggplot2")
-require("gridExtra")
-require("grid")
 knitr::opts_chunk$set(echo = TRUE)
-opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98")
+opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98") # will ultimately delete
+#opts_knit$set(root.dir = "~/DC for Ag/DIFM Code and Information/hord f98")
 ```
 ####Motivating Questions:
 - What are the common file types in agricultural data?
@@ -55,6 +42,27 @@ opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98")
 you perform (e.g. making trial grids and splitting plots into subplot data)
 - Different data formats that you are likely to encounter include gpkg, shp
 (cpg, dbf, prj, sbn, sbx), geojson, and tif
+
+### Setup
+
+Below are the packages that we will use in this episode.
+
+```{r}
+library(sf)
+library(fasterize)
+library(gstat)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+library(knitr)
+library(tmap)
+library(ggplot2)
+library(gridExtra)
+library(grid)
+```
 
 ###Introducing Spatial Data with an Example Using Trial Design Data
 
