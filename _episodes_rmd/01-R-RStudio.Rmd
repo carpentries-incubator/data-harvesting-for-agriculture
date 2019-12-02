@@ -25,7 +25,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Getting to know R and RStudio
 
-Blah blah
+In this episode we'll cover the basics of using R, which is a programming
+language for statistics, data analysis, and data visualization.  In the past
+decade or so, R has become very popular in both science and business, largely
+because (1) it is free, and (2) thousands of people have written new code
+extending its functionality, and that code is also free.  If you perform an
+analysis in R, you can share that analysis so that anyone in the world can
+reproduce it without having to purchase proprietary software.
 
 If you're already proficient with Excel, you will probably already know how to
 accomplish a lot of what we are doing in this episode using Excel instead of
@@ -39,6 +45,66 @@ also fairly easy to edit and repurpose (for example, redoing the exact same
 analysis with next year's dataset) as well as share with other people (your
 neighbor who wants to try your analysis but with his or her own data).
 
+Separately from R, we asked you to install a piece of software called RStudio,
+which will make R a lot easier to use.  Although there are paid, "enterprise"
+versions of RStudio, the free version does everything that a typical user
+needs.
+
+Launch RStudio.  If this is the first time you have opened it, the entire left
+pane will be taken up by something called the Console.  This has a prompt where
+commands can be entered.
+
+```{r}
+5 + 7
+```
+
+After you hit enter, you will see the result of the command.  But usually we
+don't run commands from here, since we want to keep a record of everything we
+did.  If you go to File &rarr; New File &rarr; R Script, the text editor will open in
+the upper left, and you will be able to type commands there and save them in
+a file.  To run a command from the script editor, put your cursor on the line
+where the command starts and press the "Run" button.  Alternatively, you can
+press Ctrl+Enter.
+
+In addition to putting commands in your script, you can put *comments*.  A
+comment is a line, or part of a line, that is ignored by R.  This means you can
+use comments to explain what is happening in the code or why you did something
+a certain way.  Comments start with the `#` character, and can take up the
+whole line or just the end of a line.  As we go through this workshop, I
+encourage you to put lots of comments in your code. Think of them as a way to
+take notes!
+
+```{r}
+# Performing arithmetic
+6 + 2
+
+2 ^ 3 # this raises two to the third power
+```
+
+We can save this script to a file on our computer, with the .R extension so that
+RStudio knows to treat it like an R script (even though it is plain text).
+We'll want to keep our scripts organized though, and probably store them with
+the data that they will be processing.  Luckily RStudio has a feature called
+"Projects" that makes it easy to stay organized.
+
+Go to File &rarr; New Project.  Select "New Directory".  Here you will put the
+name of a new folder and where you want it to be located on your computer.
+For example, you can call the project "R_lesson".  Once the project is created,
+you'll find that you can get to that same folder through Windows Explorer, or
+on a Mac, Finder.  In RStudio, we see the contents of the folder in the "Files"
+pane in the lower right.  Right now the only file there is called
+`R_lesson.Rproj` (or whatever you called your project), which stores
+settings for the project and can be ignored for now.  Use the "New Folder"
+button to make a folder called "data", one called "scripts", and one called
+"results".  We will put datasets into the data folder, keep all of our R scripts
+in the scripts folder, and put any output files into the results folder.  While
+it isn't strictly necessary to organize files in this way, it makes it a lot
+easier to keep track of things.
+
+Create a new script called `R_intro.R` and save it in your "scripts" folder.
+We will work off of this file for the remainder of the episode, then start a
+new script for the next episode.
+
 ## Dataset for this lesson
 
 As an example of a dataset in spreadsheet form that we can use to demonstrate
@@ -48,8 +114,9 @@ https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx.
 Table 2 of this dataset, showing 1,000 nutrient short tons of nitrogen,
 phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the
 US from 1964-2016, has been reformatted into a CSV file for ease of import into
-R.  You can download the CSV from (insert link to raw file on GitHub here).  It
-can be opened in Excel if you want to get a quick look at it that way, or we can
+R.  You can download the CSV from
+https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv.
+It can be opened in Excel if you want to get a quick look at it that way, or we can
 dive straight into looking at it in R.  Save it into your `data` folder in
 your RStudio project for this lesson.
 
@@ -67,6 +134,9 @@ where we will store the data.
 ```{r}
 fert_use <- read.csv("data/fertilizer_use.csv")
 ```
+
+Now in the upper right pane of RStudio, we see `fert_use` listed within our
+*environment*.
 
 Immediately after loading a dataset, it is a good idea to inspect it and make
 sure it looks like it is formatted correctly.  The `str` function is helpful
@@ -177,11 +247,26 @@ value across all of them.  We can get the maximum phosphate this way:
 max(fert_use$Phosphate, na.rm = TRUE)
 ```
 
+### Looking at distributions of all numerical columns at once
+
+The `summary` function gives us values like the minimum, maximum, mean, and
+median for every column in the data frame at once, and, along with `str`,
+can be a good way to get an overview of our data immediately after we import
+it.
+
+```{r}
+summary(fert_use)
+```
+
+Why bother using `mean`, `median`, and `max` then?  As we'll see below, because
+those functions give us single numbers, we can use those numbers to do further
+arithmetic.
+
 ## Arithmetic
 
 A handy feature of R is vectorized arithmetic, meaning we can do arithmetic on
 a whole vector at once.  For example, to convert the units for nitrogen application
-from 1,000 short tons to short tons, we could multiply by 1000.
+from thousands of short tons to short tons, we could multiply by 1000.
 
 ```{r}
 fert_use$Nitrogen * 1000
@@ -221,7 +306,8 @@ Make a new column called `NP` that is the sum of nitrogen and phosphate applied.
 Then make another column called `NP_centered`, which is the value of `NP` minus
 the mean of `NP`.  This new column will have negative values if the total amount
 of nitrogen and phosphorus applied was less than average, and positive if it was
-more than average.
+more than average.  Centering like this can be useful in various statistical
+analyses.
 
 **Solution:**
 
@@ -258,7 +344,7 @@ fert_use$Nitrogen_metric_tons <-
 What did I just do there?  I used the `function` keyword to create a new
 function, and I used the assignment operator (`<-`) to give that function a
 name.  The object `val` is an *argument* for the function, and you'll notice that
-neither `val` nor `out` appear in your global environment aftern running the
+neither `val` nor `out` appear in your global environment after running the
 function.  Between the curly brackets (`{}`), is what we call the
 *function body*, which describes what computations the function should perform.
 There is also a `return` statement that shows what the function *returns*,
@@ -285,7 +371,7 @@ minimal.
 That was a relatively simple example, but later when you write much larger
 chunks of code and want to avoid having to copy and paste it all, functions
 can be very helpful.  We'll make a few functions in later episodes of this
-lesson, which is why we at least wanted to introduce the concept here.
+lesson, which is why we introduced the concept here.
 
 ## Installing packages
 
@@ -448,6 +534,9 @@ https://dplyr.tidyverse.org/.  One more that we'll cover here is `filter`.
 ```{r}
 filter(fert_use, Year > 2013, Crop != "Other")
 ```
+
+(Here, `>` means "greater than" and `!=` means "not equal to".  If we wanted
+"equal to", we would use `==`.)
 
 This function returns a new data frame that just has the rows we specify.  It
 can be handy for subsetting the data before plotting with ggplot.
