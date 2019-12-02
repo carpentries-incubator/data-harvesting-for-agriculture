@@ -163,7 +163,7 @@ trialutm <- st_transform(trial, projutm)
 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
 
 **Solution**
-```{r transform}
+```{r transformplanting}
 planting<-read_sf("asplanted_clean.shp")
 
 crs(planting)
@@ -176,7 +176,7 @@ crs(planting_latlong)
 ```
 The cleaned planting file was in UTM initially. The zone is 17 which is to be expected as it is from the same field as the trial design file we worked with earlier. When we look at the geometry features, they are 6,277 points defined in x and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new file called `planting_latlong` with the CRS of WGS84.
 
-```{r transform}
+```{r transformtrial}
 trialutm <- st_transform(trial, projutm)
 ```
 
@@ -339,42 +339,21 @@ Plot the resulting AB-line with the generic plotting function for `sf` objects.
 plot(ab_line)
 ```
 
-####Obtaining the Boundary File (reading it in or creating it)
+####Reading in the Boundary File
+
+We will read in the boundary file and plot the boundary file with the abline to see how the farmer drives across the field. 
 
 ```{r boundary}
-library(sp)
-x_coord <- c(-82.97853,-82.97306,-82.97306, -82.97853, -82.97853)
-y_coord <- c(40.73945, 40.73945, 40.74660, 40.74660, 40.73945)
-xym <- cbind(x_coord, y_coord)
+boundary <- read_sf("boundary.gpkg")
+crs(boundary)
 ```
 
-```{r viewcoord}
-xym
-```
+After plotting `boundary`, we plot `ab_line` with `add = TRUE` which adds the new plot over the existing plot of the field boundary. We see that the farmer drives across the longest part of the field, beginning on the right-hand side. 
 
-```{r createpoly}
-p = Polygon(xym)
-ps = Polygons(list(p),1)
-sps = SpatialPolygons(list(ps))
+```{r plotboth }
+plot(boundary$geom)
+plot(ab_line, add = TRUE)
 ```
-
-```{r plotboundary}
-plot(sps)
-```
-
-```{r savepoly}
-st_write(ab_line,"abline.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
-```
-
-####File Types
-1. Trial Yield Data
-2. As-applied Data
-3. As-planted Data
-4. EC Data
-5. Elevation Data (from Internet or Trial Yield/As-planted file)
-6. Topography Data (Slope and Aspect generated from Elevation Data)
-7. SSURGO Data (Specify the soil content)
-8. Weather Data (daily/weekly/monthly data)
 
 
 
