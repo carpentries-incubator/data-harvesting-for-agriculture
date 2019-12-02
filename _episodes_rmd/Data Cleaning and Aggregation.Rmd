@@ -132,43 +132,59 @@ For different types of data, we have different ways to clean them. Here are the 
  
 For aggregation, we need to generate subplots(units of observation) of the original trial design, and then aggregate the cleaned datasets for different variables onto the subplots.
 
+The following steps read in a boundary shapefile, and transform the projection
+of file to utm projection for later use.
 ####read in and check the boundary file
 ```{r boundary}
 boundary <- read_sf("boundary.gpkg")
-crs(boundary)
-boundary<-st_set_crs(boundary,4326)
 boundary_utm<-st_transform(boundary, projutm)
 ```
-###After we read in the trial design file, we use a function to generate the subplots for this trial. Here I have not made the function yet, so we just read in the subplot generated with the supplementary code. (This part of the code can be later on transformed into a function as needed.)
+After we read in the trial design file, we use a function to generate the subplots for this trial. Here I have not made the function yet, so we just read in the subplot generated with the supplementary code. (This part of the code can be later on transformed into a function as needed.)
 
+In this step, we read in the subplots shapefile, and transform the projection of file to utm projection for later use.
+###read in subplots
 ```{r read subplot}
 subplots <- read_sf("hord_f98_subplots_2017.shp")
 subplots_utm <- st_transform(subplots,projutm)
 ```
 
+###visulization
+Here, we plot the subplots we generated, note that the color pattern of the plot is determined by the ID number of the subplots, which is starts from 1, at the right upper corner. We can check how many units of observation we are generating with this subplots shapefile.
+
 ```{r vis subplots}
 plot(subplots)
+max(subplots$ID)
 ```
+
+Then, we plot the geometry of subplots and boundary together, so that we get a better idea where the subplots are comparatively.
 
 ```{r visulize subplots}
 plot(subplots_utm$geometry)
 plot(boundary_utm$geom ,add=TRUE)
 ```
 
-### bring in yield data for cleaning
+### Data Cleaning
+After comfirming the subplots (ultimately the units of observations) we generated, we bring in the data sets for different variable in for cleaning. Here is an example of how we are cleaning our yield data,
+
+
 When we bring in the edited yield data, we transform it into utm projection as well.
+### Bring in yield data for cleaning
 ```{r yield}
 yield <- read_sf("hord_f98_trialyield_2017.shp")
 yield_utm<-st_transform(yield, projutm)
 ```
 
+We check the distribution of the yield as we clean them to monitor the change made by each cleaning step. First, view the distrubution of the original data.
 ```{r vis yield data}
 hist(yield_utm$Yld_Vol_Dr)
 ```
 
-### remove yield observations on border and also the ends of plots with st_buffer 
-####Remove yield observations on boarder
+We need to remove the yield observations that are on the boarder of the plots, and also at the end of the plots.
+### Remove yield observations on border and also the ends of plots with st_buffer 
+#### Remove yield observations on boarder
+The following code 'buffer<-st_buffer(trialutm,-4)' uses the function st_buffer to create a buffer for each plot, we set the buffer inside the trial plots to be 4 meters to the edges, and any yield observations that are within a 4-meter distance to the edge of the plots are considered on the boarder.
 
+Then 'ov<-st_over(yield_utm,st_geometry(buffer)) & yield$out<- is.na(ov)' would mark any yield observations that are without the buffer as out. Finally, we remove the yield observations that are not in the buffer zone with the last line in this chunck.
 ```{r observations on boarder}
 buffer<-st_buffer(trialutm,-4) # plots are 24 m wide and 2 yield passes
 ov<-st_over(yield_utm,st_geometry(buffer))
@@ -176,25 +192,26 @@ yield$out<- is.na(ov) # demarcate the yield values removed
 yield_clean<-subset(yield,out==FALSE)
 ```
 
+Here again, we check the distribution of cleaned yield.
 ####Remove yield observations that are without three standard deviations
 ```{r view the distribution of yield data after taking out the yield points on the boader}
 hist(yield_clean$Yld_Vol_Dr)
 ```
-
+In the next few steps, we use 'sd<-sd(yield_clean\$Yld_Vol_Dr)' to calculate the standard deviation of the yield distribution, and use 'mean<-mean(yield_clean\$Yld_Vol_Dr)' to calcualte the mean of the yield distribution. Then we take the yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd. 
 ```{r 3sd}
 sd<-sd(yield_clean$Yld_Vol_Dr)
 mean<-mean(yield_clean$Yld_Vol_Dr)
 yield_clean<-subset(yield_clean,yield_clean$Yld_Vol_Dr>mean-3*sd & yield_clean$Yld_Vol_Dr<mean+3*sd)
 ```
-
+Here again, we check the distribution of cleaned yield after taking out the yield observations that are without the range of three standard deviations.
 ```{r view the distribution of cleaned yield data}
 hist(yield_clean$Yld_Vol_Dr)
 ```
-
+The next line transforms the cleaned yield into utm projection
 ```{r reprojection of yield data}
 yield_clean<-st_transform(yield_clean, projutm)
 ```
-
+Finally, we save cleaned file into a geopackage.
 ####Save the cleaned yield data in a geopackage
 ```{r save yield}
 st_write(yield_clean,"yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
