@@ -6,22 +6,9 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-library("sf")
-library("fasterize")
-library("gstat")
-library("raster")
-library("rjson")
-library("httr")
-library("rgdal")
-library(rgeos)
-library(maptools)
-library(knitr)
-require("tmap")
-require("ggplot2")
-require("gridExtra")
-require("grid")
 knitr::opts_chunk$set(echo = TRUE)
-opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98")
+opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98") # will ultimately delete
+#opts_knit$set(root.dir = "~/DC for Ag/DIFM Code and Information/hord f98")
 ```
 ####Motivating Questions:
 - What are the common file types in agricultural data?
@@ -55,6 +42,27 @@ opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98")
 you perform (e.g. making trial grids and splitting plots into subplot data)
 - Different data formats that you are likely to encounter include gpkg, shp
 (cpg, dbf, prj, sbn, sbx), geojson, and tif
+
+### Setup
+
+Below are the packages that we will use in this episode.
+
+```{r}
+library(sf)
+library(fasterize)
+library(gstat)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+library(knitr)
+library(tmap)
+library(ggplot2)
+library(gridExtra)
+library(grid)
+```
 
 ###Introducing Spatial Data with an Example Using Trial Design Data
 
@@ -137,14 +145,14 @@ transformations and related units of measurement. The ESPG is one way to assign
 or transform the CRS in R. The ESPG for UTM always begins with "326" and the
 last numbers are the number of the zone. The code below pastes together the full
 ESPG code for any `utmzone` we calculate with `long2UTM`. `paste0()` pastes
-together the two arguments `"326"` and `utmzone` as string. But when we transform `trial` into UTM, we only need the ESPG number. So we convert that to numeric with `as.numeric()`, giving us a final ESPG of 32617.
+together the two arguments `"326"` and `utmzone` as string. But when we transform `trial` into UTM, we only need the ESPG number. So we convert that to numeric with `as.numeric()`, giving us a final ESPG of `r paste0("326", utmzone)`.
 
 ```{r setcrs}
 projutm <- as.numeric(paste0("326", utmzone))
 projutm
 ```
 
-The ESPG for latitude and longitude or WGS84 is 4326. This is the projection your equipment reads, so any trial design files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude.
+All modern latitude and longitude coordinates use a standard called WGS84.  The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude.
 
 
 ####Transform the projection of file
@@ -163,22 +171,31 @@ trialutm <- st_transform(trial, projutm)
 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
 
 **Solution**
+<<<<<<< HEAD
 ```{r transformplanting}
 planting<-read_sf("asplanted_clean.shp")
+=======
+```{r transform}
+planting <- read_sf("asplanted_clean.shp")
+>>>>>>> ac5d8087dfe7ad986d1cc9650fbf13b934ca5f96
 
 crs(planting)
 
 planting$geometry
 
-planting_latlong<-st_transform(planting,4326)
+planting_latlong <- st_transform(planting, 4326)
 
 crs(planting_latlong)
 ```
+<<<<<<< HEAD
 The cleaned planting file was in UTM initially. The zone is 17 which is to be expected as it is from the same field as the trial design file we worked with earlier. When we look at the geometry features, they are 6,277 points defined in x and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new file called `planting_latlong` with the CRS of WGS84.
 
 ```{r transformtrial}
 trialutm <- st_transform(trial, projutm)
 ```
+=======
+The cleaned planting file was in UTM initially. The zone is `r utmzone` which is to be expected as it is from the same field as the trial design file we worked with earlier. When we look at the geometry features, they are `r nrow(planting)` points defined in x and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new file called `planting_latlong` with the CRS of WGS84.
+>>>>>>> ac5d8087dfe7ad986d1cc9650fbf13b934ca5f96
 
 ####Save the file 
 
@@ -191,7 +208,7 @@ One example is a .prj file. In this case, the shapefile will have no CRS, and
 you will need to determine the CRS of the object. You will often need to transform a file from UTM to lat/long and save the new file during trial design, so this is an important step.
 
 ```{r save}
-st_write(trialutm,"trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
 The new .gpkg file will be visible in your working directory. One common problem
@@ -210,7 +227,7 @@ nitrogen.
 names(trialutm)
 ```
 
-In `trialutm` there are 11 variables, but the variable we might want to map are `NRATE` and `SEEDRATE`. The following map is created with functions from a package called `tmap`. We are using `tm_polygon()`
+In `trialutm` there are 11 variables, but the variables we might want to map are `NRATE` and `SEEDRATE`. The following map is created with functions from a package called `tmap`. We are using `tm_polygon()`
 fill the polygons with a color based on the variable `NRATE` inside the object
 `trialutm `. For a different kind of geospatial data such as points, we need to use `tm_dots()` or `tm_squares()`. `tmap` provides many options for displaying data, including text markers on the map. Text labels might be good for making a map of several land parcels with their names as the label. We use other arguments in the code below to choose the position of the map
 legend, title of the variable, size of text, and width of legend.
@@ -234,7 +251,7 @@ Find the column name with the variable seeding rate in the dataset. There are ma
 ```{r seedvars}
 names(planting)
 ```
-We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we laoded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
+We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
 
 ```{r seedmap}
 tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
@@ -246,11 +263,11 @@ tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
 ```
 
 **Challenge** 
-Use the code above to answer the following questions: Why do we supply
+Try modifying code above to answer the following questions: Why do we supply
 a title in `tm_dots` and why is `legend.outside = TRUE`?
 
 **Solution**
-If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the grpah likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
+If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the graph likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
 
 ```{r seedmap2}
 tm_shape(planting) + tm_dots('Rt_A_C_') +
@@ -274,7 +291,7 @@ tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
 
 ####Side-by-Side Maps
 
-Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the asapplied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to eachother, so we have two columns and one row. 
+Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the as-applied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to each other, so we have two columns and one row. 
 
 ```{r parex }
 map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
