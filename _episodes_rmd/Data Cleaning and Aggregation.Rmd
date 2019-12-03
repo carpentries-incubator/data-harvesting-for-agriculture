@@ -148,25 +148,36 @@ Those sources of error might be something that someone who sits behind a compute
 all day would never think of.  You also know best what values are reasonable,
 and what values are suspiciously high or low.
 
-## Data cleaning in the DIFM project
+## Data cleaning and aggregation in the DIFM project
 
-After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinary error and such. The common data that we collect for analysis includes yield(dry), as-planted, as-applied, Electronic Conductivity(EC), SSURGO, Soil test, weather, and etc. Particularly, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For the other types of data, we simply import them into our aggregated data set.
+After harvesting, we collect all the data needed for analysis, and in advance of
+running analysis, we clean and organize the data in order to remove machinary
+error and such. The common data that we collect for analysis includes yield
+(dry), seeding rate as-planted, nitrogen rate as-applied, electronic
+conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
+clean yield data, as-planted data, as-applied data, and sometimes EC data. For
+the other types of data, we simply import them into our aggregated data set
+without cleaning, since they have already been cleaned before being released to
+the public.
 
-For different types of data, we have different ways to clean them. Here are the main concerns of the original data for the major varaibles:
-- Yield data:
- •	We take out the yield observations where the harvester is moving too slow or too fast;
- •	We take out the yield observations that are not in the middle of the plot;
- •	We take out the yield observations that are below or above three standard deviations
- •	We then aggregate them onto our units of observation.
-- As-planted/As-applied data:
- •	We take out the as-planted/as-applied observations where the planter/applicator is moving too slow or too fast;
- •	We take out the as-planted/as-applied observations that are not in the middle of the plot;
- •	We take out the as-planted/as-applied observations that are below or above three standard deviations
- •	We then aggregate them onto our units of observation.
-- EC data:
- •	We take out the EC observations that are below or above three standard deviations
+For different types of data, we have different ways to clean them. Here are the
+main concerns of the original data for the major varaibles:
+
+Yield, as-planted, and as-applied data:
+
+* We remove observations where the harvester/planter/applicator is moving too slow or too fast.
+* We remove observations on the edges of the plot.
+* We remove observations that are below or above three standard deviations from the mean.
+* We then aggregate them onto our units of observation.
+
+EC data:
+
+* We remove EC observations that are below or above three standard deviations from the mean.
  
-For aggregation, we need to generate subplots(units of observation) of the original trial design, and then aggregate the cleaned datasets for different variables onto the subplots.
+For aggregation, we need to generate subplots (units of observation) of the
+original trial design, and then aggregate the cleaned datasets for different
+variables onto the subplots.  Once we have one value per variable per subplot,
+we can begin examining the relationships between the variables.
 
 The following steps read in a boundary shapefile, and transform the projection
 of file to utm projection for later use.
