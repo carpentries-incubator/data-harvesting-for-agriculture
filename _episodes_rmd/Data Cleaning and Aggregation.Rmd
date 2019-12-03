@@ -312,6 +312,9 @@ The next line transforms the cleaned yield into UTM projection.
 yield_clean <- st_transform(yield_clean, projutm)
 ```
 
+**Question from Lindsay: Why didn't we just clean the data that had already
+been converted to UTM?**
+
 Finally, we save cleaned file into a geopackage.
 
 ```{r save yield}
@@ -331,21 +334,53 @@ buffer zone, as well as observations more then three standard deviations from
 the mean.
 
 ##  Yield Interpolation/Aggregation
-We interpolate the yield data onto the subplot we generated. There are multiple yield observations in each subplot. We take the median of these yield observations and assign the median to the according subplot. We would clean and aggregate the other variables the same way.
 
-#Let us aggregate variables inside each subplot
-#convert the yield data into sp
+Interpolation is the estimation of a value at a point that we didn't measure
+that is between two or more points that we did measure.  Aggregation is the
+combining of multiple data points into a single data point.  What we'll do here
+is a combination of interpolation and aggregation, where we will use multiple
+measurements across each subplot to generate one value for the subplot. In this
+case we will take the median value within each subplot.  Typically when the data
+are not normally-distributed or when there are errors, the median is more
+representative of the data than the mean is.  Here we will interpolate and
+aggregate yield as an example.  The other variables can be processed in the same
+way.
+
+**Question from Lindsay: Why do we need to covert class here?  Please provide an
+explanation.**
+
 ```{r sf2sp}
 subplots_sp <- as(subplots_utm, "Spatial")
 yield_sp <- as(yield_clean, "Spatial")
 ```
-#Yield
+
+**Explain more of what is happening in this code below**
+**Why is one line commented out?**
+
 ```{r aggregate yield data}
 #proj4string(yield_sp)<- CRS("+proj=longlat +datum=WGS84")
-merge<-sp::over(subplots_sp,yield_sp,fn=median)
-subplots_merge<-SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE)
+merge <- sp::over(subplots_sp, yield_sp,fn = median)
+subplots_merge <- SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE)
 ```
 
+### Exercise
+
+Interpolate and aggregate nitrogen as-applied so that you have one value per
+sub-plot.
+
+**Solution**:
+
+```{r}
+#asapplied
+proj4string(asapplied) <- CRS("+proj=longlat +datum=WGS84")
+merge5 <- sp::over(subplots,asapplied,fn=mean)
+subplots@data <- cbind(merge5,subplots@data)
+head(subplots@data)
+```
+
+Processing the other variables:
+
+```{r}
 #ec
 proj4string(ec)<- CRS("+proj=longlat +datum=WGS84")
 merge2<-sp::over(subplots,ec,fn=median)
@@ -357,19 +392,22 @@ merge3<-sp::over(subplots,asplanted,fn=median)
 subplots@data<-cbind(merge3,subplots@data)
 head(merge3)
 
-#asapplied
-proj4string(asapplied)<- CRS("+proj=longlat +datum=WGS84")
-merge5<-sp::over(subplots,asapplied,fn=mean)
-subplots@data<-cbind(merge5,subplots@data)
-head(subplots@data)
-
 #topography
 topo <- spTransform(topography, CRS("+proj=longlat +datum=WGS84"))
 slopemerge <- sp::over(subplots,topo,fn=median)
 subplots@data <-cbind(slopemerge,subplots@data)
 
 head(subplots@data)
+```
 
+## Conclusion
+
+Now, we have one value per subplot for all of our variables, and because we
+cleaned the data first, we can be confident that value is a good representation
+of the subplot.
+
+**Add code here to make a scatter plot of as-applied vs. yield, now that we
+have one value for each for each subplot**
 
 ####Other Files To Be Cleaned/Aggregated
 1. As-applied Data
