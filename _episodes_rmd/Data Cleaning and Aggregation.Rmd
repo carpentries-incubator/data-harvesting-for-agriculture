@@ -114,6 +114,42 @@ st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 
 ## Introduction to data cleaning
 
+Data cleaning is the process of removing or correcting errors in a dataset, and
+is very important to do before any sort of analysis.  For example, say you were
+manually entering yield values into a spreadsheet, and then wanted to take the
+average of all values entered.  If you accidentally typed an extra zero into
+some of the cells, the average that you calculate is going to be much higher
+than the true average.
+
+```{r}
+real_data <- c(900, 450, 200, 320)
+error_data <- c(900, 4500, 200, 320)
+mean(real_data)
+mean(error_data)
+```
+
+Therefore, we want to check for values like this before we do anything else.  If
+the values were manually entered and the intended value is obvious, they can be
+manually corrected.  For larger scale datasets, however, it is often most
+practical to discard problematic data.  Below, we draw a plot to see the rough
+distribution of values.  Then we identify a cutoff, and convert anything above
+the cutoff to missing data.
+
+```{r}
+plot(error_data)
+error_data[error_data > 2000] <- NA
+error_data
+```
+
+Data cleaning is a major reason why there needs to be good communication between
+data scientists and end users, in agriculture or any other discipline.  As the person
+who generates the data, you know best where the likely sources of error might be.
+Those sources of error might be something that someone who sits behind a computer
+all day would never think of.  You also know best what values are reasonable,
+and what values are suspiciously high or low.
+
+## Data cleaning in the DIFM project
+
 After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinary error and such. The common data that we collect for analysis includes yield(dry), as-planted, as-applied, Electronic Conductivity(EC), SSURGO, Soil test, weather, and etc. Particularly, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For the other types of data, we simply import them into our aggregated data set.
 
 For different types of data, we have different ways to clean them. Here are the main concerns of the original data for the major varaibles:
