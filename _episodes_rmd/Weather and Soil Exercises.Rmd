@@ -51,7 +51,11 @@ boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information
 
 #Daymet Weather Data
 
-The Oak Ridge National Laboratory produces a datset called Daymet which contains predicted weather observations on a one meter grid. These data come from weather station climate observations in a climate model for prediction and include variables such as precipitation, snow water equivalent, temperature, day length, solar radians, and vapor pressure. 
+The Oak Ridge National Laboratory produces a datset called
+[Daymet](https://daymet.ornl.gov/) which contains predicted weather observations
+on a one meter grid. These data come from weather station climate observations
+in a climate model for prediction and include variables such as precipitation,
+snow water equivalent, temperature, day length, solar radians, and vapor pressure. 
 
 There is a package in r `daymetr` that downloads the daymet weather data within the R environment. For a single point, you can use the command `download_daymet()`. If you want to download the data for a set of points, there is also the command `download_daymet_batch()` which takes an argument a .csv of the points in lat/long.
 
