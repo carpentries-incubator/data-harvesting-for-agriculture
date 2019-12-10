@@ -113,8 +113,6 @@ are not so apparent. Use the `datmetr`
 [vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html)
 to understand the meaning of these variables.
 
-https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html
-
 #Unit Conversions
 
 Publicly available data are usually given in metric units as we saw in the
