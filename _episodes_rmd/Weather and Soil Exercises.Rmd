@@ -64,7 +64,8 @@ lat <- mean(bbox[c(2,4),])
 ```
 
 ```{r daymetr}
-weather <- download_daymet(site = "Field1", lat = lat, lon = lon, start = 2000, end = 2018, internal = TRUE)
+weather <- download_daymet(site = "Field1", lat = lat, lon = lon,
+                           start = 2000, end = 2018, internal = TRUE)
 ```
 
 The object `weather` is a list of 7 objects, the last of is the data. 
@@ -127,7 +128,8 @@ There is a class within R for dates. Once a column is of the `date` class, we ca
 The function can see that the date is in days after some starting time or origin. The name `yday` means this is the day of the year, so the origin should be the last day of the previous year. There are multiple years in our dataframe, so the origin should change for each year. This is accomplished by pasting `weather_data$year-1` and `"-12-31"` together using the function `paste0()` so that the origin is always the last day of the previous year. 
 
 ```{r dateformat}
-weather_data$date <- as.Date(weather_data$yday, origin = paste0(weather_data$year-1, "-12-31"))
+weather_data$date <- as.Date(weather_data$yday,
+                             origin = paste0(weather_data$year - 1, "-12-31"))
 head(weather_data$date)
 ```
 
@@ -158,16 +160,20 @@ The next steps organize a dataframe for a graph of the average monthly precipita
 hist_data <- subset(weather_data,year != 2018)
 ```
 
-  2. Create a monthly precipiation for each year called `prec_month` using the `dplyr`       commands.
+  2. Create a monthly precipiation for each year called `prec_month` using the `dplyr` commands.
 
 ```{r monthyeardata}
-by_month_year <- hist_data %>% dplyr::group_by(month, year) %>% dplyr::summarise(prec_month = sum(prec))
+by_month_year <- hist_data %>%
+  dplyr::group_by(month, year) %>%
+  dplyr::summarise(prec_month = sum(prec))
 ```
 
   3. Take an average of `prec_month` for each month.
 
 ```{r monthdata}
-by_month <- by_month_year %>% dplyr::group_by(month) %>% dplyr::summarise(prec_avg = mean(prec_month))
+by_month <- by_month_year %>%
+  dplyr::group_by(month) %>%
+  dplyr::summarise(prec_avg = mean(prec_month))
 ```
 
 *Exercise 3:* Using `dplyr`
@@ -179,8 +185,10 @@ by_month <- by_month_year %>% dplyr::group_by(month) %>% dplyr::summarise(prec_a
 *Exercise 3 Solutions*
 
 ```{r 2018data}
-weather_2018 <- subset(weather_data, year==2018)
-by_month_2018 <- weather_2018 %>% dplyr::group_by(month) %>% dplyr::summarise(prec_2018 = sum(prec))
+weather_2018 <- subset(weather_data, year == 2018)
+by_month_2018 <- weather_2018 %>%
+  dplyr::group_by(month) %>% 
+  dplyr::summarise(prec_2018 = sum(prec))
 ```
 
 We now have two separate dataframes `by_month_2018` and `by_month` with the rainfall for each month. We can use the common variable `month` to merge them into one dataframe with the average monthly rainfall and the 2018 monthly rainfall using the `merge()` function.
@@ -192,9 +200,10 @@ prec_plot <- merge(by_month,by_month_2018, by = "month")
 We will now use `ggplot` to create a graph with a bar representing the monthly precipitation in 2018 and a point with the average rainfall from 2000 to 2017. In the function `geom_bar()` `stat = identity` creates a bar graph where the height of the bar is the value of the variable rather than the count of the observations, the common use of a bar chart. 
 
 ```{r precmonthplot}
-monthly_prec <- ggplot(prec_plot) + 
-  geom_bar(aes(x = month, y = prec_2018), stat = 'identity') 
-monthly_prec + geom_point(aes(month, prec_avg), show.legend = TRUE) + ggtitle("Field 1")
+ggplot(prec_plot) + 
+  geom_bar(aes(x = month, y = prec_2018), stat = 'identity') +
+  geom_point(aes(month, prec_avg), show.legend = TRUE) +
+  ggtitle("Field 1")
 ```
 
 The most notable feature of the weather graph is the below average rainfall in July, the most critical growing period for corn. To understand whether this affected yield on the field, we woud also need to look at historic yield. But on your field, you will know those historic average and be able to have a pretty clear idea of weather impacted the average yield in a growing season. 
@@ -249,13 +258,13 @@ Use `tmap` to make a map where the polygon color is informed by the soil names i
 *Exercise 5 Solution*
 
 ```{r soilmap}
-map_soil <- tm_shape(spatial) + tm_polygons('muname', title = "Soil Type") + tm_layout(legend.outside = TRUE, frame = FALSE)+
+tm_shape(spatial) +
+  tm_polygons('muname', title = "Soil Type") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
   tm_legend(text.size = 1,
             title.size = 1,
             width = 100,
-            bg.color = "white"
-           )
-map_soil
+            bg.color = "white")
 ```
 
 The map shows that there are quite a few soil types on the field, and several show up in different section of the field. However, most of the soil are silt loam. It might be difficult to understand the different soils without more information about soil weathering and texture. This is also provided within SSURGO, and is likely, something you know about in your own field. 
