@@ -63,7 +63,14 @@ within the R environment. For a single point, you can use the command
 is also the command `download_daymet_batch()` which takes a CSV file of the
 points in lat/long.
 
-We will use the mean latitude and longitude values from the bounding box as our point for the weather data. This should be a point near the middle of the field. We also call the site `Field1`, but this will be the name of a specific field if you use it in the future. We can choose the start and end years. If the data is not available for the year you request, an error will be reported. We choose 2000 to 2018 for this example; later we will use the historical data for comparison. The final option `internal = TRUE` means that the daymet data is brought into the R environment rather than saved in your working directory.
+We will use the mean latitude and longitude values from the bounding box as our
+point for the weather data. This should be a point near the middle of the field.
+We also call the site `Field1`, but this will be the name of a specific field if
+you use it in the future. We can choose the start and end years. If the data is
+not available for the year you request, an error will be reported. We choose
+2000 to 2018 for this example; later we will use the historical data for
+comparison. The final argument `internal = TRUE` means that the daymet data is
+brought into the R environment rather than being saved in your working directory.
 
 ```{r location}
 bbox <- as.matrix(st_bbox(boundary))
@@ -94,17 +101,37 @@ weather_data <- weather$data
 summary(weather_data)
 ```
 
-The date is reported as the year and day of the year. Other variables include day length, precipitation, solar radiation, snow water equivalent, maximum temperature, minimum temperature, and vapor pressure. The units for the variables are given after the variable name. For example, day length is in seconds and solar radiation is in watts per square meter. While precipitation and temperature have intuitive names, vapor pressure and snow water equivalent are not so apparent. Use the `datmetr` vignette to understand the meaning of these variables.
+The date is reported as the year and day of the year. Other variables include
+day length, precipitation, solar radiation, snow water equivalent, maximum
+temperature, minimum temperature, and vapor pressure. The units for the
+variables are given after the variable name. For example, day length is in
+seconds and solar radiation is in watts per square meter. While precipitation
+and temperature have intuitive names, vapor pressure and snow water equivalent
+are not so apparent. Use the `datmetr` 
+[vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html)
+to understand the meaning of these variables.
 
 https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html
 
 #Unit Conversions
 
-Publicly available data are usually given in metric units as we saw in the weather data above. We may want to have these data in imperial units as these are the units we often are comparing in the United States; additionally, you may know the value of crop requirements and threshholds in imperial units rather than metric units. 
+Publicly available data are usually given in metric units as we saw in the
+weather data above. We may want to have these data in imperial units as these
+are the units we often are comparing in the United States; additionally, you may
+know the value of crop requirements and threshholds in imperial units rather
+than metric units. 
 
-The package `measurements` in R converts observations from one unit to another. The command ``conv_unit()` converts the column from one stated unit to another unit. To see the possible units for a specific kind of measure, look at the `conv_unit_options` for the specific measure you are converting (e.g. length, area, weight, etc.). 
+The package `measurements` in R converts observations from one unit to another.
+The command ``conv_unit()` converts the column from one stated unit to another
+unit. To see the possible units for a specific kind of measure, look at the
+`conv_unit_options` for the specific measure you are converting (e.g. length,
+area, weight, etc.). 
 
-If we want to convert the daily precipitation from milimeters to inches, we will first look at the unit options for length. Here we can see that inches are "inch" and milimeters are "mm" in the `measurements` framework. We then use `conv_unit()` with these arguments and our `prcp..mm.day.` column to create a new column called `prec`.
+If we want to convert the daily precipitation from milimeters to inches, we will
+first look at the unit options for length. Here we can see that inches are
+"inch" and milimeters are "mm" in the `measurements` framework. We then use
+`conv_unit()` with these arguments and our `prcp..mm.day.` column to create a
+new column called `prec`.
 
 ```{r unitopts}
 conv_unit_options$length
