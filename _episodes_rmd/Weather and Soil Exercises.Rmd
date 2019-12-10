@@ -57,7 +57,11 @@ on a one meter grid. These data come from weather station climate observations
 in a climate model for prediction and include variables such as precipitation,
 snow water equivalent, temperature, day length, solar radians, and vapor pressure. 
 
-There is a package in r `daymetr` that downloads the daymet weather data within the R environment. For a single point, you can use the command `download_daymet()`. If you want to download the data for a set of points, there is also the command `download_daymet_batch()` which takes an argument a .csv of the points in lat/long.
+There is an R package called `daymetr` that downloads the daymet weather data
+within the R environment. For a single point, you can use the command
+`download_daymet()`. If you want to download the data for a set of points, there
+is also the command `download_daymet_batch()` which takes a CSV file of the
+points in lat/long.
 
 We will use the mean latitude and longitude values from the bounding box as our point for the weather data. This should be a point near the middle of the field. We also call the site `Field1`, but this will be the name of a specific field if you use it in the future. We can choose the start and end years. If the data is not available for the year you request, an error will be reported. We choose 2000 to 2018 for this example; later we will use the historical data for comparison. The final option `internal = TRUE` means that the daymet data is brought into the R environment rather than saved in your working directory.
 
