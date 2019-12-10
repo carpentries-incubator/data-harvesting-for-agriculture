@@ -83,7 +83,9 @@ weather <- download_daymet(site = "Field1", lat = lat, lon = lon,
                            start = 2000, end = 2018, internal = TRUE)
 ```
 
-The object `weather` is a list of 7 objects, the last of is the data. 
+The object `weather` is a list of 7 objects, the last of is the data. Much like
+columns in a data frame, list elements can be accessed using `$`, so we can do
+`weather$data` to see the data.
 
 *Exercise 1:* Explore the weather data
 
