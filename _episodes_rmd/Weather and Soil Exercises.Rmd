@@ -304,8 +304,36 @@ But on your field, you will know those historic average and be able to have a
 pretty clear idea of weather impacted the average yield in a growing season.
 If necessary, you could download Daymet data going all the way back to 1980.
 
+# Growing degree days
+
 Another possible graph you could make with these data is on the accumulated GDD
-each month, using temperature data.
+each month, using temperature data.  First, we will estimate the average
+temperature for each day using the minimum and maximum.
+
+```{r}
+weather_data$tavg <- (weather_data$tmax + weather_data$tmin) / 2
+```
+
+Then, we will estimate growing degrees for corn by subtracting 50 from the
+average daily temperature.  If the result is negative, it should be set to zero.
+
+```{r}
+weather_data$GD <- weather_data$tavg - 50
+weather_data$GD[weather_data$GD < 0] <- 0
+```
+
+Subscripting by square brackets above, we selected only the values below zero,
+and assigned the value of zero to them.
+
+Now we can get the total growing degree days for each month.
+
+```{r}
+GDD_by_month_year <- weather_data %>%
+  dplyr::group_by(year, month) %>%
+  dplyr::summarise(GDD_month = sum(GD))
+
+head(GDD_by_month_year, 12)
+```
 
 #SSURGO Soil Data
 
