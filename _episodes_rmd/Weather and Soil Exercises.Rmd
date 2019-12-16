@@ -337,26 +337,45 @@ head(GDD_by_month_year, 12)
 
 #SSURGO Soil Data
 
-The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil description of your field on the Web Soil Survey website below. The SSURGO dataset has been developed over a century of surveying land and analyzing soil samples across the United States. While the website is one way to access the soil data, R also has a package called `FedData` that has a function `get_ssurgo()` for accessing the soil data in the R environment. 
+The SSURGO data] is probably a dataset you are familiar with already. You can
+obtain a soil description of your field on the
+[Web Soil Survey website](https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx).
+The SSURGO dataset has been developed over a century of surveying land and
+analyzing soil samples across the United States. While the website is one way to
+access the soil data, R also has a package called `FedData` that has a function
+`get_ssurgo()` for accessing the soil data in the R environment. 
 
-https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
-
-The next line brings the SSURGO data into the R environment with the name `ssurgo` and the object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs to be `spatial` rather than `sf`, so we trasnform the object with `as(boundary,"Spatial")`.
+The next line brings the SSURGO data into the R environment with the name
+`ssurgo` and the object `boundary` from the geospatial lesson. Note here that
+the class of `boundary` needs to be `spatial` rather than `sf`, so we trasnform
+the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo}
 bound.sp <- as(boundary, "Spatial")
 ssurgo <- get_ssurgo(bound.sp, "field1")
 ```
 
-The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` object contains the polygons of soil types for the field, and  `tabular` contains many dataframes with attributes collected for the soil and soil horizons. Note that these dataframes and their relationships with one another ar very complex. To use these data, you must carefully read the SSURGO documentation. Merging the dataframes to have one value of the attributes for each soil polygon requires reducing the dimension of the data, often by weighting the attributes by horizon depth. For an example of how this is done with clay, silt, and sand content, contact the workshop instructors. 
+The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The
+`spatial` object contains the polygons of soil types for the field, and
+`tabular` contains many data frames with attributes collected for the soil and
+soil horizons. Note that these data frames and their relationships with one
+another are very complex. To use these data, you must carefully read the SSURGO
+documentation. Merging the data frames to have one value of the attributes for
+each soil polygon requires reducing the dimension of the data, often by
+weighting the attributes by horizon depth. For an example of how this is done
+with clay, silt, and sand content, contact the workshop instructors. 
 
-Let's make a map of the soil types on this field. First, we need to locate the part of `tabular` with the soil names; these can be found in `muaggatt`.
+**Can we point to an online resource instead of just saying "this is hard" and telling them to talk to instructors?**
+
+Let's make a map of the soil types on this field. First, we need to locate the
+part of `tabular` with the soil names; these can be found in `muaggatt`.
 
 ```{r names}
 names <- ssurgo$tabular$muaggatt 
 ```
 
-*Exercise 4*: What are the soil types present on the field as seen in `names`? Are the soil defined by anything other than the soil type?
+*Exercise 4*: What are the soil types present on the field as seen in `names`?
+Are the soil defined by anything other than the soil type?
 
 *Exercise 4 Solution*
 
@@ -364,9 +383,15 @@ names <- ssurgo$tabular$muaggatt
 names
 ```
 
-Looking at `names` we can see there are eight types of soil on the field, and the dataframe reports areas with different slopes with different names. We often know the slope of the field, and so we may want to combine areas of the field with the same soil type and different slopes.
+Looking at `names` we can see there are eight types of soil on the field, and
+the data frame reports areas with different slopes with different names. We
+often know the slope of the field, and so we may want to combine areas of the
+field with the same soil type and different slopes.  **Show them how to combine slopes**
 
-We need one dataframe with both the soil name and spatial data. We will merge the soil data and the spatial data by the `musym`. Note that in one of the dataframes the variable is capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.
+We need one data frame with both the soil name and spatial data. We will merge
+the soil data and the spatial data by the `musym`. Note that in one of the data
+frames the variable is capitalized and not in the other. We must rename the
+variable for consistency using `rename()` from `dplyr`.
 
 ```{r soilmerge}
 spatial <- as(ssurgo$spatial, "sf")
@@ -377,8 +402,8 @@ head(spatial$muname)
 
 *Exercise 5*: Create the Soil Map
 
-Use `tmap` to make a map where the polygon color is informed by the soil names in `muname`. *Hint*: use `tm_polygons()`.
-
+Use `tmap` to make a map where the polygon color is informed by the soil names
+in `muname`. *Hint*: use `tm_polygons()`.
 
 *Exercise 5 Solution*
 
@@ -392,5 +417,9 @@ tm_shape(spatial) +
             bg.color = "white")
 ```
 
-The map shows that there are quite a few soil types on the field, and several show up in different section of the field. However, most of the soil are silt loam. It might be difficult to understand the different soils without more information about soil weathering and texture. This is also provided within SSURGO, and is likely, something you know about in your own field. 
+The map shows that there are quite a few soil types on the field, and several
+show up in different section of the field. However, most of the soil are silt
+loam. It might be difficult to understand the different soils without more
+information about soil weathering and texture. This is also provided within
+SSURGO, and is likely, something you know about in your own field. **Show them how to do this?**
 

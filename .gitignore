@@ -10,3 +10,4 @@ _site
 .RData
 *.Rproj
 _episodes_rmd/*.html
+*RAW*
