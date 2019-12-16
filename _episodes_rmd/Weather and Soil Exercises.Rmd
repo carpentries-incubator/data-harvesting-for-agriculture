@@ -165,11 +165,20 @@ weather_data$tmin <- conv_unit(weather_data$tmin..deg.c., "C", "F")
 head(weather_data$tmax)
 ```
 
-#Dates in Dataframes 
+#Dates in data frames 
 
-There is a class within R for dates. Once a column is of the `date` class, we can subset or order the dataset by time. `as.Date()` converts a column to a data, but here if we try the command `weather_data$date <- as.Date(weather_data$yday)`, we will receive an error saying an origin must be supplied. 
+There is a class within R for dates. Once a column is of the `Date` class, we
+can subset or order the dataset by time. `as.Date()` converts a column to a date,
+but here if we try the command `weather_data$date <- as.Date(weather_data$yday)`,
+we will receive an error saying an origin must be supplied. 
 
-The function can see that the date is in days after some starting time or origin. The name `yday` means this is the day of the year, so the origin should be the last day of the previous year. There are multiple years in our dataframe, so the origin should change for each year. This is accomplished by pasting `weather_data$year-1` and `"-12-31"` together using the function `paste0()` so that the origin is always the last day of the previous year. 
+The function can see that the date is in days after some starting time or origin.
+The name `yday` means this is the day of the year, so the origin should be the last
+day of the previous year. There are multiple years in our data frame, so the origin
+should change for each year. This is accomplished by pasting `weather_data$year-1`
+and `"-12-31"` together using the function `paste0()` so that the origin is always
+the last day of the previous year.  (Recall that `paste0` creates text by combining
+text and/or numbers.)
 
 ```{r dateformat}
 weather_data$date <- as.Date(weather_data$yday,
@@ -177,15 +186,38 @@ weather_data$date <- as.Date(weather_data$yday,
 head(weather_data$date)
 ```
 
-#Precipitation Graph
+We will also want to summarize the data by month, and to do that we will want a
+column that just indicates month.  There is the `months` function in the R base:
 
-Perhaps you want to see what the weather this year was like compared to the average historic weather for the same area. We will make a graph showing the total monthly precipitation from 2018 compared to the average precipitation from the years 2000 to 2017. This is a common way to look at seasonal rainfall and allows us to look at the rainfall during the critical months of July and August.
+```{r}
+testdates <- as.Date(c("2019-10-03", "2019-06-17"))
+months(testdates)
+```
 
-Currently, there is no month variable in our dataframe. There is a package called `lubridate` that can facilitate easy transformations of dates in R. We use the command `month()` to add a variable called `month` to the dataframe. The option `label = TRUE` creates a string with the month name instead of a number. 
+However, it outputs the months as plain text, which will get sorted
+alphabetically by other functions later.  We would rather have the month as a
+number, or as a factor where the order of the months is defined.  The
+`lubridate` package has a function called `month` that can accomplish this.
+If you need to perform more manipulation of dates or times, I suggest reading
+more about `lubridate` at the [Tidyverse website](https://lubridate.tidyverse.org/).
+The `::` operator specifies that we want to use a function from a particular
+package.  You may need to run `install.packages("lubridate")` if you don't have
+it installed already.
+
+```{r}
+lubridate::month(testdates)
+lubridate::month(testdates, label = TRUE)
+```
+
+Now let's add month to our data frame.
 
 ```{r addmonth}
 weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 ```
+
+#Precipitation Graph
+
+Perhaps you want to see what the weather this year was like compared to the average historic weather for the same area. We will make a graph showing the total monthly precipitation from 2018 compared to the average precipitation from the years 2000 to 2017. This is a common way to look at seasonal rainfall and allows us to look at the rainfall during the critical months of July and August.
 
 Now, we need to sum the daily precipitation for each year and month combination. There is a package called `dplyr` that helps with many kinds of data manipulation. A popular task is to perform an action over a group. To specify the grouping variables, you use `group_by()` then add the additional command `summarise()` which defines the action. 
 
