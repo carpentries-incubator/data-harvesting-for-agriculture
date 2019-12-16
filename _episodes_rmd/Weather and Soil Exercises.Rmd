@@ -31,7 +31,7 @@ boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information
 ####Motivating Questions:
 - What are the common file types in agricultural data?
 - What publicly available datasets exist for my field?
-
+- What tools are available to manipulate dates and data frames in R?
 
 ####Objectives with Agricultural Data Types
 - Describe the contents of files generated during planting, fertilization, and harvest
@@ -41,6 +41,8 @@ boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information
 - Import weather data from the internet, eg. daymetr
 - Access to elevation and ssurgo data with higher resolution
 - Derive topography data from elevation data
+- Use the lubridate package to work with dates.
+- Use the dplyr package to manipulate data frames (spreadsheet-like data).
 
 ####Keypoints:
 - sf is prefereable for data analysis; it is easier to access the dataframe
