@@ -28,26 +28,26 @@ library("FedData")
 opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98")
 boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98/boundary.gpkg")
 ```
+
 ####Motivating Questions:
-- What are the common file types in agricultural data?
 - What publicly available datasets exist for my field?
 - What tools are available to manipulate dates and data frames in R?
 
-####Objectives with Agricultural Data Types
-- Describe the contents of files generated during planting, fertilization, and harvest
-- Describe the contents of files used to control seeding and fertilization rate
+####Objectives:
 - Describe the format of public weather and soil datasets
-- Import agricultural datasets into R
 - Import weather data from the internet, eg. daymetr
 - Access to elevation and ssurgo data with higher resolution
 - Derive topography data from elevation data
-- Use the lubridate package to work with dates.
-- Use the dplyr package to manipulate data frames (spreadsheet-like data).
+- Use the `lubridate` package to work with dates.
+- Use the `dplyr` package to manipulate data frames (spreadsheet-like data).
 
 ####Keypoints:
-- sf is prefereable for data analysis; it is easier to access the dataframe
-- Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
-- Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
+- The `daymetr` package is helpful for downloading daily weather data from Daymet.
+- The `FedData` package can be used for downloading SSURGO soil data.
+- Functions in the R base and `lubridate` package are helpful for working with
+dates.
+- The `dplyr` package makes it easier to filter a data frame, add new columns,
+and summarize statistics after grouping by one or more variables.
 
 #Bringing in the data from geospatial exercises
 

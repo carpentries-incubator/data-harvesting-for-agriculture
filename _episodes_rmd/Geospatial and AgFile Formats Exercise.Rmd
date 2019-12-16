@@ -14,7 +14,6 @@ opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98") 
 - What are the common file types in agricultural data?
 - What applications do I need to open these files?
 - How can I make maps of my yield or application?
-- What publicly available datasets exist for my field?
 
 ####Objectives with Spatial Data:
 - Determine whether data are stored in vector or raster format
@@ -30,11 +29,7 @@ opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98") 
 ####Objectives with Agricultural Data Types
 - Describe the contents of files generated during planting, fertilization, and harvest
 - Describe the contents of files used to control seeding and fertilization rate
-- Describe the format of public weather and soil datasets
 - Import agricultural datasets into R
-- Import weather data from the internet, eg. daymetr
-- Access elevation and ssurgo data with higher resolution
-- Derive topography data from elevation data
 
 ####Keypoints:
 - sf is prefereable for data analysis; it is easier to access the dataframe
