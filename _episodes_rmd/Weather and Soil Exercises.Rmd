@@ -29,6 +29,7 @@ library("daymetr")
 library("readr")
 library("measurements")
 library("FedData")
+library(dplyr)
 ```
 
 ```{r datasets, echo = FALSE}
@@ -217,26 +218,33 @@ weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 
 #Precipitation Graph
 
-Perhaps you want to see what the weather this year was like compared to the average historic weather for the same area. We will make a graph showing the total monthly precipitation from 2018 compared to the average precipitation from the years 2000 to 2017. This is a common way to look at seasonal rainfall and allows us to look at the rainfall during the critical months of July and August.
+Perhaps you want to see what the weather this year was like compared to the
+average historic weather for the same area. We will make a graph showing the
+total monthly precipitation from 2018 compared to the average precipitation from
+the years 2000 to 2017. This is a common way to look at seasonal rainfall and
+allows us to look at the rainfall during the critical months of July and August.
 
-Now, we need to sum the daily precipitation for each year and month combination. There is a package called `dplyr` that helps with many kinds of data manipulation. A popular task is to perform an action over a group. To specify the grouping variables, you use `group_by()` then add the additional command `summarise()` which defines the action. 
+We need to sum the daily precipitation for each year and month combination.
+There is a package called `dplyr` that helps with many kinds of data
+manipulation. A popular task is to perform an action over a group. To specify
+the grouping variables, you use `group_by()` then add the additional command
+`summarise()` which defines the action.  You can learn more about `dplyr` on
+the [Tidyverse website](https://dplyr.tidyverse.org/).
 
 The next steps organize a dataframe for a graph of the average monthly precipitation from 2000 to 2017. 
-
-  1. Create subset of `weather_data` taking out the 2018 observations.
-  2. Create a monthly precipiation variable for each year and month combination called `prec_month` using the `dplyr` commands.
-  3. Take an average of `prec_month` for each month.
-
 
 *Steps*
 
   1. Create subset of `weather_data` taking out the 2018 observations.
 
 ```{r 00to17}
-hist_data <- subset(weather_data,year != 2018)
+hist_data <- dplyr::filter(weather_data, year != 2018)
 ```
 
   2. Create a monthly precipiation for each year called `prec_month` using the `dplyr` commands.
+  Recall that the pipe symmbol `%>%` allows us to split one command into multiple steps, by
+  sending the output of what is to the left of it to the first argument of the function to
+  the right of it.
 
 ```{r monthyeardata}
 by_month_year <- hist_data %>%
@@ -244,7 +252,7 @@ by_month_year <- hist_data %>%
   dplyr::summarise(prec_month = sum(prec))
 ```
 
-  3. Take an average of `prec_month` for each month.
+  3. Take an average of `prec_month` for each month, across all years.
 
 ```{r monthdata}
 by_month <- by_month_year %>%
@@ -255,7 +263,7 @@ by_month <- by_month_year %>%
 *Exercise 3:* Using `dplyr`
 
   1. Create a new dataframe called `weather_2018` from the `weather_data` using only 2018 observations.
-  2. Create a monthly precipiation variable for each month in 2018 called `prec_month` using the `dplyr`       commands.
+  2. Create a monthly precipiation variable for each month in 2018 called `prec_month` using the `dplyr` commands.
 
 
 *Exercise 3 Solutions*
@@ -267,13 +275,20 @@ by_month_2018 <- weather_2018 %>%
   dplyr::summarise(prec_2018 = sum(prec))
 ```
 
-We now have two separate dataframes `by_month_2018` and `by_month` with the rainfall for each month. We can use the common variable `month` to merge them into one dataframe with the average monthly rainfall and the 2018 monthly rainfall using the `merge()` function.
+We now have two separate dataframes `by_month_2018` and `by_month` with the
+rainfall for each month. We can use the common variable `month` to merge them
+into one dataframe with the average monthly rainfall and the 2018 monthly
+rainfall using the `merge()` function.
 
 ```{r plotdata}
-prec_plot <- merge(by_month,by_month_2018, by = "month")
+prec_plot <- merge(by_month, by_month_2018, by = "month")
 ```
 
-We will now use `ggplot` to create a graph with a bar representing the monthly precipitation in 2018 and a point with the average rainfall from 2000 to 2017. In the function `geom_bar()` `stat = identity` creates a bar graph where the height of the bar is the value of the variable rather than the count of the observations, the common use of a bar chart. 
+We will now use `ggplot` to create a graph with a bar representing the monthly
+precipitation in 2018 and a point with the average rainfall from 2000 to 2017.
+The function `geom_bar()`, with argument `stat = identity`, creates a bar graph
+where the height of the bar is the value of the variable rather than the count
+of the observations, the common use of a bar chart. 
 
 ```{r precmonthplot}
 ggplot(prec_plot) + 
@@ -282,9 +297,15 @@ ggplot(prec_plot) +
   ggtitle("Field 1")
 ```
 
-The most notable feature of the weather graph is the below average rainfall in July, the most critical growing period for corn. To understand whether this affected yield on the field, we woud also need to look at historic yield. But on your field, you will know those historic average and be able to have a pretty clear idea of weather impacted the average yield in a growing season. 
+The most notable feature of the weather graph is the below average rainfall in
+July, the most critical growing period for corn. To understand whether this
+affected yield on the field, we woud also need to look at historic yield.
+But on your field, you will know those historic average and be able to have a
+pretty clear idea of weather impacted the average yield in a growing season.
+If necessary, you could download Daymet data going all the way back to 1980.
 
-Another possible graph you could make with these data is on the accumulated GDD each month. 
+Another possible graph you could make with these data is on the accumulated GDD
+each month, using temperature data.
 
 #SSURGO Soil Data
 
