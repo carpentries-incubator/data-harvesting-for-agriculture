@@ -8,6 +8,11 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98") # delete once we have data in data folder
+```
+
+```{r packages, message = FALSE}
 library("sf")
 library("fasterize")
 library("raster")
@@ -22,12 +27,14 @@ require("ggplot2")
 require("gridExtra")
 library("daymetr")
 library("readr")
-knitr::opts_chunk$set(echo = TRUE)
 library("measurements")
 library("FedData")
-opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98")
-boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98/boundary.gpkg")
 ```
+
+```{r datasets, echo = FALSE}
+boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98/boundary.gpkg") # correct the location once we have data folder
+```
+
 
 ####Motivating Questions:
 - What publicly available datasets exist for my field?
