@@ -9,6 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 library(knitr)
+library(sf)
 knitr::opts_chunk$set(echo = TRUE)
 opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98")
 boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98/boundary.gpkg")
@@ -73,6 +74,10 @@ We can also see the automatic-section control reacting when the applicator is of
 
 ####Yield File
 
+`yield` contains 32 variables. Many of the variables are similar to those we in the nitrogen data: time, date, elevation, and product. 
+
+The main variables in the harvest files are `Yld_Vol_Dr` and `Yld_Mass_D`. We also use speed (`Speed_mph_`) to eliminate the points collected when the machine was slowing down or speeding up as this effects the accuracy of the yield monitor. 
+
 ```{r explorey}
 names(yield)
 ```
@@ -85,9 +90,78 @@ names(planting)
 
 We see that the planting file has 33 variables, several of which appear to be identical. The main variables of interest are the planting rate (`Rt_A_C_`) and the target rate (`Tgt_Rt_`). These columns do appear under different names. We will discuss how to handle this below.
 
-There are several other variables that could be useful. First, the hybrid is located in the `Product` column; we want to keep this in our records if we want to compare across years. We may also want to know things like the swath width (`Swth_W_`) or elevation (`Elevtn`).
+There are several other variables that could be useful. First, the hybrid is located in the `Product` column; we want to keep this in our records if we want to compare across years. We may also want to know things like the swath width (`Swth_W_`) or elevation (`Elevtn`), swath width for cleaning and aggregating which will be discussed later and elevation for considering its impact on yield.
 
-```{r explorep}
- unique( planting, MARGIN=2 )
+####Visualizing the Trial Data
+
+**Exercise**
+Make a map of the seed application rate from the `planting` file.
+Find the column name with the variable seeding rate in the dataset. There are many variables in this dataset, and some of the names may look unclear. Looking at the summary of the variables will help determine which variable is the applied rate and which is the target rate. 
+
+
+**Solution**
+```{r seedvars}
+names(planting)
 ```
+
+We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
+
+```{r seedmap}
+tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+```
+
+**Challenge** 
+Try modifying code above to answer the following questions: Why do we supply
+a title in `tm_dots` and why is `legend.outside = TRUE`?
+
+**Solution**
+If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the graph likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
+
+```{r seedmap2}
+tm_shape(planting) + tm_dots('Rt_A_C_') +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+```
+
+If we add `legend.outside = FALSE`, the legend will block part of the map. In some cases, the map may have a vacant section where the legend can go, but here we need to move the legend outside to be able to see all of the points on the field. 
+
+```{r seedmap3}
+tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
+  tm_layout(legend.outside = FALSE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+```
+
+####Side-by-Side Maps
+
+Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the as-applied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to each other, so we have two columns and one row. 
+
+```{r parex }
+map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+map_tgts <- tm_shape(planting) + tm_dots('Tgt_Rt_', title = "Target Seeding Rate") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1)
+```
+
+From the applied and target seeding rate maps, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
+
 

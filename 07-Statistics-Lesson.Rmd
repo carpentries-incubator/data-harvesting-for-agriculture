@@ -17,12 +17,9 @@ boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information
 
 ####Objectives with Agricultural Data Types
 - Visualize relationship between yield and input variables
-- Understand basic principles of linear regression
 - Create a linear model relating yield to nitrogen
-- Estimate an optimal nitrogen application rate
 - Use ggplot to graph your estimated profit and yield response to nitrogen
-- Understand the use of a confidence interval for comparing the treatments
-- Consider statistical significance of profit differences between nitrogen rates
+- Estimate an optimal nitrogen application rate
 
 ####Keypoints:
 - sf is prefereable for data analysis; it is easier to access the dataframe
