@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+library(knitr)
 knitr::opts_chunk$set(echo = TRUE)
 opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98") # will ultimately delete
 #opts_knit$set(root.dir = "~/DC for Ag/DIFM Code and Information/hord f98")
@@ -14,7 +15,6 @@ opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98") 
 - What are the common file types in agricultural data?
 - What applications do I need to open these files?
 - How can I make maps of my yield or application?
-- What publicly available datasets exist for my field?
 
 ####Objectives with Spatial Data:
 - Determine whether data are stored in vector or raster format

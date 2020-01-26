@@ -1,0 +1,93 @@
+---
+title: "Ag Carpentry - Trial Data"
+author: "Brittani"
+date: "10/19/2019"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE)
+opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98")
+boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98/boundary.gpkg")
+```
+####Motivating Questions:
+- What are the common file types in agricultural data?
+
+####Objectives with Agricultural Data Types
+- Import agricultural datasets into R
+- Describe the contents of files generated during planting, fertilization, and harvest
+- Describe the contents of files used to control seeding and fertilization rate
+- Assess the accuracy of machinery in applying the target rates
+
+####Keypoints:
+- sf is prefereable for data analysis; it is easier to access the dataframe
+- Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
+- Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
+
+Below are the packages that we will use in this episode.
+
+```{r}
+library(sf)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+require(tmap)
+require(ggplot2)
+require(gridExtra)
+library(readr)
+library(measurements)
+```
+
+In this lesson we will explore the files that are generated during a trial season. These data include yield, as-applied, as-planted, and sometimes electricalconductivity. While you are likely using your yield maps every year to asses productivity, you might not be looking at your application maps if you normally use uniform rates. But if you use variable rate applications or have completed an agricutlural trial, your application map contains information about how well the machine applied the target rates. 
+
+###Reading the Files
+
+In the next exercise we will bring these data into the R environment. We've already looked at the asplanted data in the geospatial lesson. Now let's see what variables are contained in the other files. 
+
+*Exercise*
+Read the yield, as-planted, and as-applied files and explore the variables.
+For each file, identify what variables might we be interested in and why?
+
+```{r read}
+planting <- read_sf("asplanted_clean.shp")
+nitrogen <- read_sf("asapplied_clean.shp")
+yield <- read_sf("yield_clean.gpkg")
+```
+
+*Solutions and Discussion*
+```{r exploren}
+names(nitrogen)
+```
+
+####As-Applied File
+
+The nitrogen file contains 22 variables. The nitrogen type of is reported in `Product`, and this field used NH3. We have columns with the applied rate in both gallons (`Rt_Ap_1`) and pounds (`Rt_Appl`). We typically use pounds in order to compare across different nitrogen types.
+
+There is not a clear column with the target rate. This is not a problem as we will later merge the trial map and the application map, so we can compare the rate applied to the intended rate.
+
+We can also see the automatic-section control reacting when the applicator is off of the guidance line, with the swatch width changing in `Swth_W_`. 
+
+####Yield File
+
+```{r explorey}
+names(yield)
+```
+
+####As-Planted File
+
+```{r explorep}
+names(planting)
+```
+
+We see that the planting file has 33 variables, several of which appear to be identical. The main variables of interest are the planting rate (`Rt_A_C_`) and the target rate (`Tgt_Rt_`). These columns do appear under different names. We will discuss how to handle this below.
+
+There are several other variables that could be useful. First, the hybrid is located in the `Product` column; we want to keep this in our records if we want to compare across years. We may also want to know things like the swath width (`Swth_W_`) or elevation (`Elevtn`).
+
+```{r explorep}
+ unique( planting, MARGIN=2 )
+```
+
