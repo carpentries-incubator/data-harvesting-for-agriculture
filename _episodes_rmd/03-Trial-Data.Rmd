@@ -49,14 +49,14 @@ In this lesson we will explore the files that are generated during a trial seaso
 
 In the next exercise we will bring these data into the R environment. We've already looked at the asplanted data in the geospatial lesson. Now let's see what variables are contained in the other files. 
 
-*Exercise*
+*Exercise 1*
 Read the yield, as-planted, and as-applied files and explore the variables.
 For each file, identify what variables might we be interested in and why?
 
 ```{r read}
 planting <- read_sf("asplanted_clean.shp")
 nitrogen <- read_sf("asapplied_clean.shp")
-yield <- read_sf("yield_clean.gpkg")
+yield <- read_sf("hord_f98_trialyield_2017.shp")
 ```
 
 *Solutions and Discussion*
@@ -94,10 +94,12 @@ There are several other variables that could be useful. First, the hybrid is loc
 
 ####Visualizing the Trial Data
 
-**Exercise**
-Make a map of the seed application rate from the `planting` file.
-Find the column name with the variable seeding rate in the dataset. There are many variables in this dataset, and some of the names may look unclear. Looking at the summary of the variables will help determine which variable is the applied rate and which is the target rate. 
+In the next section, we will have exercises to visually explore the trial data. We will look at the application maps, compare the application to the target application rates and the yield.
 
+**Exercise**
+Make a map of the seed application rate from the `planting` file using `tmpap`. 
+Do you notice anything about the planting map?
+Hint: Remember that different types of geometry features require different functions in `tmap`. 
 
 **Solution**
 ```{r seedvars}
@@ -116,8 +118,8 @@ tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
 ```
 
 **Challenge** 
-Try modifying code above to answer the following questions: Why do we supply
-a title in `tm_dots` and why is `legend.outside = TRUE`?
+Try modifying the code above to answer the following questions: 
+Why do we supply a title in `tm_dots` and why is `legend.outside = TRUE`?
 
 **Solution**
 If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the graph likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
@@ -164,4 +166,70 @@ tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1)
 
 From the applied and target seeding rate maps, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
 
+#####Yield Map
+
+Now let's look at the yield map for this field. Using `tmap` we can graph the yield in bushels per acre.
+
+```{r yieldmap }
+map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+map_yield
+```
+
+Looking at the map we can see there are many extreme values, making the map look homogeneous. We will do an initial cleaning to remove these points. 
+```{r cleaning }
+yield <- subset(yield, yield$Yld_Vol_Dr >= mean(yield$Yld_Vol_Dr) - 3*sd(yield$Yld_Vol_Dr) & yield$Yld_Vol_Dr <= mean(yield$Yld_Vol_Dr) + 3*sd(yield$Yld_Vol_Dr))
+```
+
+```{r cleanyield }
+map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+map_yield
+```
+####Yield and Application Map
+
+Now that we know how to make side-by-side maps, we can do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the affect of the seed or nitrogen rates on yield. 
+
+*Exercise* 
+Make a map like in the previous example but with yield in bushels and the seeding rate. 
+Report what you see in the map?
+
+```{r yield_appmap }
+map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+tmap_arrange(map_yield, map_applieds, ncol = 2, nrow = 1)
+```
+
+From the map, it is difficult to see any sign of yield response. This highlights the importance of doing statistical rather than visual analysis of harvest data. 
+
+Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. We can see that the nitrogen application is not as precise as the planting; we commonly see this due to the technology used. 
+
+```{r nitrogenmap }
+nitrogen <- subset(nitrogen, nitrogen$Rt_Appl >= mean(nitrogen$Rt_Appl) - 3*sd(nitrogen$Rt_Appl) & nitrogen$Rt_Appl <= mean(nitrogen$Rt_Appl) + 3*sd(nitrogen$Rt_Appl))
+map_nitrogen <- tm_shape(nitrogen) + tm_dots('Rt_Appl', title = "NH3 (pounds)") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = .7,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+map_nitrogen
+```
 
