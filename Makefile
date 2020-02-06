@@ -25,6 +25,10 @@ docker-serve :
 serve : lesson-md
 	${JEKYLL} serve
 
+## JPN: Jill added this serve            : run a local server.
+serve-exec : lesson-md
+	${JEKYLL} serve --watch --force_polling
+
 ## site             : build files but do not run a server.
 site : lesson-md
 	${JEKYLL} build
