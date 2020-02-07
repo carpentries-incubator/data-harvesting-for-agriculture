@@ -41,6 +41,9 @@ In this lesson, we will be making use of another software called "RStudio" as a 
 
 We launch RStudio by double clicking on it's icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console`.
 
+<img src="screenshots/Rstudio_blank.png">
+
+![](screenshots/Rstudio_blank.png")
 
 
 This has a prompt where
@@ -55,6 +58,7 @@ commands can be entered.
 ## [1] 12
 ```
 
+<!-- JPN: here is a test plot you can uncomment if you wanna try it
 I'm gonna trya thing
 
 
@@ -63,6 +67,26 @@ plot(c(1,2,3), c(4,5,6))
 ```
 
 ![plot of chunk unnamed-chunk-2](../figure/unnamed-chunk-2-1.png)
+-->
+
+
+<!-- JPN: this is just a test to see if I get what is going on here
+
+```r
+data = read.csv('data/fertilizer_use.csv')
+print(head(data))
+```
+
+```
+##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+## 5 1968 Corn     3116      1855   1778
+## 6 1969 Corn     3287      1789   1765
+```
+-->
 
 
  1. Let's open RStudio

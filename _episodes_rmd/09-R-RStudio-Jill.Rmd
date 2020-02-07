@@ -41,6 +41,9 @@ In this lesson, we will be making use of another software called "RStudio" as a 
 
 We launch RStudio by double clicking on it's icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console`.
 
+<img src="screenshots/Rstudio_blank.png">
+
+![](screenshots/Rstudio_blank.png")
 
 
 This has a prompt where
@@ -50,11 +53,21 @@ commands can be entered.
 5 + 7
 ```
 
+<!-- JPN: here is a test plot you can uncomment if you wanna try it
 I'm gonna trya thing
 
 ```{r}
 plot(c(1,2,3), c(4,5,6))
 ```
+-->
+
+
+<!-- JPN: this is just a test to see if I get what is going on here
+```{r}
+data = read.csv('data/fertilizer_use.csv')
+print(head(data))
+```
+-->
 
 
  1. Let's open RStudio
