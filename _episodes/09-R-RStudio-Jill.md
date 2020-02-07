@@ -23,9 +23,72 @@ source: Rmd
 
 
 
+## Assumptions -- DEBUG
+
+ 1. Everybody has installed R and R studio
+ 1. They have been able to run the install script we sent them and have all packages installed
+ 1. They *do* need an intro to the layout of RStudio, and what everything does.
+
 ## Getting to know R and RStudio
 
-WILL I WORK!!!
+ 1. Let's open RStudio
+ 1. Where is the console? (screen shot) Vocab: *console*
+ 1. Let's use RStudio as a calculator by putting numbers into the console
+
+## Variables in R
+
+ 1. what is a variable? Vocab: *variable*
+ 1. how do we assign a variable? Vocab: *assign*
+ 1. What can we do with this variable? -> Generic manipulations (addition, multiplication, etc)
+     * for this, use a "real world" thing that farmers might be into... something something nitrogen levels?
+ 1. Talk about how this variable now shows up in the data area and have a screen shot of where that is
+
+## Writing and Savings R Scripts
+
+ 1. Analogy - scripting is like writing a set of instructions, a letter, something. Vocab: *scripts/scripting*
+ 1. Where do we write scripts in RStudio - screen shot of window, a screen shot of what to do if there is only the console and no script - how do you open a script interface
+ 1. Redo stuff with variable in script (nitrogen levels calculation), but call it something different
+ 1. How to run a script - Run vs. Source -> they are in the same place!  Screenshot of this. Vocab: *running a script*
+ 1. Point out that it shows up in the data-listing place
+ 1. ~~How do we find out the value of our new variable that we wrote in a script?~~
+    1. ~~Using the console like before - because in RStudio the console and scripting interface are linked! (this is not true in other things like PyCharm... this is slightly an aside though so use an aside thing)~~
+    1. ~~Using a print statement - emphasize that you *have* to use print in the script to see the variable!~~
+ 1. How to save our script -> where does it save to?
+ 1. Closing and re-opening a script to re-run.
+
+## OPTIONAL: What is a function?
+
+Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this.
+
+## Getting your data into R
+
+ 1. Let's talk about the dataset we are going to use here -- facts about this dataset
+ 1. This is what this dataset looks like (show snapshot of csv)
+ 1. To get this data into R where we can do math to it like we did with our variable above we have to do something called "reading in our data".  To do this, we'll use something called a *function* to assign a variable the value of this table -- i.e. we want a variable that will store all the rows and columns of our dataset
+     * Talk a bit about what a function is here -- omelets? Vocab: *function*
+     * we also have to talk about the fact that we give the file name as a parameter to this function. Vocab: *function parameter*
+
+### Explore your data in R (could be part of previous or own thing, not sure)
+
+ 1. Another function example: using `str()` to look at your data real quick
+ 1. Also show how to look at your data in R (like "View(data)")? Maybe?  Or you can click on it?
+
+
+## Doing stuff with data in R (better name obvs)
+
+ 1. Your data is stored as a special thing called a dataframe - explain what this is. Vocab: *dataframe*
+ 1. We can access the columns of your tabular dataset with a $ thing
+ 1. We can access the rows of your tabular dataset with ... (not sure we wanna do this)
+ 1. We can manipulate columns with functions
+    * example: min function (or something)
+    * How to learn about functions you might want to use? --> teach googling & how to look up info about functions in R
+
+
+
+
+# -------------- OLD BELOW --------------------
+
+## Getting to know R and RStudio
 
 In this episode we'll cover the basics of using R, which is a programming
 language for statistics, data analysis, and data visualization.  In the past

@@ -1,6 +1,29 @@
-I"§ó<h2 id="getting-to-know-r-and-rstudio">Getting to know R and RStudio</h2>
+I"¶ö<h2 id="assumptions--debug">Assumptions â€“ DEBUG</h2>
 
-<p>WILL I WORK!!!</p>
+<ol>
+  <li>Everybody has installed R and R studio</li>
+  <li>They have been able to run the install script we sent them and have all packages installed</li>
+  <li>They <em>do</em> need an intro to the layout of RStudio, and what everything does.</li>
+</ol>
+
+<h2 id="getting-to-know-r-and-rstudio">Getting to know R and RStudio</h2>
+
+<ol>
+  <li>Letâ€™s open RStudio</li>
+  <li>Where is the console?</li>
+  <li>Letâ€™s use RStudio as a calculator by putting numbers into the console</li>
+</ol>
+
+<h2 id="variables-in-r">Variables in R</h2>
+
+<ol>
+  <li>what is a variable?</li>
+  <li>how do we assign a variable?</li>
+  <li>What can we do with this variable? -&gt; Generic manipulations</li>
+  <li>Talk about how this variable now shows up</li>
+</ol>
+
+<h2 id="getting-to-know-r-and-rstudio-1">Getting to know R and RStudio</h2>
 
 <p>In this episode weâ€™ll cover the basics of using R, which is a programming
 language for statistics, data analysis, and data visualization.  In the past
