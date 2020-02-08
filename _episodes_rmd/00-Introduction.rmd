@@ -35,6 +35,19 @@ Here's what to bring to this workshop:
 * (If you already do variable rate application) Past application maps
 * A-B line or guidance line information
 
+# Getting connected to the campus network as a guest
+
+The IllinoisNet_Guest network allows University visitors to access the wireless network.
+
+1. Connect to the IllinoisNet_Guest network.
+2. Visit http://illinois.edu and you'll be redirected to the guest network portal.
+3. Don't use the NetID login section; that's for University employees. Instead, click the guest link at the bottom of the page.
+4. Follow the "Click Here for Wi-Fi Access" prompt.
+5. Follow the prompts to provide the information to create a guest account.
+6. When you're redirected to the illinois.edu home page, you've completed the process.
+
+Guest access is granted one day at a time; for the next day, you'll need to log in to IllinoisNet_Guest again.
+
 # Some workshop guidelines
 We'll have instructors and helpers available throughout the day to help you get over any hurdles if you get stuck. 
 
