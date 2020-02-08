@@ -25,6 +25,7 @@ source: Rmd
 knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
 ```
 
+
 ## Assumptions -- FOR DEBUGGING
 
  1. Everybody has installed R and R studio
@@ -33,20 +34,28 @@ knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
 
 ## Getting to know R and RStudio
 
+<span style="color:magenta">A good bit of this might be more suitable to the Setup section as it's got a lot about the setup and running of Rstudio.</span>
+
+### <span style="color:magenta">Outline for this section</span>
+ 1. <span style="color:magenta">Let's open RStudio </span>
+ 1. <span style="color:magenta">Where is the console? (screen shot) Vocab: *console*</span>
+ 1. <span style="color:magenta">Let's use RStudio as a calculator by putting numbers into the console</span>
+
+
 In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.
 
 If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel). 
 
 In this lesson, we will be making use of another software called "RStudio" as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  **Some sort of analogy here would be grand**
 
-We launch RStudio by double clicking on it's icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console`.
+We launch RStudio by double clicking on it's icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below:
 
 
 ![stuff](../fig/Rstudio_blank.png)
 
+<span style="color:magenta">Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary?</span>
 
-This has a prompt where
-commands can be entered.
+This has a prompt where commands can be entered.
 
 ```{r}
 5 + 7
@@ -68,10 +77,27 @@ print(head(data))
 ```
 -->
 
+After you hit enter, you will see the result of the command.  Let's try a few others:
 
- 1. Let's open RStudio
- 1. Where is the console? (screen shot) Vocab: *console*
- 1. Let's use RStudio as a calculator by putting numbers into the console
+```{r}
+# Performing arithmetic
+6 + 2
+```
+
+Whoa!  What did I do just there with this `#`?  This is called "leaving a comment in your code" and everything following the `#`
+symbol is called a *comment*. A
+comment is a line, or part of a line, that is ignored by R.  This means you can
+use comments to explain what is happening in the code or why you did something
+a certain way.  Comments start with the `#` character, and can take up the
+whole line or just the end of a line.  As we go through this workshop, I
+encourage you to put lots of comments in your code. Think of them as a way to
+take notes!  Here is an example of a comment at the end of a line while we are doing some arithematic:
+
+```{r}
+2 ^ 3 # this raises two to the third power
+```
+
+
 
 ## Variables in R
 
@@ -96,7 +122,7 @@ print(head(data))
 
 ## OPTIONAL: What is a function?
 
-Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this.
+<span style="color:magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this.</span>
 
 ## Getting your data into R
 
