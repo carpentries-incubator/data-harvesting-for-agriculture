@@ -5,14 +5,14 @@
 Note that many of these are common computer science terms, but to avoid confusion
 we are providing R-centric definitions.
 
-* **argument** \
+* **argument** 
 Also known as "parameter", this is input that you give to a
 function to show it what data to process or to control its behavior.  We often
-say that objects are "passed" to arguments. \
+say that objects are "passed" to arguments. 
 
 (Example:) Arguments are what you feed into a program in order for it to
 make the thing you want the way you want it. Using the omelet-machine analogy for
-programming, an omelet-making function could receive arguments like 2 eggs, 2 Tbsp chives, and so forth. \
+programming, an omelet-making function could receive arguments like 2 eggs, 2 Tbsp chives, and so forth. 
 
 * **class** \ 
 A type of object in R, defining both the structure of the data in the object and what kinds of computation can be done with the 
