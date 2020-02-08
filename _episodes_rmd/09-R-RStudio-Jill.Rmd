@@ -1,5 +1,5 @@
 ---
-title: "JILLS: Introduction to R and RStudio"
+title: "JPN: Introduction to R and RStudio"
 questions:
 - <font color="magenta">THESE ARE NOT UPDATED -- WE CAN DO THIS LAST</font>
 - "How can I work with a spreadsheet in a more advanced and reproducible manner than using MS Excel?"
