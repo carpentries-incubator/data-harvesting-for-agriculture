@@ -25,7 +25,7 @@ docker-serve :
 serve : lesson-md
 	${JEKYLL} serve
 
-## JPN: Jill added this serve            : run a local server.
+## JPN: Jill added this serve ... this is probably not necessary           : run a local server.
 serve-exec : lesson-md
 	${JEKYLL} serve --watch --force_polling
 

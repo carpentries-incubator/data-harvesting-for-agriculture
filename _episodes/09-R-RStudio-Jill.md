@@ -41,10 +41,8 @@ In this lesson, we will be making use of another software called "RStudio" as a 
 
 We launch RStudio by double clicking on it's icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console`.
 
-<img src="screenshots/Rstudio_blank.png">
 
-![](screenshots/Rstudio_blank.png")
-
+![stuff](../fig/Rstudio_blank.png)
 
 
 This has a prompt where
