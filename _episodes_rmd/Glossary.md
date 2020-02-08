@@ -38,17 +38,17 @@ think of the "Console" in the lower left of RStudio as your interpreter (or at
 least the interface to it).
 * **indexing**: A means of retrieving a particular value or set of values from
 an object by name or numerical position.  In R we perform indexing using
-square brackets `[]`. (Example:) From the data frame description above, you could grab the second item from the ingredients list by asking for [cheese].
-* **method**: A version of a function that is specific to a particular class.
+square brackets `[]`. (Example:) From the data frame description above, you could grab the second item from the ingredients list by asking for `[cheese`].
+* **method**: A version of a function that is specific to a particular class. (Example: If you have a give_medicine() function, the method recommended for objects of the "humans" class might involve drinking a glass of water, but the method recommended for the "dogs" class might involve sticking the pill in a piece of cheese.) 
 * **object**: Sometimes used interchangeably with "variable".  A simple or
 complex piece of data with a name pointing to it, so that it can be referred to
-by that name in your code.
+by that name in your code. (Example: Objects are unique digital representations of things. If your program deals with tracking prescriptions across species, you could have objects that correspond to people, to pets, or to livestock, with different recommendations for each class of object.)
 * **operator**: A symbol, like `<-`, `+`, or `$` that performs some sort of
 operation involving one or two objects.
 * **script**: A plain text file containing a series of R commands. Ideally you
 can reproduce your analysis by simply rerunning the script.
 * **vector**: A one-dimensional collection of values, all of the same data type.
-Every column of a data frame is a vector.
+Every column of a data frame is a vector. (Example: In the imagined Ingredients data frame, "Ingredient," "Number," and "Measurement" are vectors. Your data won't make sense if you put "Cheese" in the "Measurement" field; that's the wrong type of data for that column / vector.) 
 
 ## Geospatial analysis
 
