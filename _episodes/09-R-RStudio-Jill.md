@@ -385,9 +385,11 @@ You'll note now that the little upper tab on the left of the scripting window ha
 If you close this file and want to re-open it, you can use `File -> Open File...` to open it up in R. <font color="magenta">(This could be different on a Windows, also not sure how much detail we want here and if we want a screen shot or not)</font>
 
 
-## OPTIONAL: What is a function?
+<!--## OPTIONAL: What is a function?
 
 <font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this.</font>
+
+-->
 
 ## Getting your data into R
 
@@ -429,7 +431,7 @@ your RStudio project for this lesson.
 In R, we can use a *function* called `read.csv` to import data from a CSV
 (comma-separated value) file.
 
-> ## What is a function?
+> ### What is a function?
 >
 > A function is a bit of code that we want to be able to reuse again and again.  For example, let's say you want to make yourself an omelet every morning, wouldn't it be great if you had some sort of machine that would do it for you?
 > 
@@ -485,12 +487,15 @@ Note here that the name of the function is `read.csv`, the _input parameter_ is 
 Just like with our `weight_kg` and `weight_lb` variables before, it now shows up in the _Global Environment_ window at the upper left of RStudio.
 
 
-### Explore your data in R <font color="magenta">(could be part of previous or own thing, not sure)</font>
+## Explore your data in R 
 
 #### <font color="magenta">Outline for this section</font>
- 1. <font color="magenta">Explore your data with the "head" function -- JPN's personal preference instead of the "str" function, but I've kept in both here in case we want them</font>
- 1. <span style="color:magenta">Another function example: using `str()` to look at your data real quick??</span>
- 1. <font color="magenta">Also show how to look at your data in R (like "View(data)")? Maybe?  Or you can click on it?</font>
+ 1. <font color="magenta">Explore your data with the "head" function </font>
+      *  <font color="magenta">Your data is stored as a special thing called a dataframe - explain what this is. Vocab: *dataframe*</font>
+ 1. <font color="magenta">Using the str function</font>
+ 1. <font color="magenta">NOT IN HERE YET: Also show how to look at your data in R (like "View(data)")? Maybe?  Or you can click on it?</font>
+ 1. <font color="magenta">We can access the columns of your tabular dataset with a $ thing</font>
+ 1. <font color="magenta">We can access the rows of your tabular dataset with ... (not sure we wanna do this)</font>
 
 Now that you have your data imported into R, it would be nice to take a look at it!  One quick way to do this is using the `head` function like so:
 
@@ -694,14 +699,14 @@ head(fert_use$Crop, n=4)
 ## Levels: Corn Cotton Other Soybeans Wheat
 ```
 
-We'll note we got a bit of extra information when we are looking at the `Crop` column.  With the column `Years`, Here, R has stored this column as 
+We'll note we got a bit of extra information when we are looking at the `Crop` column.  With the column `Years`, R stored the data as pure numbers (integer, or "whole" numbers without decimal places in this case).  With `Crop`, R has stored this column as something called a _factor_ which is a way to store information that is best sorted into different categories instead of numbers -- this is often called a _categorical variable_ while `Years` is called a _numerical variable_.  R also tells us how many _levels_ this categorical column has, which is just R's way of counting up the number of categories that `Crop` can be.  In this case, we see ther are 5 categories of crops in this dataset, `Corn`, `Cotton`, `Other`, `Soybeans` and `Wheat`.  Note that by default R is ordering them alphetetically.
 
-#### <font color="magenta">Using str </font>
 
-<font color="magenta">Is there a strong reason to use "str" instead of head?  I feel like we have to explain more using str.  I've included how I would re-write this portion, but my personal vote is to use the "head" command above instead of having to go into column types right now.</font>
+### Using `str` to get column types
 
-The `str` function is helpful
-for getting a quick look:
+<font color="magenta">I think we should do this after head and discussing different types of data.</font>
+
+Like with the function `head`, he `str` function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:
 
 
 ```r
@@ -727,16 +732,17 @@ We see that the `str` function is also telling us something about how our data i
  * The `Year`, `Nitrogen`, `Phosphate`, and `Potash` columns are `int` types, meaning they are comprised of whole numbers (numbers without decimals)
  * The `Crop` column is being interpreted in R as something called a `factor`.  This is a way to represent data that is comprised of categories, in this case we are told there are 5 `levels` which just means there are only 5 categories of crop in this dataset.  The trailing 1's are just R's way of tagging which row entry in this column is in what category - a 1 means an entry that is tagged as "Corn".  <font color="magenta">(I am not 100% on this, I *think* this is what R is doing but I am not sure)</font>
 
+The `str` function also tells us that our variable `fert_use` is a _dataframe_ by printing `'data.frame'` at the top of its output.
+
 
 ## Doing stuff with data in R (better name obvs)
 
- 1. Your data is stored as a special thing called a dataframe - explain what this is. Vocab: *dataframe*
- 1. We can access the columns of your tabular dataset with a $ thing
- 1. We can access the rows of your tabular dataset with ... (not sure we wanna do this)
- 1. We can manipulate columns with functions
-    * example: min function (or something)
-    * How to learn about functions you might want to use? --> teach googling & how to look up info about functions in R
+### <font color="magenta">Outline for this section</font>
+ 1. <font color="magenta">We can manipulate columns with functions</font>
+    * <font color="magenta">example: min function (or something)</font>
+    * <font color="magenta">How to learn about functions you might want to use? --> We already learned a bit about the helping "?" function, but we can also look at how to google things.</font>
 
+Now that we have read in some data and have some idea of what
 
 
 
