@@ -26,11 +26,11 @@ source: Rmd
 
 
 
-## Assumptions -- FOR DEBUGGING
+## <span style="color:magenta">Assumptions -- FOR DEBUGGING</span>
 
- 1. Everybody has installed R and R studio
- 1. They have been able to run the install script we sent them and have all packages installed
- 1. They *do* need an intro to the layout of RStudio, and what everything does.
+ 1. <span style="color:magenta">Everybody has installed R and R studio</span>
+ 1. <span style="color:magenta">They have been able to run the install script we sent them and have all packages installed</span>
+ 1. <span style="color:magenta">They *do* need an intro to the layout of RStudio, and what everything does.</span>
 
 ## Getting to know R and RStudio
 
