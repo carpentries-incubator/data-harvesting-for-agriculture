@@ -497,6 +497,9 @@ Just like with our `weight_kg` and `weight_lb` variables before, it now shows up
  1. <font color="magenta">We can access the columns of your tabular dataset with a $ thing</font>
  1. <font color="magenta">We can access the rows of your tabular dataset with ... (not sure we wanna do this)</font>
 
+
+<font color="magenta">I am starting of with the "head" function because I think its more intuative than the "str" function and allows for a more gentle walk through of what a dataframe is, but I think this can definitely be open for debate and might just be my own biases of the order in which I learned things!</font>
+
 Now that you have your data imported into R, it would be nice to take a look at it!  One quick way to do this is using the `head` function like so:
 
 
@@ -742,7 +745,115 @@ The `str` function also tells us that our variable `fert_use` is a _dataframe_ b
     * <font color="magenta">example: min function (or something)</font>
     * <font color="magenta">How to learn about functions you might want to use? --> We already learned a bit about the helping "?" function, but we can also look at how to google things.</font>
 
-Now that we have read in some data and have some idea of what
+Now that we have read in some data and have some idea of what our dataset contains, let's actually think about manipulating our dataset!  One thing we might want to know is find out the time span overwhich this data was taken.  We can find out the minimum time in our dataset by applying the the `min` function on our `Year` column:
 
 
+```r
+min(fert_use$Year)
+```
+
+```
+## [1] 1964
+```
+
+And we can find the maximum year in our dataset in a similar fashion:
+
+
+```r
+max(fert_use$Year)
+```
+
+```
+## [1] 2016
+```
+
+Now we know our dataset is taken from 1964-2016!  This is of course something we could have known by reading the description of this table, so let's try something more interesting: the minimum measurement of Nitrogen:
+
+```r
+min(fert_use$Nitrogen)
+```
+
+```
+## [1] NA
+```
+
+Whoa!  What just happened?  In R, `NA` means missing data.  Let's take a look at a the first 50 entries of our `Nitrogen` column:
+
+
+```r
+head(fert_use$Nitrogen, n=50)
+```
+
+```
+##  [1] 1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 3773 3885 5210 5181 4888
+## [16] 5274 5244 5588 5360 3960 5391 5666 4807 4194 4499 4601 4748 4715 4887 4369
+## [31] 4603 4158 4829 4792 4846 4650 4909 4249 4720 4710 4792 5023 4690 5714 5224
+## [46] 4875 5610   NA   NA   NA
+```
+
+You can see from these first 50 entries, that we have a lot of `NA`
+values.  By default, if I apply the `min` function and it encounters any `NA` values, it returns `NA`.  To
+figure out what to do, let's look at the help page.  To find the help page for any
+function, type a question mark and then the name of the function.
+
+
+```r
+?min
+```
+
+Ah, there is an _optional parameter_ called `na.rm`, and the description of it says that it
+controls whether or not `NA` values are stripped out before calculating the mean.
+We can make R take out `NA`'s before calculating the minimum by setting the optional parameter to `TRUE`.
+(In R, `TRUE` and `FALSE` should always be in all caps.)
+
+
+```r
+min(fert_use$Nitrogen, na.rm = TRUE)
+```
+
+```
+## [1] 16
+```
+
+Hey it worked!  Let's try a few more examples.
+
+
+> ## Finding the Maximum Nitrogen Measurement
+>
+> Use the `max` function to calculate the maximum nitrogen measurement in your dataset.
+>
+> > ## Solution
+> >
+> > 
+> > ```r
+> > max(fert_use$Nitrogen, na.rm=TRUE)
+> > ```
+> > 
+> > ```
+> > ## [1] 6317
+> > ```
+> > 
+> > 
+> {: .solution}
+{: .challenge}
+
+> ## Maximum Crop
+>
+> What happens when you try to apply the max function to the `Crop` column?  Why do you think that is?
+>
+> > ## Solution
+> >
+> > 
+> > ```r
+> > max(fert_use$Crop, na.rm=TRUE)
+> > ```
+> > 
+> > ```
+> > ## Error in Summary.factor(structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, : 'max' not meaningful for factors
+> > ```
+> >
+> > The `max` function only is meaningful for numerical data, in this case you are trying to apply it to a column that is made up of categories and R got confused and printing out an error message.
+> > 
+> {: .solution}
+{: .challenge}
 
