@@ -163,7 +163,7 @@ R knows various types of data. The ones you are likely to come across are:
 
 * integer numbers
 * floating point numbers, and
-* names or words that sort data into "categories" <span style="color:magenta>(maybe something better here?)</span>
+* names or words that sort data into "categories" <span style="color:magenta">(maybe something better here?)  Save types of data until we get into the columns stuff?</span>
 
 In the example above, variable `weight_kg` has an integer value of `60`.
 To create a variable with a floating point value, we can execute:
