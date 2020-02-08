@@ -101,18 +101,29 @@ take notes!  Here is an example of a comment at the end of a line while we are d
 
 ## Variables in R
 
-<span style="color:magenta">I stole this bit from the Python Fundementals Episode, not sure if that is groovy or not.  I *think* its ok if we follow the rules of their license but we should double check. Also I've left in the links to glossary references that may or may not be there </span>
+### <span style="color:magenta">Outline of this Section</span>
+
+ 1. <span style="color:magenta">what is a variable? Vocab: *variable*</span>
+ 1. <span style="color:magenta">how do we assign a variable? Vocab: *assign*</span>
+ 1. <span style="color:magenta">What can we do with this variable? -> Generic manipulations (addition, multiplication, etc)</span>
+     * <span style="color:magenta">for this, use a "real world" thing that farmers might be into... something something nitrogen levels?</span>
+ 1. <span style="color:magenta">Talk about how this variable now shows up in the data area and have a screen shot of where that is</span>
+
+
+<span style="color:magenta">I stole this bit from the Python Fundementals Episode, not sure if that is groovy or not.  I *think* its ok if we follow the rules of their license but we should double check. I also stole a few things from the R-fundementals workshop and so we need to credit them as well.</span>
+
+<span style="color:magenta">Also I've left in the links to glossary references that may or may not be there - for example if you click on the "assign" link, it goes nowhere right now.</span>
 
 <span style="color:magenta">Also, we should change this whole `weight_kg` thing into something that is more agri-centric?  I think?</span>
 
 This is great but not very interesting.
 To do anything useful with data, we need to assign its value to a _variable_.
 In R, we can [assign]({{ page.root }}/reference/#assign) a value to a
-[variable]({{ page.root }}/reference/#variable), using the equals sign `=`.
+[variable]({{ page.root }}/reference/#variable), by typing a little left arrow sign `<-`.
 For example, to assign value `60` to a variable `weight_kg`, we would execute:
 
 ```{r}
-weight_kg = 60
+weight_kg <- 60
 ```
 
 From now on, whenever we use `weight_kg`, R will substitute the value we assigned to
@@ -128,18 +139,33 @@ This means that, for example:
  - `weight0` is a valid variable name, whereas `0weight` is not
  - `weight` and `Weight` are different variables
 
-## Types of data
+<span style="color:magenta">Also from the R-programming workshop, possibly said another way:</span>
+
+> ## Variable Naming Conventions
+>
+> Historically, R programmers have used a variety of conventions for naming variables. The `.` character
+> in R can be a valid part of a variable name; thus the above assignment could have easily been `weight.kg <- 57.5`.
+> This is often confusing to R newcomers who have programmed in languages where `.` has a more significant meaning.
+> Today, most R programmers 1) start variable names with lower case letters, 2) separate words in variable names with
+> underscores, and 3) use only lowercase letters, underscores, and numbers in variable names. The book *R Packages* includes
+> a [chapter](http://r-pkgs.had.co.nz/style.html) on this and other style considerations.
+{: .callout}
+
+### Types of data
+
+<span style="color:magenta">Do we need to get into datatypes here?  Or can we just skip it and get into it when we look at an actual dataset that has columns of different datatypes?</span>
+
 R knows various types of data. The ones you are likely to come across are:
 
-* integer numbers
-* floating point numbers, and
+* integer numbers (whole numbers)
+* floating point numbers (numbers with decimals), and
 * names or words that sort data into "categories" <span style="color:magenta">(maybe something better here?)  Save types of data until we get into the columns stuff?</span>
 
 In the example above, variable `weight_kg` has an integer value of `60`.
 To create a variable with a floating point value, we can execute:
 
 ```{r}
-weight_kg = 60.0
+weight_kg <- 60.0
 ```
 
 <span style="color:magenta">Here I don't know if we should get into the print function right now like they do in the Python lesson or not</span>
@@ -149,10 +175,10 @@ weight_kg = 60.0
 We can do arithematic with variables like we did with numbers before:
 
 ```{r}
-# Performing arithmetic with our variable
-weight_kg = 60.0 + 5.5
+# Performing arithmetic with our variable: multiply it by a factor of 2.2
+weight_kg * 2.2
 ```
-<!-- wieght in lbs = 2.2 x weight in kg -->
+<!-- weight in lbs = 2.2 x weight in kg -->
 
 
 The above command, however, did not change the value of `weight_kg`:
@@ -165,7 +191,7 @@ To change the value of the `weight_kg` variable, we have to
 **assign** `weight_kg` a new value using the equals `<-` sign:
 
 ```{r}
-weight_kg <- 65.0
+weight_kg <- 60.0 * 2.2
 weight_kg
 ```
 
@@ -207,25 +233,83 @@ weight_kg
 {: .callout}
 
 
+<span style="color:magenta">Note: there is another way of explaining this in the R lesson - [http://swcarpentry.github.io/r-novice-inflammation/01-starting-with-data/index.html](http://swcarpentry.github.io/r-novice-inflammation/01-starting-with-data/index.html)</span>
 
- 1. <span style="color:magenta">what is a variable? Vocab: *variable*</span>
- 1. <span style="color:magenta">how do we assign a variable? Vocab: *assign*</span>
- 1. <span style="color:magenta">What can we do with this variable? -> Generic manipulations (addition, multiplication, etc)</span>
-     * <span style="color:magenta">for this, use a "real world" thing that farmers might be into... something something nitrogen levels?</span>
- 1. <span style="color:magenta">Talk about how this variable now shows up in the data area and have a screen shot of where that is</span>
+<span style="color:magenta">Do we want to have this example for them too or just get right into scripts and whatnot?</span>
+
+> ## Assigning Values to Variables
+>
+> Draw diagrams showing what variables refer to what values after each statement in the following program:
+>
+> ~~~
+> mass <- 47.5
+> age <- 122
+> mass <- mass * 2.0
+> age <- age - 20
+> ~~~
+> {: .language-r}
+>
+> > ## Solution
+> >
+> > ~~~
+> > mass <- 47.5
+> > age <- 122
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/mass-age-assign-1.svg" alt="Assigning Variables" />
+> >
+> > ~~~
+> > mass <- mass * 2.0
+> > age <- age - 20
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/mass-age-assign-2.svg" alt="Assigning Variables" />
+> > 
+> {: .solution}
+{: .challenge}
+
 
 ## Writing and Savings R Scripts
 
- 1. Analogy - scripting is like writing a set of instructions, a letter, something. Vocab: *scripts/scripting*
- 1. Where do we write scripts in RStudio - screen shot of window, a screen shot of what to do if there is only the console and no script - how do you open a script interface
- 1. Redo stuff with variable in script (nitrogen levels calculation), but call it something different
- 1. How to run a script - Run vs. Source -> they are in the same place!  Screenshot of this. Vocab: *running a script*
- 1. Point out that it shows up in the data-listing place
- 1. ~~How do we find out the value of our new variable that we wrote in a script?~~
-    1. ~~Using the console like before - because in RStudio the console and scripting interface are linked! (this is not true in other things like PyCharm... this is slightly an aside though so use an aside thing)~~
-    1. ~~Using a print statement - emphasize that you *have* to use print in the script to see the variable!~~
- 1. How to save our script -> where does it save to?
- 1. Closing and re-opening a script to re-run.
+
+### <span style="color:magenta">Outline of this section</span>
+ 1. <span style="color:magenta">Analogy - scripting is like writing a set of instructions, a letter, something. Vocab: *scripts/scripting* </span>
+ 1. <span style="color:magenta">Where do we write scripts in RStudio - screen shot of window, a screen shot of what to do if there is only the console and no script - how do you open a script interface </span>
+ 1. <span style="color:magenta">Redo stuff with variable in script (nitrogen levels calculation), but call it something different</span>
+ 1. <span style="color:magenta">How to run a script - Run vs. Source -> they are in the same place!  Screenshot of this. Vocab: *running a script*</span>
+ 1. <span style="color:magenta">Point out that it shows up in the data-listing place</span>
+ 1. <span style="color:magenta">~~How do we find out the value of our new variable that we wrote in a script?~~</span>
+    1. <span style="color:magenta">~~Using the console like before - because in RStudio the console and scripting interface are linked! (this is not true in other things like PyCharm... this is slightly an aside though so use an aside thing)~~</span>
+    1. <span style="color:magenta">~~Using a print statement - emphasize that you *have* to use print in the script to see the variable!~~</span>
+ 1. <span style="color:magenta">How to save our script -> where does it save to?</span>
+ 1. <span style="color:magenta">Closing and re-opening a script to re-run.</span>
+
+
+Now that we have some idea of what kinds of calculations we want to do in R, we might want to know how to save our work.  We do this in something called a _script_ which is essentially a list of instructions that will tell R what to do, in the order we give them.
+
+We can open up a _script file_ where we will type in all our instructions by going to the little green plus at the top left of RStudio and selecting "R Script" from the dropdown menu <span style="color:magenta">(this was for a Mac, not sure if its different for windows)</span>:
+
+<img src="../fig/opening_script_in_Rstudio.png" alt="Opening a script in Rstudio">
+
+In our new scripting window, we can type the commands that we had worked through before into this script and then tell R to do the calculation by putting our cursor on the last line (end of line 3) and pressing the "Run" button in the upper right corner of the scripting window:
+
+<img src="../fig/output_script_save-02.png" alt="Run a script">
+
+<span style="color:magenta">Do we want to teach them about Source vs. Run at this point? </span>
+
+You can see that these variable names have now popped up in the _Global Environment_ window at the upper left -- this is a way we can keep track of our variables as we run our scripts.
+
+Finally, we want to be able to save all of our hard work!  We can do this like we would save any file on our computer, but make sure you put it in a place were you'll remember on your computer
+<span style="color:magenta">(do we need screen shots?  I assume everybody knows how to save a file and how to choose where to save it but maybe this isn't 100% correct?)</span>.
+
+You'll note now that the little upper tab on the left of the scripting window has the file name I chose, but with the extension `.R`.  This is the extension of an R-script and it means that its in a format that R can execute.
+
+<img src="../fig/output_script_save-03.png" alt="save a script">
+
+If you close this file and want to re-open it, you can use `File -> Open File...` to open it up in R. <span style="color:magenta">(This could be different on a Windows, also not sure how much detail we want here and if we want a screen shot or not)</span>
+
 
 ## OPTIONAL: What is a function?
 
