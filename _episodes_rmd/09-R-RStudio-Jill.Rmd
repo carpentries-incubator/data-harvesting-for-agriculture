@@ -46,6 +46,7 @@ We launch RStudio by double clicking on it's icon, as we would with other softwa
 ![](screenshots/Rstudio_blank.png")
 
 
+
 This has a prompt where
 commands can be entered.
 
