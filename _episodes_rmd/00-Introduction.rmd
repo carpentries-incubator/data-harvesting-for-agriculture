@@ -6,6 +6,8 @@ After attending our workshop, you will be able to develop small computer program
 
 Don't worry -- we're not asking you to develop research software from scratch! We'll be providing you with scripts and programs that will perform most of the work for you. However, helping you understand the way the software works will let you run different scenarios for yourself and decide among several alternatives for your business.
 
+# What you'll learn
+
 By the end of this workshop, you will know more about:
 * How to understand more about the data coming from your agricultural equipment
 * What you can do with it yourself using free and open source tools
@@ -18,5 +20,20 @@ To do this, we'll be introducing you to:
 * Geospatial data types that you may encounter, how to tell them apart, and how to use them for your own location
 * Commonly used file formats that your agricultural equipment may provide, how to tell them apart, and how to know what to do with each of them
 * Basic data cleaning processses so that you'll get more useful and effective results from analysis of your farm's or your region's data
-* Ways to calculate the most cost-effective nitrogen application rates and assess the effectiveness of the results
+* Ways to calculate the most cost-effective application rates and assess the effectiveness of the results
 * How to design a custom set of variable application rates for your own farm, apply them, and analyze the results consistently across multiple years
+ 
+# What to bring
+While our lessons are taught with sample data so that everyone can follow along with the same set of numbers and values and check their results, you can get additional benefits from this workshop if you bring along some data that's relevant to your own farm.
+
+Here's what to bring to this workshop:
+* A laptop (Windows, Mac, or Linux)
+* Past yield maps
+* A boundary file for the areas you'd like to analyze
+* Machinery widths (if you have them; if not, we can estimate)
+* Any prescription maps you use for your fields
+* (If you already do variable rate application) Past application maps
+* A-B line or guidance line information
+
+# Some workshop guidelines
+We'll have instructors and helpers available throughout the day to help you get over any hurdles if you get stuck.
