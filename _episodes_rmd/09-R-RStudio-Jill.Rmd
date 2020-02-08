@@ -101,11 +101,118 @@ take notes!  Here is an example of a comment at the end of a line while we are d
 
 ## Variables in R
 
- 1. what is a variable? Vocab: *variable*
- 1. how do we assign a variable? Vocab: *assign*
- 1. What can we do with this variable? -> Generic manipulations (addition, multiplication, etc)
-     * for this, use a "real world" thing that farmers might be into... something something nitrogen levels?
- 1. Talk about how this variable now shows up in the data area and have a screen shot of where that is
+<span style="color:magenta">I stole this bit from the Python Fundementals Episode, not sure if that is groovy or not.  I *think* its ok if we follow the rules of their license but we should double check. Also I've left in the links to glossary references that may or may not be there </span>
+
+<span style="color:magenta">Also, we should change this whole `weight_kg` thing into something that is more agri-centric?  I think?</span>
+
+This is great but not very interesting.
+To do anything useful with data, we need to assign its value to a _variable_.
+In R, we can [assign]({{ page.root }}/reference/#assign) a value to a
+[variable]({{ page.root }}/reference/#variable), using the equals sign `=`.
+For example, to assign value `60` to a variable `weight_kg`, we would execute:
+
+```{r}
+weight_kg = 60
+```
+
+From now on, whenever we use `weight_kg`, R will substitute the value we assigned to
+it. In layman's terms, **a variable is a name for a value**.
+
+In R, variable names:
+
+ - can include letters, digits, and underscores
+ - cannot start with a digit
+ - are [case sensitive]({{ page.root }}/reference/#case-sensitive).
+
+This means that, for example:
+ - `weight0` is a valid variable name, whereas `0weight` is not
+ - `weight` and `Weight` are different variables
+
+## Types of data
+R knows various types of data. The ones you are likely to come across are:
+
+* integer numbers
+* floating point numbers, and
+* names or words that sort data into "categories" <span style="color:magenta>(maybe something better here?)</span>
+
+In the example above, variable `weight_kg` has an integer value of `60`.
+To create a variable with a floating point value, we can execute:
+
+```{r}
+weight_kg = 60.0
+```
+
+<span style="color:magenta">Here I don't know if we should get into the print function right now like they do in the Python lesson or not</span>
+
+<span style="color:magenta">I also don't know if we want to use "<-" all the time or the "=" sign.  I *feel* like "=" is more intiuative but I'm not 100% sure on that one, could be my Python bias showing :)</span>
+
+We can do arithematic with variables like we did with numbers before:
+
+```{r}
+# Performing arithmetic with our variable
+weight_kg = 60.0 + 5.5
+```
+<!-- wieght in lbs = 2.2 x weight in kg -->
+
+
+The above command, however, did not change the value of `weight_kg`:
+
+```{r}
+weight_kg
+```
+
+To change the value of the `weight_kg` variable, we have to
+**assign** `weight_kg` a new value using the equals `<-` sign:
+
+```{r}
+weight_kg <- 65.0
+weight_kg
+```
+
+
+> ## Variables as Sticky Notes
+>
+> A variable is analogous to a sticky note with a name written on it:
+> assigning a value to a variable is like putting that sticky note on a particular value.
+>
+> ![Variables as Sticky Notes](../fig/python-sticky-note-variables-01.svg)
+>
+> This means that assigning a value to one variable does **not** change
+> values of other variables.
+> For example, let's store the subject's weight in pounds in its own variable:
+>
+> ```{r}
+> # There are 2.2 pounds per kilogram
+> weight_lb <- 2.2 * weight_kg
+> weight_kg
+> weight_lb
+> ```
+>
+>
+> ![Creating Another Variable](../fig/python-sticky-note-variables-02.svg)
+>
+> Let's now change `weight_kg`:
+>
+> ```{r}
+> weight_kg <- 100.0
+> weight_kg
+> weight_lb
+> ```
+> We can see that even though we updated `weight_kg`, the variable `weight_lb` was not changed.
+>
+> ![Updating a Variable](../fig/python-sticky-note-variables-03.svg)
+>
+> Since `weight_lb` doesn't "remember" where its value comes from,
+> it is not updated when we change `weight_kg`.
+{: .callout}
+
+
+
+ 1. <span style="color:magenta">what is a variable? Vocab: *variable*</span>
+ 1. <span style="color:magenta">how do we assign a variable? Vocab: *assign*</span>
+ 1. <span style="color:magenta">What can we do with this variable? -> Generic manipulations (addition, multiplication, etc)</span>
+     * <span style="color:magenta">for this, use a "real world" thing that farmers might be into... something something nitrogen levels?</span>
+ 1. <span style="color:magenta">Talk about how this variable now shows up in the data area and have a screen shot of where that is</span>
 
 ## Writing and Savings R Scripts
 

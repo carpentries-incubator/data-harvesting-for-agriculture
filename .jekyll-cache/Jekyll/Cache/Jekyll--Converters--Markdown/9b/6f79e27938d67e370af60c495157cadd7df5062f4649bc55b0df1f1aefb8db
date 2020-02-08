@@ -1,4 +1,4 @@
-I"H&<!-- JPN: updated fig path here manually for plots to show -->
+I"�E<!-- JPN: updated fig path here manually for plots to show -->
 
 <h2 id="assumptions--for-debugging">Assumptions – FOR DEBUGGING</h2>
 
@@ -94,15 +94,135 @@ take notes!  Here is an example of a comment at the end of a line while we are d
 
 <h2 id="variables-in-r">Variables in R</h2>
 
+<p><span style="color:magenta">I stole this bit from the Python Fundementals Episode, not sure if that is groovy or not.  I <em>think</em> its ok if we follow the rules of their license but we should double check. Also I’ve left in the links to glossary references that may or may not be there </span></p>
+
+<p><span style="color:magenta">Also, we should change this whole <code class="highlighter-rouge">weight_kg</code> thing into something that is more agri-centric?  I think?</span></p>
+
+<p>This is great but not very interesting.
+To do anything useful with data, we need to assign its value to a <em>variable</em>.
+In R, we can <a href="../reference/#assign">assign</a> a value to a
+<a href="../reference/#variable">variable</a>, using the equals sign <code class="highlighter-rouge">=</code>.
+For example, to assign value <code class="highlighter-rouge">60</code> to a variable <code class="highlighter-rouge">weight_kg</code>, we would execute:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">60</span><span class="w">
+</span></code></pre></div></div>
+
+<p>From now on, whenever we use <code class="highlighter-rouge">weight_kg</code>, R will substitute the value we assigned to
+it. In layman’s terms, <strong>a variable is a name for a value</strong>.</p>
+
+<p>In R, variable names:</p>
+
+<ul>
+  <li>can include letters, digits, and underscores</li>
+  <li>cannot start with a digit</li>
+  <li>are <a href="../reference/#case-sensitive">case sensitive</a>.</li>
+</ul>
+
+<p>This means that, for example:</p>
+<ul>
+  <li><code class="highlighter-rouge">weight0</code> is a valid variable name, whereas <code class="highlighter-rouge">0weight</code> is not</li>
+  <li><code class="highlighter-rouge">weight</code> and <code class="highlighter-rouge">Weight</code> are different variables</li>
+</ul>
+
+<h2 id="types-of-data">Types of data</h2>
+<p>R knows various types of data. The ones you are likely to come across are:</p>
+
+<ul>
+  <li>integer numbers</li>
+  <li>floating point numbers, and</li>
+  <li>names or words that sort data into “categories” &lt;span style=”color:magenta&gt;(maybe something better here?)&lt;/span&gt;</li>
+</ul>
+
+<p>In the example above, variable <code class="highlighter-rouge">weight_kg</code> has an integer value of <code class="highlighter-rouge">60</code>.
+To create a variable with a floating point value, we can execute:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">60.0</span><span class="w">
+</span></code></pre></div></div>
+
+<p><span style="color:magenta">Here I don’t know if we should get into the print function right now like they do in the Python lesson or not</span></p>
+
+<p><span style="color:magenta">I also don’t know if we want to use “&lt;-“ all the time or the “=” sign.  I <em>feel</em> like “=” is more intiuative but I’m not 100% sure on that one, could be my Python bias showing :)</span></p>
+
+<p>We can do arithematic with variables like we did with numbers before:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Performing arithmetic with our variable</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">60.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">5.5</span><span class="w">
+</span></code></pre></div></div>
+<!-- wieght in lbs = 2.2 x weight in kg -->
+
+<p>The above command, however, did not change the value of <code class="highlighter-rouge">weight_kg</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 65.5
+</code></pre></div></div>
+
+<p>To change the value of the <code class="highlighter-rouge">weight_kg</code> variable, we have to
+<strong>assign</strong> <code class="highlighter-rouge">weight_kg</code> a new value using the equals <code class="highlighter-rouge">&lt;-</code> sign:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">65.0</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 65
+</code></pre></div></div>
+
+<blockquote class="callout">
+  <h2 id="variables-as-sticky-notes">Variables as Sticky Notes</h2>
+
+  <p>A variable is analogous to a sticky note with a name written on it:
+assigning a value to a variable is like putting that sticky note on a particular value.</p>
+
+  <p><img src="../fig/python-sticky-note-variables-01.svg" alt="Variables as Sticky Notes" /></p>
+
+  <p>This means that assigning a value to one variable does <strong>not</strong> change
+values of other variables.
+For example, let’s store the subject’s weight in pounds in its own variable:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># There are 2.2 pounds per kilogram</span><span class="w">
+</span><span class="n">weight_lb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">weight_kg</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 65
+</code></pre></div>  </div>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_lb</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 143
+</code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weight in kilograms: 65.0 and in pounds: 143.0
+</code></pre></div>  </div>
+
+  <p><img src="../fig/python-sticky-note-variables-02.svg" alt="Creating Another Variable" /></p>
+
+  <p>Let’s now change <code class="highlighter-rouge">weight_kg</code>:</p>
+
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span> <span class="o">=</span> <span class="mf">100.0</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'weight in kilograms is now:'</span><span class="p">,</span> <span class="n">weight_kg</span><span class="p">,</span> <span class="s">'and weight in pounds is still:'</span><span class="p">,</span> <span class="n">weight_lb</span><span class="p">)</span>
+</code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weight in kilograms is now: 100.0 and weight in pounds is still: 143.0
+</code></pre></div>  </div>
+
+  <p><img src="../fig/python-sticky-note-variables-03.svg" alt="Updating a Variable" /></p>
+
+  <p>Since <code class="highlighter-rouge">weight_lb</code> doesn’t “remember” where its value comes from,
+it is not updated when we change <code class="highlighter-rouge">weight_kg</code>.</p>
+</blockquote>
+
 <ol>
-  <li>what is a variable? Vocab: <em>variable</em></li>
-  <li>how do we assign a variable? Vocab: <em>assign</em></li>
-  <li>What can we do with this variable? -&gt; Generic manipulations (addition, multiplication, etc)
+  <li><span style="color:magenta">what is a variable? Vocab: <em>variable</em></span></li>
+  <li><span style="color:magenta">how do we assign a variable? Vocab: <em>assign</em></span></li>
+  <li><span style="color:magenta">What can we do with this variable? -&gt; Generic manipulations (addition, multiplication, etc)</span>
     <ul>
-      <li>for this, use a “real world” thing that farmers might be into… something something nitrogen levels?</li>
+      <li><span style="color:magenta">for this, use a “real world” thing that farmers might be into… something something nitrogen levels?</span></li>
     </ul>
   </li>
-  <li>Talk about how this variable now shows up in the data area and have a screen shot of where that is</li>
+  <li><span style="color:magenta">Talk about how this variable now shows up in the data area and have a screen shot of where that is</span></li>
 </ol>
 
 <h2 id="writing-and-savings-r-scripts">Writing and Savings R Scripts</h2>
