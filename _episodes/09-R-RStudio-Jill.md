@@ -3,6 +3,7 @@
 # Instead, please edit 09-R-RStudio-Jill.md in _episodes_rmd/
 title: "JILLS: Introduction to R and RStudio"
 questions:
+- <font color="magenta">THESE ARE NOT UPDATED -- WE CAN DO THIS LAST</font>
 - "How can I work with a spreadsheet in a more advanced and reproducible manner than using MS Excel?"
 - "How can I keep my data and analysis organized?"
 - "How can I visualize my data with graphs?"
@@ -20,6 +21,8 @@ objectives:
 - "Make a scatter plot using ggplot2"
 source: Rmd
 ---
+
+
 
 <!-- JPN: updated fig path here manually for plots to show -->
 
@@ -404,7 +407,7 @@ phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the
 US from 1964-2016.
 
 This table has been reformatted into a CSV file for ease of import into
-R.  You can download the CSV from: <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv" download>https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv</a>.
+R.  You can download the CSV from: <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv" download>https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv</a>. <font color="magenta">NOTE: I had to *explicitly* save this as a .csv file, it default downloaded as a txt file.  And I had to right-click on the link to save it at all, eventhough I had the download tag in the HTML.  Not sure how to fix this at the moment.</font>
 
 The top few lines of this file look like:
 
@@ -479,13 +482,250 @@ fert_use <- read.csv("data/fertilizer_use.csv")
 
 Note here that the name of the function is `read.csv`, the _input parameter_ is the name of the file we want to read in, including the `data` folder we created earlier.  The `/` after `data` just indicates to R that it should look inside this folder for the file named `fertilizer_use.csv`.  <font color="magenta">(Again here, I'm assuming we already went over how to make the data folder, how to save stuff inside the data folder, and whatnot)</font>.  We _assigned_ the value of this table -- all of its row and column data -- into a variable called `fert_use`.
 
+Just like with our `weight_kg` and `weight_lb` variables before, it now shows up in the _Global Environment_ window at the upper left of RStudio.
 
 
+### Explore your data in R <font color="magenta">(could be part of previous or own thing, not sure)</font>
 
-### Explore your data in R (could be part of previous or own thing, not sure)
+#### <font color="magenta">Outline for this section</font>
+ 1. <font color="magenta">Explore your data with the "head" function -- JPN's personal preference instead of the "str" function, but I've kept in both here in case we want them</font>
+ 1. <span style="color:magenta">Another function example: using `str()` to look at your data real quick??</span>
+ 1. <font color="magenta">Also show how to look at your data in R (like "View(data)")? Maybe?  Or you can click on it?</font>
 
- 1. Another function example: using `str()` to look at your data real quick
- 1. Also show how to look at your data in R (like "View(data)")? Maybe?  Or you can click on it?
+Now that you have your data imported into R, it would be nice to take a look at it!  One quick way to do this is using the `head` function like so:
+
+
+```r
+head(fert_use)
+```
+
+```
+##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+## 5 1968 Corn     3116      1855   1778
+## 6 1969 Corn     3287      1789   1765
+```
+
+This lets us look at our table of data, but it formats things in a nice way, with the name of each column at the top and the row numbered on the left side.
+
+We can also control how many rows print out by including an _optional parameter_ in our function call:
+
+
+```r
+head(fert_use, n=4)
+```
+
+```
+##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+```
+
+Note that we can call the `head` function without this parameter and it will run just fine with some default value.  If we want to specify the number of rows, we include this as `parameter name = parameter value`.  In this case, our `parameter name` for the `head` function is `n` and the `parameter value` is `4`.  Different functions will have different parameter names and we can find out more information about these parameters by appending a `?` to the front of our function call which will print out a bit of info about these optional parameters:
+
+
+```r
+?head
+```
+
+<!-- JPN: this looks not great
+> ### Finding Help for a Function
+>
+> 
+> ```r
+> ?head
+> ```
+>
+> Will output:
+> 
+> 
+> <table width="100%" summary="page for head {utils}"><tr><td>head {utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+> 
+> <h2>
+> Return the First or Last Part of an Object
+> </h2>
+> 
+> <h3>Description</h3>
+> 
+> <p>Returns the first or last parts of a vector, matrix, table, data frame
+> or function.  Since <code>head()</code> and <code>tail()</code> are generic
+> functions, they may also have been extended to other classes.
+> </p>
+> 
+> 
+> <h3>Usage</h3>
+> 
+> <pre>
+> head(x, ...)
+> ## Default S3 method:
+> head(x, n = 6L, ...)
+> ## S3 method for class 'data.frame'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'matrix'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'ftable'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'table'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'function'
+> head(x, n = 6L, ...)
+> 
+> tail(x, ...)
+> ## Default S3 method:
+> tail(x, n = 6L, ...)
+> ## S3 method for class 'data.frame'
+> tail(x, n = 6L, ...)
+> ## S3 method for class 'matrix'
+> tail(x, n = 6L, addrownums = TRUE, ...)
+> ## S3 method for class 'ftable'
+> tail(x, n = 6L, addrownums = FALSE, ...)
+> ## S3 method for class 'table'
+> tail(x, n = 6L, addrownums = TRUE, ...)
+> ## S3 method for class 'function'
+> tail(x, n = 6L, ...)
+> </pre>
+> 
+> 
+> <h3>Arguments</h3>
+> 
+> <table summary="R argblock">
+> <tr valign="top"><td><code>x</code></td>
+> <td>
+> <p>an object</p>
+> </td></tr>
+> <tr valign="top"><td><code>n</code></td>
+> <td>
+> <p>a single integer.  If positive or zero, size for the resulting
+> object: number of elements for a vector (including lists), rows for
+> a matrix or data frame or lines for a function.  If negative, all but
+> the <code>n</code> last/first number of elements of <code>x</code>.</p>
+> </td></tr>
+> <tr valign="top"><td><code>addrownums</code></td>
+> <td>
+> <p>if there are no row names, create them from the row
+> numbers.</p>
+> </td></tr>
+> <tr valign="top"><td><code>...</code></td>
+> <td>
+> <p>arguments to be passed to or from other methods.</p>
+> </td></tr>
+> </table>
+> 
+> 
+> <h3>Details</h3>
+> 
+> <p>For matrices, 2-dim tables and data frames, <code>head()</code> (<code>tail()</code>) returns
+> the first (last) <code>n</code> rows when <code>n &gt;= 0</code> or all but the
+> last (first) <code>n</code> rows when <code>n &lt; 0</code>.  <code>head.matrix()</code> and
+> <code>tail.matrix()</code> are exported.  For functions, the
+> lines of the deparsed function are returned as character strings.
+> </p>
+> <p>If a matrix has no row names, then <code>tail()</code> will add row names of
+> the form <code>"[n,]"</code> to the result, so that it looks similar to the
+> last lines of <code>x</code> when printed.  Setting
+> <code>addrownums = FALSE</code> suppresses this behaviour.
+> </p>
+> 
+> 
+> <h3>Value</h3>
+> 
+> <p>An object (usually) like <code>x</code> but generally smaller.  For
+> <code><a href="../../stats/html/ftable.html">ftable</a></code> objects <code>x</code>, a transformed <code>format(x)</code>.
+> </p>
+> 
+> 
+> <h3>Author(s)</h3>
+> 
+> <p>Patrick Burns, improved and corrected by R-Core. Negative argument
+> added by Vincent Goulet.
+> </p>
+> 
+> 
+> <h3>Examples</h3>
+> 
+> <pre>
+> head(letters)
+> head(letters, n = -6L)
+> 
+> head(freeny.x, n = 10L)
+> head(freeny.y)
+> 
+> tail(letters)
+> tail(letters, n = -6L)
+> 
+> tail(freeny.x)
+> tail(freeny.y)
+> 
+> tail(library)
+> 
+> head(stats::ftable(Titanic))
+> </pre>
+> 
+> <hr /><div style="text-align: center;">[Package <em>utils</em> version 3.6.2 <a href="00Index.html">Index</a>]</div>
+{: .callout}
+-->
+
+
+Now let's say we want to look at only the first few entries of the `Years` column of our dataset?  We can do this by making use of the fact that our variable `fert_use` is a special type of variable called a _dataframe_ which allows us to use special notation to print out individual columns by saying `dataframe name $ dataframe column`:
+
+
+```r
+head(fert_use$Year, n=4)
+```
+
+```
+## [1] 1964 1965 1966 1967
+```
+
+Here the label of the column, `Year` is used to access this column alone and print out its first 4 entries.  Let's try another one:
+
+
+```r
+head(fert_use$Crop, n=4)
+```
+
+```
+## [1] Corn Corn Corn Corn
+## Levels: Corn Cotton Other Soybeans Wheat
+```
+
+We'll note we got a bit of extra information when we are looking at the `Crop` column.  With the column `Years`, Here, R has stored this column as 
+
+#### <font color="magenta">Using str </font>
+
+<font color="magenta">Is there a strong reason to use "str" instead of head?  I feel like we have to explain more using str.  I've included how I would re-write this portion, but my personal vote is to use the "head" command above instead of having to go into column types right now.</font>
+
+The `str` function is helpful
+for getting a quick look:
+
+
+```r
+str(fert_use)
+```
+
+```
+## 'data.frame':	265 obs. of  5 variables:
+##  $ Year     : int  1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 ...
+##  $ Crop     : Factor w/ 5 levels "Corn","Cotton",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Nitrogen : int  1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 ...
+##  $ Phosphate: int  1053 1336 1626 1857 1855 1789 2136 2024 1994 1988 ...
+##  $ Potash   : int  829 1204 1513 1750 1778 1765 2046 1946 1992 2052 ...
+```
+
+Note here that `str` is the function name that we _called_ with the _input parameter_ of `fert_use` which is the variable that is storing our table of data.
+
+The `str` function prints out the first few entries of each row, the `...` just means that it has truncated its output for the sake of clarity.
+
+We see that the `str` function is also telling us something about how our data is formatted:
+ * There are 5 columns (variables) in our dataset - `Year`, `Crop`, `Nitrogen` <font color="magenta">(something? units?)</font>, `Phosphate`, and `Potash`.
+ * There are 265 `observations`, or rows, in our dataset
+ * The `Year`, `Nitrogen`, `Phosphate`, and `Potash` columns are `int` types, meaning they are comprised of whole numbers (numbers without decimals)
+ * The `Crop` column is being interpreted in R as something called a `factor`.  This is a way to represent data that is comprised of categories, in this case we are told there are 5 `levels` which just means there are only 5 categories of crop in this dataset.  The trailing 1's are just R's way of tagging which row entry in this column is in what category - a 1 means an entry that is tagged as "Corn".  <font color="magenta">(I am not 100% on this, I *think* this is what R is doing but I am not sure)</font>
 
 
 ## Doing stuff with data in R (better name obvs)
