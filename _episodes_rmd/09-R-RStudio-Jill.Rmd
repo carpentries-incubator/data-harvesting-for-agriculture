@@ -132,7 +132,7 @@ weight_kg <- 60
 ```
 
 From now on, whenever we use `weight_kg`, R will substitute the value we assigned to
-it. In layman's terms, **a variable is a name for a value**.
+it. In layman's terms, **a variable is a placeholder name for something that can be updated regularly**. (In calendar terms, "today" is a variable name that represents a date that changes every 24 hours. Being able to refer to something as "today" is a lot simpler than updating that number every day at midnight.)
 
 In R, variable names:
 
