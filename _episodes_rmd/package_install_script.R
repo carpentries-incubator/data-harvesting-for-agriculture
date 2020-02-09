@@ -1,3 +1,9 @@
+# People who are installing in advance to put this on their own computer 
+# should run this script. It will likely take several hours.
+#
+# People who are using USB keys SHOULD NOT run this script. This has all been done 
+# on the USB keys already, to save time during the workshop.
+
 install.packages("ggplot2")
 install.packages("rgdal") # I'm not sure that we ever use rgdal as we use class sf rather than spdf; I will check this
 install.packages("dplyr") 
@@ -12,24 +18,4 @@ install.packages("raster")
 install.packages("data.table")
 install.packages("broom")
 
-#install.packages("tibble") # need this or no? # I believe this is installed with dplyr so no, but I will check this
-# Can confirm it's installed with dplyr - Dena
-
-# to use
-library("ggplot2")
-library("rgdal")
-library("dplyr")
-library("sf")
-library("gstat")
-library("tmap")
-library("measurements")
-library("daymetr")
-library("FedData")
-library("lubridate")
-library("raster")
-library("data.table")
-library("broom")
-
-# test ggplot2
-df = data.frame("x"=c(1,2,3), "y"=c(1,2,3))
-ggplot(df, aes(x=x, y=y)) + geom_point()
+# The next step is to run the load-and-test script.
