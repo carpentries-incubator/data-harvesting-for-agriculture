@@ -149,7 +149,14 @@ utmzone
 We can see that `r mean(st_bbox(trial)[c(1,3)])` corresponds to UTM zone
 `r utmzone`.
 
-####Projection for utm
+####Projection for UTM
+
+**Dena's comprehension check here: The way to recognize the difference between 
+UTM and WGS584 is whether some data or piece of code starts with 326 or 4326? From
+reading what's here, it gives me the impression that that's more of
+an external thing than something you'd see in the file/data? How do you know which one
+you're looking at if you don't already know? I'd like to brainstorm on a way to make this
+section a little easier to understand without doing damage to accuracy.**
 
 Using the UTM zone we calculated above, we now need the full ESPG code to
 transform the file to the new CRS. EPSG Geodetic Parameter Dataset is a public
@@ -173,6 +180,8 @@ files will need to be transformed back into WGS84 before you implement the trial
 all files from your machinery, such as yield, as-applied, and as-planted, will be 
 reported in latitude and longitude.
 
+**Dena: What differences do you see in the data itself to recognize whether you're looking at
+WGS84 or UTM in order to know which code you need to use in the transformation?**
 
 ####Transform the projection of file
 
@@ -186,7 +195,7 @@ trialutm <- st_transform(trial, projutm)
 **Exercise**
 1. Bring the file called "hord_f98_asplanted_2017.shp" in your environment. Name
 the object `planting`. This file contains the planting information for 2017.
-2. Identify the CRS of the object.
+2. Identify the CRS of the object. **Dena: So far I haven't seen anything that would help them understand how to do this, unless 326 or 4326 appear somewhere in code or data we haven't shown them in text yet? Or else I've missed something key that it may help to add in.**
 3. Look at the geometry features. What kind of geometric features are in this dataset?
 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
 
@@ -204,10 +213,11 @@ planting_latlong <- st_transform(planting, 4326)
 
 crs(planting_latlong)
 ```
+**Dena - It looks like this section needs a conflict resolved, this is an unresolved Git conflict marker**
 <<<<<<< HEAD
 The cleaned planting file was in UTM initially. The zone is 17 which is to be expected 
 as it is from the same field as the trial design file we worked with earlier. When we
-look at the geometry features, they are 6,277 points defined in x and y coordinates. 
+look at the geometry features, they are 6,277 points defined in x and y coordinates.
 Using the ESPG for lat/long we covered earlier 4326, we create a new file called
 `planting_latlong` with the CRS of WGS84.
 
@@ -243,6 +253,8 @@ st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 The new .gpkg file will be visible in your working directory. One common problem
 with these files is that when you try to open a .gpkg file for the first time in
 R, it might not work if you haven't opened it in QGIS before.
+**Dena: Any idea why this is? During Thursday's meeting, we weren't sure if we were going to get into
+QGIS. If this is something that is critical, we should make sure to get QGIS available.**
 
 ####Visualize the trial map
 
@@ -317,10 +329,12 @@ ab_line <-st_sf(id = 'ab_line', st_sfc(ab_string))
 ```
 
 Now we must assign the CRS of the line. We know that the coordinates were taken
-from an object in WGS84, so we can assign the same CRS with `st_crs` and typing
+from an object in WGS84, **Dena - How do we know that?** so we can assign the same 
+CRS with `st_crs` and typing
 out the correct `crs`. Another way we can do this is by using `crs()`. This
 second method is preferred to avoid mistakes when remembering the UTM zone of
-multiple files.
+multiple files. **Dena: If the second method is preferred, then let's not introduce
+the first method, so that the instructions they see lead them to do the right thing.**
 
 ```{r ab_lineproj}
 st_crs(ab_line) <- crs(trial)
