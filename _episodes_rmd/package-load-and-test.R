@@ -1,6 +1,13 @@
 # Both people running R locally and people using a USB stick should run this script.
 # This loads the libraries into your computer's memory and makes them available to R
-# to use
+# to use.
+#
+# For people using the USB stick, you can run this right away.
+# For people installing on their local computer, you should be finished with 
+# the install script process before running this.
+# (Look for the red Stop button and a > symbol to tell if you're done. If the
+# console prompt says | , an installation is still in process.)
+
 library("rgdal")
 library("dplyr")
 library("sf")
