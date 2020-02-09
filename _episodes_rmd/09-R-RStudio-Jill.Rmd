@@ -319,7 +319,7 @@ If you close this file and want to re-open it, you can use `File -> Open File...
 
 <!--## OPTIONAL: What is a function?
 
-<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this.</font>
+<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this. </font>
 
 -->
 
@@ -399,7 +399,7 @@ In R, we can use a *function* called `read.csv` to import data from a CSV
 >
 {: .callout}
 
-Let's use a function called `read.csv` that will import our table of data into R so we can use it:
+Let's use a function called `read.csv`<font color="magenta">(BRITTANI: The way this is written now, we have already seen read.csv. We need to decide where we want to put the function omlet example in relation to reading the csv.)</font>. that will import our table of data into R so we can use it:
 
 ```{r}
 fert_use <- read.csv("data/fertilizer_use.csv")
@@ -483,14 +483,14 @@ Here the label of the column, `Year` is used to access this column alone and pri
 head(fert_use$Crop, n=4)
 ```
 
-We'll note we got a bit of extra information when we are looking at the `Crop` column.  With the column `Years`, R stored the data as pure numbers (integer, or "whole" numbers without decimal places in this case).  With `Crop`, R has stored this column as something called a _factor_ which is a way to store information that is best sorted into different categories instead of numbers -- this is often called a _categorical variable_ while `Years` is called a _numerical variable_.  R also tells us how many _levels_ this categorical column has, which is just R's way of counting up the number of categories that `Crop` can be.  In this case, we see ther are 5 categories of crops in this dataset, `Corn`, `Cotton`, `Other`, `Soybeans` and `Wheat`.  Note that by default R is ordering them alphetetically.
+We'll note we got a bit of extra information when we are looking at the `Crop` column.  With the column `Years`, R stored the data as pure numbers (integer, or "whole" numbers without decimal places in this case).  With `Crop`, R has stored this column as something called a _factor_ which is a way to store information that is best sorted into different categories instead of numbers -- this is often called a _categorical variable_ while `Years` is called a _numerical variable_.  R also tells us how many _levels_ this categorical column has, which is just R's way of counting up the number of categories that `Crop` can be.  In this case, we see there are 5 categories of crops in this dataset, `Corn`, `Cotton`, `Other`, `Soybeans` and `Wheat`.  Note that by default R is ordering them alphetetically.
 
 
 ### Using `str` to get column types
 
-<font color="magenta">I think we should do this after head and discussing different types of data. (DENA: Can we ditch this entirely? Do we need str if we've given them the head example already?)</font>
+<font color="magenta">I think we should do this after head and discussing different types of data. (DENA: Can we ditch this entirely? Do we need str if we've given them the head example already? BRITTANI: I would say that we need both str and head. str contains information that head does not, such as the class of the object and variables.)</font>
 
-Like with the function `head`, he `str` function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:
+Like with the function `head`, the `str` function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:
 
 ```{r}
 str(fert_use)
