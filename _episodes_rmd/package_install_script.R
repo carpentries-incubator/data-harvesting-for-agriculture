@@ -13,6 +13,7 @@ install.packages("data.table")
 install.packages("broom")
 
 #install.packages("tibble") # need this or no? # I believe this is installed with dplyr so no, but I will check this
+# Can confirm it's installed with dplyr - Dena
 
 # to use
 library("ggplot2")
