@@ -1,0 +1,122 @@
+I"O<!-- JPN: updated fig path here manually for plots to show -->
+
+<h2 id="assumptions----for-debugging"><font color="magenta">Assumptions -- FOR DEBUGGING</font></h2>
+
+<ol>
+  <li>
+    <font color="magenta">Everybody knows how to download and install pkgs in general</font>
+  </li>
+</ol>
+
+<h2 id="before-you-start">Before you start</h2>
+
+<ol>
+  <li>Check which version of Mac OS you have. To do this, click on the Apple icon on the top-left of your screen, then click “About This Mac”. A little window should pop up with version information.</li>
+</ol>
+
+<p><img src="../fig/which_mac_version.png" width="50%" /></p>
+
+<ol>
+  <li>Make sure that you have about 500 MB of free space on your machine. We will need this space to install both R and RStudio, and when the program installs the compressed files expand to take much more space.</li>
+</ol>
+
+<h2 id="installing-r">Installing R</h2>
+
+<ol>
+  <li>
+    <p>Go to <a href="https://cran.r-project.org/bin/macosx/">this website</a>.</p>
+  </li>
+  <li>
+    <p>If your mac is OS X 10.11 and higher (this should be the case for most of you), click the <code class="highlighter-rouge">R-3.6.2.pkg</code> link. If your mac is OS X 10.9 or 10.10, click the <code class="highlighter-rouge">R-3.3.3.pkg</code> link.</p>
+  </li>
+  <li>
+    <p>After clicking on the link, the file (package installer) will be downloaded onto your computer. Once the file has been downloaded, click on the <code class="highlighter-rouge">.pkg</code> file that downloads in your default Download folder and walk through the installation process. Accept the default options for now.</p>
+  </li>
+</ol>
+
+<p>R is now <strong>installed</strong> on your computer.</p>
+
+<h3 id="testing-r">Testing R</h3>
+
+<ol>
+  <li>Double-click on the R icon in the Applications folder:</li>
+</ol>
+
+<p><img src="../fig/applications_folder_r.png" width="50%" /></p>
+
+<p>A window titled “R Console” should pop up:</p>
+
+<p><img src="../fig/R_Console.png" width="40%" /><br />
+<br />
+The <code class="highlighter-rouge">&gt;</code> character is called the prompt and is the place where we enter commands for the program to interpret. For instance, if you type <code class="highlighter-rouge">25+5</code> followed by the return/enter key, you will see:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">25+5</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 30
+</code></pre></div></div>
+
+<p><img src="../fig/R_console_using.png" width="50%" /></p>
+
+<ol>
+  <li>To quit R, call the quit function by going to <code class="highlighter-rouge">File -&gt; Quit R</code>.</li>
+</ol>
+
+<p>R will ask you if you want to save your work:</p>
+
+<p><img src="../fig/closing_r_dontSAve.png" width="50%" />
+<br />
+Click on “Don’t Save”. You have now left R.</p>
+
+<p>We are not going to use R this way often, as we will use an integrated environment called RStudio.</p>
+
+<h2 id="installing-rstudio">Installing RStudio</h2>
+
+<ol>
+  <li>
+    <p>Go to <a href="https://rstudio.com/products/rstudio/download/">this website</a>.</p>
+  </li>
+  <li>Click on the <code class="highlighter-rouge">Free</code> link (note: there are paid options, but we won’t be using those!). The file download will begin.
+    <ul>
+      <li>If you have an older computer, you <em>may</em> have to find your installer on <a href="https://support.rstudio.com/hc/en-us/articles/206569407-Older-Versions-of-RStudio">this page</a>, but feel free to contact us about that!</li>
+    </ul>
+  </li>
+  <li>Once the file has been downloaded, click on it. A window should pop up:</li>
+</ol>
+
+<p><img src="../fig/Rstudio_download.png" width="50%" />
+<br />
+Click on the RStudio icon and drag it into the Applications folder.</p>
+
+<p>RStudio is now <strong>installed</strong> on your computer.</p>
+
+<p><strong>Note</strong>: For RStudio to work, R needs to be installed first.</p>
+
+<h3 id="testing-rstudio">Testing RStudio</h3>
+
+<ol>
+  <li>Double-click on the RStudio icon in the Applications:</li>
+</ol>
+
+<p><img src="../fig/applications_folder.png" width="50%" /></p>
+
+<p>A window titled “RStudio” should pop up, looking something like this:</p>
+
+<p><img src="../fig/rstudio_opened.png" width="75%" /></p>
+
+<ol>
+  <li>Just as in R, the <code class="highlighter-rouge">&gt;</code> character in the Console window is where we enter commands for the program to interpret.  You can try entering something there and then hitting the <code class="highlighter-rouge">Enter</code> key to see:</li>
+</ol>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">25+5</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 30
+</code></pre></div></div>
+
+<ol>
+  <li>To exit RStudio, click “RStudio” in the menu bar, then click “Quit RStudio”. Alternatively, use the <code class="highlighter-rouge">Cmd-Q</code> shortcut. If prompted to save the workspace, do not save it.</li>
+</ol>
+
+<font color="magenta">Should cite Kenneth Tay's github</font>
+:ET
