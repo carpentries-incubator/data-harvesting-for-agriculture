@@ -9,8 +9,7 @@ source: Rmd
 ```{r setup, include=FALSE}
 library(knitr)
 knitr::opts_chunk$set(echo = TRUE)
-opts_knit$set(root.dir = "~/Box/EC for VR Mgt Paper San Antonio/Data/hord f98") # will ultimately delete
-#opts_knit$set(root.dir = "~/DC for Ag/DIFM Code and Information/hord f98")
+opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/data") 
 ```
 
 ####Motivating Questions:
@@ -40,7 +39,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 
 Below are the packages that we will use in this episode.
 
-```{r}
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 library(sf)
 library(fasterize)
 library(gstat)
@@ -71,7 +70,7 @@ variables within an `sf` object using the `$` operator, for example
 calculations available for `sf` objects, this class is perferred in most situations.
 
 ```{r readtrial}
-trial <- read_sf("hord_f98_trialdesign_2017.shp")
+trial <- read_sf("trialdesign.gpkg")
 ```
 
 An `sf` object contains a geometry column. We can see the geometric points for
@@ -80,7 +79,7 @@ In geospatial terms, a polygon represents an area of land with distinct
 boundaries represented by a series of points.
 
 ```{r geometry}
-head(trial$geometry)
+head(trial$geom)
 ```
 
 ####Check the coordinate reference system
@@ -114,10 +113,10 @@ measured in meters from a reference point in the zone. Latitude and longitude
 represent a different type of CRS, defined in terms of angles across a sphere.
 Before combining files
 and performing operations on a file, it is important to check the CRS. The
-function for this is `crs().`
+function for this is `st_crs().`
 
 ```{r checkCRS}
-crs(trial)
+st_crs(trial)
 ```
 
 The trial design is in lat/long. If we want to create measures of distance,
@@ -142,6 +141,7 @@ long2UTM <- function(long){
   utm <- (floor((long + 180)/6) %% 60) + 1
   return(utm)
 }
+
 utmzone <- long2UTM(mean(st_bbox(trial)[c(1,3)]))
 utmzone
 ```
@@ -203,15 +203,15 @@ the object `planting`. This file contains the planting information for 2017.
 
 <<<<<<< HEAD
 ```{r transformplanting}
-planting <- read_sf("asplanted_clean.shp")
+planting <- read_sf("asplanted.gpkg")
 
-crs(planting)
+st_crs(planting)
 
-planting$geometry
+planting$geom
 
 planting_latlong <- st_transform(planting, 4326)
 
-crs(planting_latlong)
+st_crs(planting_latlong)
 ```
 **Dena - It looks like this section needs a conflict resolved, this is an unresolved Git conflict marker**
 <<<<<<< HEAD
@@ -247,7 +247,7 @@ you will need to determine the CRS of the object. You will often need to transfo
 file from UTM to lat/long and save the new file during trial design, so this is an important step.
 
 ```{r save}
-st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(trialutm, "trial_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
 The new .gpkg file will be visible in your working directory. One common problem
@@ -337,7 +337,7 @@ multiple files. **Dena: If the second method is preferred, then let's not introd
 the first method, so that the instructions they see lead them to do the right thing.**
 
 ```{r ab_lineproj}
-st_crs(ab_line) <- crs(trial)
+st_crs(ab_line) <- st_crs(trial)
 st_crs(ab_line)
 st_write(ab_line,"abline.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
@@ -355,7 +355,7 @@ how the farmer drives across the field.
 
 ```{r boundary}
 boundary <- read_sf("boundary.gpkg")
-crs(boundary)
+st_crs(boundary)
 ```
 
 After plotting `boundary`, we plot `ab_line` with `add = TRUE` which adds the new 
