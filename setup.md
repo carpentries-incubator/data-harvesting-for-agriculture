@@ -48,16 +48,18 @@ If you're running from USB but it wasn't assigned the letter D, find:
 and double-click them to run.
 
 The first time you run R Studio, you'll be prompted to select your installation of R. 
-Use the custom location option's Browse button to navigate to:
+
+1. Choose the **"Choose a specific version of R"** item next to the large text box.
+2. Use the **Browse** button to navigate to:
 
  **DataHarvestingWin/ProgramFiles/R/R-3.6.2/** 
 
 and choose **Select Folder.**
 
-You'll be given a choice between 32 bit and 64 bit; either should work, but 64 bit
+3. You'll be given a choice between 32 bit and 64 bit; either should work, but 64 bit
 is likely to be what your computer is capable of.
 
-If the shortcut doesn't work for you in QGIS, and you get an error message about a 
+If the Start folder's shortcut doesn't work for you in QGIS, and you get an error message about a 
 missing DLL, there's a location mismatch to resolve. Ask a class helper for assistance 
 in switching the .env file that you're using.
 
