@@ -1,8 +1,9 @@
 ---
 title: "Ag Carpentry - Data Cleaning and Rasterization"
 author: "Aolin Gong"
-date: "11/4/2019"
+date: "2019-11-04"
 output: html_document
+source: Rmd
 ---
 
 ```{r setup, include=FALSE}
@@ -249,6 +250,3 @@ names(aggdata)[1]<-"yield"
 6. Topography Data (Slope and Aspect generated from Elevation Data)
 7. SSURGO Data (Specify the soil content)
 8. Weather Data (daily/weekly/monthly data)
-
-
-

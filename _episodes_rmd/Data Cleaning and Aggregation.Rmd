@@ -1,8 +1,9 @@
 ---
 title: "Ag Carpentry - Data Cleaning and Aggregation"
 author: "Aolin Gong"
-date: "11/4/2019"
+date: "2019-11-04"
 output: html_document
+source: Rmd
 ---
 
 ```{r setup, include=FALSE}
@@ -424,6 +425,3 @@ have one value for each for each subplot**
 3. Code to generate Topography data.
 4. Code to process SSURGO data.
 5. Code to download weather data.
-
-
-

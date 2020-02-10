@@ -1,8 +1,9 @@
 ---
 title: "Ag Carpentry - Geospatial Data in different Ag file formats"
 author: "Brittani"
-date: "10/19/2019"
+date: "2019-10-19"
 output: html_document
+source: Rmd
 ---
 
 ```{r setup, include=FALSE}
@@ -86,6 +87,26 @@ head(trial$geom)
 Geospatial data has a coordinate reference system (CRS) that projects the map in
 a specific location.
 **Explain projection more in layman's terms here**
+
+**Start of layman's terms section - Dena:**
+####What is a projection?
+
+A projection is a way of making the earth's curved surface fit into something you 
+can represent on a flat computer screen. To understand why that matters, take a look
+at the difference between [the Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection#/media/File:Mercator_projection_Square.JPG) of the world and the 
+[Boggs eumorphic projection](https://en.wikipedia.org/wiki/Boggs_eumorphic_projection#/media/File:Boggs_eumorphic_projection_SW.JPG)
+
+In the Mercator projection, space that doesn't exist is created to make a "flat" map 
+and Greenland and Antarctica disproportionately huge. In the Boggs projection, strategic 
+slices are cut out of the ocean so that the sizes appear a bit closer to true, but Canada 
+and Russia get pinched and Greenland gets bisected. There will always be some compromises 
+made in a projection system that converts curved surfaces to flat ones for the same reason 
+that it's difficult to make an orange peel lie flat. So the method you select will have an 
+effect on your outcome.
+**End of layman's terms section - Dena**
+
+
+
 Different CRSs use different projections of the earth into
 2-dimensional space. Some coordinate reference systems, such as UTM zones, are
 measured in meters from a reference point in the zone. Latitude and longitude
@@ -128,7 +149,14 @@ utmzone
 We can see that `r mean(st_bbox(trial)[c(1,3)])` corresponds to UTM zone
 `r utmzone`.
 
-####Projection for utm
+####Projection for UTM
+
+**Dena's comprehension check here: The way to recognize the difference between 
+UTM and WGS584 is whether some data or piece of code starts with 326 or 4326? From
+reading what's here, it gives me the impression that that's more of
+an external thing than something you'd see in the file/data? How do you know which one
+you're looking at if you don't already know? I'd like to brainstorm on a way to make this
+section a little easier to understand without doing damage to accuracy.**
 
 Using the UTM zone we calculated above, we now need the full ESPG code to
 transform the file to the new CRS. EPSG Geodetic Parameter Dataset is a public
@@ -137,15 +165,23 @@ transformations and related units of measurement. The ESPG is one way to assign
 or transform the CRS in R. The ESPG for UTM always begins with "326" and the
 last numbers are the number of the zone. The code below pastes together the full
 ESPG code for any `utmzone` we calculate with `long2UTM`. `paste0()` pastes
-together the two arguments `"326"` and `utmzone` as string. But when we transform `trial` into UTM, we only need the ESPG number. So we convert that to numeric with `as.numeric()`, giving us a final ESPG of `r paste0("326", utmzone)`.
+together the two arguments `"326"` and `utmzone` as string. But when we transform
+`trial` into UTM, we only need the ESPG number. So we convert that to numeric with
+`as.numeric()`, giving us a final ESPG of `r paste0("326", utmzone)`.
 
 ```{r setcrs}
 projutm <- as.numeric(paste0("326", utmzone))
 projutm
 ```
 
-All modern latitude and longitude coordinates use a standard called WGS84.  The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude.
+All modern latitude and longitude coordinates use a standard called WGS84.  The ESPG 
+for WGS84 is 4326. This is the projection your equipment reads, so any trial design 
+files will need to be transformed back into WGS84 before you implement the trial. Also, 
+all files from your machinery, such as yield, as-applied, and as-planted, will be 
+reported in latitude and longitude.
 
+**Dena: What differences do you see in the data itself to recognize whether you're looking at
+WGS84 or UTM in order to know which code you need to use in the transformation?**
 
 ####Transform the projection of file
 
@@ -157,8 +193,9 @@ trialutm <- st_transform(trial, projutm)
 ```
 
 **Exercise**
-1. Bring the file called "hord_f98_asplanted_2017.shp" in your environment. Name the object `planting`. This file contains the planting information for 2017.
-2. Identify the CRS of the object.
+1. Bring the file called "hord_f98_asplanted_2017.shp" in your environment. Name
+the object `planting`. This file contains the planting information for 2017.
+2. Identify the CRS of the object. **Dena: So far I haven't seen anything that would help them understand how to do this, unless 326 or 4326 appear somewhere in code or data we haven't shown them in text yet? Or else I've missed something key that it may help to add in.**
 3. Look at the geometry features. What kind of geometric features are in this dataset?
 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
 
@@ -176,25 +213,38 @@ planting_latlong <- st_transform(planting, 4326)
 
 st_crs(planting_latlong)
 ```
+**Dena - It looks like this section needs a conflict resolved, this is an unresolved Git conflict marker**
 <<<<<<< HEAD
-The cleaned planting file was in UTM initially. The zone is 17 which is to be expected as it is from the same field as the trial design file we worked with earlier. When we look at the geometry features, they are 6,277 points defined in x and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new file called `planting_latlong` with the CRS of WGS84.
+The cleaned planting file was in UTM initially. The zone is 17 which is to be expected 
+as it is from the same field as the trial design file we worked with earlier. When we
+look at the geometry features, they are 6,277 points defined in x and y coordinates.
+Using the ESPG for lat/long we covered earlier 4326, we create a new file called
+`planting_latlong` with the CRS of WGS84.
 
 ```{r transformtrial}
 trialutm <- st_transform(trial, projutm)
 ```
 =======
-The cleaned planting file was in UTM initially. The zone is `r utmzone` which is to be expected as it is from the same field as the trial design file we worked with earlier. When we look at the geometry features, they are `r nrow(planting)` points defined in x and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new file called `planting_latlong` with the CRS of WGS84.
+The cleaned planting file was in UTM initially. The zone is `r utmzone` which is to be 
+expected as it is from the same field as the trial design file we worked with earlier. 
+When we look at the geometry features, they are `r nrow(planting)` points defined in x 
+and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new
+file called `planting_latlong` with the CRS of WGS84.
 >>>>>>> ac5d8087dfe7ad986d1cc9650fbf13b934ca5f96
 
 ####Save the file 
 
-Use `st_write()` to save an sf object. If you do not specify a directory, the working directory will be used. We include the object we are saving `trialutm` and the name we would like to give the saved file `"trial.gpkg"`. Additionally, we specify the `layer_options` and `update` values to enable overwriting an existing file with the same name. 
+Use `st_write()` to save an sf object. If you do not specify a directory, the working 
+directory will be used. We include the object we are saving `trialutm` and the name 
+we would like to give the saved file `"trial.gpkg"`. Additionally, we specify the
+`layer_options` and `update` values to enable overwriting an existing file with the same name. 
 
 You can save the file as a .gpkg or .shp file. The advantage of a .gpkg file is
 that you only save one file rather than four files in a shapefile. Because
 shapefiles contain multiple files, they can be corrupted if one piece is missing.
 One example is a .prj file. In this case, the shapefile will have no CRS, and
-you will need to determine the CRS of the object. You will often need to transform a file from UTM to lat/long and save the new file during trial design, so this is an important step.
+you will need to determine the CRS of the object. You will often need to transform a 
+file from UTM to lat/long and save the new file during trial design, so this is an important step.
 
 ```{r save}
 st_write(trialutm, "trial_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
@@ -203,10 +253,15 @@ st_write(trialutm, "trial_utm.gpkg", layer_options = 'OVERWRITE=YES', update = T
 The new .gpkg file will be visible in your working directory. One common problem
 with these files is that when you try to open a .gpkg file for the first time in
 R, it might not work if you haven't opened it in QGIS before.
+**Dena: Any idea why this is? During Thursday's meeting, we weren't sure if we were going to get into
+QGIS. If this is something that is critical, we should make sure to get QGIS available.**
 
 ####Visualize the trial map
 
-We often want to visualize the contents of geospatial files. When we design a trial, we need to see the resulting applications. With yield data, we look for spatial patterns in the field, where is the yield higher or more varied. Before making a map, we need to know what variables are in the trial dataset.
+We often want to visualize the contents of geospatial files. When we design a trial, 
+we need to see the resulting applications. With yield data, we look for spatial patterns 
+in the field, where is the yield higher or more varied. Before making a map, we need to
+know what variables are in the trial dataset.
 Use `names()` to view the different variables in `trialutm`. Say we want to make a
 map of the nitrogen rates. We need to identify the variable name for the target
 nitrogen.
@@ -217,9 +272,15 @@ names(trialutm)
 ```
 
 
-In `trialutm` there are 11 variables, but the variables we might want to map are `NRATE` and `SEEDRATE`. The following map is created with functions from a package called `tmap`. We are using `tm_polygon()`
+In `trialutm` there are 11 variables, but the variables we might want to map are
+`NRATE` and `SEEDRATE`. The following map is created with functions from a package 
+called `tmap`. We are using `tm_polygon()`
 fill the polygons with a color based on the variable `NRATE` inside the object
-`trialutm `. For a different kind of geospatial data such as points, we need to use `tm_dots()` or `tm_squares()`. `tmap` provides many options for displaying data, including text markers on the map. Text labels might be good for making a map of several land parcels with their names as the label. We use other arguments in the code below to choose the position of the map
+`trialutm `. For a different kind of geospatial data such as points, we need to use
+`tm_dots()` or `tm_squares()`. `tmap` provides many options for displaying data, 
+including text markers on the map. Text labels might be good for making a map of 
+several land parcels with their names as the label. We use other arguments in the
+code below to choose the position of the map
 legend, title of the variable, size of text, and width of legend.
 
 
@@ -243,7 +304,10 @@ coordinates.
 
 ####AB-line File (reading it in or creating it)
 
-Some of you may have a shapefile of your ab-line, but most of you will have the two endpoints. This is all you need to make a geospatial object for your ab_line in R. First, we define the latitude and longitude of the two points. We will call these point A and point B.
+Some of you may have a shapefile of your ab-line, but most of you will have the
+two endpoints. This is all you need to make a geospatial object for your ab_line 
+in R. First, we define the latitude and longitude of the two points. We will call
+these point A and point B.
 
 ```{r points }
 LongA <- -82.97452
@@ -253,7 +317,11 @@ LongB <- -82.97452
 LatB <- 40.74480
 ```
 
-`st_linestring()` creates an object of class sf from a matrix. `rbind(c(LongA, LatA), c(LongB, LatB))` creates a matrix with two rows, one for point A and one for point B. This object is then piped into the function `st_linestring()` to create the `sf` object. Finally, using `st_sf()` and  `st_sfc()` we create a simple feature geometry column from the set of geometries in `ab_string`. 
+`st_linestring()` creates an object of class sf from a matrix.
+`rbind(c(LongA, LatA), c(LongB, LatB))` creates a matrix with two rows, one for point A and
+one for point B. This object is then piped into the function `st_linestring()` to create 
+the `sf` object. Finally, using `st_sf()` and  `st_sfc()` we create a simple feature geometry 
+column from the set of geometries in `ab_string`. 
 
 ```{r abline }
 ab_string <- rbind(c(LongA, LatA), c(LongB, LatB)) %>% st_linestring() 
@@ -261,10 +329,12 @@ ab_line <-st_sf(id = 'ab_line', st_sfc(ab_string))
 ```
 
 Now we must assign the CRS of the line. We know that the coordinates were taken
-from an object in WGS84, so we can assign the same CRS with `st_crs` and typing
+from an object in WGS84, **Dena - How do we know that?** so we can assign the same 
+CRS with `st_crs` and typing
 out the correct `crs`. Another way we can do this is by using `crs()`. This
 second method is preferred to avoid mistakes when remembering the UTM zone of
-multiple files.
+multiple files. **Dena: If the second method is preferred, then let's not introduce
+the first method, so that the instructions they see lead them to do the right thing.**
 
 ```{r ab_lineproj}
 st_crs(ab_line) <- st_crs(trial)
@@ -280,19 +350,19 @@ plot(ab_line)
 
 ####Reading in the Boundary File
 
-We will read in the boundary file and plot the boundary file with the abline to see how the farmer drives across the field. 
+We will read in the boundary file and plot the boundary file with the abline to see 
+how the farmer drives across the field. 
 
 ```{r boundary}
 boundary <- read_sf("boundary.gpkg")
 st_crs(boundary)
 ```
 
-After plotting `boundary`, we plot `ab_line` with `add = TRUE` which adds the new plot over the existing plot of the field boundary. We see that the farmer drives across the longest part of the field, beginning on the right-hand side. 
+After plotting `boundary`, we plot `ab_line` with `add = TRUE` which adds the new 
+plot over the existing plot of the field boundary. We see that the farmer drives 
+across the longest part of the field, beginning on the right-hand side. 
 
 ```{r plotboth }
 plot(boundary$geom)
 plot(ab_line, add = TRUE)
 ```
-
-
-

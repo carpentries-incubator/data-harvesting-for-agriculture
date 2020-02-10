@@ -1,10 +1,11 @@
 ---
 title: "Ag Carpentry - Weather and Soil Data"
 author: "Brittani"
-date: "10/19/2019"
+date: "2019-10-19"
 output:
   pdf_document: default
   html_document: default
+source: Rmd
 ---
 
 ```{r setup, include=FALSE}
@@ -422,4 +423,3 @@ show up in different section of the field. However, most of the soil are silt
 loam. It might be difficult to understand the different soils without more
 information about soil weathering and texture. This is also provided within
 SSURGO, and is likely, something you know about in your own field. **Show them how to do this?**
-
