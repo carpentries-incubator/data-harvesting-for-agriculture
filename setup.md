@@ -10,7 +10,11 @@ This takes some time over most home network connections, so if you don't have
 the time or bandwidth to do this in advance, we are creating installed USB drives 
 that you can copy from.
 
-**R** and **RStudio** are separate downloads and installations. R is the
+**If you want to take the software with you, we recommend that you copy it to your
+computer's C drive. The Center for Digital Agriculture needs the USB drives back
+at the end of the workshop.**
+
+**R** and **RStudio** are separate programs. R is the
 underlying statistical computing environment, but using R alone is no
 fun. RStudio is a graphical integrated development environment (IDE) that makes
 using R much easier and more interactive. You need to install R before you
@@ -27,18 +31,22 @@ to change the drive letter to match what it receives when you plug it in.
 
 On Windows, you can skip the 5 Gb download process by copying the DataHarvestingWin folder
 to the root level of your C drive and running it from  there. (Your new path should be
-C:\DataharvestingWin\(contents here) as opposed to the old path of D:\DataHarvestingWin\
-(contents here).
+C:\DataharvestingWin\ as opposed to the old path of D:\DataHarvestingWin\.) Two sets of 
+Start Menu links are provided to distinguish between the 
 
 ### Launching the programs (Windows)
-Within DataHarvestingWin, the two folders with Start Menu in their names ("R and R Studio
-Start Menu links" and "QGIS 3.10 Start Menu links") contain shortcuts to run the software.
+Within DataHarvestingWin, the folders with Start Menu in their names contain shortcuts
+to run the software.
 
-If these shortcuts don't work for you in R or R Studio, find:
+Choose the version that corresponds to the drive you're planning to run it from --
+C: if you copy the folders to your own computer, probably D: if you run from the USB
+drive. 
 
- **DataHarvestingWin/ProgramFiles/RStudio/bin/rstudio.exe
-    (and)
- DataHarvestingWin/ProgramFiles/R/R-3.6.2/R.exe**
+If you're running from USB but it wasn't assigned the letter D, find:
+
+ **DataHarvestingWin/ProgramFiles/RStudio/bin/rstudio.exe**\
+    (and)\
+ **DataHarvestingWin/ProgramFiles/R/R-3.6.2/R.exe**
 
 and double-click them to run.
 
