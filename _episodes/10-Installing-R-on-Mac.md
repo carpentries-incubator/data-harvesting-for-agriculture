@@ -41,31 +41,33 @@ R is now **installed** on your computer.
 
 ### Testing R
 
-1. Double-click on the RStudio icon in the Applications folder. A window titled "R Console" should pop up:
+1. Double-click on the R icon in the Applications folder:
 
-<center>![](Images/R Console.png){width=40%}</center>  
+<img src="../fig/applications_folder_r.png" width="50%">
+
+A window titled "R Console" should pop up:
+
+<img src="../fig/R_Console.png" width="40%">  
 \
-The `>` character is called the prompt and is the place where we enter commands for the program to interpret. For instance, if you type `25+26` followed by the return/enter key, you will see:
+The `>` character is called the prompt and is the place where we enter commands for the program to interpret. For instance, if you type `25+5` followed by the return/enter key, you will see:
 
 
 ```r
-25+26
+25+5
 ```
 
 ```
-## [1] 51
+## [1] 30
 ```
 
-2. To quit R, call the quit function by typing `q()` and htting the return key.
+<img src="../fig/R_console_using.png" width="50%">
 
+2. To quit R, call the quit function by going to `File -> Quit R`.
 
-```r
-q()
-```
 
 R will ask you if you want to save your work:
 
-<center>![](Images/Closing R Session.png){width=50%}</center>  
+<img src="../fig/closing_r_dontSAve.png" width="50%">
 \
 Click on "Don't Save". You have now left R.  
 
@@ -73,9 +75,10 @@ We are not going to use R this way often, as we will use an integrated environme
 
 ## Installing RStudio
 
-1. Go to [this website](https://www.rstudio.com/products/rstudio/download/#download).
+1. Go to [this website](https://rstudio.com/products/rstudio/download/).
 
-2. Click on the "RStudio 1.1.456 - Mac OS X 10.6+ (64-bit)" link. The file download will begin.
+2. Click on the `Free` link (note: there are paid options, but we won't be using those!). The file download will begin.
+  * If you have an older computer, you *may* have to find your installer on [this page](https://support.rstudio.com/hc/en-us/articles/206569407-Older-Versions-of-RStudio), but feel free to contact us about that!
 
 3. Once the file has been downloaded, click on it. A window should pop up:
 
@@ -89,15 +92,25 @@ RStudio is now **installed** on your computer.
 
 ### Testing RStudio
 
-1. Double-click on the RStudio icon in the Applications. A window titled "RStudio" should pop up, looking something like this:
-
-<center>![](Images/RStudio Window.png){width=50%}</center>
+1. Double-click on the RStudio icon in the Applications:
 
 <img src="../fig/applications_folder.png" width="50%">  
 
-\  
+A window titled "RStudio" should pop up, looking something like this:
 
-2. Just as in R, the `>` character in the Console window is where we enter commands for the program to interpret.
+<img src="../fig/rstudio_opened.png" width="75%">
+
+2. Just as in R, the `>` character in the Console window is where we enter commands for the program to interpret.  You can try entering something there and then hitting the `Enter` key to see:
+
+
+```r
+25+5
+```
+
+```
+## [1] 30
+```
+
 
 3. To exit RStudio, click "RStudio" in the menu bar, then click "Quit RStudio". Alternatively, use the `Cmd-Q` shortcut. If prompted to save the workspace, do not save it.
 
