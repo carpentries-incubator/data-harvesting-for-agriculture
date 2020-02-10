@@ -23,23 +23,20 @@ in the background.  You do not need to run it separately.
 
 ## If you want to work from the USB drives
 
-### Drive letter assumed to be D, but can be updated
+### Use the "start menu" folder for where you want to use it
 When these USB drives were created, they were assigned the letter D on a Windows computer.
-R and R Studio don't care what the drive letter is, but QGIS is more picky; if you already
-have both a C and a D drive on your computer, you may need to edit the QGIS environment file
-to change the drive letter to match what it receives when you plug it in.
+However, if you copy to your own computer's hard drive, that will probably be C.
 
 On Windows, you can skip the 5 Gb download process by copying the DataHarvestingWin folder
 to the root level of your C drive and running it from  there. (Your new path should be
-C:\DataharvestingWin\ as opposed to the old path of D:\DataHarvestingWin\.) Two sets of 
-Start Menu links are provided to distinguish between the 
+C:\DataharvestingWin\ as opposed to the old path of D:\DataHarvestingWin\.) 
 
 ### Launching the programs (Windows)
 Within DataHarvestingWin, the folders with Start Menu in their names contain shortcuts
 to run the software.
 
 Choose the version that corresponds to the drive you're planning to run it from --
-C: if you copy the folders to your own computer, probably D: if you run from the USB
+C if you copy the folders to your own computer, and probably D if you run from the USB
 drive. 
 
 If you're running from USB but it wasn't assigned the letter D, find:
@@ -61,9 +58,8 @@ You'll be given a choice between 32 bit and 64 bit; either should work, but 64 b
 is likely to be what your computer is capable of.
 
 If the shortcut doesn't work for you in QGIS, and you get an error message about a 
-missing DLL, your USB drive was probably not assigned to the letter D when it was
-plugged into your computer. Ask a class helper for assistance in updating the .env
-file for the new location.
+missing DLL, there's a location mismatch to resolve. Ask a class helper for assistance 
+in switching the .env file that you're using.
 
 ### Launching the programs from the USB drive (Mac)
 
