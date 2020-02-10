@@ -180,7 +180,7 @@ variable there are 265 observations.  We also see that Year, Nitrogen, Phosphate
 and Potash are all represented as integers.  Crop is something called a factor,
 which means it is text that is assumed to represent a set of categories.
 
-**Note:**  If you are importing from `read.csv`, `read.table`, or a related
+**Note:**  If you are importing from `read.csv()` or a related
 function and you want to treat text columns as text rather than categories,
 set the argument `stringsAsFactors = FALSE`.  It is always easy to convert text
 to a factor later, and many functions will do this on-the-fly for you.

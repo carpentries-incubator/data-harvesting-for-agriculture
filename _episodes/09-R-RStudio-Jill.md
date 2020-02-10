@@ -35,6 +35,8 @@ source: Rmd
  1. <font color="magenta">They have been able to run the install script we sent them and have all packages installed</font>
  1. <font color="magenta">They *do* need an intro to the layout of RStudio, and what everything does.</font>
 
+**DENA: I think we need a "basic programming concepts" even before we get to this -- we need to give them the omelet maker and the picture of the assembly line, or maybe a harvesting machine equivalent, so there's something human and understandable and relatable before they get straight into scary command line-looking things. Should we put it in here or at the end of the previous intro chapter?**
+
 ## Getting to know R and RStudio
 
 <font color="magenta">A good bit of this might be more suitable to the Setup section as it's got a lot about the setup and running of Rstudio.</font>
@@ -51,12 +53,12 @@ If you’re already proficient with Excel, you will probably already know how to
 
 In this lesson, we will be making use of another software called "RStudio" as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  **Some sort of analogy here would be grand**
 
-We launch RStudio by double clicking on it's icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below:
+We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below:
 
 
 ![stuff](../fig/Rstudio_blank.png)
 
-<font color="magenta">Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary?</font>
+<font color="magenta"> **Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? (Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
 
 This has a prompt where commands can be entered.
 
@@ -160,7 +162,7 @@ weight_kg <- 60
 ```
 
 From now on, whenever we use `weight_kg`, R will substitute the value we assigned to
-it. In layman's terms, **a variable is a name for a value**.
+it. In layman's terms, **a variable is a placeholder name for something that can be updated regularly**. (In calendar terms, "today" is a variable name that represents a date that changes every 24 hours. Being able to refer to something as "today" is a lot simpler than updating that number every day at midnight.)
 
 In R, variable names:
 
@@ -186,7 +188,7 @@ This means that, for example:
 
 ### Types of data
 
-<font color="magenta">Do we need to get into datatypes here?  Or can we just skip it and get into it when we look at an actual dataset that has columns of different datatypes?</font>
+<font color="magenta">**Do we need to get into datatypes here?  Or can we just skip it and get into it when we look at an actual dataset that has columns of different datatypes? (DENA: Introduce each concept right when we need to know it and right when we're going to use it. That way it's directly relevant to what's in front of them next.)**</font>
 
 R knows various types of data. The ones you are likely to come across are:
 
@@ -344,9 +346,9 @@ weight_kg
 {: .challenge}
 
 
-## Writing and Savings R Scripts
+## Writing and Saving R Scripts 
 
-<font color="magenta">NOTE: I'm wondering if we want to push this section to later -- i.e. if we want to just go right to "getting your data into R" and do some examples just using the console and then start worrying about saving files later in the day once they have some cool plots that they made with R that they might want to reproduce.</font>
+<font color="magenta"> **NOTE: I'm wondering if we want to push this section to later -- i.e. if we want to just go right to "getting your data into R" and do some examples just using the console and then start worrying about saving files later in the day once they have some cool plots that they made with R that they might want to reproduce. (DENA: Yes, move it later -- we're after early gratification with minimal fear and dread.)** </font>
 
 
 ### <font color="magenta">Outline of this section</font>
@@ -387,7 +389,7 @@ If you close this file and want to re-open it, you can use `File -> Open File...
 
 <!--## OPTIONAL: What is a function?
 
-<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this.</font>
+<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this. </font>
 
 -->
 
@@ -426,7 +428,7 @@ It can be opened in Excel if you want to get a quick look at it that way, or we 
 dive straight into looking at it in R.  Save it into your `data` folder in
 your RStudio project for this lesson.
 
-<font color="magenta">NOTE: this assumes they have already created the `data` folder -> I assume this will be somewhere in the setup directions??</font>
+<font color="magenta"> **NOTE: this assumes they have already created the `data` folder -> I assume this will be somewhere in the setup directions?? (DENA: It should be both in the setup directions and on the USB key.)** </font>
 
 In R, we can use a *function* called `read.csv` to import data from a CSV
 (comma-separated value) file.
@@ -475,7 +477,7 @@ In R, we can use a *function* called `read.csv` to import data from a CSV
 >
 {: .callout}
 
-Let's use a function called `read.csv` that will import our table of data into R so we can use it:
+Let's use a function called `read.csv`<font color="magenta">(BRITTANI: The way this is written now, we have already seen read.csv. We need to decide where we want to put the function omlet example in relation to reading the csv.)</font>. that will import our table of data into R so we can use it:
 
 
 ```r
@@ -702,14 +704,14 @@ head(fert_use$Crop, n=4)
 ## Levels: Corn Cotton Other Soybeans Wheat
 ```
 
-We'll note we got a bit of extra information when we are looking at the `Crop` column.  With the column `Years`, R stored the data as pure numbers (integer, or "whole" numbers without decimal places in this case).  With `Crop`, R has stored this column as something called a _factor_ which is a way to store information that is best sorted into different categories instead of numbers -- this is often called a _categorical variable_ while `Years` is called a _numerical variable_.  R also tells us how many _levels_ this categorical column has, which is just R's way of counting up the number of categories that `Crop` can be.  In this case, we see ther are 5 categories of crops in this dataset, `Corn`, `Cotton`, `Other`, `Soybeans` and `Wheat`.  Note that by default R is ordering them alphetetically.
+We'll note we got a bit of extra information when we are looking at the `Crop` column.  With the column `Years`, R stored the data as pure numbers (integer, or "whole" numbers without decimal places in this case).  With `Crop`, R has stored this column as something called a _factor_ which is a way to store information that is best sorted into different categories instead of numbers -- this is often called a _categorical variable_ while `Years` is called a _numerical variable_.  R also tells us how many _levels_ this categorical column has, which is just R's way of counting up the number of categories that `Crop` can be.  In this case, we see there are 5 categories of crops in this dataset, `Corn`, `Cotton`, `Other`, `Soybeans` and `Wheat`.  Note that by default R is ordering them alphetetically.
 
 
 ### Using `str` to get column types
 
-<font color="magenta">I think we should do this after head and discussing different types of data.</font>
+<font color="magenta">I think we should do this after head and discussing different types of data. (DENA: Can we ditch this entirely? Do we need str if we've given them the head example already? BRITTANI: I would say that we need both str and head. str contains information that head does not, such as the class of the object and variables.)</font>
 
-Like with the function `head`, he `str` function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:
+Like with the function `head`, the `str` function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:
 
 
 ```r
