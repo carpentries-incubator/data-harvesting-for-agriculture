@@ -1,0 +1,137 @@
+musym,muname,mukind,mustatus,muacres,mapunitlfw.l,mapunitlfw.r,mapunitlfw.h,mapunitpfa.l,mapunitpfa.r,mapunitpfa.h,farmlndcl,muhelcl,muwathelcl,muwndhelcl,interpfocus,invesintens,iacornsr,nhiforsoigrp,nhspiagr,vtsepticsyscl,mucertstat,lkey,mukey
+2,"Awitava extremely gravelly very fine sandy loam, 3 to 9 percent slopes",Consociation,NA,5228,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59369
+118,Water,Consociation,NA,37,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59370
+124,"Wetherill-Kucu complex, 3 to 6 percent slopes",Complex,NA,7860,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59372
+31,"Farb-Rock outcrop-Fruitland complex, 1 to 45 percent slopes",Complex,NA,2465,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59373
+87,"Rock outcrop-Farview complex, 10 to 25 percent slopes",Complex,NA,1710,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59374
+132,"Yogovuci-Taqoci complex, 2 to 6 percent slopes",Complex,NA,9190,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59378
+110,"Tupuyci-Ives complex, 1 to 3 percent slopes",Complex,NA,1185,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59379
+9,"Battlerock silty clay loam, slightly saline, sodic, 1 to 3 percent slopes",Consociation,NA,6126,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated and reclaimed of excess salts and sodium,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59380
+8,"Battlerock silt loam, moderately saline, sodic, 0 to 3 percent slopes",Consociation,NA,3227,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59382
+43,"Ives sandy loam, 1 to 3 percent slopes",Consociation,NA,3520,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59383
+23,"Cowboy clay, 1 to 3 percent slopes",Consociation,NA,1839,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59384
+81,"Ravola silt loam, 1 to 3 percent slopes",Consociation,NA,5318,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59385
+41,"Hope silty clay loam, 1 to 6 percent slopes",Consociation,NA,6455,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59390
+19,"Chimrock loam, sodic, 1 to 3 percent slopes",Consociation,NA,4425,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59391
+20,"Chimrock very fine sandy loam, 1 to 3 percent slopes",Consociation,NA,12480,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59392
+26,"Decorock-Salamander association, 1 to 50 percent slopes",Association,NA,6331,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59393
+74,"Persayo-Yogovuci association, 1 to 12 percent slopes",Association,NA,1718,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59396
+24,"Cowboy-Kava complex, 1 to 3 percent slopes",Complex,NA,2246,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59398
+25,"Cowboy-Kava complex, 3 to 12 percent slopes",Complex,NA,4708,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59400
+27,"Decorock-Salamander-Badlands association, 3 to 60 percent slopes",Association,NA,2672,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59402
+83,"Redlands fine sandy loam, 1 to 3 percent slopes",Consociation,NA,2724,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59404
+84,"Redlands fine sandy loam, 3 to 6 percent slopes",Consociation,NA,1400,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59405
+56,"Mack fine sandy loam, 1 to 3 percent slopes",Consociation,NA,2261,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59407
+57,"Mack fine sandy loam, 3 to 6 percent slopes",Consociation,NA,1039,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59408
+58,"Mariano very fine sandy loam, 1 to 3 percent slopes",Consociation,NA,2889,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59409
+59,"Mariano very fine sandy loam, 3 to 6 percent slopes",Consociation,NA,2478,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59410
+60,"Mariano very fine sandy loam, 3 to 6 percent slopes, stony",Consociation,NA,811,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59411
+13,"Bluechief fine sandy loam, 1 to 3 percent slopes",Consociation,NA,122,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59412
+14,"Bluechief fine sandy loam, 3 to 6 percent slopes",Consociation,NA,524,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59413
+15,"Bluechief-Rock outcrop complex, 1 to 12 percent slopes",Complex,NA,7116,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59414
+73,"Persayo silty clay loam, 3 to 12 percent slopes",Consociation,NA,13680,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59418
+72,"Persayo gravelly loam, 12 to 45 percent slopes",Consociation,NA,5386,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59419
+37,"Greycap-Nomad complex, 1 to 6 percent slopes",Complex,NA,4827,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59422
+38,"Gypsey sandy clay loam, 3 to 6 percent slopes",Consociation,NA,10857,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59424
+39,"Gypsey sandy clay loam, 6 to 12 percent slopes",Consociation,NA,11788,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59425
+69,"Oagamati silty clay loam, 1 to 6 percent slopes",Consociation,NA,4780,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59429
+115,"Uzona loam, 1 to 6 percent slopes",Consociation,NA,1864,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59431
+1,"Arabrab-Longburn complex, 3 to 15 percent slopes",Complex,NA,12355,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59435
+6,"Barx very fine sandy loam, 1 to 4 percent slopes",Consociation,NA,784,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59436
+4,"Barx-Gapmesa complex, 2 to 6 percent slopes",Complex,NA,1863,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,rangeland,Order 3,NA,NA,NA,NA,NA,10247,59437
+7,"Hamburn clay loam, 0 to 6 percent slopes",Consociation,NA,5,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,Order 3,NA,NA,NA,NA,NA,10247,59438
+22,"Claysprings very stony clay loam, 12 to 65 percent slopes",Consociation,NA,565,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59439
+30,"Farb-Rock outcrop complex, 3 to 12 percent slopes",Complex,NA,2804,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,rangeland,Order 3,NA,NA,NA,NA,NA,10247,59440
+35,"Fluvents-Fluvaquents complex, 0 to 3 percent slopes",Complex,NA,1618,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59441
+49,"Lillings silty clay loam, 3 to 6 percent slopes",Consociation,NA,11,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59443
+53,"Longburn-Rock outcrop complex, 10 to 45 percent slopes",Complex,NA,2049,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59444
+54,"Longburn-Rock outcrop complex, 45 to 80 percent slopes",Complex,NA,562,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59445
+55,"Mack fine sandy loam, 0 to 6 percent slopes",Consociation,NA,1070,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59446
+63,"Mikim clay loam, 1 to 3 percent slopes",Consociation,NA,288,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59447
+64,"Mikim loam, 3 to 6 percent slopes",Consociation,NA,1678,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59448
+66,"Morefield loam, 1 to 3 percent slopes",Consociation,NA,715,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59449
+67,"Morefield loam, 3 to 6 percent slopes",Consociation,NA,2042,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59450
+76,"Pogo loam, 0 to 2 percent slopes, frequently flooded",Consociation,NA,2,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59451
+80,"Ravola clay loam, 0 to 3 percent slopes",Consociation,NA,306,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59452
+77,"Prater-Dolcan complex, 15 to 55 percent slopes",Complex,NA,1534,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59453
+79,"Ramper loam, 0 to 3 percent slopes",Consociation,NA,157,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59455
+85,"Rizno-Gapmesa complex, 3 to 9 percent slopes",Complex,NA,4262,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59456
+86,Rock outcrop,Consociation,NA,909,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59457
+88,"Romberg-Crosscan complex, 6 to 25 percent slopes, very stony",Complex,NA,18800,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59458
+89,"Romberg, extremely stony-Crosscan, very bouldery-Rock outcrop complex, 25 to 80 percent slopes",Complex,NA,68034,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59459
+90,"Roubideau loam, 1 to 6 percent slopes",Consociation,NA,435,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59460
+92,"Sharps, dry-Gapmesa complex, 6 to 12 percent slopes",Complex,NA,62,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59461
+93,"Sheek-Archuleta complex, 6 to 25 percent slopes",Complex,NA,68,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59462
+46,"Juanalo gravely fine sandy loam, 1 to 6 percent slopes",Consociation,NA,1731,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59465
+68,"Nataani-Yogovuci complex, 3 to 9 percent slopes",Complex,NA,1126,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59466
+94,"Sheek-Archuleta-Rock outcrop complex, 25 to 80 percent slopes",Complex,NA,1477,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59477
+95,"Sheek-Archuleta-Rock outcrop complex, 25 to 80 percent slopes, north aspect",Complex,NA,978,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59478
+97,"Sideshow silty clay loam, 0 to 3 percent slopes",Consociation,NA,502,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59479
+98,"Sideshow silty clay loam, 3 to 6 percent slopes",Consociation,NA,816,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59480
+101,"Stephouse-Rock outcrop complex, 3 to 10 percent slopes",Complex,NA,404,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59481
+105,"Torriorthents, 12 to 65 percent slopes",Consociation,NA,881,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59482
+106,"Torriorthents-Badland complex, 25 to 100 percent slopes",Complex,NA,20855,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59483
+109,"Tragmon-Sheek complex, 12 to 25 percent slopes",Complex,NA,908,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59484
+111,"Typic Torriorthents-Rock outcrop complex, 12 to 80 percent slopes",Complex,NA,9576,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59485
+113,"Ustic Torriorthents-Gullied land complex, 1 to 60 percent slopes",Complex,NA,596,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59486
+114,"Uzacol-Zwicker-Claysprings complex, 3 to 12 percent slopes",Complex,NA,1885,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59487
+120,"Wauquie very stony loam, 6 to 25 percent slopes, very stony",Consociation,NA,233,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59488
+121,"Wauquie, Stony-Dolcan complex, 6 to 25 percent slopes",Complex,NA,248,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59489
+122,"Wauquie-Dolcan-Rock outcrop complex, 25 to 80 percent slopes",Complex,NA,27317,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59490
+131,"Yarts fine sandy loam, 1 to 6 percent slopes",Consociation,NA,5755,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59491
+133,"Zigzag-Sideshow complex, 10 to 55 percent slopes",Complex,NA,2452,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59492
+134,"Zyme gravelly clay loam, 3 to 12 percent slopes",Consociation,NA,291,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59493
+136,"Zyme very channery clay loam, 12 to 65 percent slopes",Consociation,NA,4368,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59494
+3,Badland-Rock outcrop complex,Complex,NA,942,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59495
+10,"Bebeevar-Walrees complex, 0 to 2 percent slopes",Complex,NA,317,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59496
+11,"Benally fine sandy loam, 1 to 5 percent slopes",Consociation,NA,2960,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59497
+12,"Blackston-Camac-Rock outcrop complex, 0 to 60 percent slopes",Complex,NA,2326,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59498
+18,"Camac-Kimbeto-Badland association, 0 to 50 percent slopes",Association,NA,454,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59499
+21,"Claysprings-Badland complex, 35 to 60 percent slopes",Complex,NA,380,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59500
+33,"Farview-Beclabito-Rock outcrop complex, 1 to 10 percent slopes",Complex,NA,6826,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59501
+34,"Farview-Rock outcrop complex, 1 to 10 percent slopes",Complex,NA,13992,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59502
+42,"Hoskay-Patel-Badland complex, 1 to 25 percent slopes",Complex,NA,49,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59503
+45,"Jeddito loamy fine sand, 0 to 2 percent slopes",Consociation,NA,5,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59504
+44,"Jeddito-Escavada association, 0 to 3 percent slopes",Association,NA,1496,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59505
+50,"Littlehat-Persayo-Badland complex, 3 to 45 percent slopes",Complex,NA,651,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59506
+51,"Littlehat-Persayo-Nataani complex, 1 to 15 percent slopes",Complex,NA,1783,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59507
+71,"Persayo-Cairn-Patel complex, 1 to 25 percent slopes",Complex,NA,741,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59508
+82,"Ravola very fine sandy loam, 1 to 3 percent slopes",Consociation,NA,234,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59509
+100,"Snapill very fine sandy loam, 1 to 6 percent slopes",Consociation,NA,5008,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59510
+102,"Strych-Eagleye-Rock outcrop complex, 15 to 70 percent slopes",Complex,NA,22200,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59511
+103,"Tocito-Gullied land complex, 1 to 3 percent slopes",Complex,NA,644,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59512
+104,"Tohona-Kimnoli-Claysprings complex, 2 to 45 percent slopes",Complex,NA,45,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,rangeland,Order 3,NA,NA,NA,NA,NA,10247,59513
+116,"Vessilla-Rock outcrop complex, 5 to 25 percent slopes",Complex,NA,51588,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59514
+123,"Wetherill-Atlatl association, 1 to 15 percent slopes",Association,NA,1393,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59515
+119,Water-Riverwash complex,Complex,NA,126,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59516
+61,"Mikett clay loam, saline-sodic, 0 to 3 percent slopes",Consociation,NA,142,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59537
+16,"Cahona-Pulpit complex, 3 to 9 percent slopes",Complex,NA,6081,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,rangeland,Order 3,NA,NA,NA,NA,NA,10247,59539
+36,"Gladel-Pulpit complex, 3 to 9 percent slopes",Complex,NA,8607,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,Rangeland,Order 3,NA,NA,NA,NA,NA,10247,59540
+96,"Sheppard fine sand, 1 to 6 percent slopes",Consociation,NA,754,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59543
+112,"Ustic Torrifluvents, 0 to 3 percent slopes",Consociation,NA,2507,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59544
+126,"Wetherill silt loam, 1 to 3 percent slopes",Consociation,NA,4543,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59545
+127,"Wetherill silt loam, 3 to 6 percent slopes",Consociation,NA,15066,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59546
+128,"Wetherill silt loam, 6 to 12 percent slopes",Consociation,NA,364,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59547
+28,"Dolcan-Kucu association, 3 to 25 percent slopes",Association,NA,1109,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59556
+70,"Pagayvay extremely gravelly coarse sandy loam, 1 to 6 percent slopes",Consociation,NA,712,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,59562
+107,"Towaoc-Kwiavu complex, 6 to 35 percent slopes",Complex,NA,879,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,614245
+40,"Herm loam, 3 to 25 percent slopes",Consociation,NA,960,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,614331
+32,"Fardraw very cobbly loam, 0 to 9 percent slopes",Consociation,NA,19,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,707748
+48,"Lazear-Rock outcrop complex, 12 to 65 percent slopes",Complex,NA,37,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,709043
+75,"Picliff silty clay loam, 3 to 9 percent slopes",Consociation,NA,1960,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,710398
+65,"Monierco fine sandy loam, 3 to 12 percent slopes",Consociation,NA,5561,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,710593
+5,"Barx loam, 6 to 12 percent slopes",Consociation,NA,1,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,725709
+130,"Wetoe-Nees-Rock outcrop complex, 35 to 90 percent slopes",Complex,NA,13158,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,728135
+135,"Zyme-Katzine, dry, complex, 15 to 75 percent slopes",Complex,NA,4412,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,728136
+29,"Elias-Yarts complex, 1 to 6 percent slopes",Complex,NA,365,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,733021
+47,"Katzine very gravelly fine sandy loam, 15 to 45 percent slopes",Consociation,NA,4560,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,733259
+99,"Simpatico loam, 1 to 3 percent slopes",Consociation,NA,897,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,733266
+108,"Towaoc very gravelly sandy loam, 35 to 75 percent slopes",Consociation,NA,4014,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,735986
+117,"Vosburg fine sandy loam, 3 to 8 percent slopes",Consociation,NA,129,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,735997
+52,"Littlewater-Rubble land-Rock outcrop complex, 25 to 90 percent slopes",Complex,NA,3950,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,736016
+78,"Pulpit loam, 3 to 12 percent slopes",Consociation,NA,554,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,rangeland,Order 3,NA,NA,NA,NA,NA,10247,755808
+17,"Cahona-Zigzag complex, 5 to 45 percent slopes",Complex,NA,1483,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,958480
+129,"Wetherill-Wetoe complex, 3 to 12 percent slopes",Complex,NA,1338,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,958481
+125,"Wetherill loam, 3 to 6 percent slopes",Consociation,NA,6,NA,NA,NA,NA,NA,NA,Prime farmland if irrigated,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,1014133
+91,"Sharps loam, 6 to 12 percent slopes",Consociation,NA,7,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,1014136
+62,"Mikett clay loam, 0 to 3 percent slopes",Consociation,NA,6,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,10247,1412386

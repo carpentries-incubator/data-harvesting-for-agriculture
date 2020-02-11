@@ -1,0 +1,547 @@
+areasymbol,areaname,saversion,saverest,tabularversion,tabularverest,tabnasisexportdate,tabcertstatus,tabcertstatusdesc,fgdcmetadata,sacatalogkey
+CO670,"Ute Mountain Area, Colorado and New Mexico",13,09/13/2019 20:12:19,10,09/13/2019 20:12:19,09/11/2019 19:28:47,"certified, major components","The ""7 1zvc-Battlerock clay loam, 0 to 6 percent slopes"" mapunit was combined with the ""7 2s282-Hamburn clay loam, 0 to 6 percent slopes"" map unit as a result of the ""SDJR - MLRA 35 - Battlerock clay loam, 0 to 6 percent slopes"" project"". 
+
+The ""22 1zvd-Claysprings very stony clay loam, 12 to 65 percent slopes"" mapunit was combined with the ""22 2s283-Claysprings very stony clay loam, 12 to 65 percent slopes"" map unit as a result of the ""SDJR - MLRA 35 - Claysprings very stony clay loam, 12 to 65 percent slopes"" project"". 
+
+The ""45 1zxh-Jeddito loamy fine sand, 0 to 2 percent slopes"" mapunit was combined with the ""45 2s27t-Jeddito loamy fine sand, 0 to 2 percent slopes"" map unit as a result of the ""SDJR - MLRA 35 - Jeddito loamy fine sand, 0 to 2 percent slopes"" project"". 
+
+The ""76 1zvs-Pogo loam, 0 to 2 percent slopes"" mapunit was combined with the ""76 2tkxp-Pogo loam, 0 to 2 percent slopes, frequently flooded MLRA 36"" map unit as a result of the ""SDJR - MLRA 36 - Pogo loam, 0 to 2 percent slopes"" project"". 
+
+The ""80 1zvt-Ravola clay loam, 0 to 3 percent slopes"" mapunit was combined with the ""80 2s287-Ravola clay loam, 0 to 3 percent slopes"" map unit as a result of the ""SDJR - MLRA 35 - Ravola clay loam, 0 to 3 percent slopes"" project"". 
+
+The ""82 1zxn-Ravola very fine sandy loam, 1 to 3 percent slopes"" mapunit was combined with the ""82 2s27z-Ravola very fine sandy loam, 1 to 3 percent slopes"" map unit as a result of the ""SDJR - MLRA 35 - Ravola very fine sandy loam, 1 to 3 percent slopes"" project"". 
+
+The ""91 13192-Sharps loam, dry, 6 to 12 percent slopes"" mapunit was combined with the ""91 2tkxq-Sharps loam, 6 to 12 percent slopes MLRA 36"" map unit as a result of the ""SDJR - MLRA 36 - Sharps loam, dry, 6 to 12 percent slopes"" project"". 
+
+The ""97 1zwp-Sideshow silty clay loam, 0 to 3 percent slopes"" mapunit was combined with the ""97 2tkxr-Sideshow silty clay loam, 0 to 3 percent slopes MLRA 36"" map unit as a result of the ""SDJR - MLRA 36 - Sideshow silty clay loam, 0 to 3 percent slopes"" project"". 
+
+The ""98 1zwq-Sideshow silty clay loam, 3 to 6 percent slopes"" mapunit was combined with the ""98 2tkxs-Sideshow silty clay loam, 3 to 6 percent slopes MLRA 36"" map unit as a result of the ""SDJR - MLRA 36 - Sideshow silty clay loam, 3 to 6 percent slopes"" project"". 
+
+The ""122 1zx1-Wauquie-Dolcan-Rock outcrop complex, 25 to 80 percent slopes"" mapunit was combined with the ""122 2w593-Wauquie-Dolcan-Rock outcrop complex, 25 to 80 percent slopes MLRA 36"" map unit as a result of the ""SDJR - MLRA 36 - Wauquie-Dolcan-Rock outcrop complex, 25 to 80 percent slopes"" project"". 
+
+These projects were part of the Soil Data Join Recorrelation Initiative (SDJR). The tabular database was edited and populated according to guidance in National Instruction (NI-305) exhibits A and B. 
+","<metadata><idinfo><citation><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>20190913</pubdate><title>
+Soil Survey Geographic (SSURGO) database for Ute Mountain
+Area, Colorado and New Mexico
+</title><pubinfo><pubplace>Fort Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</publish></pubinfo><othercit>co670</othercit><onlink>URL:http://DataGateway.nrcs.usda.gov/</onlink></citeinfo></citation><descript><abstract>
+This data set is a digital soil survey and generally is the most
+detailed level of soil geographic data developed by the National
+Cooperative Soil Survey. The information was prepared by digitizing
+maps, by compiling information onto a planimetric correct base
+and digitizing, or by revising digitized maps using remotely
+sensed and other information.
+
+This data set consists of georeferenced digital map data and
+computerized attribute data. The map data are in a soil survey area
+extent format and include a detailed, field verified inventory
+of soils and miscellaneous areas that normally occur in a repeatable
+pattern on the landscape and that can be cartographically shown at
+the scale mapped. A special soil features layer (point and line
+features) is optional. This layer displays the location of features
+too small to delineate at the mapping scale, but they are large
+enough and contrasting enough to significantly influence use and
+management. The soil map units are linked to attributes in the
+National Soil Information System relational database, which gives
+the proportionate extent of the component soils and their properties.
+</abstract><purpose>
+SSURGO depicts information about the kinds and distribution of
+soils on the landscape. The soil map and data used in the SSURGO
+product were prepared by soil scientists as part of the National
+Cooperative Soil Survey.
+</purpose><supplinf>
+Digital versions of hydrography, cultural features, and other
+associated layers that are not part of the SSURGO data set may be
+available from the primary organization listed in the Point of
+Contact.
+</supplinf></descript><timeperd><timeinfo><rngdates><begdate>20051212</begdate><enddate>20190913</enddate></rngdates></timeinfo><current>publication date</current></timeperd><status><progress>Complete</progress><update>As needed</update></status><spdom><bounding><westbc>-109.046</westbc><eastbc>-108.249</eastbc><northbc>37.327</northbc><southbc>36.850</southbc></bounding></spdom><keywords><theme><themekt>None</themekt><themekey>soil survey</themekey><themekey>soils</themekey><themekey>Soil Survey Geographic</themekey><themekey>SSURGO</themekey></theme><place><placekt>USGS Geographic Names Information System (GNIS)</placekt><placekey>Colorado</placekey><placekey>New Mexico</placekey><placekey>La Plata County</placekey><placekey>Montezuma County</placekey><placekey>San Juan County</placekey><placekey>Bowdish Canyon Quadrangle</placekey><placekey>Battle Rock Quadrangle</placekey><placekey>Mud Creek Quadrangle</placekey><placekey>Cortez Quadrangle</placekey><placekey>Peters Nipple Quadrangle</placekey><placekey>Mariano Wash West Quadrangle</placekey><placekey>Mariano Wash East Quadrangle</placekey><placekey>Towaoc Quadrangle</placekey><placekey>Wetherill Mesa Quadrangle</placekey><placekey>Moccasin Mesa Quadrangle</placekey><placekey>Trail Canyon Quadrangle</placekey><placekey>Aneth SE Quadrangle</placekey><placekey>Sentinel Peak SW Quadrangle</placekey><placekey>Sentinel Peak SE Quadrangle</placekey><placekey>Tanner Mesa Quadrangle</placekey><placekey>Moqui Canyon Quadrangle</placekey><placekey>Greasewood Canyon Quadrangle</placekey><placekey>Red Horse Gulch Quadrangle</placekey><placekey>Redmesa Quadrangle</placekey><placekey>Teec Nos Pos Quadrangle</placekey><placekey>Sallies Spring Quadrangle</placekey><placekey>Canal Creek Quadrangle</placekey><placekey>Skinney Rock Quadrangle</placekey><placekey>Palmer Mesa Quadrangle</placekey><placekey>Heifer Point Quadrangle</placekey><placekey>Purgatory Canyon Quadrangle</placekey><placekey>La Plata Quadrangle</placekey><placekey>Chimney Rock Quadrangle</placekey><placekey>Waterflow Quadrangle</placekey><placekey>Youngs Lake Quadrangle</placekey></place></keywords><accconst>None</accconst><useconst>
+The U.S. Department of Agriculture, Natural Resources Conservation
+Service, should be acknowledged as the data source in products
+derived from these data.
+
+This data set is not designed for use as a primary regulatory tool
+in permitting or citing decisions, but may be used as a reference
+source. This is public information and may be interpreted by
+organizations, agencies, units of government, or others based on
+needs; however, they are responsible for the appropriate
+application. Federal, State, or local regulatory bodies are not to
+reassign to the Natural Resources Conservation Service any
+authority for the decisions that they make. The Natural Resources
+Conservation Service will not perform any evaluations of these maps
+for purposes related solely to State or local regulatory programs.
+
+Photographic or digital enlargement of these maps to scales greater
+than at which they were originally mapped can cause misinterpretation
+of the data. If enlarged, maps do not show the small areas of
+contrasting soils that could have been shown at a larger scale. The
+depicted soil boundaries, interpretations, and analysis derived from
+them do not eliminate the need for onsite sampling, testing, and
+detailed study of specific sites for intensive uses. Thus, these data
+and their interpretations are intended for planning purposes only.
+Digital data files are periodically updated. Files are dated, and
+users are responsible for obtaining the latest version of the data.
+</useconst><ptcontac><cntinfo><cntorgp><cntorg>U.S. Department of Agriculture, Natural Resources Conservation Service</cntorg></cntorgp><cntpos>State Soil Scientist</cntpos><cntaddr><addrtype>mailing address</addrtype><address>USDA - Natural Resources Conservation Service</address><address>Colorado State Office</address><address>DFC Bldg. 56, Rm. 2605</address><address>P. O. Box 25246</address><city>Denver</city><state>CO</state><postal>80225</postal></cntaddr><cntvoice>720-544-2850</cntvoice><cnttdd>800-877-8339</cnttdd><cntfax/><cntemail>william.shoup@co.usda.gov</cntemail></cntinfo></ptcontac></idinfo><dataqual><attracc><attraccr>
+The attribute accuracy is tested by manual
+comparison of the source with hard copy plots and/or symbolized
+display of the map data on an interactive computer graphic system.
+Selected attributes that cannot be visually verified on plots or
+on screen are interactively queried and verified on screen. In
+addition, the attributes are tested against a master set of valid
+attributes. All attribute data conform to the attribute codes in
+the signed classification and correlation document and amendment(s).
+</attraccr></attracc><logic>
+Certain node/geometry and topology GT- polygon/chain relationships
+are collected or generated to satisfy topological requirements
+(the GT-polygon corresponds to the soil delineation). Some of these
+requirements include: chains must begin and end at nodes, chains
+must connect to each other at nodes, chains do not extend through
+nodes, left and right GT-polygons are defined for each chain
+element and are consistent throughout, and the chains representing
+the limits of the file are free of gaps. The tests of logical
+consistency are performed using vendor software. All internal
+polygons are tested for closure with vendor software and are checked
+on hard copy plots. All data are checked for common soil lines (i.e.,
+adjacent polygons with the same label). Edge locations generally do
+not deviate from centerline to centerline by more than 0.01 inch.
+The boundary of this survey is matched to the adjacent SSURGO
+certified surveys of Cortez Area, Colorado, Parts of Dolores and
+Montezuma Counties; La Plata County Area, Colorado; Shiprock Area,
+Parts of San Juan County, New Mexico and Apache County, Arizona; and
+San Juan County, Utah, Navajo Indian Reservation. Feature edges and
+labels do not match.
+</logic><complete>
+A map unit is a collection of areas defined and named in terms of
+their soil components or miscellaneous areas or both. Each map
+unit differs in some respect from all others in a survey area and
+each map unit has a symbol that uniquely identifies the map unit
+on a soil map. Each individual area, point, or line so identified
+on the map is a delineation.
+
+Soil Scientists identify small areas of soils or miscellaneous areas
+that have properties and behavior significantly different than the
+named soils in the surrounding map unit. These minor components
+may be indicated as special features. If they have a minimal effect
+on use and management, or could not be precisely located, they may
+not be indicated on the map.
+
+A map unit has specified kinds of soils or miscellaneous areas
+(map unit components), each with a designated range in
+proportionate extent. Map units include one or more kinds of soil
+or miscellaneous area. Miscellaneous areas are areas that have little
+or no recognizable soil.
+
+Specific National Cooperative Soil Survey standards and procedures
+were used in the classification of soils, design and name of map
+units, and location of special soil features. These standards are
+outlined in Agricultural Handbook 18, Soil Survey Manual, 1993,
+USDA, NRCS; Agricultural Handbook 436, Soil Taxonomy, 1995,
+USDA, NRCS; and all Amendments; Keys to Soil Taxonomy,
+(current issue) USDA, NRCS; National Soil Survey
+Handbook, title 430-VI,(current issue) USDA, NRCS.
+
+The actual composition and interpretive purity of the map unit
+delineations were based on data collected by scientists during
+the course of preparing the soil maps. Adherence to National
+Cooperative Soil Survey standards and procedures is based on
+peer review, quality control, and quality assurance. Quality
+control is outlined in the memorandum of understanding for the
+soil survey area and in documents that reside with the Natural
+Resources Conservation Service state soil scientist. Four kinds
+of map units are used in soil surveys: consociations, complexes,
+associations, and undifferentiated groups.
+
+Consociations - Consociations are named for the dominant soil.
+In a consociation, delineated areas use a single name from the
+dominant component in the map unit. Dissimilar components are
+minor in extent. The soil component in a consociation may be
+identified at any taxonomic level. Soil series is the lowest
+taxonomic level. A consociation that is named as a miscellaneous
+area is dominantly that kind of area and minor components do not
+significantly affect the use of the map unit. The total amount of
+dissimilar inclusions of other components in a map unit generally
+does not exceed about 15 percent if limiting and 25 percent if
+nonlimiting. A single component of a dissimilar limiting inclusion
+generally does not exceed 10 percent if very contrasting.
+
+Complexes and associations - Complexes and associations consist
+of two or more  dissimilar components that occur in a regularly
+repeating pattern. The total amount of other dissimilar components
+is minor extent. The following arbitrary rule determines whether
+complex or association is used in the name. The major components
+of an association can be separated at the scale of mapping. In
+either case, because the major components are sufficiently different
+in morphology or behavior, the map unit cannot be called a
+consociation. In each delineation of a complex or an association,
+each major component is normally present though their proportions
+may vary appreciably from one delineation to another. The total
+amount of inclusions in a map unit that are dissimilar to any of
+the major components does not exceed 15 percent if limiting and
+25 percent if nonlimiting. A single kind of dissimilar limiting
+inclusion usually does not exceed 10 percent.
+
+Undifferentiated groups - Undifferentiated groups consist of two
+or more components that are not consistently associated
+geographically and, therefore, do not always occur together in
+the same map delineation. These components are included in the
+same named map unit because their use and management are the same
+or very similar for common uses. Generally they are grouped together
+because some common feature, such as steepness, stoniness, or
+flooding, determines their use and management. If two or more
+additional map units would serve no useful purpose, they may be
+included in the same unit. Each delineation has at least one of the
+major components, and some may have all of them. The same principles
+regarding the proportion of minor components that apply to
+consociations also apply to undifferentiated groups. The same
+principles regarding proportion of inclusion apply to
+undifferentiated groups as to consociations.
+
+Minimum documentation consists of three complete soil profile
+descriptions that are collected for each soil added to the legend,
+one additional per 3,000 acres mapped; three 10 observation
+transects for each map unit, one additional 10 point transect per
+3,000 acres.
+
+A defined standard or level of confidence in the interpretive
+purity of the map unit delineations is attained by adjusting the
+kind and intensity of field investigations. Field investigations
+and data collection are carried out in sufficient detail to name
+map units and to identify accurately and consistently areas of
+about 5 acres.
+</complete><posacc><horizpa><horizpar>
+The accuracy of these digital data is based upon their
+compilation to base maps that meet National Map
+Accuracy Standards at a scale of 1 inch equals 1,000
+feet. The difference in positional accuracy between the
+soil boundaries and special soil features locations in the
+field and their digitized map locations is unknown. The
+locational accuracy of soil delineations on the ground varies
+with the transition between map units.
+
+For example, on long gently sloping landscapes the transition
+occurs gradually over many feet. Where landscapes change
+abruptly from steep to level, the transition will be very
+narrow. Soil delineation boundaries and special soil features
+generally were digitized within 0.01 inch of their locations on
+the digitizing source. The digital map elements are edge matched
+between data sets. The data along each quadrangle edge are
+matched against the data for the adjacent quadrangle. Edge
+locations generally do not deviate from centerline to centerline
+by more than 0.01 inch.
+</horizpar></horizpa></posacc><lineage><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>
+Soil Survey of Ute Mountain Area, Colorado and New
+Mexico
+</title><geoform>text, table, map</geoform></citeinfo></srccite><srcscale>24,000</srcscale><typesrc>paper</typesrc><srctime><timeinfo><rngdates><begdate>1998</begdate><enddate>2005</enddate></rngdates></timeinfo><srccurr>2005</srccurr></srctime><srccitea>NRCS1</srccitea><srccontr>
+information for soil map unit delineations and
+data on soil properties
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>U.S. Geological Survey</origin><pubdate>1993-1997</pubdate><title>multiple 7.5 minute orthophotographs</title><geoform>remote sensing image</geoform><pubinfo><pubplace>Menlo Park, California</pubplace><publish>U.S. Geological Survey</publish></pubinfo></citeinfo></srccite><srcscale>24,000</srcscale><typesrc>stable-base material</typesrc><srctime><timeinfo><rngdates><begdate>1998</begdate><enddate>2003</enddate></rngdates></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>USGS1</srccitea><srccontr>compilation base</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>annotated overlays</title><geoform>map</geoform></citeinfo></srccite><srcscale>24,000</srcscale><typesrc>stable-base material</typesrc><srctime><timeinfo><rngdates><begdate>1998</begdate><enddate>2003</enddate></rngdates></timeinfo><srccurr>2003</srccurr></srctime><srccitea>NRCS2</srccitea><srccontr>scanning and digitizing source</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>
+digitized soils of Ute Mountain Area, Colorado and New
+Mexico
+</title><geoform>map</geoform></citeinfo></srccite><srcscale>24,000</srcscale><typesrc>CD-ROM</typesrc><srctime><timeinfo><rngdates><begdate>2003</begdate><enddate>2005</enddate></rngdates></timeinfo><srccurr>2005</srccurr></srctime><srccitea>NRCS3</srccitea><srccontr>
+digital soils data used for digital editing
+and SSURGO review
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>U.S. Geological Survey</origin><pubdate>1993-1999</pubdate><title>multiple 7.5 minute digital orthophotographs</title><geoform>remote sensing image</geoform><pubinfo><pubplace>Menlo Park, California</pubplace><publish>U.S. Geological Survey</publish></pubinfo></citeinfo></srccite><srcscale>24,000</srcscale><typesrc>online</typesrc><srctime><timeinfo><rngdates><begdate>2003</begdate><enddate>2005</enddate></rngdates></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>USGS2</srccitea><srccontr>reference for digital editing</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>2004</pubdate><title>
+Soil Survey Geographic (SSURGO) database for Cortez
+Area, Colorado, Parts of Dolores and Montezuma Counties
+</title><geoform>map</geoform><pubinfo><pubplace>Fort Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</publish></pubinfo></citeinfo></srccite><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>2005</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NRCS4</srccitea><srccontr>
+certified SSURGO data used for survey boundary
+edge matching
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>2005</pubdate><title>
+Soil Survey Geographic (SSURGO) database for La Plata
+County Area, Colorado
+</title><geoform>map</geoform><pubinfo><pubplace>Fort Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</publish></pubinfo></citeinfo></srccite><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>2005</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NRCS5</srccitea><srccontr>
+certified SSURGO data used for survey boundary
+edge matching
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>2005</pubdate><title>
+Soil Survey Geographic (SSURGO) database for Shiprock
+Area, Parts of San Juan County, New Mexico and Apache County,
+Arizona
+</title><geoform>map</geoform><pubinfo><pubplace>Fort Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</publish></pubinfo></citeinfo></srccite><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>2005</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NRCS6</srccitea><srccontr>
+certified SSURGO data used for survey boundary
+edge matching
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>2004</pubdate><title>
+Soil Survey Geographic (SSURGO) database for San Juan
+County, Utah, Navajo Indian Reservation
+</title><geoform>map</geoform><pubinfo><pubplace>Fort Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</publish></pubinfo></citeinfo></srccite><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>2005</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NRCS7</srccitea><srccontr>
+certified SSURGO data used for survey boundary
+edge matching
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>2005</pubdate><title>National Soil Information System (NASIS) data base</title><geoform>tabular digital data</geoform><pubinfo><pubplace>Fort Collins, Colorado</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</publish></pubinfo></citeinfo></srccite><typesrc>database</typesrc><srctime><timeinfo><rngdates><begdate>2005</begdate><enddate>2005</enddate></rngdates></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NASIS</srccitea><srccontr>attribute (tabular) information</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>Region 8 soils geodatabase</title><geoform>file geodatabase</geoform></citeinfo></srccite><typesrc>vector digital data</typesrc><srctime><timeinfo><rngdates><begdate>2006</begdate><enddate>2018</enddate></rngdates></timeinfo><srccurr>SSURGO publication date</srccurr></srctime><srccitea>NRCS8</srccitea><srccontr>Source of digital revision - recreated yearly</srccontr></srcinfo><procstep><procdesc>
+Ute Mountain Area, Colorado and New Mexico does not have a
+previously published soil survey. Field procedures for the second
+order soil survey included plotting soil boundaries on multiple
+orthophotographs, based upon field observations and
+interpretations of remotely sensed data. Major fieldwork for the
+Soil Survey of Ute Mountain Area, Colorado and New Mexico began
+in 1998. Boundaries were identified by traversing and transecting
+the landscape. Soil scientists described and sampled the soils,
+analyzed samples in the laboratory, and statistically analyzed the
+data. The soil survey classification and map unit names were
+finalized at the final correlation in February, 2005.
+</procdesc><srcused>NRCS1</srcused><procdate>2005</procdate></procstep><procstep><procdesc>
+Soil delineations, special soil features and labels were manually
+compiled from field sheets to stable-base overlays registered to
+1:24,000 scale orthophotographs. Compilation was performed by
+NRCS staff at Durango, Colorado. The annotated overlays were
+raster scanned by Midwestern Graphics in Kenosha, Wisconsin.
+Raster editing, vector conversion, vector editing, edge matching
+and labeling were performed by staff at the Major Land Resource
+Area (MLRA) office in Lakewood, Colorado. Four control points
+corresponding to the four corners of each 7.5 minute quadrangle
+were used for registration during data scanning and editing.
+Quadrangle neatlines were dissolved, and node to node joins were
+performed to produce a seamless survey-wide soil coverage. Map
+units were labeled on-screen. Special soil feature were manually
+digitized from the scanned overlays. The digital data were
+returned to staff at the Durango, Colorado office for review and
+editing. Soil delineations were adjusted on-screen to better
+match landscape features, using digital orthophotography as a
+reference.
+</procdesc><srcused>NRCS1, USGS1, NRCS2, NRCS3, USGS2</srcused><procdate>2005</procdate></procstep><procstep><procdesc>
+The updated digital files were submitted to the NRCS Regional
+SSURGO Digitizing Center in Salina, Kansas for SSURGO review.
+The soil survey boundary was edge matched to the adjacent SSURGO
+certified surveys of Cortez Area, Colorado, Parts of Dolores and
+Montezuma Counties; La Plata County Area, Colorado; Shiprock Area,
+Parts of San Juan County, New Mexico and Apache County, Arizona;
+and San Juan County, Utah, Navajo Indian Reservation. For quality
+control, a ten percent quality assurance review was done by a
+senior soil scientist at the MLRA office in Phoenix, Arizona. The
+spatial data, metadata and tabular files were evaluated using
+ArcGIS 8.3 and the May 2004 ArcInfo SSURGO evaluation AMLs
+provided by NCGC. The certified data were uploaded to the NRCS
+Soil Data Warehouse for archiving and distribution.
+</procdesc><srcused>NRCS3, NRCS4, NRCS5, NRCS6, NRCS7</srcused><procdate>2005</procdate></procstep><procstep><procdesc>
+The National Soil Information System database was developed by
+NRCS soil scientists according to national standards and
+specifications.
+</procdesc><srcused>NRCS1, NRCS3</srcused><procdate>2005</procdate></procstep><procstep><procdesc>
+This current 20051212 dataset was exported to the Soil Data Mart,
+in part, to comply with National Bulletin 430-5-7. Where applicable,
+updates included changing NODIG to NOTCOM (spatial files), recalculation
+of surface O horizons organic matter content in forested areas,
+and population of hydric data elements necessary to generate
+a national list.
+</procdesc><srcused>NASIS</srcused><procdate>20051212</procdate></procstep><procstep><procdesc>
+This export was done primarily to meet the data population requirements
+outlined in National Soil Bulletin 430-5-7. The major changes to
+the dataset involved population of Albedo dry, Component 3D Surface
+Morphometry, Component Slope Shape, Component Aspect, Component Parent
+Material, and Horizon Structure for the surface mineral layer only.
+The Brief Map Unit Description Report was also calculated.
+All National Interpretations, Department of Homeland Security,
+and Military Interpretations were included in the export.
+All obsolete stored interpretations, with the exception of Hydric,
+in the Component Interpretations table were deleted. Slope shape
+and slope aspect were determined from DEMs utilizing ArcGIS tools.
+Where multiple slope shapes and slope aspects were determined for
+a map unit, the predominant slope shape, or slope aspect, was entered
+as the RV for all components in the map unit. Values for Albedo
+were populated for components where a taxonomic unit description
+was available. For many higher taxons (boralfs, cryoboralfs) in
+the older surveys a representative profile description was not available
+to assign Albedo. Albedo was left blank for these components.
+</procdesc><srcused>NASIS</srcused><procdate>20070108</procdate></procstep><procstep><procdesc>
+This 2008 data export contains the following changes
+and updates from previous versions: AASHTO Group calculations
+were run to provide for new Local Roads and Street interpretations.
+New irrigation (General, Micro, Sprinkler, &amp; Surface) interpretations
+were added.
+ENG - Hydrologic Soil Group Generator was added to this Export.
+Standard Pond Reservoir interpretation was modified.
+ENG - Construction Materials; Gravel Source interpretation was modified.
+Prime and other Important Farmland classification ratings were reviewed
+and, where necessary, edited to be more consistent in accordance
+with NSSH standards.
+</procdesc><srcused>NASIS</srcused><procdate>20080128</procdate></procstep><procstep><procdesc>
+The spatial data for the Soil Survey of Ute Mountain Area, Colorado
+and New Mexico was downloaded from the Soil Data Mart on
+October 15, 2012.  The individual shapefiles were appended into a
+geodatabase for Region 8.  The data were processed in ARCGIS 10.1
+using a topology object with a 0.1 meter cluster tolerance
+for the purpose of eliminating gaps and overlaps within the Region 8
+soils geodatabase.  Individual soil survey area data were exported as
+shapefiles from the regional geodatabase.  A datum transformation
+from NAD83 to WGS84 using the NAD_1983_To_WGS_1984_1 datum
+transformation method was applied to the data.  The data were checked
+with the SSURGO Evaluation scripts provided by U.S. Department of
+Agriculture, Natural Resources Conservation Service. The shapefiles
+were then uploaded to the soil data warehouse for archival and
+distribution.
+</procdesc><srcused>NRCS8</srcused><procdate>20130801</procdate></procstep><procstep><procdesc>
+The spatial data for the entire SSURGO database was recertified in October
+of 2019 to reduce storage requirements and to improve map display
+and geoprocessing performance.  The SSURGO data is internally managed
+using 12 Regional Transactional Spatial Databases (RTSD) that are in
+an ESRI File Geodatabase format.  The spatial extent of the RTSDs follow the
+Soil and Plant Science Division (SPSD) regional administrative boundaries.
+The XY coordinate system of this RTSD is USA Contiguous Albers Equal Area
+Conic USGS Version WKID: 102039 and has an XY storage precision of 0.001
+meters.  The RTSDs were recreated using a reduced storage precision of 0.1
+meters to reduce the physical size of the data.  The SSURGO data was also
+generalized by removing excess vertices, using a tolerance of 1 meter.
+The topology was validated at the CONUS level using a tolerance of 0.2
+meters.  This effort directly affects the gSSURGO and gNATSGO product since
+these deliverables are in a File Geodatabase format.
+</procdesc><srcused>NRCS8</srcused><procdate>2019</procdate></procstep><procstep><procdesc>
+The Natural Resources Conservation Service State Soil Scientist or
+delegate, upon completion of data quality verification, determined
+that the tabular data should be released for official use. A
+selected set of map units and components in the soil survey legend was
+copied to a staging database, and rating values for selected
+interpretations were generated. The list of selected interpretations is
+stored in the database table named sainterp.
+</procdesc><srcused>NASIS</srcused><procdate>20190913</procdate></procstep><procstep><procdesc>
+The Natural Resources Conservation Service State Soil Scientist or
+delegate verified that the labels on the digitized soil map units
+link to map units in the tabular database, and certified the joined
+data sets for release to the Soil Data Warehouse. A system assigned
+version number and date stamp were added and the data were copied to
+the data warehouse. The tabular data for the map units and components
+were extracted from the data warehouse and reformatted into the soil
+data delivery data model, then stored in the Soil Data Mart. The spatial
+data were copied to the Soil Data Mart without change.
+</procdesc><srcused>NASIS</srcused><procdate>20190913</procdate></procstep></lineage></dataqual><spdoinfo><direct>Vector</direct></spdoinfo><spref><horizsys><geograph><latres>0.000001</latres><longres>0.0000001</longres><geogunit>decimal degrees</geogunit></geograph><geodetic><horizdn>World Geodetic System 1984</horizdn><ellips>World Geodetic System 1984</ellips><semiaxis>6378137.00000</semiaxis><denflat>298.257222</denflat></geodetic></horizsys></spref><eainfo><detailed><enttyp><enttypl>Special Soil Features</enttypl><enttypd>
+Special Soil Features represent soil, miscellaneous area, or landform
+features that are too small to be digitized as soil delineations
+(area features).
+</enttypd><enttypds>Agricultural Handbook 18, Soil Survey Manual, 1993, USDA, SCS.</enttypds></enttyp><attr><attrlabl>Special Soil Features Codes</attrlabl><attrdef>
+Special Soil Features labels represent specific Special Soil
+Features. These features are identified with a descriptive
+label. The label is assigned to the point or line assigned
+to represent the feature on maps.
+</attrdef><attrdefs>
+Agricultural Handbook 18, Soil Survey Manual, 1993, USDA, SCS;
+National Soil Survey Handbook, Title 430-VI, part 647
+(current issue), USDA, NRCS.
+</attrdefs><attrdomv><codesetd><codesetn>
+Classification and Correlation of the Soils of Ute Mountain
+Area, Colorado and New Mexico
+</codesetn><codesets>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</codesets></codesetd></attrdomv></attr></detailed><overview><eaover>
+Map Unit Delineations are closed polygons that may be dominated
+by a single soil or miscellaneous area component plus allowable
+similar or dissimilar soils, or they can be geographic mixtures
+of groups of soils or soils and miscellaneous areas.
+
+The map unit symbol uniquely identifies each closed map unit
+delineation. Each symbol corresponds to a map unit name. The map
+unit key is used to link to information in the National Soil
+Information System tables.
+
+Map Unit Delineations are described by the National Soil
+Information System database. This attribute database gives the
+proportionate extent of the component soils and the properties for
+each soil. The database contains both estimated and measured data
+on the physical and chemical soil properties and soil
+interpretations for engineering, water management, recreation,
+agronomic, woodland, range, and wildlife uses of the soil.
+
+The National Soil Information System database contains static
+metadata. It documents the data structure and includes such
+information as what tables, columns, indexes, and relationships
+are defined as well as a variety of attributes of each of these
+database objects. Attributes include table and column
+descriptions and detailed domain information.
+
+The National Soil Information System database also contains a
+distribution metadata. It records the criteria used for selecting
+map units and components for inclusion in the set of distributed
+data.
+
+Special features are described in the feature table.  It includes
+an area symbol, feature label, feature name, and feature description
+for each special and ad hoc feature in the survey area.
+</eaover><eadetcit>
+Soil Taxonomy: A basic system of soil classification for making and
+interpreting soil surveys. Agricultural Handbook 436, 1999, USDA, SCS.
+
+Keys to Soil Taxonomy (current issue), USDA, SCS.
+
+National Soil Survey Handbook, Title 430-VI, part 647 (current
+issue), USDA, NRCS.
+
+Agricultural Handbook 18, Soil Survey Manual, 1993, USDA, SCS.
+</eadetcit></overview></eainfo><distinfo><distrib><cntinfo><cntorgp><cntorg>
+U.S. Department of Agriculture, Natural
+Resources Conservation Service, National
+Cartography and Geospatial Center
+</cntorg></cntorgp><cntaddr><addrtype>mailing and physical address</addrtype><address>501 West Felix Street, Building 23, P.O. Box 6567</address><city>Fort Worth</city><state>Texas</state><postal>76115</postal></cntaddr><cntvoice>800 672 5559</cntvoice><cnttdd>202 720 2600</cnttdd><cntfax>817 509 3469</cntfax></cntinfo></distrib><resdesc>Ute Mountain Area, Colorado and New Mexico SSURGO</resdesc><distliab>
+Although these data have been processed successfully on a computer
+system at the U.S. Department of Agriculture, no warranty expressed
+or implied is made by the Agency regarding the utility of the data
+on any other system, nor shall the act of distribution constitute
+any such warranty. The U.S. Department of Agriculture will warrant
+the delivery of this product in computer readable format, and will
+offer appropriate adjustment of credit when the product is determined
+unreadable by correctly adjusted computer input peripherals, or
+when the physical medium is delivered in damaged condition. Request
+for adjustment of credit must be made within 90 days from the date
+of this shipment from the ordering site.
+
+The U.S. Department of Agriculture, nor any of its agencies are
+liable for misuse of the data, for damage, for transmission of
+viruses, or for computer contamination through the distribution of
+these data sets. The U.S. Department of Agriculture (USDA) prohibits
+discrimination in all its programs and activities on the basis of race,
+color, national origin, sex, religion, age, disability, political
+beliefs, sexual orientation, or marital or family status. (Not all
+prohibited bases apply to all programs.)
+</distliab><stdorder><digform><digtinfo><formname>ArcView shapefile</formname><formcont>spatial</formcont><transize>8.1</transize></digtinfo><digtopt><offoptn><offmedia>CD-ROM</offmedia><recfmt>ISO 9660 Level 2</recfmt></offoptn></digtopt></digform><fees>
+The charge is $50 for a CD-ROM that contains one or more data
+sets. A data set is one soil survey area that includes both spatial
+and attribute data.
+</fees><ordering>
+Call or write to organizations listed under Distributor. Spatial
+line data and locations of special feature symbols are in ARC/INFO
+coverage and export formats, and ArcView shapefile format. The
+National Soil Information System attribute soil data are available
+in variable length, pipe delimited, ASCII file format.
+</ordering><turnarnd>10 working days</turnarnd></stdorder></distinfo><metainfo><metd>20190913</metd><metc><cntinfo><cntorgp><cntorg>U.S. Department of Agriculture, Natural Resources Conservation Service</cntorg></cntorgp><cntpos>State Soil Scientist</cntpos><cntaddr><addrtype>mailing address</addrtype><address>USDA - Natural Resources Conservation Service</address><address>Colorado State Office</address><address>DFC Bldg. 56, Rm. 2605</address><address>P. O. Box 25246</address><city>Denver</city><state>CO</state><postal>80225</postal></cntaddr><cntvoice>720-544-2850</cntvoice><cnttdd>800-877-8339</cnttdd><cntfax/><cntemail>william.shoup@co.usda.gov</cntemail></cntinfo></metc><metstdn>Content Standard for Digital Geospatial Metadata</metstdn><metstdv>FGDC-STD-001-1998</metstdv></metainfo></metadata>",10247
