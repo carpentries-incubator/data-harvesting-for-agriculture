@@ -10,12 +10,12 @@ source: Rmd
 
 
 
-####Motivating Questions:
+#### Motivating Questions:
 - What are the common file types in agricultural data?
 - What applications do I need to open these files?
 - How can I make maps of my yield or application?
 
-####Objectives with Spatial Data:
+#### Objectives with Spatial Data:
 - Determine whether data are stored in vector or raster format
 - Identify the coordinate system for a dataset
 - Talk about when data don't have a projection defined (missing .prj file)
@@ -26,7 +26,7 @@ source: Rmd
 - Create geospatial files from lat/long coordinates
 - Create an ab-line
 
-####Keypoints:
+#### Keypoints:
 - sf is prefereable for data analysis; it is easier to access the dataframe
 - Projecting your data in utm is necessary for many of the geometric operations
 you perform (e.g. making trial grids and splitting plots into subplot data)
@@ -97,16 +97,10 @@ head(trial$geom)
 ## POLYGON ((-81.97767 41.74658, -81.97765 41.7460...
 ```
 
-####Check the coordinate reference system
-
-Geospatial data has a coordinate reference system (CRS) that projects the map in
-a specific location.
-**Explain projection more in layman's terms here**
-
-**Start of layman's terms section - Dena:**
 ####What is a projection?
 
-A projection is a way of making the earth's curved surface fit into something you 
+Geospatial data has a coordinate reference system (CRS) that projects the map in
+a specific location. A projection is a way of making the earth's curved surface fit into something you 
 can represent on a flat computer screen. To understand why that matters, take a look
 at the difference between [the Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection#/media/File:Mercator_projection_Square.JPG) of the world and the 
 [Boggs eumorphic projection](https://en.wikipedia.org/wiki/Boggs_eumorphic_projection#/media/File:Boggs_eumorphic_projection_SW.JPG)
@@ -118,12 +112,10 @@ and Russia get pinched and Greenland gets bisected. There will always be some co
 made in a projection system that converts curved surfaces to flat ones for the same reason 
 that it's difficult to make an orange peel lie flat. So the method you select will have an 
 effect on your outcome.
-**End of layman's terms section - Dena**
 
+####Check the coordinate reference system
 
-
-Different CRSs use different projections of the earth into
-2-dimensional space. Some coordinate reference systems, such as UTM zones, are
+Some coordinate reference systems, such as UTM zones, are
 measured in meters from a reference point in the zone. Latitude and longitude
 represent a different type of CRS, defined in terms of angles across a sphere.
 Before combining files
@@ -234,7 +226,6 @@ the object `planting`. This file contains the planting information for 2017.
 
 **Solution**
 
-<<<<<<< HEAD
 
 ```r
 planting <- read_sf("data/asplanted.gpkg")
@@ -290,25 +281,17 @@ st_crs(planting_latlong)
 ##   EPSG: 4326 
 ##   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
 ```
-**Dena - It looks like this section needs a conflict resolved, this is an unresolved Git conflict marker**
-<<<<<<< HEAD
-The cleaned planting file was in UTM initially. The zone is 17 which is to be expected 
-as it is from the same field as the trial design file we worked with earlier. When we
-look at the geometry features, they are 6,277 points defined in x and y coordinates.
-Using the ESPG for lat/long we covered earlier 4326, we create a new file called
-`planting_latlong` with the CRS of WGS84.
 
-
-```r
-trialutm <- st_transform(trial, projutm)
-```
-=======
 The cleaned planting file was in UTM initially. The zone is 17 which is to be 
 expected as it is from the same field as the trial design file we worked with earlier. 
 When we look at the geometry features, they are 6382 points defined in x 
 and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new
 file called `planting_latlong` with the CRS of WGS84.
->>>>>>> ac5d8087dfe7ad986d1cc9650fbf13b934ca5f96
+
+
+```r
+trialutm <- st_transform(trial, projutm)
+```
 
 ####Save the file 
 
@@ -387,7 +370,7 @@ tm_shape(trialutm) + tm_polygons('NRATE', title = "Nitrogen Rate") +
             bg.color = "white")
 ```
 
-![plot of chunk map](figure/map-1.png)
+![plot of chunk map](../figure/map-1.png)
 
 
 ####Creating Spatial Objects
@@ -464,7 +447,7 @@ Plot the resulting AB-line with the generic plotting function for `sf` objects.
 plot(ab_line)
 ```
 
-![plot of chunk plotabline](figure/plotabline-1.png)
+![plot of chunk plotabline](../figure/plotabline-1.png)
 
 ####Reading in the Boundary File
 
@@ -493,4 +476,4 @@ plot(boundary$geom)
 plot(ab_line, add = TRUE)
 ```
 
-![plot of chunk plotboth](figure/plotboth-1.png)
+![plot of chunk plotboth](../figure/plotboth-1.png)

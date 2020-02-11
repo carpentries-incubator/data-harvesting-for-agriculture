@@ -9,15 +9,15 @@ source: Rmd
 ```{r setup, include=FALSE}
 library(knitr)
 library(httr)
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
 ```
 
-####Motivating Questions:
+#### Motivating Questions:
 - What are the common file types in agricultural data?
 - What applications do I need to open these files?
 - How can I make maps of my yield or application?
 
-####Objectives with Spatial Data:
+#### Objectives with Spatial Data:
 - Determine whether data are stored in vector or raster format
 - Identify the coordinate system for a dataset
 - Talk about when data don't have a projection defined (missing .prj file)
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 - Create geospatial files from lat/long coordinates
 - Create an ab-line
 
-####Keypoints:
+#### Keypoints:
 - sf is prefereable for data analysis; it is easier to access the dataframe
 - Projecting your data in utm is necessary for many of the geometric operations
 you perform (e.g. making trial grids and splitting plots into subplot data)
