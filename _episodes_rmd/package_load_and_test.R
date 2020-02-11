@@ -65,7 +65,7 @@ df <- download_daymet(site = "Oak Ridge National Laboratories",
 # test FedData
 ssurgo <- get_ssurgo(template=c('NC019'), label='county')
 plotssurgo <- ssurgo$spatial
-plotssurgo <- plotssurgo[4000:5000,]
+plotssurgo <- plotssurgo[4000,]
 plot(plotssurgo)
 
 # test lubridate
