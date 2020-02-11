@@ -21,11 +21,11 @@ as.Date.daymetr <- function(daymetdata){
   return(date)
 }
 
-sumprec.by.monthyear <- function(data){
+sumprec_by_monthyear <- function(data){
   data %>% dplyr::group_by(month, year) %>% dplyr::summarise(prec_month = sum(prec))
 }
 
-avgprec.by.month <- function(data){
+avgprec_by_month <- function(data){
   data %>% dplyr::group_by(month) %>% dplyr::summarise(prec_avg = mean(prec_month)) 
 }
 
