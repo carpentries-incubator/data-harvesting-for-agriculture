@@ -3,6 +3,7 @@
 # Instead, please edit 01-R-RStudio.md in _episodes_rmd/
 title: "Introduction to R and RStudio"
 questions:
+- <font color="magenta">THESE ARE NOT UPDATED -- WE CAN DO THIS LAST</font>
 - "How can I work with a spreadsheet in a more advanced and reproducible manner than using MS Excel?"
 - "How can I keep my data and analysis organized?"
 - "How can I visualize my data with graphs?"
@@ -23,36 +24,43 @@ source: Rmd
 
 
 
+<!-- JPN: updated fig path here manually for plots to show -->
+
+
+
+
+## <font color="magenta">Assumptions -- FOR DEBUGGING</font>
+
+ 1. <font color="magenta">Everybody has installed R and R studio</font>
+ 1. <font color="magenta">They have been able to run the install script we sent them and have all packages installed</font>
+ 1. <font color="magenta">They *do* need an intro to the layout of RStudio, and what everything does.</font>
+
+<font color="green">DENA: I think we need a "basic programming concepts" even before we get to this -- we need to give them the omelet maker and the picture of the assembly line, or maybe a harvesting machine equivalent, so there's something human and understandable and relatable before they get straight into scary command line-looking things. Should we put it in here or at the end of the previous intro chapter?</font>
+
 ## Getting to know R and RStudio
 
-In this episode we'll cover the basics of using R, which is a programming
-language for statistics, data analysis, and data visualization.  In the past
-decade or so, R has become very popular in both science and business, largely
-because (1) it is free, and (2) thousands of people have written new code
-extending its functionality, and that code is also free.  If you perform an
-analysis in R, you can share that analysis so that anyone in the world can
-reproduce it without having to purchase proprietary software.
+<font color="magenta">A good bit of this might be more suitable to the Setup section as it's got a lot about the setup and running of Rstudio.</font>
 
-If you're already proficient with Excel, you will probably already know how to
-accomplish a lot of what we are doing in this episode using Excel instead of
-R. One reason why we are teaching you this material, however, is to get you
-comfortable with R since we will be using R for geospatial analysis (which is
-not so easy in Excel).  The other reason is that with R, you can make your
-analysis much more reproducible than you can with Excel or other graphical
-software.  In R, everything you do goes into a plain text file called a *script*,
-and to rerun your analysis you can simply rerun the same script.  Scripts are
-also fairly easy to edit and repurpose (for example, redoing the exact same
-analysis with next year's dataset) as well as share with other people (your
-neighbor who wants to try your analysis but with his or her own data).
+### <font color="magenta">Outline for this section</font>
+ 1. <font color="magenta">Let's open RStudio </font>
+ 1. <font color="magenta">Where is the console? (screen shot) Vocab: *console*</font>
+ 1. <font color="magenta">Let's use RStudio as a calculator by putting numbers into the console</font>
 
-Separately from R, we asked you to install a piece of software called RStudio,
-which will make R a lot easier to use.  Although there are paid, "enterprise"
-versions of RStudio, the free version does everything that a typical user
-needs.
 
-Launch RStudio.  If this is the first time you have opened it, the entire left
-pane will be taken up by something called the Console.  This has a prompt where
-commands can be entered.
+In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.
+
+If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel). 
+
+In this lesson, we will be making use of another software called "RStudio" as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  **Some sort of analogy here would be grand**
+
+We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below:
+
+
+![starting R studio](../fig/Rstudio_blank.png)
+
+<font color="magenta"> **Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? </font><font color="green">Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
+
+This has a prompt where commands can be entered.
 
 
 ```r
@@ -63,21 +71,37 @@ commands can be entered.
 ## [1] 12
 ```
 
-After you hit enter, you will see the result of the command.  But usually we
-don't run commands from here, since we want to keep a record of everything we
-did.  If you go to File &rarr; New File &rarr; R Script, the text editor will open in
-the upper left, and you will be able to type commands there and save them in
-a file.  To run a command from the script editor, put your cursor on the line
-where the command starts and press the "Run" button.  Alternatively, you can
-press Ctrl+Enter.
+<!-- JPN: here is a test plot you can uncomment if you wanna try it
+I'm gonna trya thing
 
-In addition to putting commands in your script, you can put *comments*.  A
-comment is a line, or part of a line, that is ignored by R.  This means you can
-use comments to explain what is happening in the code or why you did something
-a certain way.  Comments start with the `#` character, and can take up the
-whole line or just the end of a line.  As we go through this workshop, I
-encourage you to put lots of comments in your code. Think of them as a way to
-take notes!
+
+```r
+plot(c(1,2,3), c(4,5,6))
+```
+
+![plot of chunk unnamed-chunk-2](../fig/unnamed-chunk-2-1.png)
+-->
+
+
+<!-- JPN: this is just a test to see if I get what is going on here
+
+```r
+data = read.csv('data/fertilizer_use.csv')
+print(head(data))
+```
+
+```
+##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+## 5 1968 Corn     3116      1855   1778
+## 6 1969 Corn     3287      1789   1765
+```
+-->
+
+After you hit enter, you will see the result of the command.  Let's try a few others:
 
 
 ```r
@@ -89,6 +113,16 @@ take notes!
 ## [1] 8
 ```
 
+Whoa!  What did I do just there with this `#`?  This is called "leaving a comment in your code" and everything following the `#`
+symbol is called a *comment*. A
+comment is a line, or part of a line, that is ignored by R.  This means you can
+use comments to explain what is happening in the code or why you did something
+a certain way.  Comments start with the `#` character, and can take up the
+whole line or just the end of a line.  As we go through this workshop, I
+encourage you to put lots of comments in your code. Think of them as a way to
+take notes!  Here is an example of a comment at the end of a line while we are doing some arithematic:
+
+
 ```r
 2 ^ 3 # this raises two to the third power
 ```
@@ -97,67 +131,587 @@ take notes!
 ## [1] 8
 ```
 
-We can save this script to a file on our computer, with the .R extension so that
-RStudio knows to treat it like an R script (even though it is plain text).
-We'll want to keep our scripts organized though, and probably store them with
-the data that they will be processing.  Luckily RStudio has a feature called
-"Projects" that makes it easy to stay organized.
 
-Go to File &rarr; New Project.  Select "New Directory".  Here you will put the
-name of a new folder and where you want it to be located on your computer.
-For example, you can call the project "R_lesson".  Once the project is created,
-you'll find that you can get to that same folder through Windows Explorer, or
-on a Mac, Finder.  In RStudio, we see the contents of the folder in the "Files"
-pane in the lower right.  Right now the only file there is called
-`R_lesson.Rproj` (or whatever you called your project), which stores
-settings for the project and can be ignored for now.  Use the "New Folder"
-button to make a folder called "data", one called "scripts", and one called
-"results".  We will put datasets into the data folder, keep all of our R scripts
-in the scripts folder, and put any output files into the results folder.  While
-it isn't strictly necessary to organize files in this way, it makes it a lot
-easier to keep track of things.
 
-Create a new script called `R_intro.R` and save it in your "scripts" folder.
-We will work off of this file for the remainder of the episode, then start a
-new script for the next episode.
+## Variables in R
 
-## Dataset for this lesson
+### <font color="magenta">Outline of this Section</font>
+
+ 1. <font color="magenta">what is a variable? Vocab: *variable*</font>
+ 1. <font color="magenta">how do we assign a variable? Vocab: *assign*</font>
+ 1. <font color="magenta">What can we do with this variable? -> Generic manipulations (addition, multiplication, etc)</font>
+     * <font color="magenta">for this, use a "real world" thing that farmers might be into... something something nitrogen levels?</font>
+ 1. <font color="magenta">Talk about how this variable now shows up in the data area and have a screen shot of where that is</font>
+
+
+<font color="magenta">I stole this bit from the Python Fundementals Episode, not sure if that is groovy or not.  I *think* its ok if we follow the rules of their license but we should double check. I also stole a few things from the R-fundementals workshop and so we need to credit them as well.</font>
+
+<font color="magenta">Also I've left in the links to glossary references that may or may not be there - for example if you click on the "assign" link, it goes nowhere right now.</font>
+
+<font color="magenta">Also, we should change this whole `weight_kg` thing into something that is more agri-centric?  I think?</font>
+
+This is great but not very interesting.
+To do anything useful with data, we need to assign its value to a _variable_.
+In R, we can [assign]({{ page.root }}/reference/#assign) a value to a
+[variable]({{ page.root }}/reference/#variable), by typing a little left arrow sign `<-`.
+For example, to assign value `60` to a variable `weight_kg`, we would execute:
+
+
+```r
+weight_kg <- 60
+```
+
+From now on, whenever we use `weight_kg`, R will substitute the value we assigned to
+it. In layman's terms, **a variable is a placeholder name for something that can be updated regularly**. (In calendar terms, "today" is a variable name that represents a date that changes every 24 hours. Being able to refer to something as "today" is a lot simpler than updating that number every day at midnight.)
+
+In R, variable names:
+
+ - can include letters, digits, and underscores
+ - cannot start with a digit
+ - are [case sensitive]({{ page.root }}/reference/#case-sensitive).
+
+This means that, for example:
+ - `weight0` is a valid variable name, whereas `0weight` is not
+ - `weight` and `Weight` are different variables
+
+<font color="magenta">Also from the R-programming workshop, possibly said another way:</font>
+
+> ## Variable Naming Conventions
+>
+> Historically, R programmers have used a variety of conventions for naming variables. The `.` character
+> in R can be a valid part of a variable name; thus the above assignment could have easily been `weight.kg <- 57.5`.
+> This is often confusing to R newcomers who have programmed in languages where `.` has a more significant meaning.
+> Today, most R programmers 1) start variable names with lower case letters, 2) separate words in variable names with
+> underscores, and 3) use only lowercase letters, underscores, and numbers in variable names. The book *R Packages* includes
+> a [chapter](http://r-pkgs.had.co.nz/style.html) on this and other style considerations.
+{: .callout}
+
+### Types of data
+
+<font color="magenta">Do we need to get into datatypes here?  Or can we just skip it and get into it when we look at an actual dataset that has columns of different datatypes?</font><font color="green">DENA: Introduce each concept right when we need to know it and right when we're going to use it. That way it's directly relevant to what's in front of them next.)</font>
+
+R knows various types of data. The ones you are likely to come across are:
+
+* integer numbers (whole numbers)
+* floating point numbers (numbers with decimals), and
+* names or words that sort data into "categories" <font color="magenta">(maybe something better here?)  Save types of data until we get into the columns stuff?</font>
+
+In the example above, variable `weight_kg` has an integer value of `60`.
+To create a variable with a floating point value, we can execute:
+
+
+```r
+weight_kg <- 60.0
+```
+
+<font color="magenta">Here I don't know if we should get into the print function right now like they do in the Python lesson or not</font>
+
+<font color="magenta">I also don't know if we want to use "<-" all the time or the "=" sign.  I *feel* like "=" is more intiuative but I'm not 100% sure on that one, could be my Python bias showing :)</font>
+
+We can do arithematic with variables like we did with numbers before:
+
+
+```r
+# Performing arithmetic with our variable: multiply it by a factor of 2.2
+weight_kg * 2.2
+```
+
+```
+## [1] 132
+```
+<!-- weight in lbs = 2.2 x weight in kg -->
+
+
+The above command, however, did not change the value of `weight_kg`:
+
+
+```r
+weight_kg
+```
+
+```
+## [1] 60
+```
+
+To change the value of the `weight_kg` variable, we have to
+**assign** `weight_kg` a new value using the equals `<-` sign:
+
+
+```r
+weight_kg <- 60.0 * 2.2
+weight_kg
+```
+
+```
+## [1] 132
+```
+
+
+> ## Variables as Sticky Notes
+>
+> A variable is analogous to a sticky note with a name written on it:
+> assigning a value to a variable is like putting that sticky note on a particular value.
+>
+> ![Variables as Sticky Notes](../fig/python-sticky-note-variables-01.svg)
+>
+> This means that assigning a value to one variable does **not** change
+> values of other variables.
+> For example, let's store the subject's weight in pounds in its own variable:
+>
+> 
+> ```r
+> # There are 2.2 pounds per kilogram
+> weight_lb <- 2.2 * weight_kg
+> weight_kg
+> ```
+> 
+> ```
+> ## [1] 132
+> ```
+> 
+> ```r
+> weight_lb
+> ```
+> 
+> ```
+> ## [1] 290.4
+> ```
+>
+>
+> ![Creating Another Variable](../fig/python-sticky-note-variables-02.svg)
+>
+> Let's now change `weight_kg`:
+>
+> 
+> ```r
+> weight_kg <- 100.0
+> weight_kg
+> ```
+> 
+> ```
+> ## [1] 100
+> ```
+> 
+> ```r
+> weight_lb
+> ```
+> 
+> ```
+> ## [1] 290.4
+> ```
+> We can see that even though we updated `weight_kg`, the variable `weight_lb` was not changed.
+>
+> ![Updating a Variable](../fig/python-sticky-note-variables-03.svg)
+>
+> Since `weight_lb` doesn't "remember" where its value comes from,
+> it is not updated when we change `weight_kg`.
+{: .callout}
+
+
+<font color="magenta">Note: there is another way of explaining this in the R lesson:</font> [http://swcarpentry.github.io/r-novice-inflammation/01-starting-with-data/index.html](http://swcarpentry.github.io/r-novice-inflammation/01-starting-with-data/index.html)
+
+<font color="magenta">Do we want to have this example for them too or just get right into scripts and whatnot?</font>
+
+> ## Assigning Values to Variables
+>
+> Draw diagrams showing what variables refer to what values after each statement in the following program:
+>
+> ~~~
+> mass <- 47.5
+> age <- 122
+> mass <- mass * 2.0
+> age <- age - 20
+> ~~~
+> {: .language-r}
+>
+> > ## Solution
+> >
+> > ~~~
+> > mass <- 47.5
+> > age <- 122
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/mass-age-assign-1.svg" alt="Assigning Variables" />
+> >
+> > ~~~
+> > mass <- mass * 2.0
+> > age <- age - 20
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/mass-age-assign-2.svg" alt="Assigning Variables" />
+> > 
+> {: .solution}
+{: .challenge}
+
+
+## Writing and Saving R Scripts 
+
+<font color="magenta"> NOTE: I'm wondering if we want to push this section to later -- i.e. if we want to just go right to "getting your data into R" and do some examples just using the console and then start worrying about saving files later in the day once they have some cool plots that they made with R that they might want to reproduce.</font> <font color="green">DENA: Yes, move it later -- we're after early gratification with minimal fear and dread.)</font>
+
+
+### <font color="magenta">Outline of this section</font>
+ 1. <font color="magenta">Analogy - scripting is like writing a set of instructions, a letter, something. Vocab: *scripts/scripting* </font>
+ 1. <font color="magenta">Where do we write scripts in RStudio - screen shot of window, a screen shot of what to do if there is only the console and no script - how do you open a script interface </font>
+ 1. <font color="magenta">Redo stuff with variable in script (nitrogen levels calculation), but call it something different</font>
+ 1. <font color="magenta">How to run a script - Run vs. Source -> they are in the same place!  Screenshot of this. Vocab: *running a script*</font>
+ 1. <font color="magenta">Point out that it shows up in the data-listing place</font>
+ 1. ~~<font color="magenta">How do we find out the value of our new variable that we wrote in a script?</font>~~
+    1. ~~<font color="magenta">Using the console like before - because in RStudio the console and scripting interface are linked! (this is not true in other things like PyCharm... this is slightly an aside though so use an aside thing)</font>~~
+    1. ~~<font color="magenta">Using a print statement - emphasize that you *have* to use print in the script to see the variable!</font>~~
+ 1. <font color="magenta">How to save our script -> where does it save to?</font>
+ 1. <font color="magenta">Closing and re-opening a script to re-run.</font>
+
+
+Now that we have some idea of what kinds of calculations we want to do in R, we might want to know how to save our work.  We do this in something called a _script_ which is essentially a list of instructions that will tell R what to do, in the order we give them.
+
+We can open up a _script file_ where we will type in all our instructions by going to the little green plus at the top left of RStudio and selecting "R Script" from the dropdown menu <font color="magenta">(this was for a Mac, not sure if its different for windows)</font>:
+
+<img src="../fig/opening_script_in_Rstudio.png" alt="Opening a script in Rstudio">
+
+In our new scripting window, we can type the commands that we had worked through before into this script and then tell R to do the calculation by putting our cursor on the last line (end of line 3) and pressing the "Run" button in the upper right corner of the scripting window:
+
+<img src="../fig/output_script_save-02.png" alt="Run a script">
+
+<font color="magenta">Do we want to teach them about Source vs. Run at this point? </font>
+
+You can see that these variable names have now popped up in the _Global Environment_ window at the upper left -- this is a way we can keep track of our variables as we run our scripts.
+
+Finally, we want to be able to save all of our hard work!  We can do this like we would save any file on our computer, but make sure you put it in a place were you'll remember on your computer. <font color="magenta">(do we need screen shots?  I assume everybody knows how to save a file and how to choose where to save it but maybe this isn't 100% correct?)</font>
+
+You'll note now that the little upper tab on the left of the scripting window has the file name I chose, but with the extension `.R`.  This is the extension of an R-script and it means that its in a format that R can execute.
+
+<img src="../fig/output_script_save-03.png" alt="save a script">
+
+If you close this file and want to re-open it, you can use `File -> Open File...` to open it up in R. <font color="magenta">(This could be different on a Windows, also not sure how much detail we want here and if we want a screen shot or not)</font>
+
+
+<!--## OPTIONAL: What is a function?
+
+<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this. </font>
+
+-->
+
+## Getting your data into R
+
+### <font color="magenta">Outline of this Section</font>
+ 1. <font color="magenta">Let's talk about the dataset we are going to use here -- facts about this dataset</font>
+ 1. <font color="magenta">This is what this dataset looks like (show snapshot of csv)</font>
+ 1. <font color="magenta">To get this data into R where we can do math to it like we did with our variable above we have to do something called "reading in our data".  To do this, we'll use something called a *function* to assign a variable the value of this table -- i.e. we want a variable that will store all the rows and columns of our dataset</font>
+     * <font color="magenta">Talk a bit about what a function is here -- omelets? Vocab: *function*</font>
+     * <font color="magenta">we also have to talk about the fact that we give the file name as a parameter to this function. Vocab: *function parameter*</font>
 
 As an example of a dataset in spreadsheet form that we can use to demonstrate
-the R language, we are using the USDA - Economic Research Service's fertilizer
-use and price dataset, available at
-https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx.
-Table 2 of this dataset, showing 1,000 nutrient short tons of nitrogen,
+the R language, we are using the [USDA - Economic Research Service's fertilizer
+use and price dataset](https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx).
+Of the various tables of data on this website, will be looking at Table 2 called "Estimated U.S. plant nutrient use by selected crops"
+which shows 1,000 nutrient short tons of nitrogen,
 phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the
-US from 1964-2016, has been reformatted into a CSV file for ease of import into
-R.  You can download the CSV from
-https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv.
+US from 1964-2016.
+
+This table has been reformatted into a CSV file for ease of import into
+R.  You can download the CSV from: <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv" download>https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv</a>. <font color="magenta">NOTE: I had to *explicitly* save this as a .csv file, it default downloaded as a txt file.  And I had to right-click on the link to save it at all, eventhough I had the download tag in the HTML.  Not sure how to fix this at the moment.</font>
+
+The top few lines of this file look like:
+
+
+```
+## Year,Crop,Nitrogen,Phosphate,Potash
+## 1964,Corn,1623,1053,829
+## 1965,Corn,2151,1336,1204
+## 1966,Corn,2596,1626,1513
+## 1967,Corn,3044,1857,1750
+```
+
 It can be opened in Excel if you want to get a quick look at it that way, or we can
 dive straight into looking at it in R.  Save it into your `data` folder in
 your RStudio project for this lesson.
 
+<font color="magenta"> **NOTE: this assumes they have already created the `data` folder -> I assume this will be somewhere in the setup directions?? </font><font color="green">DENA: It should be both in the setup directions and on the USB key.)</font>
+
 In R, we can use a *function* called `read.csv` to import data from a CSV
-(comma-separated value) file. When using any R function, we need opening and
-closing parentheses after the function name.  Inside those parentheses we put
-items called *arguments* that tell the function what to do.  In this case, we
-will put the name of the file to read in quotes, including the folder that it is
-in.  (You can use a forward slash regardless of whether you are on Windows or
-another operating system.)  To the left of the function name we have the
-*assignment operator*, `<-`, which we will use to put the data somewhere for
-further processing.  In this case, we will make an *object* called `fert_use`
-where we will store the data.
+(comma-separated value) file.
+
+> ### What is a function?
+>
+> A function is a bit of code that we want to be able to reuse again and again.  For example, let's say you want to make yourself an omelet every morning, wouldn't it be great if you had some sort of machine that would do it for you?
+> 
+> Let's imagine an omelet-making scenario. You start with some eggs, some cheese, and some other ingredients, use utensils and heat, and end up with something cooked and edible on a plate.
+>
+> Here's what that process might look like in terms a step closer to programming:
+><pre><code>
+> function make_omelet(eggs, cheese, chives) {
+>    for each bowl
+>        crack eggs
+>        discard shells
+>        if the ingredients list is longer than eggs
+>            add other ingredients to bowl as well
+>        else
+>            ready to cook
+>   pour bowl into hot pan
+>   cook
+>   serve
+>   done
+> }
+>
+></code></pre>
+>
+>In this example, we're telling the system these things:
+> * A function (repeatable sequence of commands) named `make_omelet` takes several inputs (the ingredients list in parentheses)
+> * The part in the curly braces `{}` tells the function what to do with the inputs (also called arguments or parameters -- you can think of this as an ingredients list if it helps)
+>
+>
+> To use a function we have to _call_ it in a specific way.  Let's try with an R function called `print` which will just echo back what we give it as an _input parameter_:
+> 
+> ```r
+> weight_kg <- 100.0 # assign the value of 100.0 to a variable called "weight_kg"
+> print(weight_kg) # print out the value of the variable to the screen
+> ```
+> 
+> ```
+> ## [1] 100
+> ```
+> In this example, we _called_ the function by using the function name, `print` followed by parenthisis in which we put our _input parameter_ in this case the variable `weight_kg`, the value of which we wanted to print to the screen.
+> This was a bit of a silly example since we've been able to show the value of variables without this function before, but it is a nice example of a function being used. <font color="magenta">(wording has got to be better here)</font>
+>
+{: .callout}
+
+Let's use a function called `read.csv`<font color="purple">(BRITTANI: The way this is written now, we have already seen read.csv. We need to decide where we want to put the function omlet example in relation to reading the csv.)</font>. that will import our table of data into R so we can use it:
 
 
 ```r
 fert_use <- read.csv("data/fertilizer_use.csv")
 ```
 
-Now in the upper right pane of RStudio, we see `fert_use` listed within our
-*environment*.
+Note here that the name of the function is `read.csv`, the _input parameter_ is the name of the file we want to read in, including the `data` folder we created earlier.  The `/` after `data` just indicates to R that it should look inside this folder for the file named `fertilizer_use.csv`.  <font color="magenta">(Again here, I'm assuming we already went over how to make the data folder, how to save stuff inside the data folder, and whatnot)</font>.  We _assigned_ the value of this table -- all of its row and column data -- into a variable called `fert_use`.
 
-Immediately after loading a dataset, it is a good idea to inspect it and make
-sure it looks like it is formatted correctly.  The `str` function is helpful
-for getting a quick look.
+Just like with our `weight_kg` and `weight_lb` variables before, it now shows up in the _Global Environment_ window at the upper left of RStudio.
+
+
+## Explore your data in R 
+
+#### <font color="magenta">Outline for this section</font>
+ 1. <font color="magenta">Explore your data with the "head" function </font>
+      *  <font color="magenta">Your data is stored as a special thing called a dataframe - explain what this is. Vocab: *dataframe*</font>
+ 1. <font color="magenta">Using the str function</font>
+ 1. <font color="magenta">NOT IN HERE YET: Also show how to look at your data in R (like "View(data)")? Maybe?  Or you can click on it?</font>
+ 1. <font color="magenta">We can access the columns of your tabular dataset with a $ thing</font>
+ 1. <font color="magenta">We can access the rows of your tabular dataset with ... (not sure we wanna do this)</font>
+
+
+<font color="magenta">I am starting of with the "head" function because I think its more intuative than the "str" function and allows for a more gentle walk through of what a dataframe is, but I think this can definitely be open for debate and might just be my own biases of the order in which I learned things!</font>
+
+Now that you have your data imported into R, it would be nice to take a look at it!  One quick way to do this is using the `head` function like so:
+
+
+```r
+head(fert_use)
+```
+
+```
+##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+## 5 1968 Corn     3116      1855   1778
+## 6 1969 Corn     3287      1789   1765
+```
+
+This lets us look at our table of data, but it formats things in a nice way, with the name of each column at the top and the row numbered on the left side.
+
+We can also control how many rows print out by including an _optional parameter_ in our function call:
+
+
+```r
+head(fert_use, n=4)
+```
+
+```
+##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+```
+
+Note that we can call the `head` function without this parameter and it will run just fine with some default value.  If we want to specify the number of rows, we include this as `parameter name = parameter value`.  In this case, our `parameter name` for the `head` function is `n` and the `parameter value` is `4`.  Different functions will have different parameter names and we can find out more information about these parameters by appending a `?` to the front of our function call which will print out a bit of info about these optional parameters:
+
+
+```r
+?head
+```
+
+<!-- JPN: this looks not great
+> ### Finding Help for a Function
+>
+> 
+> ```r
+> ?head
+> ```
+>
+> Will output:
+> 
+> 
+> <table width="100%" summary="page for head {utils}"><tr><td>head {utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+> 
+> <h2>
+> Return the First or Last Part of an Object
+> </h2>
+> 
+> <h3>Description</h3>
+> 
+> <p>Returns the first or last parts of a vector, matrix, table, data frame
+> or function.  Since <code>head()</code> and <code>tail()</code> are generic
+> functions, they may also have been extended to other classes.
+> </p>
+> 
+> 
+> <h3>Usage</h3>
+> 
+> <pre>
+> head(x, ...)
+> ## Default S3 method:
+> head(x, n = 6L, ...)
+> ## S3 method for class 'data.frame'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'matrix'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'ftable'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'table'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'function'
+> head(x, n = 6L, ...)
+> 
+> tail(x, ...)
+> ## Default S3 method:
+> tail(x, n = 6L, ...)
+> ## S3 method for class 'data.frame'
+> tail(x, n = 6L, ...)
+> ## S3 method for class 'matrix'
+> tail(x, n = 6L, addrownums = TRUE, ...)
+> ## S3 method for class 'ftable'
+> tail(x, n = 6L, addrownums = FALSE, ...)
+> ## S3 method for class 'table'
+> tail(x, n = 6L, addrownums = TRUE, ...)
+> ## S3 method for class 'function'
+> tail(x, n = 6L, ...)
+> </pre>
+> 
+> 
+> <h3>Arguments</h3>
+> 
+> <table summary="R argblock">
+> <tr valign="top"><td><code>x</code></td>
+> <td>
+> <p>an object</p>
+> </td></tr>
+> <tr valign="top"><td><code>n</code></td>
+> <td>
+> <p>a single integer.  If positive or zero, size for the resulting
+> object: number of elements for a vector (including lists), rows for
+> a matrix or data frame or lines for a function.  If negative, all but
+> the <code>n</code> last/first number of elements of <code>x</code>.</p>
+> </td></tr>
+> <tr valign="top"><td><code>addrownums</code></td>
+> <td>
+> <p>if there are no row names, create them from the row
+> numbers.</p>
+> </td></tr>
+> <tr valign="top"><td><code>...</code></td>
+> <td>
+> <p>arguments to be passed to or from other methods.</p>
+> </td></tr>
+> </table>
+> 
+> 
+> <h3>Details</h3>
+> 
+> <p>For matrices, 2-dim tables and data frames, <code>head()</code> (<code>tail()</code>) returns
+> the first (last) <code>n</code> rows when <code>n &gt;= 0</code> or all but the
+> last (first) <code>n</code> rows when <code>n &lt; 0</code>.  <code>head.matrix()</code> and
+> <code>tail.matrix()</code> are exported.  For functions, the
+> lines of the deparsed function are returned as character strings.
+> </p>
+> <p>If a matrix has no row names, then <code>tail()</code> will add row names of
+> the form <code>"[n,]"</code> to the result, so that it looks similar to the
+> last lines of <code>x</code> when printed.  Setting
+> <code>addrownums = FALSE</code> suppresses this behaviour.
+> </p>
+> 
+> 
+> <h3>Value</h3>
+> 
+> <p>An object (usually) like <code>x</code> but generally smaller.  For
+> <code><a href="../../stats/html/ftable.html">ftable</a></code> objects <code>x</code>, a transformed <code>format(x)</code>.
+> </p>
+> 
+> 
+> <h3>Author(s)</h3>
+> 
+> <p>Patrick Burns, improved and corrected by R-Core. Negative argument
+> added by Vincent Goulet.
+> </p>
+> 
+> 
+> <h3>Examples</h3>
+> 
+> <pre>
+> head(letters)
+> head(letters, n = -6L)
+> 
+> head(freeny.x, n = 10L)
+> head(freeny.y)
+> 
+> tail(letters)
+> tail(letters, n = -6L)
+> 
+> tail(freeny.x)
+> tail(freeny.y)
+> 
+> tail(library)
+> 
+> head(stats::ftable(Titanic))
+> </pre>
+> 
+> <hr /><div style="text-align: center;">[Package <em>utils</em> version 3.6.2 <a href="00Index.html">Index</a>]</div>
+{: .callout}
+-->
+
+
+Now let's say we want to look at only the first few entries of the `Years` column of our dataset?  We can do this by making use of the fact that our variable `fert_use` is a special type of variable called a _dataframe_ which allows us to use special notation to print out individual columns by saying `dataframe name $ dataframe column`:
+
+
+```r
+head(fert_use$Year, n=4)
+```
+
+```
+## [1] 1964 1965 1966 1967
+```
+
+Here the label of the column, `Year` is used to access this column alone and print out its first 4 entries.  Let's try another one:
+
+
+```r
+head(fert_use$Crop, n=4)
+```
+
+```
+## [1] Corn Corn Corn Corn
+## Levels: Corn Cotton Other Soybeans Wheat
+```
+
+We'll note we got a bit of extra information when we are looking at the `Crop` column.  With the column `Years`, R stored the data as pure numbers (integer, or "whole" numbers without decimal places in this case).  With `Crop`, R has stored this column as something called a _factor_ which is a way to store information that is best sorted into different categories instead of numbers -- this is often called a _categorical variable_ while `Years` is called a _numerical variable_.  R also tells us how many _levels_ this categorical column has, which is just R's way of counting up the number of categories that `Crop` can be.  In this case, we see there are 5 categories of crops in this dataset, `Corn`, `Cotton`, `Other`, `Soybeans` and `Wheat`.  Note that by default R is ordering them alphetetically.
+
+
+### Using `str` to get column types
+
+<font color="magenta">I think we should do this after head and discussing different types of data. </font><font color="green">DENA: Can we ditch this entirely? Do we need str if we've given them the head example already? </font><font color="purple">BRITTANI: I would say that we need both str and head. str contains information that head does not, such as the class of the object and variables.)</font>
+
+Like with the function `head`, the `str` function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:
 
 
 ```r
@@ -173,712 +727,135 @@ str(fert_use)
 ##  $ Potash   : int  829 1204 1513 1750 1778 1765 2046 1946 1992 2052 ...
 ```
 
-We see that `fert_use` is something called a *data frame*, which is a typical
-format in R for storing spreadsheet-like data.  There are five variables,
-which we can see are Year, Crop, Nitrogen, Phosphate, and Potash.  Within each
-variable there are 265 observations.  We also see that Year, Nitrogen, Phosphate,
-and Potash are all represented as integers.  Crop is something called a factor,
-which means it is text that is assumed to represent a set of categories.
+Note here that `str` is the function name that we _called_ with the _input parameter_ of `fert_use` which is the variable that is storing our table of data.
 
-**Note:**  If you are importing from `read.csv()` or a related
-function and you want to treat text columns as text rather than categories,
-set the argument `stringsAsFactors = FALSE`.  It is always easy to convert text
-to a factor later, and many functions will do this on-the-fly for you.
+The `str` function prints out the first few entries of each row, the `...` just means that it has truncated its output for the sake of clarity.
 
-### Exercise
+We see that the `str` function is also telling us something about how our data is formatted:
+ * There are 5 columns (variables) in our dataset - `Year`, `Crop`, `Nitrogen` <font color="magenta">(something? units?)</font>, `Phosphate`, and `Potash`.
+ * There are 265 `observations`, or rows, in our dataset
+ * The `Year`, `Nitrogen`, `Phosphate`, and `Potash` columns are `int` types, meaning they are comprised of whole numbers (numbers without decimals)
+ * The `Crop` column is being interpreted in R as something called a `factor`.  This is a way to represent data that is comprised of categories, in this case we are told there are 5 `levels` which just means there are only 5 categories of crop in this dataset.  The trailing 1's are just R's way of tagging which row entry in this column is in what category - a 1 means an entry that is tagged as "Corn".  <font color="magenta">(I am not 100% on this, I *think* this is what R is doing but I am not sure)</font>
 
-In either Excel or RStudio's text editor, add a question mark after one of the
-numbers in the file.  Re-run `read.csv` and `str`.  What is different?  How
-might this be a problem?  Change the file back (or re-download it) when you are
-done, then re-run the lines to load in the correct version of the dataset.
+The `str` function also tells us that our variable `fert_use` is a _dataframe_ by printing `'data.frame'` at the top of its output.
 
-**Solution:** When `read.csv` encounters anything in a column that cannot be
-formatted as a number, it treats the whole column as text, which by default
-causes it to be imported as a factor.  If we want to perform math or make graphs
-with numerical data, we won't be able to do so if it is formatted as a factor.
 
-## Functions and vectors
+## Doing stuff with data in R (better name obvs)
 
-We just used the `read.csv` and `str` functions.  Let's try out some math, now
-that we have confirmed that everything that should be a number is a number.
-We can use the `mean` function to find the average value of a variable.  How
-can we extract one variable from a data frame?  The simplest way is to use
-the `$` operator.  It will get us one column of the data frame, which in R
-is something we call a *vector*.  `str` works on vectors as well to tell us
-something about them.
+### <font color="magenta">Outline for this section</font>
+ 1. <font color="magenta">We can manipulate columns with functions</font>
+    * <font color="magenta">example: min function (or something)</font>
+    * <font color="magenta">How to learn about functions you might want to use? --> We already learned a bit about the helping "?" function, but we can also look at how to google things.</font>
+
+Now that we have read in some data and have some idea of what our dataset contains, let's actually think about manipulating our dataset!  One thing we might want to know is find out the time span overwhich this data was taken.  We can find out the minimum time in our dataset by applying the the `min` function on our `Year` column:
 
 
 ```r
-fert_use$Nitrogen
+min(fert_use$Year)
 ```
 
 ```
-##   [1] 1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 3773 3885 5210 5181 4888
-##  [16] 5274 5244 5588 5360 3960 5391 5666 4807 4194 4499 4601 4748 4715 4887 4369
-##  [31] 4603 4158 4829 4792 4846 4650 4909 4249 4720 4710 4792 5023 4690 5714 5224
-##  [46] 4875 5610   NA   NA   NA 6317   NA 6123  394  453  330  269  319  405  323
-##  [61]  343  404  337  421  240  353  416  351  352  371  387  330  218  343  325
-##  [76]  309  324  390  347  419  477  466  508  649  700  563  525  472  544  567
-##  [91]  569  508  508  502  517  559  441  421  345  380   NA   NA   NA   NA  268
-## [106]   NA   16   19   40   56   67   48   63   62   72   95   87   74   70  113
-## [121]  138  149  137  128  102  115  115   80   82   87  104   93  118  118   98
-## [136]   84  100  154  116  175  141  139  160  148  155  154  156  151  109  121
-## [151]  120  101  111  167  167   NA   NA  203   NA  353  427  424  624  624  569
-## [166]  580  614  783  896 1078 1085 1456 1279 1047 1253 1570 1791 1781 1651 1866
-## [181] 1746 1708 1633 1740 1924 1800 1734 1889 1986 2050 1955 2208 2043 2017 1907
-## [196] 1891 1764 1751 1804 1957 1625 1430 1689 1647 1394 1331 1692 1584   NA   NA
-## [211] 1715   NA 1967 1589 1935 2035 2663 2648 2974 3385 3057 3137 3798 3317 3322
-## [226] 3658 3542 3686 4085 4030 3410 3183 3377 3675 3518 3971 3778 3628 3990 4243
-## [241] 4106 4445 5240 4752 4588 4816 4837 5212 4808 4805 4875 4916 5621 5021 5256
-## [256] 5229 5149 4746 4800   NA   NA   NA   NA   NA   NA
+## [1] 1964
 ```
 
-```r
-str(fert_use$Nitrogen)
-```
-
-```
-##  int [1:265] 1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 ...
-```
-
-We can then pass the whole nitrogen vector to the `mean` function.
+And we can find the maximum year in our dataset in a similar fashion:
 
 
 ```r
-mean(fert_use$Nitrogen)
+max(fert_use$Year)
+```
+
+```
+## [1] 2016
+```
+
+Now we know our dataset is taken from 1964-2016!  This is of course something we could have known by reading the description of this table, so let's try something more interesting: the minimum measurement of Nitrogen:
+
+```r
+min(fert_use$Nitrogen)
 ```
 
 ```
 ## [1] NA
 ```
 
-Whoops!  That is probably not what we wanted.  In R, `NA` means missing data.
-You can see from when we printed out the whole vector that we have a lot of `NA`
-values.  By default, if `mean` encounters any `NA` values, it returns `NA`.  To
+Whoa!  What just happened?  In R, `NA` means missing data.  Let's take a look at a the first 50 entries of our `Nitrogen` column:
+
+
+```r
+head(fert_use$Nitrogen, n=50)
+```
+
+```
+##  [1] 1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 3773 3885 5210 5181 4888
+## [16] 5274 5244 5588 5360 3960 5391 5666 4807 4194 4499 4601 4748 4715 4887 4369
+## [31] 4603 4158 4829 4792 4846 4650 4909 4249 4720 4710 4792 5023 4690 5714 5224
+## [46] 4875 5610   NA   NA   NA
+```
+
+You can see from these first 50 entries, that we have a lot of `NA`
+values.  By default, if I apply the `min` function and it encounters any `NA` values, it returns `NA`.  To
 figure out what to do, let's look at the help page.  To find the help page for any
 function, type a question mark and then the name of the function.
 
 
 ```r
-?mean
+?min
 ```
 
-Ah, there is an argument called `na.rm`, and the description of it says that it
+Ah, there is an _optional parameter_ called `na.rm`, and the description of it says that it
 controls whether or not `NA` values are stripped out before calculating the mean.
-We can also see that both `na.rm` and `trim` have default values.  We want to
-leave `trim` at the default, so we will name `na.rm` when we use it, kind of like
-it is named in the Usage section.  In R, `TRUE` and `FALSE` should always be in
-all caps.
+We can make R take out `NA`'s before calculating the minimum by setting the optional parameter to `TRUE`.
+(In R, `TRUE` and `FALSE` should always be in all caps.)
 
 
 ```r
-mean(fert_use$Nitrogen, na.rm = TRUE)
-```
-
-```
-## [1] 2070.918
-```
-
-Note that `fert_use$Nitrogen` got passed to the `x` argument.  If we use
-arguments in the exact order they appear in the help file, we don't have to name
-them.  But honestly, sometimes naming our arguments just makes code more readable.
-And readability is good if you plan on looking at your code again next year
-and remembering what you did and why.
-
-
-```r
-mean(x = fert_use$Nitrogen, na.rm = TRUE)
-```
-
-```
-## [1] 2070.918
-```
-
-If we look up `?median`, we can see that there is a similar function for getting
-the median of a set of values.  Sometimes the median is a lot more useful than
-the mean if there are extreme values in the data set.
-
-
-```r
-median(fert_use$Nitrogen, na.rm = TRUE)
-```
-
-```
-## [1] 1629
-```
-
-### Exercise
-
-Is there a function to get the maximum value of a vector?  Try to find the
-help page for it, or use Google to find the function name if that fails you.
-What are the arguments?  Try finding the maximum amount of phosphate applied
-to any crop across all years.
-
-**Solution:** The function is called `max`, and we can view the help page by
-typing `?max`.  Like `mean` and `median`, there is an `na.rm` argument to
-ignore missing data.  We also see an argument `...`.  Because this is the
-first argument, it means you can put in multiple vectors and get the maximum
-value across all of them.  We can get the maximum phosphate this way:
-
-
-```r
-max(fert_use$Phosphate, na.rm = TRUE)
-```
-
-```
-## [1] 2550
-```
-
-### Looking at distributions of all numerical columns at once
-
-The `summary` function gives us values like the minimum, maximum, mean, and
-median for every column in the data frame at once, and, along with `str`,
-can be a good way to get an overview of our data immediately after we import
-it.
-
-
-```r
-summary(fert_use)
-```
-
-```
-##       Year            Crop       Nitrogen        Phosphate     
-##  Min.   :1964   Corn    :53   Min.   :  16.0   Min.   :  57.0  
-##  1st Qu.:1977   Cotton  :53   1st Qu.: 335.2   1st Qu.: 299.8  
-##  Median :1990   Other   :53   Median :1629.0   Median : 635.5  
-##  Mean   :1990   Soybeans:53   Mean   :2070.9   Mean   : 904.4  
-##  3rd Qu.:2003   Wheat   :53   3rd Qu.:3903.8   3rd Qu.:1606.0  
-##  Max.   :2016                 Max.   :6317.0   Max.   :2550.0  
-##                               NA's   :21       NA's   :21      
-##      Potash      
-##  Min.   :  62.0  
-##  1st Qu.: 215.8  
-##  Median : 690.5  
-##  Mean   : 971.1  
-##  3rd Qu.:1769.0  
-##  Max.   :3038.0  
-##  NA's   :21
-```
-
-Why bother using `mean`, `median`, and `max` then?  As we'll see below, because
-those functions give us single numbers, we can use those numbers to do further
-arithmetic.
-
-## Arithmetic
-
-A handy feature of R is vectorized arithmetic, meaning we can do arithmetic on
-a whole vector at once.  For example, to convert the units for nitrogen application
-from thousands of short tons to short tons, we could multiply by 1000.
-
-
-```r
-fert_use$Nitrogen * 1000
-```
-
-```
-##   [1] 1623000 2151000 2596000 3044000 3116000 3287000 3520000 3730000 3705000
-##  [10] 3830000 3773000 3885000 5210000 5181000 4888000 5274000 5244000 5588000
-##  [19] 5360000 3960000 5391000 5666000 4807000 4194000 4499000 4601000 4748000
-##  [28] 4715000 4887000 4369000 4603000 4158000 4829000 4792000 4846000 4650000
-##  [37] 4909000 4249000 4720000 4710000 4792000 5023000 4690000 5714000 5224000
-##  [46] 4875000 5610000      NA      NA      NA 6317000      NA 6123000  394000
-##  [55]  453000  330000  269000  319000  405000  323000  343000  404000  337000
-##  [64]  421000  240000  353000  416000  351000  352000  371000  387000  330000
-##  [73]  218000  343000  325000  309000  324000  390000  347000  419000  477000
-##  [82]  466000  508000  649000  700000  563000  525000  472000  544000  567000
-##  [91]  569000  508000  508000  502000  517000  559000  441000  421000  345000
-## [100]  380000      NA      NA      NA      NA  268000      NA   16000   19000
-## [109]   40000   56000   67000   48000   63000   62000   72000   95000   87000
-## [118]   74000   70000  113000  138000  149000  137000  128000  102000  115000
-## [127]  115000   80000   82000   87000  104000   93000  118000  118000   98000
-## [136]   84000  100000  154000  116000  175000  141000  139000  160000  148000
-## [145]  155000  154000  156000  151000  109000  121000  120000  101000  111000
-## [154]  167000  167000      NA      NA  203000      NA  353000  427000  424000
-## [163]  624000  624000  569000  580000  614000  783000  896000 1078000 1085000
-## [172] 1456000 1279000 1047000 1253000 1570000 1791000 1781000 1651000 1866000
-## [181] 1746000 1708000 1633000 1740000 1924000 1800000 1734000 1889000 1986000
-## [190] 2050000 1955000 2208000 2043000 2017000 1907000 1891000 1764000 1751000
-## [199] 1804000 1957000 1625000 1430000 1689000 1647000 1394000 1331000 1692000
-## [208] 1584000      NA      NA 1715000      NA 1967000 1589000 1935000 2035000
-## [217] 2663000 2648000 2974000 3385000 3057000 3137000 3798000 3317000 3322000
-## [226] 3658000 3542000 3686000 4085000 4030000 3410000 3183000 3377000 3675000
-## [235] 3518000 3971000 3778000 3628000 3990000 4243000 4106000 4445000 5240000
-## [244] 4752000 4588000 4816000 4837000 5212000 4808000 4805000 4875000 4916000
-## [253] 5621000 5021000 5256000 5229000 5149000 4746000 4800000      NA      NA
-## [262]      NA      NA      NA      NA
-```
-
-Works great, and the `NA`s even carried over.
-
-But wait...
-
-
-```r
-fert_use$Nitrogen
-```
-
-```
-##   [1] 1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 3773 3885 5210 5181 4888
-##  [16] 5274 5244 5588 5360 3960 5391 5666 4807 4194 4499 4601 4748 4715 4887 4369
-##  [31] 4603 4158 4829 4792 4846 4650 4909 4249 4720 4710 4792 5023 4690 5714 5224
-##  [46] 4875 5610   NA   NA   NA 6317   NA 6123  394  453  330  269  319  405  323
-##  [61]  343  404  337  421  240  353  416  351  352  371  387  330  218  343  325
-##  [76]  309  324  390  347  419  477  466  508  649  700  563  525  472  544  567
-##  [91]  569  508  508  502  517  559  441  421  345  380   NA   NA   NA   NA  268
-## [106]   NA   16   19   40   56   67   48   63   62   72   95   87   74   70  113
-## [121]  138  149  137  128  102  115  115   80   82   87  104   93  118  118   98
-## [136]   84  100  154  116  175  141  139  160  148  155  154  156  151  109  121
-## [151]  120  101  111  167  167   NA   NA  203   NA  353  427  424  624  624  569
-## [166]  580  614  783  896 1078 1085 1456 1279 1047 1253 1570 1791 1781 1651 1866
-## [181] 1746 1708 1633 1740 1924 1800 1734 1889 1986 2050 1955 2208 2043 2017 1907
-## [196] 1891 1764 1751 1804 1957 1625 1430 1689 1647 1394 1331 1692 1584   NA   NA
-## [211] 1715   NA 1967 1589 1935 2035 2663 2648 2974 3385 3057 3137 3798 3317 3322
-## [226] 3658 3542 3686 4085 4030 3410 3183 3377 3675 3518 3971 3778 3628 3990 4243
-## [241] 4106 4445 5240 4752 4588 4816 4837 5212 4808 4805 4875 4916 5621 5021 5256
-## [256] 5229 5149 4746 4800   NA   NA   NA   NA   NA   NA
-```
-
-That didn't save our work.  Any time we want to change the value of something in R,
-we have to use the `<-` operator.  We probably want to avoid overwriting our
-nitrogen column anyway; let's make a new column with a new name.
-
-
-```r
-fert_use$Nitrogen_short_tons <- fert_use$Nitrogen * 1000
-str(fert_use)
-```
-
-```
-## 'data.frame':	265 obs. of  6 variables:
-##  $ Year               : int  1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 ...
-##  $ Crop               : Factor w/ 5 levels "Corn","Cotton",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ Nitrogen           : int  1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 ...
-##  $ Phosphate          : int  1053 1336 1626 1857 1855 1789 2136 2024 1994 1988 ...
-##  $ Potash             : int  829 1204 1513 1750 1778 1765 2046 1946 1992 2052 ...
-##  $ Nitrogen_short_tons: num  1623000 2151000 2596000 3044000 3116000 ...
-```
-
-Ok, that worked!  The new column is "numeric" instead of "integer", but unless
-we're getting really advanced with R, we don't care about the difference between
-those.
-
-We can also do arithmetic with multiple vectors.
-
-
-```r
-fert_use$All_inputs <- fert_use$Nitrogen + fert_use$Phosphate + fert_use$Potash
-head(fert_use)
-```
-
-```
-##   Year Crop Nitrogen Phosphate Potash Nitrogen_short_tons All_inputs
-## 1 1964 Corn     1623      1053    829             1623000       3505
-## 2 1965 Corn     2151      1336   1204             2151000       4691
-## 3 1966 Corn     2596      1626   1513             2596000       5735
-## 4 1967 Corn     3044      1857   1750             3044000       6651
-## 5 1968 Corn     3116      1855   1778             3116000       6749
-## 6 1969 Corn     3287      1789   1765             3287000       6841
-```
-
-### Challenge
-
-Make a new column called `NP` that is the sum of nitrogen and phosphate applied.
-Then make another column called `NP_centered`, which is the value of `NP` minus
-the mean of `NP`.  This new column will have negative values if the total amount
-of nitrogen and phosphorus applied was less than average, and positive if it was
-more than average.  Centering like this can be useful in various statistical
-analyses.
-
-**Solution:**
-
-
-```r
-fert_use$NP <- fert_use$Nitrogen + fert_use$Phosphate
-fert_use$NP_centered <- fert_use$NP - mean(fert_use$NP, na.rm = TRUE)
-head(fert_use)
-```
-
-```
-##   Year Crop Nitrogen Phosphate Potash Nitrogen_short_tons All_inputs   NP
-## 1 1964 Corn     1623      1053    829             1623000       3505 2676
-## 2 1965 Corn     2151      1336   1204             2151000       4691 3487
-## 3 1966 Corn     2596      1626   1513             2596000       5735 4222
-## 4 1967 Corn     3044      1857   1750             3044000       6651 4901
-## 5 1968 Corn     3116      1855   1778             3116000       6749 4971
-## 6 1969 Corn     3287      1789   1765             3287000       6841 5076
-##   NP_centered
-## 1   -299.3156
-## 2    511.6844
-## 3   1246.6844
-## 4   1925.6844
-## 5   1995.6844
-## 6   2100.6844
-```
-
-## Creating your own functions
-
-Let's say we want to convert short tons to metric tons so that we can compare
-these numbers to some reported from Europe.  Similarly to above, we can do
-
-
-```r
-fert_use$Nitrogen_metric_tons <- fert_use$Nitrogen_short_tons * 0.907
-```
-
-We can make similar lines for phosphate and potash.  There's nothing
-particularly wrong with this, but we can make the code a bit easier to read and
-edit by defining a new function for the conversion.
-
-
-```r
-ShortTonsToMetricTons <- function(val){
-  out <- val * 0.907
-  return(out)
-}
-
-ShortTonsToMetricTons(5)
-```
-
-```
-## [1] 4.535
-```
-
-```r
-fert_use$Nitrogen_metric_tons <- 
-  ShortTonsToMetricTons(fert_use$Nitrogen_short_tons)
-```
-
-What did I just do there?  I used the `function` keyword to create a new
-function, and I used the assignment operator (`<-`) to give that function a
-name.  The object `val` is an *argument* for the function, and you'll notice that
-neither `val` nor `out` appear in your global environment after running the
-function.  Between the curly brackets (`{}`), is what we call the
-*function body*, which describes what computations the function should perform.
-There is also a `return` statement that shows what the function *returns*,
-*i.e.* what the output should be.
-
-Now, when reading back through your code, you don't have to remember what the
-number 0.907 was for; you have a function name that describes what it does.
-Additionally, say you later decide that you want to make the conversion with
-more precision.
-
-
-```r
-ShortTonsToMetricTons <- function(val){
-  out <- val * 0.907185
-  return(out)
-}
-```
-
-There's only one place that you have to edit the number, even if you use the
-function dozens of times in your code.  That's a lot less error-prone than
-going back and editing the number in dozens of places.  You still have to
-re-run the code to change all of the results, but at least the editing is
-minimal.
-
-That was a relatively simple example, but later when you write much larger
-chunks of code and want to avoid having to copy and paste it all, functions
-can be very helpful.  We'll make a few functions in later episodes of this
-lesson, which is why we introduced the concept here.
-
-## Installing packages
-
-There are over 15,000 add-on packages for R, all completely free.
-CRAN is the official place where they are hosted, and you can see a list of
-CRAN packages here:
-https://cloud.r-project.org/web/packages/available_packages_by_name.html
-
-Additionally, many people who create small R packages and don't want to deal
-with the hassle of hosting them on CRAN will make their package available
-via GitHub.  If you really get into R and want to share your code with others,
-you might even make your own R package one day!
-
-In the meantime, let's see how to get R packages from CRAN.  For this episode,
-we will use a package called `ggplot2`.  The function for installing packages
-is called `install.packages()`.
-
-
-```r
-install.packages("ggplot2")
-```
-
-Once a package has been installed, we don't need to install it again until we
-upgrade R.  To avoid accidentally reinstalling, this is a good time to
-"comment out" our code.
-
-
-```r
-#install.packages("ggplot2")
-```
-
-If we want to use a particular package in our script, we also need to load it
-with `library()`.  We won't comment that out, since we will need to do it
-every time we reopen R and run the script.  Generally, it is good to put
-all calls to `library()` at the top of the script, so that as soon as you
-(or someone else) open the script, you know what you need to have installed.
-
-
-```r
-library(ggplot2)
-```
-
-(It's one of R's little quirks that package names need to be in quotes for
-installation, but not for loading.)
-
-### Exercise
-
-Later today we will use the package `rgdal`.  Install it and load it.
-
-**Solution:**
-
-
-```r
-install.packages("rgdal")
-library(rgdal)
-```
-
-## Graphics with ggplot2
-
-Although there are other packages for making graphics, `ggplot2` is popular
-for being easy to learn and versatile.  We'll scratch the surface of it in this
-lesson.  To learn more, go to https://ggplot2.tidyverse.org/.
-
-Let's plot nitrogen applied vs. year.  To start, we will pass our data frame
-to the `ggplot` function as the first argument.  The second argument is a set
-of *aesthetics* indicating how variables should correspond to various aspects
-of the plot.
-
-
-```r
-ggplot(fert_use, aes(x = Year, y = Nitrogen))
-```
-
-![plot of chunk unnamed-chunk-25](figure/unnamed-chunk-25-1.png)
-
-This sets up the plot but doesn't put anything in it.  We can use `geom_point` to
-make a scatter plot.  We will use the `+` operator to connect these commands.
-
-
-```r
-ggplot(fert_use, aes(x = Year, y = Nitrogen)) +
-  geom_point()
-```
-
-```
-## Warning: Removed 21 rows containing missing values (geom_point).
-```
-
-![plot of chunk unnamed-chunk-26](figure/unnamed-chunk-26-1.png)
-
-Looks like some crops changed over time and others didn't.  But which ones?
-
-
-```r
-ggplot(fert_use, aes(x = Year, y = Nitrogen, color = Crop)) +
-  geom_point()
-```
-
-```
-## Warning: Removed 21 rows containing missing values (geom_point).
-```
-
-![plot of chunk unnamed-chunk-27](figure/unnamed-chunk-27-1.png)
-
-Maybe we want to add some lines connecting the years.  In the help page for
-`geom_line`, we see the `group` aesthetic, which we will also need here.
-
-
-```r
-ggplot(fert_use, aes(x = Year, y = Nitrogen, color = Crop, group = Crop)) +
-  geom_point() +
-  geom_line()
-```
-
-```
-## Warning: Removed 21 rows containing missing values (geom_point).
-```
-
-```
-## Warning: Removed 9 rows containing missing values (geom_path).
-```
-
-![plot of chunk unnamed-chunk-28](figure/unnamed-chunk-28-1.png)
-
-We can also make separate plots for each crop using the `facet_wrap` function.
-Since some crops used a lot less nitrogen than others, we'll set
-`scales = "free_y"` to get a better picture of how each crop changed over time.
-Notice also that we need the `~` symbol with `facet_wrap`.
-
-
-```r
-ggplot(fert_use, aes(x = Year, y = Nitrogen, color = Crop, group = Crop)) +
-  geom_point() +
-  geom_line() +
-  facet_wrap(~ Crop, scales = "free_y")
-```
-
-```
-## Warning: Removed 21 rows containing missing values (geom_point).
-```
-
-```
-## Warning: Removed 9 rows containing missing values (geom_path).
-```
-
-![plot of chunk unnamed-chunk-29](figure/unnamed-chunk-29-1.png)
-
-### Exercise
-
-Make a scatter plot of nitrogen vs. potash, and color it by crop.  Make
-another plot where instead of coloring by crop, you facet by crop.
-Now try it with `facet_wrap(~ Year > 1980)`.  What happens?
-
-**Solution:**
-
-```r
-ggplot(fert_use, aes(x = Potash, y = Nitrogen, color = Crop)) +
-  geom_point()
-```
-
-![plot of chunk unnamed-chunk-30](figure/unnamed-chunk-30-1.png)
-
-```r
-ggplot(fert_use, aes(x = Potash, y = Nitrogen)) +
-  geom_point() +
-  facet_wrap(~ Crop)
-```
-
-![plot of chunk unnamed-chunk-30](figure/unnamed-chunk-30-2.png)
-
-```r
-ggplot(fert_use, aes(x = Potash, y = Nitrogen, color = Crop)) +
-  geom_point() +
-  facet_wrap(~ Year > 1980)
-```
-
-![plot of chunk unnamed-chunk-30](figure/unnamed-chunk-30-3.png)
-
-## Quick intro to `dplyr`
-
-Since we'll use it a little bit in later episodes, we will introduce the
-`dplyr` package.  It has some tools to make code a little more intuitive and
-readable, especially when working with data frames.
-
-
-```r
-install.packages("dplyr") # install it if you haven't already
-```
-
-```r
-library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-One handy thing in `dplyr` is the *pipe symbol*, `%>%`.  Whatever is to the
-left of the symbol gets sent to the first argument of the function to the right
-of the symbol.  Consider:
-
-
-```r
-mean(ShortTonsToMetricTons(fert_use$Potash * 1000), na.rm = TRUE)
-```
-
-```
-## [1] 880928.7
-```
-
-versus:
-
-
-```r
-(fert_use$Potash * 1000) %>%
-  ShortTonsToMetricTons() %>%
-  mean(na.rm = TRUE)
-```
-
-```
-## [1] 880928.7
-```
-
-Both are just one command, but in the second version it is a bit easier to see
-the series of computations being performed.
-
-There are many handy functions in `dplyr`, and you can learn more at
-https://dplyr.tidyverse.org/.  One more that we'll cover here is `filter`.
-
-
-```r
-filter(fert_use, Year > 2013, Crop != "Other")
-```
-
-```
-##    Year     Crop Nitrogen Phosphate Potash Nitrogen_short_tons All_inputs   NP
-## 1  2014     Corn     6317      2288   2408             6317000      11013 8605
-## 2  2015     Corn       NA        NA     NA                  NA         NA   NA
-## 3  2016     Corn     6123      2081   2249             6123000      10453 8204
-## 4  2014   Cotton       NA        NA     NA                  NA         NA   NA
-## 5  2015   Cotton      268       100    133              268000        501  368
-## 6  2016   Cotton       NA        NA     NA                  NA         NA   NA
-## 7  2014 Soybeans       NA        NA     NA                  NA         NA   NA
-## 8  2015 Soybeans      203       831   1332              203000       2366 1034
-## 9  2016 Soybeans       NA        NA     NA                  NA         NA   NA
-## 10 2014    Wheat       NA        NA     NA                  NA         NA   NA
-## 11 2015    Wheat     1715       613    185             1715000       2513 2328
-## 12 2016    Wheat       NA        NA     NA                  NA         NA   NA
-##    NP_centered Nitrogen_metric_tons
-## 1    5629.6844              5729519
-## 2           NA                   NA
-## 3    5228.6844              5553561
-## 4           NA                   NA
-## 5   -2607.3156               243076
-## 6           NA                   NA
-## 7           NA                   NA
-## 8   -1941.3156               184121
-## 9           NA                   NA
-## 10          NA                   NA
-## 11   -647.3156              1555505
-## 12          NA                   NA
-```
-
-(Here, `>` means "greater than" and `!=` means "not equal to".  If we wanted
-"equal to", we would use `==`.)
-
-This function returns a new data frame that just has the rows we specify.  It
-can be handy for subsetting the data before plotting with ggplot.
-
-
-```r
-fert_use %>%
-  filter(Year > 1980) %>%
-  ggplot(aes(x = Year, y = Nitrogen, color = Crop, group = Crop)) +
-  geom_point() +
-  geom_line() +
-  facet_wrap(~ Crop, scales = "free_y")
-```
-
-```
-## Warning: Removed 21 rows containing missing values (geom_point).
-```
-
-```
-## Warning: Removed 9 rows containing missing values (geom_path).
-```
-
-![plot of chunk unnamed-chunk-36](figure/unnamed-chunk-36-1.png)
+min(fert_use$Nitrogen, na.rm = TRUE)
+```
+
+```
+## [1] 16
+```
+
+Hey it worked!  Let's try a few more examples.
+
+
+> ## Finding the Maximum Nitrogen Measurement
+>
+> Use the `max` function to calculate the maximum nitrogen measurement in your dataset.
+>
+> > ## Solution
+> >
+> > 
+> > ```r
+> > max(fert_use$Nitrogen, na.rm=TRUE)
+> > ```
+> > 
+> > ```
+> > ## [1] 6317
+> > ```
+> > 
+> > 
+> {: .solution}
+{: .challenge}
+
+> ## Maximum Crop
+>
+> What happens when you try to apply the max function to the `Crop` column?  Why do you think that is?
+>
+> > ## Solution
+> >
+> > 
+> > ```r
+> > max(fert_use$Crop, na.rm=TRUE)
+> > ```
+> > 
+> > ```
+> > ## Error in Summary.factor(structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, : 'max' not meaningful for factors
+> > ```
+> >
+> > The `max` function only is meaningful for numerical data, in this case you are trying to apply it to a column that is made up of categories and R got confused and printing out an error message.
+> > 
+> {: .solution}
+{: .challenge}
 

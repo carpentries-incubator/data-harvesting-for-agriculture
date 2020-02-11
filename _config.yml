@@ -10,7 +10,9 @@
 carpentry: "dc"
 
 # Overall title for pages.
-title: "R for Social Scientists"
+#title: "R for Social Scientists"
+# JPN
+title: "Data Harvesting for Agriculture"
 
 # Life cycle stage of the lesson
 # possible values: "pre-alpha", "alpha", "beta", "stable"

@@ -1,0 +1,552 @@
+---
+title: "Introduction to R and RStudio"
+questions:
+- "How can I work with a spreadsheet in a more advanced and reproducible manner than using MS Excel?"
+- "How can I keep my data and analysis organized?"
+- "How can I visualize my data with graphs?"
+- "Why would basic programming skills be useful to me for these tasks?"
+objectives:
+- "Describe the purpose of each pane in the RStudio IDE"
+- "Create a project to manage scripts and data"
+- "Assign a value to a variable"
+- "Perform arithmetic"
+- "Use a function"
+- "View the help page for a function"
+- "Create a new function"
+- "Import data from spreadsheet software"
+- "Install packages"
+- "Make a scatter plot using ggplot2"
+source: Rmd
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Getting to know R and RStudio
+
+In this episode we'll cover the basics of using R, which is a programming
+language for statistics, data analysis, and data visualization.  In the past
+decade or so, R has become very popular in both science and business, largely
+because (1) it is free, and (2) thousands of people have written new code
+extending its functionality, and that code is also free.  If you perform an
+analysis in R, you can share that analysis so that anyone in the world can
+reproduce it without having to purchase proprietary software.
+
+If you're already proficient with Excel, you will probably already know how to
+accomplish a lot of what we are doing in this episode using Excel instead of
+R. One reason why we are teaching you this material, however, is to get you
+comfortable with R since we will be using R for geospatial analysis (which is
+not so easy in Excel).  The other reason is that with R, you can make your
+analysis much more reproducible than you can with Excel or other graphical
+software.  In R, everything you do goes into a plain text file called a *script*,
+and to rerun your analysis you can simply rerun the same script.  Scripts are
+also fairly easy to edit and repurpose (for example, redoing the exact same
+analysis with next year's dataset) as well as share with other people (your
+neighbor who wants to try your analysis but with his or her own data).
+
+Separately from R, we asked you to install a piece of software called RStudio,
+which will make R a lot easier to use.  Although there are paid, "enterprise"
+versions of RStudio, the free version does everything that a typical user
+needs.
+
+Launch RStudio.  If this is the first time you have opened it, the entire left
+pane will be taken up by something called the Console.  This has a prompt where
+commands can be entered.
+
+```{r}
+5 + 7
+```
+
+After you hit enter, you will see the result of the command.  But usually we
+don't run commands from here, since we want to keep a record of everything we
+did.  If you go to File &rarr; New File &rarr; R Script, the text editor will open in
+the upper left, and you will be able to type commands there and save them in
+a file.  To run a command from the script editor, put your cursor on the line
+where the command starts and press the "Run" button.  Alternatively, you can
+press Ctrl+Enter.
+
+In addition to putting commands in your script, you can put *comments*.  A
+comment is a line, or part of a line, that is ignored by R.  This means you can
+use comments to explain what is happening in the code or why you did something
+a certain way.  Comments start with the `#` character, and can take up the
+whole line or just the end of a line.  As we go through this workshop, I
+encourage you to put lots of comments in your code. Think of them as a way to
+take notes!
+
+```{r}
+# Performing arithmetic
+6 + 2
+
+2 ^ 3 # this raises two to the third power
+```
+
+We can save this script to a file on our computer, with the .R extension so that
+RStudio knows to treat it like an R script (even though it is plain text).
+We'll want to keep our scripts organized though, and probably store them with
+the data that they will be processing.  Luckily RStudio has a feature called
+"Projects" that makes it easy to stay organized.
+
+Go to File &rarr; New Project.  Select "New Directory".  Here you will put the
+name of a new folder and where you want it to be located on your computer.
+For example, you can call the project "R_lesson".  Once the project is created,
+you'll find that you can get to that same folder through Windows Explorer, or
+on a Mac, Finder.  In RStudio, we see the contents of the folder in the "Files"
+pane in the lower right.  Right now the only file there is called
+`R_lesson.Rproj` (or whatever you called your project), which stores
+settings for the project and can be ignored for now.  Use the "New Folder"
+button to make a folder called "data", one called "scripts", and one called
+"results".  We will put datasets into the data folder, keep all of our R scripts
+in the scripts folder, and put any output files into the results folder.  While
+it isn't strictly necessary to organize files in this way, it makes it a lot
+easier to keep track of things.
+
+Create a new script called `R_intro.R` and save it in your "scripts" folder.
+We will work off of this file for the remainder of the episode, then start a
+new script for the next episode.
+
+## Dataset for this lesson
+
+As an example of a dataset in spreadsheet form that we can use to demonstrate
+the R language, we are using the USDA - Economic Research Service's fertilizer
+use and price dataset, available at
+https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx.
+Table 2 of this dataset, showing 1,000 nutrient short tons of nitrogen,
+phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the
+US from 1964-2016, has been reformatted into a CSV file for ease of import into
+R.  You can download the CSV from
+https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv.
+It can be opened in Excel if you want to get a quick look at it that way, or we can
+dive straight into looking at it in R.  Save it into your `data` folder in
+your RStudio project for this lesson.
+
+In R, we can use a *function* called `read.csv` to import data from a CSV
+(comma-separated value) file. When using any R function, we need opening and
+closing parentheses after the function name.  Inside those parentheses we put
+items called *arguments* that tell the function what to do.  In this case, we
+will put the name of the file to read in quotes, including the folder that it is
+in.  (You can use a forward slash regardless of whether you are on Windows or
+another operating system.)  To the left of the function name we have the
+*assignment operator*, `<-`, which we will use to put the data somewhere for
+further processing.  In this case, we will make an *object* called `fert_use`
+where we will store the data.
+
+```{r}
+fert_use <- read.csv("data/fertilizer_use.csv")
+```
+
+Now in the upper right pane of RStudio, we see `fert_use` listed within our
+*environment*.
+
+Immediately after loading a dataset, it is a good idea to inspect it and make
+sure it looks like it is formatted correctly.  The `str` function is helpful
+for getting a quick look.
+
+```{r}
+str(fert_use)
+```
+
+We see that `fert_use` is something called a *data frame*, which is a typical
+format in R for storing spreadsheet-like data.  There are five variables,
+which we can see are Year, Crop, Nitrogen, Phosphate, and Potash.  Within each
+variable there are 265 observations.  We also see that Year, Nitrogen, Phosphate,
+and Potash are all represented as integers.  Crop is something called a factor,
+which means it is text that is assumed to represent a set of categories.
+
+**Note:**  If you are importing from `read.csv()` or a related
+function and you want to treat text columns as text rather than categories,
+set the argument `stringsAsFactors = FALSE`.  It is always easy to convert text
+to a factor later, and many functions will do this on-the-fly for you.
+
+### Exercise
+
+In either Excel or RStudio's text editor, add a question mark after one of the
+numbers in the file.  Re-run `read.csv` and `str`.  What is different?  How
+might this be a problem?  Change the file back (or re-download it) when you are
+done, then re-run the lines to load in the correct version of the dataset.
+
+**Solution:** When `read.csv` encounters anything in a column that cannot be
+formatted as a number, it treats the whole column as text, which by default
+causes it to be imported as a factor.  If we want to perform math or make graphs
+with numerical data, we won't be able to do so if it is formatted as a factor.
+
+## Functions and vectors
+
+We just used the `read.csv` and `str` functions.  Let's try out some math, now
+that we have confirmed that everything that should be a number is a number.
+We can use the `mean` function to find the average value of a variable.  How
+can we extract one variable from a data frame?  The simplest way is to use
+the `$` operator.  It will get us one column of the data frame, which in R
+is something we call a *vector*.  `str` works on vectors as well to tell us
+something about them.
+
+```{r}
+fert_use$Nitrogen
+str(fert_use$Nitrogen)
+```
+
+We can then pass the whole nitrogen vector to the `mean` function.
+
+```{r}
+mean(fert_use$Nitrogen)
+```
+
+Whoops!  That is probably not what we wanted.  In R, `NA` means missing data.
+You can see from when we printed out the whole vector that we have a lot of `NA`
+values.  By default, if `mean` encounters any `NA` values, it returns `NA`.  To
+figure out what to do, let's look at the help page.  To find the help page for any
+function, type a question mark and then the name of the function.
+
+```{r eval = FALSE}
+?mean
+```
+
+Ah, there is an argument called `na.rm`, and the description of it says that it
+controls whether or not `NA` values are stripped out before calculating the mean.
+We can also see that both `na.rm` and `trim` have default values.  We want to
+leave `trim` at the default, so we will name `na.rm` when we use it, kind of like
+it is named in the Usage section.  In R, `TRUE` and `FALSE` should always be in
+all caps.
+
+```{r}
+mean(fert_use$Nitrogen, na.rm = TRUE)
+```
+
+Note that `fert_use$Nitrogen` got passed to the `x` argument.  If we use
+arguments in the exact order they appear in the help file, we don't have to name
+them.  But honestly, sometimes naming our arguments just makes code more readable.
+And readability is good if you plan on looking at your code again next year
+and remembering what you did and why.
+
+```{r}
+mean(x = fert_use$Nitrogen, na.rm = TRUE)
+```
+
+If we look up `?median`, we can see that there is a similar function for getting
+the median of a set of values.  Sometimes the median is a lot more useful than
+the mean if there are extreme values in the data set.
+
+```{r}
+median(fert_use$Nitrogen, na.rm = TRUE)
+```
+
+### Exercise
+
+Is there a function to get the maximum value of a vector?  Try to find the
+help page for it, or use Google to find the function name if that fails you.
+What are the arguments?  Try finding the maximum amount of phosphate applied
+to any crop across all years.
+
+**Solution:** The function is called `max`, and we can view the help page by
+typing `?max`.  Like `mean` and `median`, there is an `na.rm` argument to
+ignore missing data.  We also see an argument `...`.  Because this is the
+first argument, it means you can put in multiple vectors and get the maximum
+value across all of them.  We can get the maximum phosphate this way:
+
+```{r}
+max(fert_use$Phosphate, na.rm = TRUE)
+```
+
+### Looking at distributions of all numerical columns at once
+
+The `summary` function gives us values like the minimum, maximum, mean, and
+median for every column in the data frame at once, and, along with `str`,
+can be a good way to get an overview of our data immediately after we import
+it.
+
+```{r}
+summary(fert_use)
+```
+
+Why bother using `mean`, `median`, and `max` then?  As we'll see below, because
+those functions give us single numbers, we can use those numbers to do further
+arithmetic.
+
+## Arithmetic
+
+A handy feature of R is vectorized arithmetic, meaning we can do arithmetic on
+a whole vector at once.  For example, to convert the units for nitrogen application
+from thousands of short tons to short tons, we could multiply by 1000.
+
+```{r}
+fert_use$Nitrogen * 1000
+```
+
+Works great, and the `NA`s even carried over.
+
+But wait...
+
+```{r}
+fert_use$Nitrogen
+```
+
+That didn't save our work.  Any time we want to change the value of something in R,
+we have to use the `<-` operator.  We probably want to avoid overwriting our
+nitrogen column anyway; let's make a new column with a new name.
+
+```{r}
+fert_use$Nitrogen_short_tons <- fert_use$Nitrogen * 1000
+str(fert_use)
+```
+
+Ok, that worked!  The new column is "numeric" instead of "integer", but unless
+we're getting really advanced with R, we don't care about the difference between
+those.
+
+We can also do arithmetic with multiple vectors.
+
+```{r}
+fert_use$All_inputs <- fert_use$Nitrogen + fert_use$Phosphate + fert_use$Potash
+head(fert_use)
+```
+
+### Challenge
+
+Make a new column called `NP` that is the sum of nitrogen and phosphate applied.
+Then make another column called `NP_centered`, which is the value of `NP` minus
+the mean of `NP`.  This new column will have negative values if the total amount
+of nitrogen and phosphorus applied was less than average, and positive if it was
+more than average.  Centering like this can be useful in various statistical
+analyses.
+
+**Solution:**
+
+```{r}
+fert_use$NP <- fert_use$Nitrogen + fert_use$Phosphate
+fert_use$NP_centered <- fert_use$NP - mean(fert_use$NP, na.rm = TRUE)
+head(fert_use)
+```
+
+## Creating your own functions
+
+Let's say we want to convert short tons to metric tons so that we can compare
+these numbers to some reported from Europe.  Similarly to above, we can do
+
+```{r}
+fert_use$Nitrogen_metric_tons <- fert_use$Nitrogen_short_tons * 0.907
+```
+
+We can make similar lines for phosphate and potash.  There's nothing
+particularly wrong with this, but we can make the code a bit easier to read and
+edit by defining a new function for the conversion.
+
+```{r}
+ShortTonsToMetricTons <- function(val){
+  out <- val * 0.907
+  return(out)
+}
+
+ShortTonsToMetricTons(5)
+fert_use$Nitrogen_metric_tons <- 
+  ShortTonsToMetricTons(fert_use$Nitrogen_short_tons)
+```
+
+What did I just do there?  I used the `function` keyword to create a new
+function, and I used the assignment operator (`<-`) to give that function a
+name.  The object `val` is an *argument* for the function, and you'll notice that
+neither `val` nor `out` appear in your global environment after running the
+function.  Between the curly brackets (`{}`), is what we call the
+*function body*, which describes what computations the function should perform.
+There is also a `return` statement that shows what the function *returns*,
+*i.e.* what the output should be.
+
+Now, when reading back through your code, you don't have to remember what the
+number 0.907 was for; you have a function name that describes what it does.
+Additionally, say you later decide that you want to make the conversion with
+more precision.
+
+```{r}
+ShortTonsToMetricTons <- function(val){
+  out <- val * 0.907185
+  return(out)
+}
+```
+
+There's only one place that you have to edit the number, even if you use the
+function dozens of times in your code.  That's a lot less error-prone than
+going back and editing the number in dozens of places.  You still have to
+re-run the code to change all of the results, but at least the editing is
+minimal.
+
+That was a relatively simple example, but later when you write much larger
+chunks of code and want to avoid having to copy and paste it all, functions
+can be very helpful.  We'll make a few functions in later episodes of this
+lesson, which is why we introduced the concept here.
+
+## Installing packages
+
+There are over 15,000 add-on packages for R, all completely free.
+CRAN is the official place where they are hosted, and you can see a list of
+CRAN packages here:
+https://cloud.r-project.org/web/packages/available_packages_by_name.html
+
+Additionally, many people who create small R packages and don't want to deal
+with the hassle of hosting them on CRAN will make their package available
+via GitHub.  If you really get into R and want to share your code with others,
+you might even make your own R package one day!
+
+In the meantime, let's see how to get R packages from CRAN.  For this episode,
+we will use a package called `ggplot2`.  The function for installing packages
+is called `install.packages()`.
+
+```{r eval = FALSE}
+install.packages("ggplot2")
+```
+
+Once a package has been installed, we don't need to install it again until we
+upgrade R.  To avoid accidentally reinstalling, this is a good time to
+"comment out" our code.
+
+```{r}
+#install.packages("ggplot2")
+```
+
+If we want to use a particular package in our script, we also need to load it
+with `library()`.  We won't comment that out, since we will need to do it
+every time we reopen R and run the script.  Generally, it is good to put
+all calls to `library()` at the top of the script, so that as soon as you
+(or someone else) open the script, you know what you need to have installed.
+
+```{r}
+library(ggplot2)
+```
+
+(It's one of R's little quirks that package names need to be in quotes for
+installation, but not for loading.)
+
+### Exercise
+
+Later today we will use the package `rgdal`.  Install it and load it.
+
+**Solution:**
+
+```{r eval = FALSE}
+install.packages("rgdal")
+library(rgdal)
+```
+
+## Graphics with ggplot2
+
+Although there are other packages for making graphics, `ggplot2` is popular
+for being easy to learn and versatile.  We'll scratch the surface of it in this
+lesson.  To learn more, go to https://ggplot2.tidyverse.org/.
+
+Let's plot nitrogen applied vs. year.  To start, we will pass our data frame
+to the `ggplot` function as the first argument.  The second argument is a set
+of *aesthetics* indicating how variables should correspond to various aspects
+of the plot.
+
+```{r}
+ggplot(fert_use, aes(x = Year, y = Nitrogen))
+```
+
+This sets up the plot but doesn't put anything in it.  We can use `geom_point` to
+make a scatter plot.  We will use the `+` operator to connect these commands.
+
+```{r}
+ggplot(fert_use, aes(x = Year, y = Nitrogen)) +
+  geom_point()
+```
+
+Looks like some crops changed over time and others didn't.  But which ones?
+
+```{r}
+ggplot(fert_use, aes(x = Year, y = Nitrogen, color = Crop)) +
+  geom_point()
+```
+
+Maybe we want to add some lines connecting the years.  In the help page for
+`geom_line`, we see the `group` aesthetic, which we will also need here.
+
+```{r}
+ggplot(fert_use, aes(x = Year, y = Nitrogen, color = Crop, group = Crop)) +
+  geom_point() +
+  geom_line()
+```
+
+We can also make separate plots for each crop using the `facet_wrap` function.
+Since some crops used a lot less nitrogen than others, we'll set
+`scales = "free_y"` to get a better picture of how each crop changed over time.
+Notice also that we need the `~` symbol with `facet_wrap`.
+
+```{r}
+ggplot(fert_use, aes(x = Year, y = Nitrogen, color = Crop, group = Crop)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~ Crop, scales = "free_y")
+```
+
+### Exercise
+
+Make a scatter plot of nitrogen vs. potash, and color it by crop.  Make
+another plot where instead of coloring by crop, you facet by crop.
+Now try it with `facet_wrap(~ Year > 1980)`.  What happens?
+
+**Solution:**
+```{r warning = FALSE}
+ggplot(fert_use, aes(x = Potash, y = Nitrogen, color = Crop)) +
+  geom_point()
+
+ggplot(fert_use, aes(x = Potash, y = Nitrogen)) +
+  geom_point() +
+  facet_wrap(~ Crop)
+
+ggplot(fert_use, aes(x = Potash, y = Nitrogen, color = Crop)) +
+  geom_point() +
+  facet_wrap(~ Year > 1980)
+```
+
+## Quick intro to `dplyr`
+
+Since we'll use it a little bit in later episodes, we will introduce the
+`dplyr` package.  It has some tools to make code a little more intuitive and
+readable, especially when working with data frames.
+
+```{r eval = FALSE}
+install.packages("dplyr") # install it if you haven't already
+```
+```{r}
+library(dplyr)
+```
+
+One handy thing in `dplyr` is the *pipe symbol*, `%>%`.  Whatever is to the
+left of the symbol gets sent to the first argument of the function to the right
+of the symbol.  Consider:
+
+```{r}
+mean(ShortTonsToMetricTons(fert_use$Potash * 1000), na.rm = TRUE)
+```
+
+versus:
+
+```{r}
+(fert_use$Potash * 1000) %>%
+  ShortTonsToMetricTons() %>%
+  mean(na.rm = TRUE)
+```
+
+Both are just one command, but in the second version it is a bit easier to see
+the series of computations being performed.
+
+There are many handy functions in `dplyr`, and you can learn more at
+https://dplyr.tidyverse.org/.  One more that we'll cover here is `filter`.
+
+```{r}
+filter(fert_use, Year > 2013, Crop != "Other")
+```
+
+(Here, `>` means "greater than" and `!=` means "not equal to".  If we wanted
+"equal to", we would use `==`.)
+
+This function returns a new data frame that just has the rows we specify.  It
+can be handy for subsetting the data before plotting with ggplot.
+
+```{r}
+fert_use %>%
+  filter(Year > 1980) %>%
+  ggplot(aes(x = Year, y = Nitrogen, color = Crop, group = Crop)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~ Crop, scales = "free_y")
+```
+
