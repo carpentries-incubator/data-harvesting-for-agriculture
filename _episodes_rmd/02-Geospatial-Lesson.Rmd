@@ -8,8 +8,8 @@ source: Rmd
 
 ```{r setup, include=FALSE}
 library(knitr)
+library(httr)
 knitr::opts_chunk$set(echo = TRUE)
-opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/data") 
 ```
 
 ####Motivating Questions:
@@ -70,7 +70,7 @@ variables within an `sf` object using the `$` operator, for example
 calculations available for `sf` objects, this class is perferred in most situations.
 
 ```{r readtrial}
-trial <- read_sf("trialdesign.gpkg")
+trial <- read_sf("data/trialdesign.gpkg")
 ```
 
 An `sf` object contains a geometry column. We can see the geometric points for
@@ -203,7 +203,7 @@ the object `planting`. This file contains the planting information for 2017.
 
 <<<<<<< HEAD
 ```{r transformplanting}
-planting <- read_sf("asplanted.gpkg")
+planting <- read_sf("data/asplanted.gpkg")
 
 st_crs(planting)
 
@@ -354,7 +354,7 @@ We will read in the boundary file and plot the boundary file with the abline to 
 how the farmer drives across the field. 
 
 ```{r boundary}
-boundary <- read_sf("boundary.gpkg")
+boundary <- read_sf("data/boundary.gpkg")
 st_crs(boundary)
 ```
 
