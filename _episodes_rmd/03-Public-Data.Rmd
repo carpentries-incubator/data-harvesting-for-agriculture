@@ -10,9 +10,25 @@ source: Rmd
 
 ```{r setup, include=FALSE}
 library(knitr)
+library(sf)
+library(fasterize)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+library(knitr)
+require(tmap)
+require(ggplot2)
+require(gridExtra)
+library(daymetr)
+library(readr)
+library(measurements)
+library(FedData)
+library(lubridate)
 knitr::opts_chunk$set(echo = TRUE)
-opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98")
-boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98/boundary.gpkg")
+source("functions.R")
 ```
 ####Motivating Questions:
 - What are the common file types in agricultural data?
@@ -30,27 +46,6 @@ boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information
 (e.g. making trial grids and splitting plots into subplot data)
 - Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
 
-Below are the packages that we will use in this episode.
-
-```{r}
-library(sf)
-library(fasterize)
-library(raster)
-library(rjson)
-library(httr)
-library(rgdal)
-library(rgeos)
-library(maptools)
-library(knitr)
-require(tmap)
-require(ggplot2)
-require(gridExtra)
-library(daymetr)
-library(readr)
-library(measurements)
-library(FedData)
-```
-
 #Bringing in the data from geospatial exercises
 
 #Daymet Weather Data
@@ -66,18 +61,19 @@ for a set of points, there is also the command `download_daymet_batch()` which t
 a .csv of the points in lat/long.
 
 We will use the mean latitude and longitude values from the bounding box as our point for the 
-weather data. This should be a point near the middle of the field. We also call the site
-`Field1`, but this will be the name of a specific field if you use it in the future. We can 
+weather data. This should be a point near the middle of the field. 
+
+```{r location}
+boundary <- read_sf("data/boundary.gpkg")
+lon <- cent_long(boundary)
+lat <- cent_lat(boundary)
+```
+
+We also call the site `Field1`, but this will be the name of a specific field if you use it in the future. We can 
 choose the start and end years. If the data is not available for the year you request, an 
 error will be reported. We choose 2000 to 2018 for this example; later we will use the
 historical data for comparison. The final option `internal = TRUE` means that the daymet 
 data is brought into the R environment rather than saved in your working directory.
-
-```{r location}
-bbox <- as.matrix(st_bbox(boundary))
-lon <- mean(bbox[c(1,3),])
-lat <- mean(bbox[c(2,4),])
-```
 
 ```{r daymetr}
 weather <- download_daymet(site = "Field1", lat = lat, lon = lon, start = 2000, end = 2018, internal = TRUE)
@@ -107,9 +103,7 @@ precipitation, solar radiation, snow water equivalent, maximum temperature, mini
 temperature, and vapor pressure. The units for the variables are given after the variable 
 name. For example, day length is in seconds and solar radiation is in watts per square meter.
 While precipitation and temperature have intuitive names, vapor pressure and snow water
-equivalent are not so apparent. Use the `datmetr` vignette to understand the meaning of these variables.
-
-https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html
+equivalent are not so apparent. Use the `datmetr` [vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html) to understand the meaning of these variables.
 
 #Unit Conversions
 
@@ -123,34 +117,32 @@ command ``conv_unit()`` converts the column from one stated unit to another unit
 To see the possible units for a specific kind of measure, look at the
 `conv_unit_options` for the specific measure you are converting (e.g. length, area, weight, etc.). 
 
-If we want to convert the daily precipitation from milimeters to inches, we will 
-first look at the unit options for length. Here we can see that inches are "inch" 
-and milimeters are "mm" in the `measurements` framework. We then use `conv_unit()` 
-with these arguments and our `prcp..mm.day.` column to create a new column called `prec`.
-
-```{r unitopts}
-conv_unit_options$length
-```
+We can convert the daily precipitation from milimeters to inches using the function `mm_to_in()` which uses `conv_unit()`. The following lines converts `prcp..mm.day.` to inches and creates a new column called `prec`.
 
 ```{r convprec}
-weather_data$prec <- conv_unit(weather_data$prcp..mm.day., "mm", "inch")
+weather_data$prec <- mm_to_in(weather_data$prcp..mm.day.)
 ```
 
 *Exercise 2:* Unit Conversions
 
-  1. Look at the possible units for temperature in `measurements`. 
-  2. Convert the two temperature variables into fahrenheit from celsius with the 
-  names `tmax` and `tmin`. 
+  1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()` with the names `tmax` and `tmin`. 
 
 
 *Execrise 2 Solutions*
 
 ```{r exercise1}
-conv_unit_options$temperature
-weather_data$tmax <- conv_unit(weather_data$tmax..deg.c., "C", "F")
-weather_data$tmin <- conv_unit(weather_data$tmin..deg.c., "C", "F")
+weather_data$tmax <- c_to_f(weather_data$tmax..deg.c.)
+weather_data$tmin <- c_to_f(weather_data$tmin..deg.c.)
 head(weather_data$tmax)
 ```
+
+#Precipitation Graph
+
+Perhaps you want to see what the weather this year was like compared to the average historic
+weather for the same area. We will make a graph showing the total monthly precipitation from
+2018 compared to the average precipitation from the years 2000 to 2017. This is a common way
+to look at seasonal rainfall and allows us to look at the rainfall during the critical months
+of July and August.
 
 #Dates in Dataframes 
 
@@ -162,22 +154,12 @@ saying an origin must be supplied.
 The function can see that the date is in days after some starting time or origin. The name
 `yday` means this is the day of the year, so the origin should be the last day of the 
 previous year. There are multiple years in our dataframe, so the origin should change 
-for each year. This is accomplished by pasting `weather_data$year-1` and `"-12-31"` 
-together using the function `paste0()` so that the origin is always the last day of the 
-previous year. 
+for each year. This is accomplished in the function as.Date.daymetr(). To see this code and understand how it works go to the [functions script](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/functions.R) in github. 
 
 ```{r dateformat}
-weather_data$date <- as.Date(weather_data$yday, origin = paste0(weather_data$year-1, "-12-31"))
+weather_data$date <- as.Date.daymetr(weather_data)
 head(weather_data$date)
 ```
-
-#Precipitation Graph
-
-Perhaps you want to see what the weather this year was like compared to the average historic
-weather for the same area. We will make a graph showing the total monthly precipitation from
-2018 compared to the average precipitation from the years 2000 to 2017. This is a common way
-to look at seasonal rainfall and allows us to look at the rainfall during the critical months
-of July and August.
 
 Currently, there is no month variable in our dataframe. There is a package called `lubridate`
 that can facilitate easy transformations of dates in R. We use the command `month()` to add a 
@@ -190,52 +172,31 @@ weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 
 Now, we need to sum the daily precipitation for each year and month combination. There is a 
 package called `dplyr` that helps with many kinds of data manipulation. A popular task is to 
-perform an action over a group. To specify the grouping variables, you use `group_by()` then 
-add the additional command `summarise()` which defines the action. 
-
-The next steps organize a dataframe for a graph of the average monthly precipitation from
-2000 to 2017. 
-
-  1. Create subset of `weather_data` taking out the 2018 observations.
-  2. Create a monthly precipiation variable for each year and month combination called
-  `prec_month` using the `dplyr` commands.
-  3. Take an average of `prec_month` for each month.
-
-
-*Steps*
-
-  1. Create subset of `weather_data` taking out the 2018 observations.
-
-```{r 00to17}
-hist_data <- subset(weather_data,year != 2018)
-```
+perform an action over a group, like taking the sum of something. To specify the grouping variables, you use `group_by()` then add the additional command `summarise()` which defines the action. For this exercise we wrote functions that use `dplyr` to make the task simpler for you `sumprec_by_monthyear()` and `avgprec_by_month()`.
 
   2. Create a monthly precipiation for each year called `prec_month` using the `dplyr` 
   commands.
 
 ```{r monthyeardata}
-by_month_year <- hist_data %>% dplyr::group_by(month, year) %>% dplyr::summarise(prec_month = sum(prec))
+by_month_year <- sumprec_by_monthyear(weather_data)
 ```
 
-  3. Take an average of `prec_month` for each month.
+We now have a dataframe with the rainfall for each month of each year. We will look at the first rows.
+
+```{r}
+head(by_month_year)
+```
+
+Now we want to separate the 2018 data from the rest of the years before we take the average monthly precipitation. We will take the subset of `by_month_year` that is in 2018.
 
 ```{r monthdata}
-by_month <- by_month_year %>% dplyr::group_by(month) %>% dplyr::summarise(prec_avg = mean(prec_month))
+monthprec_2018 <- subset(by_month_year, year==2018) 
 ```
 
-*Exercise 3:* Using `dplyr`
+Now find the subset of `by_month_year` that is not in 2018, and we will take the average of the precipitation for each month. 
 
-  1. Create a new dataframe called `weather_2018` from the `weather_data` using only 
-  2018 observations.
-  2. Create a monthly precipiation variable for each month in 2018 called `prec_month` 
-  using the `dplyr`       commands.
-
-
-*Exercise 3 Solutions*
-
-```{r 2018data}
-weather_2018 <- subset(weather_data, year==2018)
-by_month_2018 <- weather_2018 %>% dplyr::group_by(month) %>% dplyr::summarise(prec_2018 = sum(prec))
+```{r monthdatahist}
+monthprec_hist <- avgprec_by_month(subset(by_month_year, year != 2018))
 ```
 
 We now have two separate dataframes `by_month_2018` and `by_month` with the rainfall for each
@@ -243,7 +204,7 @@ month. We can use the common variable `month` to merge them into one dataframe w
 monthly rainfall and the 2018 monthly rainfall using the `merge()` function.
 
 ```{r plotdata}
-prec_plot <- merge(by_month,by_month_2018, by = "month")
+prec_plot <- merge(monthprec_hist, monthprec_2018, by = "month")
 ```
 
 We will now use `ggplot` to create a graph with a bar representing the monthly precipitation 
@@ -264,91 +225,4 @@ average and be able to have a pretty clear idea of weather impacted the average 
 a growing season. 
 
 Another possible graph you could make with these data is on the accumulated GDD each month. 
-
-#SSURGO Soil Data
-
-The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil
-description of your field on the Web Soil Survey website below. The SSURGO dataset has been
-developed over a century of surveying land and analyzing soil samples across the United States.
-While the website is one way to access the soil data, R also has a package called `FedData` 
-that has a function `get_ssurgo()` for accessing the soil data in the R environment. 
-
-https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
-
-The next line brings the SSURGO data into the R environment with the name `ssurgo` and the 
-object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs 
-to be `spatial` rather than `sf`, so we trasnform the object with `as(boundary,"Spatial")`.
-
-```{r ssurgo}
-bound.sp <- as(boundary, "Spatial")
-ssurgo <- get_ssurgo(bound.sp, "field1")
-```
-
-The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
-object contains the polygons of soil types for the field, and  `tabular` contains many 
-dataframes with attributes collected for the soil and soil horizons. Note that these dataframes 
-and their relationships with one another ar very complex. To use these data, you must carefully 
-read the SSURGO documentation. Merging the dataframes to have one value of the attributes for 
-each soil polygon requires reducing the dimension of the data, often by weighting the attributes
-by horizon depth. For an example of how this is done with clay, silt, and sand content, contact 
-the workshop instructors. 
-
-**Dena: Someone had commented in another version of this file that we should provide them with
-a method of getting this information that doesn't involve talking to the instructors. I agree with 
-that note.**
-
-Let's make a map of the soil types on this field. First, we need to locate the part of
-`tabular` with the soil names; these can be found in `muaggatt`.
-
-```{r names}
-names <- ssurgo$tabular$muaggatt 
-```
-
-*Exercise 4*: What are the soil types present on the field as seen in `names`? Are the soil 
-defined by anything other than the soil type?
-
-*Exercise 4 Solution*
-
-```{r soilnames}
-names
-```
-
-Looking at `names` we can see there are eight types of soil on the field, and the dataframe 
-reports areas with different slopes with different names. We often know the slope of the field, 
-and so we may want to combine areas of the field with the same soil type and different slopes.
-
-We need one dataframe with both the soil name and spatial data. We will merge the soil data 
-and the spatial data by the `musym`. Note that in one of the dataframes the variable is 
-capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.
-
-```{r soilmerge}
-spatial <- as(ssurgo$spatial, "sf")
-spatial <- dplyr::rename(spatial, musym = MUSYM)
-spatial <- merge(spatial, names, by = "musym")
-head(spatial$muname)
-```
-
-*Exercise 5*: Create the Soil Map
-
-Use `tmap` to make a map where the polygon color is informed by the soil names in
-`muname`. *Hint*: use `tm_polygons()`.
-
-
-*Exercise 5 Solution*
-
-```{r soilmap}
-map_soil <- tm_shape(spatial) + tm_polygons('muname', title = "Soil Type") + tm_layout(legend.outside = TRUE, frame = FALSE)+
-  tm_legend(text.size = 1,
-            title.size = 1,
-            width = 100,
-            bg.color = "white"
-           )
-map_soil
-```
-
-The map shows that there are quite a few soil types on the field, and several show up
-in different sections of the field. However, most of the soils are silt loam. It might 
-be difficult to understand the different soils without more information about soil weathering 
-and texture. This is also provided within SSURGO and is likely something you know about in 
-your own field. 
 
