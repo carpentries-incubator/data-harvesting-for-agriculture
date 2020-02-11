@@ -10,6 +10,7 @@ source: Rmd
 library(knitr)
 library(httr)
 knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
+source("functions.R")
 ```
 
 #### Motivating Questions:
@@ -129,11 +130,6 @@ of the polygons.  By taking the mean of the first and third items returned by
 `st_bbox()`, we get the longitude of the point directly in the center of the box.
 
 ```{r calcutm}
-long2UTM <- function(long){
-  utm <- (floor((long + 180)/6) %% 60) + 1
-  return(utm)
-}
-
 utmzone <- long2UTM(mean(st_bbox(trial)[c(1,3)]))
 utmzone
 ```
@@ -349,3 +345,91 @@ across the longest part of the field, beginning on the right-hand side.
 plot(boundary$geom)
 plot(ab_line, add = TRUE)
 ```
+
+#SSURGO Soil Data
+
+The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil
+description of your field on the Web Soil Survey website below. The SSURGO dataset has been
+developed over a century of surveying land and analyzing soil samples across the United States.
+While the website is one way to access the soil data, R also has a package called `FedData` 
+that has a function `get_ssurgo()` for accessing the soil data in the R environment. 
+
+https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
+
+The next line brings the SSURGO data into the R environment with the name `ssurgo` and the 
+object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs 
+to be `spatial` rather than `sf`, so we trasnform the object with `as(boundary,"Spatial")`.
+
+```{r ssurgo}
+bound.sp <- as(boundary, "Spatial")
+ssurgo <- get_ssurgo(bound.sp, "field1")
+```
+
+The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
+object contains the polygons of soil types for the field, and  `tabular` contains many 
+dataframes with attributes collected for the soil and soil horizons. Note that these dataframes 
+and their relationships with one another ar very complex. To use these data, you must carefully 
+read the SSURGO documentation. Merging the dataframes to have one value of the attributes for 
+each soil polygon requires reducing the dimension of the data, often by weighting the attributes
+by horizon depth. For an example of how this is done with clay, silt, and sand content, contact 
+the workshop instructors. 
+
+**Dena: Someone had commented in another version of this file that we should provide them with
+a method of getting this information that doesn't involve talking to the instructors. I agree with 
+that note.**
+
+Let's make a map of the soil types on this field. First, we need to locate the part of
+`tabular` with the soil names; these can be found in `muaggatt`.
+
+```{r names}
+names <- ssurgo$tabular$muaggatt 
+```
+
+*Exercise 4*: What are the soil types present on the field as seen in `names`? Are the soil 
+defined by anything other than the soil type?
+
+*Exercise 4 Solution*
+
+```{r soilnames}
+names
+```
+
+Looking at `names` we can see there are eight types of soil on the field, and the dataframe 
+reports areas with different slopes with different names. We often know the slope of the field, 
+and so we may want to combine areas of the field with the same soil type and different slopes.
+
+We need one dataframe with both the soil name and spatial data. We will merge the soil data 
+and the spatial data by the `musym`. Note that in one of the dataframes the variable is 
+capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.
+
+```{r soilmerge}
+spatial <- as(ssurgo$spatial, "sf")
+spatial <- dplyr::rename(spatial, musym = MUSYM)
+spatial <- merge(spatial, names, by = "musym")
+head(spatial$muname)
+```
+
+*Exercise 5*: Create the Soil Map
+
+Use `tmap` to make a map where the polygon color is informed by the soil names in
+`muname`. *Hint*: use `tm_polygons()`.
+
+
+*Exercise 5 Solution*
+
+```{r soilmap}
+map_soil <- tm_shape(spatial) + tm_polygons('muname', title = "Soil Type") + tm_layout(legend.outside = TRUE, frame = FALSE)+
+  tm_legend(text.size = 1,
+            title.size = 1,
+            width = 100,
+            bg.color = "white"
+           )
+map_soil
+```
+
+The map shows that there are quite a few soil types on the field, and several show up
+in different sections of the field. However, most of the soils are silt loam. It might 
+be difficult to understand the different soils without more information about soil weathering 
+and texture. This is also provided within SSURGO and is likely something you know about in 
+your own field. 
+
