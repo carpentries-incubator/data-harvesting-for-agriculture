@@ -25,17 +25,17 @@ library(lubridate)
 knitr::opts_chunk$set(echo = TRUE, fig.path='../fig/')
 source("functions.R")
 ```
-####Motivating Questions:
+#### Motivating Questions:
 - What are the common file types in agricultural data?
 - What publicly available datasets exist for my field?
 
-####Objectives with Agricultural Data Types
+#### Objectives with Agricultural Data Types
 - Describe the format of public weather and soil datasets
 - Import weather data from the internet, eg. daymetr
 - Access to elevation and ssurgo data with higher resolution
 - Derive topography data from elevation data
 
-####Keypoints:
+#### Keypoints:
 - sf is prefereable for data analysis; it is easier to access the dataframe
 - Projecting your data in utm is necessary for many of the geometric operations you perform
 (e.g. making trial grids and splitting plots into subplot data)
@@ -84,7 +84,7 @@ source("functions.R")
 > The object `weather` is a list of 7 objects, the last of which is the data. In the next excerise we will explore what variables are in this dataframe. 
 {: .callout}
 
-> # Exercise 1: Explore the weather data
+> ## Exercise 1: Explore the weather data
 >
 >  1. Grab this object and save it as `weather_data`.
 >  2. How is the date reported? 
@@ -93,26 +93,21 @@ source("functions.R")
 >  *Remember: Sometimes you need to use a search engine to understand what objects
 >  are created from a specific R function. 
 >
-> > #Solution
+> > ## Solution
 > > 
-> >```{r weatherdata}
-> >weather_data <- weather$data
-> >str(weather_data)
-> >```
+> > ```{r weatherdata}
+> > weather_data <- weather$data
+> > str(weather_data)
+> > ```
 > > The date is reported as the year and day of the year. 
-> > Other variables include day length,
-precipitation, solar radiation, snow water equivalent, maximum temperature, minimum
-temperature, and vapor pressure. 
-> > The units for the variables are given after the variable 
-name. For example, day length is in seconds and solar radiation is in watts per square meter.
-While precipitation and temperature have intuitive names, vapor pressure and snow water
-equivalent are not so apparent. 
+> > Other variables include day length, precipitation, solar radiation, snow water equivalent, maximum temperature, minimum temperature, and vapor pressure. 
+> > The units for the variables are given after the variable name. For example, day length is in seconds and solar radiation is in watts per square meter. While precipitation and temperature have intuitive names, vapor pressure and snow water equivalent are not so apparent. 
 > > Use the `daymetr` [vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html) to understand the meaning of these variables.
 > > 
 > {: .solution}
 {: .challenge}
 
-> #Dates in Dataframes 
+> # Dates in Dataframes 
 >
 > There is a class within R for dates. Once a column is of the `date` class, we can subset
 > or order the dataset by time. `as.Date()` converts a column to a data, but here if we try 
@@ -131,7 +126,7 @@ equivalent are not so apparent.
 > ```
 {: .callout}
 
-> #Unit Conversions
+> # Unit Conversions
 >
 >Publicly available data are usually given in metric units as we saw in the weather data 
 >above. We may want to have these data in imperial units as these are the units we are using
@@ -148,25 +143,25 @@ equivalent are not so apparent.
 > ```
 {: .callout}
 
-> Exercise 2: Unit Conversions
+> ## Exercise 2: Unit Conversions
 >
 > 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()` with the names `tmax` and `tmin`. 
 > 2. What is the maximum temperature recorded?
 >
->> Exercise 2 Solutions
->> 
->> ```{r exercise1}
->> weather_data$tmax <- c_to_f(weather_data$tmax..deg.c.)
->> weather_data$tmin <- c_to_f(weather_data$tmin..deg.c.)
->> head(weather_data$tmax)
->> max(weather_data$tmax)
->> ```
->> The maximum temperature during this time period was 94 degrees.
+> > ## Exercise 2 Solutions
+> > 
+> > ```{r exercise1}
+> > weather_data$tmax <- c_to_f(weather_data$tmax..deg.c.)
+> > weather_data$tmin <- c_to_f(weather_data$tmin..deg.c.)
+> > head(weather_data$tmax)
+> > max(weather_data$tmax)
+> > ```
+> > The maximum temperature during this time period was 94 degrees.
 > {: .solution}
 {: .challenge}
 
 
-> #Precipitation Graph
+> # Precipitation Graph
 >
 > Perhaps you want to see what the weather this year was like compared to the typical year.
 > We are going make a graph showing the total monthly precipitation from
@@ -202,11 +197,11 @@ equivalent are not so apparent.
 > head(by_month_year)
 > ```
 >
->Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January.
+> Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January.
 >
 {: .callout}
 
-> #Subsetting the data
+> # Subsetting the data
 >
 > Now we want to separate the 2018 data from the rest of the years 
 > before we take the average monthly precipitation. We will take the > subset of `by_month_year` that is in 2018.
@@ -216,11 +211,11 @@ equivalent are not so apparent.
 > ```
 {: .callout}
 
-> # Exercise 3: Subsetting
+> ## Exercise 3: Subsetting
 >
 > Name the subset of `by_month_year` that is not in 2018  monthprec_hist, find the total precipitation in June of 2015.
 > 
-> > # Exercise 3 Solution
+> > ## Exercise 3 Solution
 > > ```{r}
 > > subset(by_month_year, year != 2018)
 > > subset(by_month_year, year == 2015)
@@ -233,14 +228,14 @@ equivalent are not so apparent.
 > {: .solution}
 {: .challenge}
 
-> #Take the average of monthly rainfall
+> # Take the average of monthly rainfall
 >
 > ```{r}
 > monthprec_hist <- avgprec_by_month(subset(by_month_year, year != 2018))
 > ```
 {: .callout}
 
-> #Merging
+> # Merging
 > 
 > We now have two separate dataframes `by_month_2018` and `by_month`
 > with the rainfall for each
