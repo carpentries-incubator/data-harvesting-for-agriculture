@@ -25,6 +25,7 @@ library(lubridate)
 knitr::opts_chunk$set(echo = TRUE, fig.path='../fig/')
 source("functions.R")
 ```
+
 #### Motivating Questions:
 - What are the common file types in agricultural data?
 - What publicly available datasets exist for my field?
@@ -51,7 +52,7 @@ source("functions.R")
 >There is a package in r `daymetr` that downloads the daymet weather data within the R environment.
 > For a single point, you can use the command `download_daymet()`. If you want to download the data 
 > for a set of points, there is also the command `download_daymet_batch()` which takes an argument 
-> a .csv of the points in lat/long.
+> a .csv of the points in lat/long. If you want to use this approach, we can give you an example. 
 > 
 {: .callout}
 
@@ -64,12 +65,12 @@ source("functions.R")
 > lon <- cent_long(boundary)
 > lat <- cent_lat(boundary)
 > ```
-> **DENA: Should / could they use their own data here? If so, let's tell them that. If not, can we add in an exercise where they load their own data and practice with it?**
+>
 > We also call the site `Field1`, but this can be the name of one of your fields if you use it in the future.
 > We can choose the start and end years. If the data is not available for the year you request, an 
 > error will be reported. We choose 2000 to 2018 for this example; later we will use the
 > historical data for comparison. The final option `internal = TRUE` means that the daymet 
-> data is brought into the R environment rather than saved in your working directory. **DENA: Do we want them to save it in their working directory so they can use it again, esp. if they're using their own data?**
+> data is brought into the R environment rather than saved in your working directory. We may want to change the names and units of variables, so we will wait to save the data in the working directory.
 >
 >```{r daymetr}
 > weather <- download_daymet(site = "Field1", lat = lat, lon = lon, start = 2000, end = 2018, internal = TRUE)
@@ -77,7 +78,7 @@ source("functions.R")
 {: .callout}
 
 > # Exploring the daymet data
-> We can use `str()` as we did in the last lesson to explore the new datmetr **DENA: is this daymetr instead?** object `weather`
+> We can use `str()` as we did in the last lesson to explore the new daymetr object `weather`
 > ```{r}
 > str(weather)
 >```
@@ -86,13 +87,13 @@ source("functions.R")
 
 > ## Exercise 1: Explore the weather data
 >
->  1. Grab this object and save it as `weather_data`. **DENA: Which "this object"? Grab it how? Do you mean highlight a specific block of text already on the scren or download something from the daymetr source collection? I can't tell from the instructions so far.**
+>  1. Save the dataframe in `weather` with the name `weather_data`.
 >  2. How is the date reported? 
 >  3. What other variables exist?
 >  4. What are the units for the different variables?
->  *Remember: Sometimes you need to use a search engine to understand what objects
->  are created from a specific R function. **DENA: This needs help -- how do they know what to look for? The letter R by itself is like the least helpful search term in history, so are there any other search assists we can give them for getting better results?**
->
+>  *Remember: Sometimes you need to use a search engine or help("functionname") to understand what objects
+>  are created from a specific R function.
+> 
 > > ## Solution
 > > 
 > > ```{r weatherdata}
@@ -102,15 +103,16 @@ source("functions.R")
 > > The date is reported as the year and day of the year. 
 > > Other variables include day length, precipitation, solar radiation, snow water equivalent, maximum temperature, minimum temperature, and vapor pressure. 
 > > The units for the variables are given after the variable name. For example, day length is in seconds and solar radiation is in watts per square meter. While precipitation and temperature have intuitive names, vapor pressure and snow water equivalent are not so apparent. 
-> > Use the `daymetr` [vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html) to understand the meaning of these variables. **DENA: We haven't seen the word vignette before, and the definition I have of that word is very different. This is showing up in a solution, without that keyword having been spotted earlier in the text, and if this is a thing they should have googled up, I don't think they have the words to have gotten here by this point.** 
+> > Use the `daymetr` [vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html) to understand the meaning of these variables. 
 > > 
 > {: .solution}
 {: .challenge}
 
 > # Dates in Dataframes 
 > **DENA: What's the goal here? What are we going to be doing with the dates once we have them? A sentence or two about that would help with contextualizing it rather than jumping into the fact that R has it without telling us how we'll use it.**
-> There is a class within R for dates. Once a column is of the `date` class, we can subset
-> or order the dataset by time. **DENA: That's a programmer's phrase -- how to say this in human? "We can look at a particular group of dates or organize them in calendar order?"** `as.Date()` converts a column to a data,  **DENA: do you mean a datE rather than a datA here?** but here if we try 
+> There are many operations we might do with dates, such as eliminating the dates outside of the growing season, but there is a class within R for dates. Once a column is of the `date` class, we can perform actions
+> like ordering the data by time, finding the data in a certain time period, or calculating the days between two dates. 
+> The function `as.Date()` converts a column to a date, but here if we try 
 > the command `weather_data$date <- as.Date(weather_data$yday)`, we will receive an error 
 > saying an origin must be supplied. 
 >
@@ -136,7 +138,7 @@ source("functions.R")
 > command `conv_unit()` converts the column from one stated unit to another unit.
 > Another useful function in the package is `conv_unit_options` which gives the possible units for a specific kind of measure (e.g. length, area, weight, etc.). 
 > 
-> We have made simple functions for converting units within `conv_unit()`. For example, the function `mm_to_in()` can convert the daily precipitation from milimeters to inches. The following lines converts `prcp..mm.day.` to inches and creates a new column called `prec`.
+> We have made simple functions for converting units using `conv_unit()` these are in `functions.R` and can be sourced within your code. For example, the function `mm_to_in()` can convert the daily precipitation from milimeters to inches. The following lines converts `prcp..mm.day.` to inches and creates a new column called `prec`.
 > 
 > ```{r convprec}
 > weather_data$prec <- mm_to_in(weather_data$prcp..mm.day.)
@@ -146,7 +148,7 @@ source("functions.R")
 > ## Exercise 2: Unit Conversions
 >
 > 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()` with the names `tmax` and `tmin`. 
-> 2. What is the maximum temperature recorded?
+> 2. What is the maximum and minimum temperature recorded?
 >
 > > ## Exercise 2 Solutions
 > > 
@@ -155,11 +157,11 @@ source("functions.R")
 > > weather_data$tmin <- c_to_f(weather_data$tmin..deg.c.)
 > > head(weather_data$tmax)
 > > max(weather_data$tmax)
+> > min(weather_data$tmin)
 > > ```
-> > The maximum temperature during this time period was 94 degrees.
+> > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
 > {: .solution}
 {: .challenge}
-
 
 > # Precipitation Graph
 >
@@ -167,15 +169,15 @@ source("functions.R")
 > We are going make a graph showing the total monthly precipitation from
 > 2018 compared to the average precipitation from the years 2000 to 2017. This is a common way
 > to look at seasonal rainfall and allows us to look at the rainfall during the critical months
-> of July and August. First, we need to organize the data in a new dataset with the average total rainfall for each month. **DENA: I LOVE this paragraph. It tells us up front what we're doing and why we're doing it and why that matters. Good sample! Let's use it as a model.**
+> of July and August. First, we need to organize the data in a new dataset with the average total rainfall for each month.
 {: .callout}
 
 > # Adding a month variable
 > 
-> Currently, there is no month variable in our dataframe. There is a package called `lubridate`
-> that can facilitate easy transformations of dates in R. **DENA: Wearing novice user hat: I thought we just did the date transformations, why are we doing different ones now with a different thing? How does this connect to the daymetr dates? Why do we need both? Where is this :: notation coming from? How am I (novice user) supposed to know when to use ::? Do I-the-student have to understand all this and keep it in my head for later, or is this just "smile and nod, it's a theoretical building block but we'll never use it again"?** We use the command `month()` to add a 
+> Currently, there is no month variable in our dataframe. Once you have a date object, there is a package called `lubridate`
+> that facilitates additional time or date related calculations. Perhaps you want a new column with the day of the week or a measure of time lapsed between two observations. We use the command `month()` to add a 
 > variable called `month` to the dataframe. The option `label = TRUE` creates a string with the 
-> month name instead of a number. 
+> month name instead of a number. We use this option because the month name will look better on the graph. 
 > 
 > ```{r addmonth}
 > weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
@@ -188,8 +190,7 @@ source("functions.R")
 > Now, we need to sum the daily precipitation for each year and month combination. There is a 
 > package called `dplyr` that helps with many kinds of data manipulation. A popular task is to 
 > perform an action over a group, like taking the sum of something. To specify the grouping variables, you use `group_by()` then add the additional
-> command `summarise()` which defines the action. For this exercise we wrote functions that use `dplyr` to make the task simpler for you 
-> `sumprec_by_monthyear()` and `avgprec_by_month()`. **Dena: Novice user thanks you! How do I-the-novice get hold of those functions again in the future? Are they in a library? Which one?**
+> command `summarise()` which defines the action. For this exercise we wrote functions that use `dplyr` to make the task simpler for you. The functions `sumprec_by_monthyear()` and `avgprec_by_month()` are in `functions.R`. You can read these functions to make similar functions on your own. 
 > 
 > First we use the command to calculate the total precipitation for each month in each year.
 > ```{r monthyeardata}
@@ -204,10 +205,10 @@ source("functions.R")
 > # Subsetting the data
 >
 > Now we want to separate the 2018 data from the rest of the years 
-> before we take the average monthly precipitation. We will take the > subset **Dena: What's the greater-than subset?** of `by_month_year` that is in 2018.
+> before we take the average monthly precipitation. Separating part of the dataframe is called subsetting. A subset is a set of observations that are all present in an existing dataframe; generally, the subset will have some characteristic in common such as year, month, etc. The function `subset()` requires two inputs, the dataframe to be subsetted and the characteristics to subset on in the form of logical expressions. We will take the subset of `by_month_year` that is in 2018.
 > 
 > ```{r monthdata}
-> monthprec_2018 <- subset(by_month_year, year==2018) 
+> monthprec_2018 <- subset(by_month_year, year == 2018) 
 > ```
 {: .callout}
 
@@ -262,15 +263,15 @@ source("functions.R")
 > ```{r precmonthplot}
 > monthly_prec <- ggplot(prec_plot) + 
   geom_bar(aes(x = month, y = prec_month), stat = 'identity') 
-monthly_prec + geom_point(aes(month, prec_avg), show.legend = TRUE) + ggtitle("Field 1")
+monthly_prec + geom_point(aes(month, prec_avg), show.legend = TRUE) + ggtitle("2018 Monthly Precipitation Compared to Average")
 > ```
 >
 > The most notable feature of the weather graph is the below average rainfall in July, the most 
 critical growing period for corn. To understand whether this affected yield on the field, we
 woud also need to look at historic yield. But on your field, you will know those historic
-average and be able to have a pretty clear idea of weather impacted the average yield in
-a growing season. **DENA: Is this something they'd want to see how to do? If yes, are we doing it later? If not, what would it take to add an exercise where they do the thing with their data and have a shiny to look at?**
->
-> Another possible graph you could make with these data is on the accumulated GDD each month. **DENA: I don't think they can get from "could do this" to "know how to do this" with these examples. Can we show them that example?**
+average and be able to have a pretty clear idea of how weather impacted the average yield in
+a growing season. 
+> 
+> There are many possible uses for this weather data. You can calculate cumulative rainfall when it rains for consecutive days or calculate the accumulated GDD. These are more complex operations, but we can help you with the code if you are interested.
 {: .callout}
 
