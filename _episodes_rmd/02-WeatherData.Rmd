@@ -177,11 +177,16 @@ source("functions.R")
 > Currently, there is no month variable in our dataframe. Once you have a date object, there is a package called `lubridate`
 > that facilitates additional time or date related calculations. Perhaps you want a new column with the day of the week or a measure of time lapsed between two observations. We use the command `month()` to add a 
 > variable called `month` to the dataframe. The option `label = TRUE` creates a string with the 
-> month name instead of a number. We use this option because the month name will look better on the graph. 
+> month name instead of a number. We use this option because the month name will look better on the graph than a number. 
 > 
 > ```{r addmonth}
 > weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 > head(weather_data$month)
+> 
+> This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv). 
+> ```{r}
+> write .csv(weather_data, "weather_2000_2018.csv") 
+> 
 > ```
 {: .callout}
 
@@ -198,8 +203,7 @@ source("functions.R")
 > head(by_month_year)
 > ```
 >
-> Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January.
->
+> Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January. 
 {: .callout}
 
 > # Subsetting the data
