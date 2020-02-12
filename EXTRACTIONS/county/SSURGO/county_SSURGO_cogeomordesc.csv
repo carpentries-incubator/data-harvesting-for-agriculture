@@ -1,0 +1,294 @@
+geomftname,geomfname,geomfmod,geomfeatid,existsonfeat,rvindicator,cokey,cogeomdkey
+Landform,marine terraces,,1,NA,Yes,17728571,26873966
+Landscape,coastal plains,,NA,NA,Yes,17728571,26873967
+Landform,ridges,low,NA,1,Yes,17728571,26873968
+Landform,flood plains,,NA,NA,Yes,17728572,26873969
+Landscape,coastal plains,,NA,NA,Yes,17728572,26873970
+Landform,marine terraces,,1,NA,Yes,17728573,26873971
+Landscape,coastal plains,,NA,NA,Yes,17728573,26873972
+Landform,ridges,low,NA,1,Yes,17728573,26873973
+Landform,tidal marshes,,NA,NA,Yes,17728619,26873974
+Landscape,esturaries,,NA,NA,Yes,17728619,26873975
+Landscape,coastal plains,,NA,NA,Yes,17728537,26873981
+Landform,stream terraces,,2,NA,No ,17728537,26873980
+Landform,marine terraces,,1,NA,Yes,17728537,26873979
+Landform,depressions,,NA,2,Yes,17728537,26873978
+Landform,Carolina Bays,,NA,1,No ,17728537,26873977
+Landform,flats,,NA,1,Yes,17728537,26873976
+Landscape,coastal plains,,NA,NA,Yes,17728538,26873985
+Landform,marine terraces,,1,NA,Yes,17728538,26873984
+Landform,flats,,NA,1,No ,17728538,26873983
+Landform,depressions,,NA,1,Yes,17728538,26873982
+Landscape,coastal plains,,NA,NA,Yes,17728539,26873988
+Landform,marine terraces,,1,NA,Yes,17728539,26873987
+Landform,flats,,NA,1,Yes,17728539,26873986
+Landform,ridges,low,NA,1,Yes,17728540,26873991
+Landscape,coastal plains,,NA,NA,Yes,17728540,26873990
+Landform,marine terraces,,1,NA,Yes,17728540,26873989
+Landform,flats,,NA,1,Yes,17728574,26873992
+Landform,marine terraces,,1,NA,Yes,17728574,26873993
+Landscape,coastal plains,,NA,NA,Yes,17728574,26873994
+Landform,flood plains,,NA,NA,Yes,17728549,26873995
+Landscape,coastal plains,,NA,NA,Yes,17728549,26873996
+Landform,flats,,NA,1,Yes,17728550,26873997
+Landform,marine terraces,,1,NA,Yes,17728550,26873998
+Landscape,coastal plains,,NA,NA,Yes,17728550,26873999
+Landform,ridges,low,NA,1,Yes,17728550,26874000
+Landform,flats,,NA,1,Yes,17728551,26874001
+Landform,marine terraces,,1,NA,Yes,17728551,26874002
+Landscape,coastal plains,,NA,NA,Yes,17728551,26874003
+Landform,marine terraces,,1,NA,Yes,17728599,26874004
+Landscape,coastal plains,,NA,NA,Yes,17728599,26874005
+Landform,ridges,low,NA,1,Yes,17728599,26874006
+Anthropogenic Feature,leveled land,,NA,NA,Yes,17728599,26874007
+Anthropogenic Feature,scalped areas,,NA,NA,Yes,17728599,26874008
+Landform,tidal flats,,NA,NA,Yes,17728595,26874009
+Landscape,esturaries,,NA,NA,Yes,17728595,26874010
+Landform,flood plains,,NA,NA,Yes,17728552,26874011
+Landscape,coastal plains,,NA,NA,Yes,17728552,26874012
+Landform,pocosins,,NA,NA,Yes,17728600,26874214
+Landscape,coastal plains,,NA,NA,Yes,17728600,26874215
+Landform,flats,broad,NA,NA,Yes,17728600,26874216
+Landform,Carolina Bays,,NA,NA,Yes,17728600,26874217
+Landform,bays (geom.),,NA,NA,No ,17728600,26874218
+Landscape,coastal plains,,NA,NA,Yes,17728601,26874219
+Landform,flats,broad smooth,NA,1,Yes,17728601,26874220
+Landform,broad interstream divides,,NA,1,Yes,17728601,26874221
+Landform,marine terraces,,1,NA,Yes,17728601,26874222
+Landform,depressions,,NA,NA,Yes,17728601,26874223
+Landform,stream terraces,,2,NA,No ,17728602,26874224
+Landscape,coastal plains,,NA,NA,Yes,17728602,26874225
+Landform,marine terraces,,1,NA,No ,17728602,26874226
+Landform,flats,broad,NA,3,Yes,17728602,26874227
+Landform,depressions,,NA,2,Yes,17728602,26874228
+Landform,Carolina Bays,,NA,1,No ,17728602,26874229
+Landscape,uplands,,3,NA,Yes,17728602,26874230
+Landform,tidal marshes,,NA,NA,Yes,17728561,26874013
+Landscape,esturaries,,NA,NA,Yes,17728561,26874014
+Landform,depressions,,NA,NA,Yes,17728562,26874015
+Landscape,barrier islands,,NA,NA,Yes,17728562,26874016
+Landform,barrier islands,,1,NA,Yes,17728563,26874017
+Landform,troughs,,NA,1,Yes,17728563,26874018
+Landscape,coastal plains,,NA,NA,Yes,17728563,26874019
+Landscape,coastal plains,,NA,NA,Yes,17728533,26874021
+Landform,flood plains,,NA,NA,Yes,17728533,26874020
+Landscape,barrier islands,,NA,NA,Yes,17728541,26874023
+Landform,depressions,,NA,NA,Yes,17728541,26874022
+Landform,broad interstream divides,,NA,1,Yes,17728575,26874024
+Landform,flats,,NA,1,No ,17728575,26874025
+Landform,marine terraces,,1,NA,Yes,17728575,26874026
+Landscape,coastal plains,,NA,NA,Yes,17728575,26874027
+Landform,flats,,NA,1,Yes,17728576,26874028
+Landform,depressions,,NA,1,No ,17728576,26874029
+Landform,broad interstream divides,,NA,1,No ,17728576,26874030
+Landform,marine terraces,,1,NA,Yes,17728576,26874031
+Landscape,coastal plains,,NA,NA,Yes,17728576,26874032
+Landscape,coastal plains,,NA,NA,Yes,17728603,26874231
+Landform,flats,depressions on,NA,1,No ,17728603,26874232
+Landform,broad interstream divides,depressions on,NA,1,No ,17728603,26874233
+Landform,marine terraces,lower positons on,1,NA,Yes,17728603,26874234
+Landform,marine terraces,,1,NA,Yes,17728604,26874235
+Landscape,coastal plains,,NA,NA,Yes,17728604,26874236
+Landform,broad interstream divides,,NA,1,No ,17728604,26874237
+Landform,flats,,NA,1,No ,17728604,26874238
+Landscape,coastal plains,,NA,NA,Yes,17728605,26874239
+Landform,broad interstream divides,higher areas of,NA,1,No ,17728605,26874240
+Landform,flats,slightly raised areas on,NA,1,No ,17728605,26874241
+Landform,marine terraces,higher positons on,1,NA,Yes,17728605,26874242
+Landform,depressions,,NA,NA,Yes,17728555,26874033
+Landscape,coastal plains,,NA,NA,Yes,17728555,26874034
+Landform,depressions,,NA,NA,Yes,17728556,26874035
+Landscape,coastal plains,,NA,NA,Yes,17728556,26874036
+Landscape,coastal plains,,NA,NA,Yes,17728534,26874038
+Landform,stream terraces,low,NA,NA,Yes,17728534,26874037
+Landscape,coastal plains,,NA,NA,Yes,17728535,26874041
+Landform,stream terraces,,1,NA,Yes,17728535,26874040
+Landform,backswamps,,NA,1,Yes,17728535,26874039
+Landform,Carolina Bays,,1,NA,Yes,17728582,26874042
+Landform,rims,,NA,1,Yes,17728582,26874043
+Landscape,coastal plains,,NA,NA,Yes,17728582,26874044
+Landform,marine terraces,,2,NA,Yes,17728582,26874045
+Landform,ridges,low,NA,2,Yes,17728582,26874046
+Landform,flats,,NA,1,Yes,17728583,26874047
+Landform,marine terraces,,1,NA,Yes,17728583,26874048
+Landscape,coastal plains,,NA,NA,Yes,17728583,26874049
+Landform,depressions,,NA,1,Yes,17728584,26874050
+Landform,flats,,NA,1,No ,17728584,26874051
+Landform,marine terraces,,1,NA,Yes,17728584,26874052
+Landscape,coastal plains,,NA,NA,Yes,17728584,26874053
+Landform,tidal marshes,,NA,NA,Yes,17728547,26874054
+Landscape,esturaries,,NA,NA,Yes,17728547,26874055
+Landscape,coastal plains,,NA,NA,Yes,17728542,26874058
+Landform,marine terraces,,1,NA,Yes,17728542,26874057
+Landform,flats,,NA,1,Yes,17728542,26874056
+Landform,depressions,,NA,1,Yes,17728543,26874059
+Landform,flats,,NA,1,No ,17728543,26874060
+Landform,marine terraces,,1,NA,Yes,17728543,26874061
+Landscape,coastal plains,,NA,NA,Yes,17728543,26874062
+Landform,backswamps,,NA,1,Yes,17728553,26874063
+Landform,stream terraces,,1,NA,Yes,17728553,26874064
+Landscape,coastal plains,,NA,NA,Yes,17728553,26874065
+Landform,backswamps,,NA,1,Yes,17728554,26874066
+Landform,stream terraces,,1,NA,Yes,17728554,26874067
+Landscape,coastal plains,,NA,NA,Yes,17728554,26874068
+Landform,marine terraces,,1,NA,Yes,17728607,26874243
+Landscape,coastal plains,,NA,NA,Yes,17728607,26874244
+Landform,flats,slightly higher positions on,NA,1,No ,17728607,26874245
+Landform,broad interstream divides,slightly higher positions on,NA,1,No ,17728607,26874246
+Landform,Carolina Bays,,NA,1,No ,17728608,26874247
+Landform,marine terraces,,1,NA,Yes,17728608,26874248
+Landscape,coastal plains,,NA,NA,Yes,17728608,26874249
+Landform,flats,depressions on,NA,1,No ,17728608,26874250
+Landform,broad interstream divides,depressions on,NA,1,No ,17728608,26874251
+Landscape,coastal plains,,2,NA,Yes,17728609,26874252
+Landform,marine terraces,,1,2,Yes,17728609,26874253
+Landform,Carolina Bays,,NA,1,No ,17728610,26874254
+Landform,marine terraces,,1,NA,Yes,17728610,26874255
+Landscape,coastal plains,,NA,NA,Yes,17728610,26874256
+Landform,flats,depression on,NA,1,No ,17728610,26874257
+Landform,broad interstream divides,depressions on,NA,1,No ,17728610,26874258
+Landform,flats,,NA,1,Yes,17728592,26874069
+Landform,marine terraces,,1,NA,Yes,17728592,26874070
+Landscape,coastal plains,,NA,NA,Yes,17728592,26874071
+Landform,depressions,,NA,1,Yes,17728593,26874072
+Landform,flats,,NA,1,No ,17728593,26874073
+Landform,marine terraces,,1,NA,Yes,17728593,26874074
+Landscape,coastal plains,,NA,NA,Yes,17728593,26874075
+Landform,flats,,NA,1,Yes,17728594,26874076
+Landform,marine terraces,,1,NA,Yes,17728594,26874077
+Landscape,coastal plains,,NA,NA,Yes,17728594,26874078
+Landform,flood plains,,NA,NA,Yes,17728585,26874079
+Landscape,coastal plains,,NA,NA,Yes,17728585,26874080
+Landform,depressions,,NA,1,Yes,17728598,26874081
+Landform,flats,,NA,1,No ,17728598,26874082
+Landform,marine terraces,,1,NA,Yes,17728598,26874083
+Landscape,coastal plains,,NA,NA,Yes,17728598,26874084
+Landscape,barrier islands,,NA,NA,Yes,17728577,26874085
+Landform,dunes,,NA,NA,Yes,17728577,26874086
+Landform,barrier beaches,,NA,NA,Yes,17728578,26874087
+Landform,barrier flats,,NA,NA,Yes,17728578,26874088
+Landform,dune slacks,,NA,NA,Yes,17728548,26874089
+Landscape,barrier islands,,NA,NA,No ,17728548,26874090
+Landform,dunes,,NA,NA,Yes,17728548,26874091
+Landform,flats,,NA,1,Yes,17728544,26874092
+Landform,depressions,,NA,1,No ,17728544,26874093
+Landform,broad interstream divides,,NA,1,No ,17728544,26874094
+Landform,marine terraces,,1,NA,Yes,17728544,26874095
+Landscape,coastal plains,,NA,NA,Yes,17728544,26874096
+Landform,broad interstream divides,,NA,1,Yes,17728545,26874097
+Landform,marine terraces,,1,NA,Yes,17728545,26874098
+Landscape,coastal plains,,NA,NA,Yes,17728545,26874099
+Landform,ridges,low,NA,1,Yes,17728545,26874100
+Landform,flood plains,,NA,NA,Yes,17728546,26874101
+Landscape,coastal plains,,NA,NA,Yes,17728546,26874102
+Landform,flats,,NA,1,Yes,17728566,26874103
+Landform,Carolina Bays,,NA,1,No ,17728566,26874104
+Landform,broad interstream divides,,NA,1,No ,17728566,26874105
+Landform,marine terraces,,1,NA,Yes,17728566,26874106
+Landscape,coastal plains,,NA,NA,Yes,17728566,26874107
+Landform,flats,,NA,1,Yes,17728567,26874108
+Landform,depressions,,NA,1,No ,17728567,26874109
+Landform,broad interstream divides,,NA,1,No ,17728567,26874110
+Landform,marine terraces,,1,NA,Yes,17728567,26874111
+Landscape,coastal plains,,NA,NA,Yes,17728567,26874112
+Landform,broad interstream divides,,NA,1,Yes,17728568,26874113
+Landform,flats,,NA,1,No ,17728568,26874114
+Landform,marine terraces,,1,NA,Yes,17728568,26874115
+Landscape,coastal plains,,NA,NA,Yes,17728568,26874116
+Landform,ridges,low,NA,1,Yes,17728589,26874117
+Landform,stream terraces,,1,NA,Yes,17728589,26874118
+Landscape,coastal plains,,NA,NA,Yes,17728589,26874119
+Landform,depressions,,NA,1,Yes,17728590,26874120
+Landform,flats,,NA,1,No ,17728590,26874121
+Landform,marine terraces,,1,NA,Yes,17728590,26874122
+Landscape,coastal plains,,NA,NA,Yes,17728590,26874123
+Landform,backswamps,,NA,1,Yes,17728611,26874124
+Landform,stream terraces,,1,NA,Yes,17728611,26874125
+Landscape,coastal plains,,NA,NA,Yes,17728611,26874126
+Landform,flats,,NA,1,Yes,17728612,26874127
+Landform,marine terraces,,1,NA,Yes,17728612,26874128
+Landscape,coastal plains,,NA,NA,Yes,17728612,26874129
+Landform,flats,,NA,1,Yes,17728565,26874130
+Landform,broad interstream divides,,NA,1,No ,17728565,26874131
+Landform,marine terraces,,1,NA,Yes,17728565,26874132
+Landscape,coastal plains,,NA,NA,Yes,17728565,26874133
+Landform,flats,,NA,1,Yes,17728591,26874134
+Landform,broad interstream divides,,NA,1,No ,17728591,26874135
+Landform,marine terraces,,1,NA,Yes,17728591,26874136
+Landscape,coastal plains,,NA,NA,Yes,17728591,26874137
+Anthropogenic Feature,sand pits,,NA,NA,Yes,17728536,26874139
+Landscape,coastal plains,,NA,NA,Yes,17728536,26874138
+Landform,Carolina Bays,,NA,1,No ,17728579,26874197
+Landform,marine terraces,,1,NA,Yes,17728579,26874198
+Landscape,coastal plains,,NA,NA,Yes,17728579,26874199
+Landform,broad interstream divides,flat,NA,1,No ,17728579,26874200
+Landform,flats,,NA,1,No ,17728579,26874201
+Landform,flats,,NA,1,Yes,17728580,26874202
+Landscape,coastal plains,,NA,NA,Yes,17728580,26874203
+Landform,broad interstream divides,,NA,NA,No ,17728580,26874204
+Landform,Carolina Bays,,NA,1,No ,17728581,26874205
+Landform,broad interstream divides,,NA,1,No ,17728581,26874206
+Landform,marine terraces,,1,NA,Yes,17728581,26874207
+Landscape,coastal plains,,NA,NA,Yes,17728581,26874208
+Landform,flats,,NA,1,No ,17728581,26874209
+Landform,broad interstream divides,,NA,1,No ,17728606,26874210
+Landform,marine terraces,,1,NA,Yes,17728606,26874211
+Landscape,coastal plains,,NA,NA,Yes,17728606,26874212
+Landform,flats,,NA,1,No ,17728606,26874213
+Landform,broad interstream divides,,NA,1,Yes,17728613,26874140
+Landform,flats,,NA,1,Yes,17728613,26874141
+Landform,marine terraces,,1,NA,Yes,17728613,26874142
+Landscape,coastal plains,,NA,NA,Yes,17728613,26874143
+Landform,flats,,NA,1,Yes,17728614,26874144
+Landform,depressions,,NA,1,No ,17728614,26874145
+Landform,broad interstream divides,,NA,1,No ,17728614,26874146
+Landform,marine terraces,,1,NA,Yes,17728614,26874147
+Landscape,coastal plains,,NA,NA,Yes,17728614,26874148
+Landform,flats,,NA,1,Yes,17728615,26874149
+Landform,marine terraces,,1,NA,Yes,17728615,26874150
+Landscape,coastal plains,,NA,NA,Yes,17728615,26874151
+Landform,depressions,,NA,NA,Yes,17728616,26874152
+Landscape,coastal plains,,NA,NA,Yes,17728616,26874153
+Landform,flats,,NA,1,Yes,17728569,26874154
+Landform,Carolina Bays,,NA,1,No ,17728569,26874155
+Landform,depressions,,NA,2,Yes,17728569,26874156
+Landform,marine terraces,,1,NA,Yes,17728569,26874157
+Landform,stream terraces,,2,NA,No ,17728569,26874158
+Landscape,coastal plains,,NA,NA,Yes,17728569,26874159
+Landform,flats,,NA,1,Yes,17728570,26874160
+Landform,Carolina Bays,,NA,1,No ,17728570,26874161
+Landform,depressions,,NA,2,Yes,17728570,26874162
+Landform,marine terraces,,1,NA,Yes,17728570,26874163
+Landform,stream terraces,,2,NA,No ,17728570,26874164
+Landscape,coastal plains,,NA,NA,Yes,17728570,26874165
+Anthropogenic Feature,urban land,,NA,NA,Yes,17728620,26874166
+Landform,marine terraces,,1,NA,Yes,17728558,26874167
+Landscape,coastal plains,,NA,NA,Yes,17728558,26874168
+Landform,ridges,low,NA,1,Yes,17728558,26874169
+Landform,flood plains,,NA,NA,Yes,17728559,26874170
+Landscape,coastal plains,,NA,NA,Yes,17728559,26874171
+Landform,flats,,NA,1,Yes,17728560,26874172
+Landform,marine terraces,,1,NA,Yes,17728560,26874173
+Landscape,coastal plains,,NA,NA,Yes,17728560,26874174
+Anthropogenic Feature,urban land,,NA,NA,Yes,17728586,26874175
+Landform,flats,,NA,1,Yes,17728587,26874176
+Landform,marine terraces,,1,NA,Yes,17728587,26874177
+Landscape,coastal plains,,NA,NA,Yes,17728587,26874178
+Anthropogenic Feature,urban land,,NA,NA,Yes,17728588,26874179
+Landform,ridges,low,NA,1,Yes,17728588,26874180
+Landform,marine terraces,,1,NA,Yes,17728588,26874181
+Landscape,coastal plains,,NA,NA,Yes,17728588,26874182
+Landform,flats,,NA,1,Yes,17728617,26874183
+Landform,depressions,,NA,1,No ,17728617,26874184
+Landform,broad interstream divides,,NA,1,No ,17728617,26874185
+Landform,marine terraces,,1,NA,Yes,17728617,26874186
+Landscape,coastal plains,,NA,NA,Yes,17728617,26874187
+Landform,flats,,NA,1,Yes,17728618,26874188
+Landform,depressions,,NA,1,No ,17728618,26874189
+Landform,broad interstream divides,,NA,1,No ,17728618,26874190
+Landform,marine terraces,,1,NA,Yes,17728618,26874191
+Landscape,coastal plains,,NA,NA,Yes,17728618,26874192
+Landform,tidal marshes,,NA,NA,Yes,17728596,26874193
+Landscape,esturaries,,NA,NA,Yes,17728596,26874194
+Landform,hills,,NA,NA,Yes,17728597,26874195
+Landscape,islands,,NA,NA,Yes,17728597,26874196

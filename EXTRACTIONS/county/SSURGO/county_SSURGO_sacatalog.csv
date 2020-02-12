@@ -1,0 +1,522 @@
+areasymbol,areaname,saversion,saverest,tabularversion,tabularverest,tabnasisexportdate,tabcertstatus,tabcertstatusdesc,fgdcmetadata,sacatalogkey
+NC019,"Brunswick County, North Carolina",23,09/16/2019 17:10:56,21,09/16/2019 17:10:56,08/29/2019 00:46:05,"certified, all components","The tabular database was edited and populated according to guidance in Exhibits A and B of National Instruction (NI-305), and Part 610 of the National Soil Survey Handbook. Any spatial data edits were certified correct by the Soil Survey region, State Soil Scientist (SSS), and by the National Digitizing Center. The SSS certified the data population for all map units, and concurred with correlation of all projects mentioned, as they were documented in Soil Survey Area Legend(s) and in the Project Correlation table.
+
+The SSS certified the data population for all map units, and concurred with correlation of all projects mentioned, as they were documented in Soil Survey Area Legend(s) and in the Project Correlation table. This dataset also contains the following changes:
+A.	All spatial data was processed and refreshed to reduce geometry size and coordinate precision of SSURGO, and to standardize the vertice density of our surveys. It is estimated that this reduced the geometry size of SSURGO to around 10 GB. This is an over 50% reduction in size, and will therefore greatly optimize our data for future usage and efficiency in publishing and interacting with it, at all levels.
+
+B.	The five national interpretations listed below are new and revised:
+
+1.	FOR - Windthrow Hazard (New for FY20)
+2.	FOR - Mechanical Planting Suitability
+3.	FOR - Mechanical Site Preparation (Deep)
+4.	FOR - Mechanical Site Preparation (Surface)
+5.	FOR - Potential Erosion Hazard (Off-Road/Off-Trail)
+
+C.	Recalculated all national and local interpretations for all components.","<metadata><idinfo><citation><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>20190916</pubdate><title>
+Soil Survey Geographic (SSURGO) database for
+Brunswick County, North Carolina
+</title><pubinfo><pubplace>Fort Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</publish></pubinfo><othercit>nc019</othercit><onlink>URL:http://DataGateway.nrcs.usda.gov/</onlink></citeinfo></citation><descript><abstract>
+This data set is a digital soil survey and generally is the most
+detailed level of soil geographic data developed by the National
+Cooperative Soil Survey. The information was prepared by digitizing
+maps, by compiling information onto a planimetric correct base
+and digitizing, or by revising digitized maps using remotely
+sensed and other information.
+
+This data set consists of georeferenced digital map data and
+computerized attribute data. The map data are in a soil survey area
+extent format and include a detailed, field verified inventory
+of soils and miscellaneous areas that normally occur in a repeatable
+pattern on the landscape and that can be cartographically shown at
+the scale mapped. A special soil features layer (point and line
+features) is optional. This layer displays the location of features
+too small to delineate at the mapping scale, but they are large
+enough and contrasting enough to significantly influence use and
+management. The soil map units are linked to attributes in the
+National Soil Information System relational database, which gives
+the proportionate extent of the component soils and their properties.
+</abstract><purpose>
+SSURGO depicts information about the kinds and distribution of
+soils on the landscape. The soil map and data used in the SSURGO
+product were prepared by soil scientists as part of the National
+Cooperative Soil Survey.
+</purpose><supplinf>
+Digital versions of hydrography, cultural features, and other
+associated layers that are not part of the SSURGO data set may be
+available from the primary organization listed in the Point of
+Contact.
+</supplinf></descript><timeperd><timeinfo><rngdates><begdate>20070227</begdate><enddate>20190916</enddate></rngdates></timeinfo><current>publication date</current></timeperd><status><progress>Complete</progress><update>As needed</update></status><spdom><bounding><westbc>-78.651</westbc><eastbc>-77.931</eastbc><northbc>34.372</northbc><southbc>33.840</southbc></bounding></spdom><keywords><theme><themekt>None</themekt><themekey>soil survey</themekey><themekey>soils</themekey><themekey>Soil Survey Geographic</themekey><themekey>SSURGO</themekey></theme><place><placekt>USGS Geographic Names Information System (GNIS)</placekt><placekey>North Carolina</placekey><placekey>Brunswick County</placekey><placekey>Acme Quadrangle</placekey><placekey>Boliva Quadrangle</placekey><placekey>Calabash Quadrangle</placekey><placekey>Cape Fear Quadrangle</placekey><placekey>Cape Fear OE W Quadrangle</placekey><placekey>Carolina Beach Quadrangle</placekey><placekey>Castle Hayne Quadrangle</placekey><placekey>Exum Quadrangle</placekey><placekey>Funston Quadrangle</placekey><placekey>Freeland Quadrangle</placekey><placekey>Holden Beach Quadrangle</placekey><placekey>Honey Island Quadrangle</placekey><placekey>Juniper Creek Quadrangle</placekey><placekey>Kure Beach Quadrangle</placekey><placekey>Leland Quadrangle</placekey><placekey>Lewis Swamp Quadrangle</placekey><placekey>Little River Quadrangle</placekey><placekey>Lockwoods Folly Quadrangle</placekey><placekey>Longs Quadrangle</placekey><placekey>Old Dock Quadrangle</placekey><placekey>Pireway Quadrangle</placekey><placekey>Shallotte Quadrangle</placekey><placekey>Shallotte OE S Quadrangle</placekey><placekey>Southport Quadrangle</placekey><placekey>Supply Quadrangle</placekey><placekey>Wilmington Quadrangle</placekey><placekey>Winnabow Quadrangle</placekey></place></keywords><accconst>None</accconst><useconst>
+The U.S. Department of Agriculture, Natural Resources Conservation
+Service, should be acknowledged as the data source in products
+derived from these data.
+
+This data set is not designed for use as a primary regulatory tool
+in permitting or citing decisions, but may be used as a reference
+source. This is public information and may be interpreted by
+organizations, agencies, units of government, or others based on
+needs; however, they are responsible for the appropriate
+application. Federal, State, or local regulatory bodies are not to
+reassign to the Natural Resources Conservation Service any
+authority for the decisions that they make. The Natural Resources
+Conservation Service will not perform any evaluations of these maps
+for purposes related solely to State or local regulatory programs.
+
+Photographic or digital enlargement of these maps to scales greater
+than at which they were originally mapped can cause misinterpretation
+of the data. If enlarged, maps do not show the small areas of
+contrasting soils that could have been shown at a larger scale. The
+depicted soil boundaries, interpretations, and analysis derived from
+them do not eliminate the need for onsite sampling, testing, and
+detailed study of specific sites for intensive uses. Thus, these data
+and their interpretations are intended for planning purposes only.
+Digital data files are periodically updated. Files are dated, and
+users are responsible for obtaining the latest version of the data.
+</useconst><ptcontac><cntinfo><cntorgp><cntorg>U.S. Department of Agriculture, Natural Resources Conservation Service</cntorg></cntorgp><cntpos>State Soil Scientist</cntpos><cntaddr><addrtype>mailing address</addrtype><address>4407 Bland Road, Suite 117</address><address/><address/><address/><city>Raleigh</city><state>NC</state><postal>27609</postal></cntaddr><cntvoice>919-873-2141</cntvoice><cnttdd/><cntfax>919-873-2157</cntfax><cntemail>kent.clary@nc.usda.gov</cntemail></cntinfo></ptcontac></idinfo><dataqual><attracc><attraccr>
+The attribute accuracy is tested by manual
+comparison of the source with hard copy plots and/or symbolized
+display of the map data on an interactive computer graphic system.
+Selected attributes that cannot be visually verified on plots or
+on screen are interactively queried and verified on screen. In
+addition, the attributes are tested against a master set of valid
+attributes. All attribute data conform to the attribute codes in
+the signed classification and correlation document and amendment(s).
+</attraccr></attracc><logic>
+Certain node/geometry and topology GT- polygon/chain relationships
+are collected or generated to satisfy topological requirements
+(the GT-polygon corresponds to the soil delineation). Some of these
+requirements include: chains must begin and end at nodes, chains
+must connect to each other at nodes, chains do not extend through
+nodes, left and right GT-polygons are defined for each chain
+element and are consistent throughout, and the chains representing
+the limits of the file are free of gaps. The tests of logical
+consistency are performed using vendor software. All internal
+polygons are tested for closure with vendor software and are checked
+on hard copy plots. All data are checked for common soil lines (i.e.,
+adjacent polygons with the same label). Edge locations generally do
+not deviate from centerline to centerline by more than 0.01 inch.
+
+The Soil Survey of Brunswick County, North Carolina is edge matched to
+the adjacent Soil Survey Geographic (SSURGO) databases of Horry County,
+South Carolina and Columbus County, North Carolina.
+
+The county boundary between Brunswick County and Columbus County follows
+the Waccamaw River for some of the join. The feature edges (mapping unit
+boundaries) and the labels for this soil survey do not match the feature
+edges and labels for the other adjacent soil surveys.
+
+The soil survey boundary for Brunswick County matches the soil survey
+boundary for the adjacent certified soil surveys.
+</logic><complete>
+A map unit is a collection of areas defined and named in terms of
+their soil components or miscellaneous areas or both. Each map
+unit differs in some respect from all others in a survey area and
+each map unit has a symbol that uniquely identifies the map unit
+on a soil map. Each individual area, point, or line so identified
+on the map is a delineation.
+
+Soil Scientists identify small areas of soils or miscellaneous areas
+that have properties and behavior significantly different than the
+named soils in the surrounding map unit. These minor components
+may be indicated as special features. If they have a minimal effect
+on use and management, or could not be precisely located, they may
+not be indicated on the map.
+
+A map unit has specified kinds of soils or miscellaneous areas
+(map unit components), each with a designated range in
+proportionate extent. Map units include one or more kinds of soil
+or miscellaneous area. Miscellaneous areas are areas that have little
+or no recognizable soil.
+
+Specific National Cooperative Soil Survey standards and procedures
+were used in the classification of soils, design and name of map
+units, and location of special soil features. These standards are
+outlined in Agricultural Handbook 18, Soil Survey Manual, 1993,
+USDA, NRCS; Agricultural Handbook 436, Soil Taxonomy, 1995,
+USDA, NRCS; and all Amendments; Keys to Soil Taxonomy,
+(current issue) USDA, NRCS; National Soil Survey
+Handbook, title 430-VI,(current issue) USDA, NRCS.
+
+The actual composition and interpretive purity of the map unit
+delineations were based on data collected by scientists during
+the course of preparing the soil maps. Adherence to National
+Cooperative Soil Survey standards and procedures is based on
+peer review, quality control, and quality assurance. Quality
+control is outlined in the memorandum of understanding for the
+soil survey area and in documents that reside with the Natural
+Resources Conservation Service state soil scientist. Four kinds
+of map units are used in soil surveys: consociations, complexes,
+associations, and undifferentiated groups.
+
+Consociations - Consociations are named for the dominant soil.
+In a consociation, delineated areas use a single name from the
+dominant component in the map unit. Dissimilar components are
+minor in extent. The soil component in a consociation may be
+identified at any taxonomic level. Soil series is the lowest
+taxonomic level. A consociation that is named as a miscellaneous
+area is dominantly that kind of area and minor components do not
+significantly affect the use of the map unit. The total amount of
+dissimilar inclusions of other components in a map unit generally
+does not exceed about 15 percent if limiting and 25 percent if
+nonlimiting. A single component of a dissimilar limiting inclusion
+generally does not exceed 10 percent if very contrasting.
+
+Complexes and associations - Complexes and associations consist
+of two or more  dissimilar components that occur in a regularly
+repeating pattern. The total amount of other dissimilar components
+is minor extent. The following arbitrary rule determines whether
+complex or association is used in the name. The major components
+of an association can be separated at the scale of mapping. In
+either case, because the major components are sufficiently different
+in morphology or behavior, the map unit cannot be called a
+consociation. In each delineation of a complex or an association,
+each major component is normally present though their proportions
+may vary appreciably from one delineation to another. The total
+amount of inclusions in a map unit that are dissimilar to any of
+the major components does not exceed 15 percent if limiting and
+25 percent if nonlimiting. A single kind of dissimilar limiting
+inclusion usually does not exceed 10 percent.
+
+Undifferentiated groups - Undifferentiated groups consist of two
+or more components that are not consistently associated
+geographically and, therefore, do not always occur together in
+the same map delineation. These components are included in the
+same named map unit because their use and management are the same
+or very similar for common uses. Generally they are grouped together
+because some common feature, such as steepness, stoniness, or
+flooding, determines their use and management. If two or more
+additional map units would serve no useful purpose, they may be
+included in the same unit. Each delineation has at least one of the
+major components, and some may have all of them. The same principles
+regarding the proportion of minor components that apply to
+consociations also apply to undifferentiated groups. The same
+principles regarding proportion of inclusion apply to
+undifferentiated groups as to consociations.
+
+Minimum documentation consists of three complete soil profile
+descriptions that are collected for each soil added to the legend,
+one additional per 3,000 acres mapped; three 10 observation
+transects for each map unit, one additional 10 point transect per
+3,000 acres.
+
+A defined standard or level of confidence in the interpretive
+purity of the map unit delineations is attained by adjusting the
+kind and intensity of field investigations. Field investigations
+and data collection are carried out in sufficient detail to name
+map units and to identify accurately and consistently areas of
+about 5 acres.
+</complete><posacc><horizpa><horizpar>
+The accuracy of these digital data is based upon their
+compilation to base maps that meet National Map
+Accuracy Standards at a scale of 1 inch equals 1,000
+feet. The difference in positional accuracy between the
+soil boundaries and special soil features locations in the
+field and their digitized map locations is unknown. The
+locational accuracy of soil delineations on the ground varies
+with the transition between map units.
+
+For example, on long gently sloping landscapes the transition
+occurs gradually over many feet. Where landscapes change
+abruptly from steep to level, the transition will be very
+narrow. Soil delineation boundaries and special soil features
+generally were digitized within 0.01 inch of their locations on
+the digitizing source. The digital map elements are edge matched
+between data sets. The data along each quadrangle edge are
+matched against the data for the adjacent quadrangle. Edge
+locations generally do not deviate from centerline to centerline
+by more than 0.01 inch.
+</horizpar></horizpa></posacc><lineage><srcinfo><srccite><citeinfo><origin>US Geological Survey</origin><pubdate>1974-1980</pubdate><title>7.5 minute series of analog orthophotographs</title><geoform>remote sensing image</geoform><pubinfo><pubplace>Reston, Virginia</pubplace><publish>US Geological Survey</publish></pubinfo><othercit>Published map series</othercit></citeinfo></srccite><srcscale>24000</srcscale><typesrc>Mylar</typesrc><srctime><timeinfo><rngdates><begdate>1974</begdate><enddate>1980</enddate></rngdates></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>USGS1</srccitea><srccontr>photographic base map for published soil survey</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Soil Conservation Service
+</origin><pubdate>1986</pubdate><title>Soil Survey of Brunswick County, North Carolina</title><geoform>atlas</geoform><pubinfo><pubplace>Washington D.C.</pubplace><publish>U.S. Government Printing Office</publish></pubinfo></citeinfo></srccite><srcscale>24000</srcscale><typesrc>paper</typesrc><srctime><timeinfo><sngdate><caldate>1986</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>SCS1</srccitea><srccontr>
+basic reference material about soils
+and landscapes
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Soil Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>soil delineation overlays</title><geoform>map</geoform></citeinfo></srccite><srcscale>24000</srcscale><typesrc>stable-based material</typesrc><srctime><timeinfo><sngdate><caldate>1986</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>SCS2</srccitea><srccontr>source of soil delineations for scanning</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+North Carolina, Department of Transportation,
+Engineering and Automation Unit
+</origin><pubdate>unpublished material</pubdate><title>Scans of Brunswick County Soil Survey</title><geoform>map</geoform></citeinfo></srccite><srcscale>24000</srcscale><typesrc>digital TIF file</typesrc><srctime><timeinfo><sngdate><caldate>1986</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NCDOT1</srccitea><srccontr>source of soil delineations for digitizing</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>1998</pubdate><title>3.75 minute digital orthophotographic quadrangles</title><geoform>remote sensing image</geoform><pubinfo><pubplace>Ft. Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service,
+National Cartography and Geospatial Center
+</publish></pubinfo></citeinfo></srccite><srcscale>12000</srcscale><typesrc>CD-ROM (BSQ format)</typesrc><srctime><timeinfo><sngdate><caldate>1998</caldate></sngdate></timeinfo><srccurr>date of imagery</srccurr></srctime><srccitea>NRCS1</srccitea><srccontr>imagery used for compilation base maps</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+State of North Carolina,
+Center for Geographic Information and Analysis
+</origin><pubdate>unpublished material</pubdate><title>ARCGIS geodatabase for Brunswick County, North Carolina</title><geoform>vector digital data</geoform></citeinfo></srccite><srcscale>24000</srcscale><typesrc>CD-ROM</typesrc><srctime><timeinfo><sngdate><caldate>1996</caldate></sngdate></timeinfo><srccurr>date of digitizing</srccurr></srctime><srccitea>CGIA1</srccitea><srccontr>source for soil survey edits</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>
+topographic imagery mosaic (Digital Raster Graphic) {DRGs}
+in MrSID format
+</title><geoform>map</geoform></citeinfo></srccite><srcscale>24000</srcscale><typesrc>CD-ROM</typesrc><srctime><timeinfo><rngdates><begdate>1980</begdate><enddate>2002</enddate></rngdates></timeinfo><srccurr>
+publication date of
+USGS topographic quadrangles
+</srccurr></srctime><srccitea>NRCS2</srccitea><srccontr>
+reference for soil map unit delineations
+in digital editing
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>2007</pubdate><title>
+National Soil Information System (NASIS) database for
+Brunswick County, North Carolina
+</title><geoform>tabular digital data</geoform><pubinfo><pubplace>Fort Collins, Colorado</pubplace><publish>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service, Information Technology Center
+</publish></pubinfo></citeinfo></srccite><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>2007</caldate></sngdate></timeinfo><srccurr>distribution generation date</srccurr></srctime><srccitea>NRCS3</srccitea><srccontr>
+tabular soil property data linked to
+spatial soil data
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>2007</pubdate><title>National Soil Information System (NASIS) data base</title><geoform>tabular digital data</geoform><pubinfo><pubplace>Fort Collins, Colorado</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</publish></pubinfo></citeinfo></srccite><typesrc>database</typesrc><srctime><timeinfo><rngdates><begdate>2007</begdate><enddate>2007</enddate></rngdates></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NASIS</srccitea><srccontr>attribute (tabular) information</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>region 3 soils geodatabase</title><geoform>file geodatabase</geoform></citeinfo></srccite><typesrc>vector digital data</typesrc><srctime><timeinfo><rngdates><begdate>2006</begdate><enddate>2018</enddate></rngdates></timeinfo><srccurr>SSURGO publication date</srccurr></srctime><srccitea>NRCS4</srccitea><srccontr>Source of digital revision - recreated yearly</srccontr></srcinfo><procstep><procdesc>
+Field procedures for the second order soil survey included plotting
+of soil boundaries determined by field observation in conjunction
+with aerial photo interpretation. Boundaries were verified at
+closely spaced intervals, and the soils in each delineation were
+identified by traversing and transecting the landscape. Soil
+scientists described and analyzed the data.  The field mapping
+for Brunswick County, North Carolina was completed in 1982. Analog
+orthophotographs from the USGS 7.5 minute series were used as the
+base map for the published soil survey. The soil scientists compiled
+the soil features from the field maps onto an overlay registered to
+the analog orthophotographs.  The soil names and descriptions were
+approved in 1983. The Soil Survey of Brunswick County, North Carolina
+was published in 1986 at a scale of 1:24,000.
+</procdesc><srcused>USGS1, SCS1, SCS2</srcused><procdate>1986</procdate></procstep><procstep><procdesc>
+The staff at the North Carolina Center for Geographic Information
+and Analysis (NCCGIA) reviewed the mylar overlays to determine
+which base maps needed to be scanned.  If the original source
+maps were not scannable, then NCCGIA had a soils scientist, under
+the supervision of the NRCS, recompile the soils lines onto a mylar
+overlay. Once a suitable base for scanning was available, then the
+stable bases were scanned. The NCDOT, Engineering and Automation Unit
+scanned the mylar stable bases or recompiled mylar overlays using a
+flatbed raster scanner. The resulting .tif images were downloaded to
+tape or online transferred to the NCCGIA.
+</procdesc><srcused>SCS2, NCDOT1</srcused><procdate>1996</procdate></procstep><procstep><procdesc>
+The USGS, Water Resources Division in Raleigh, NC, received the
+TIF format raster scans in quadrangle format from NCCGIA. The
+ARCSCAN software was used to import the scan files and vectorize
+the soil boundaries. Four control points corresponding to the four
+corner tic marks of the quadrangle were used for registration during
+data collection.  These files were edited for gross scanning errors
+and supplied as ARC/INFO export files to NCCGIA in June 1996.
+</procdesc><srcused>NCDOT1</srcused><procdate>1996</procdate></procstep><procstep><procdesc>
+The staff at the NCCGIA imported the ARC/INFO e00 files into
+coverages. The linework was edited and plotted onto paper. These
+check plots were overlain on the originals and checked for accuracy
+on a light table. The coverages were then labeled and the label plots
+overlain onto the base maps to check consistency. The individual base
+maps were map-joined and the neatlines dissolved. Base map errors in
+linework and labels were resolved by NRCS. The county boundaries was
+digitized off the mylar bases, and the county coverage was clipped to
+its extent. The ""A"" and ""B"" hydric types were also added. NRCS also
+determined the proper course of action in reference to discrepancies
+found in the creating of a countywide digital file. These corrections
+were returned to NCCGIA for inclusion into the final digital product,
+and include things like; label corrections, adding labels, deleting
+labels, and correction of hydric soil types. The Brunswick County Soil
+Survey geodatabase was added to the NCCGIA data archive.
+</procdesc><srcused>SCS1, SCS2, CGIA1</srcused><procdate>2000</procdate></procstep><procstep><procdesc>
+The Michigan Digitizing Unit (MIDU) staff has revised the spatial
+data in the Geodatabase for Brunswick County, North Carolina.  The
+MIDU staff used the ARCGIS Version 9.1 software to adjust the limit
+of the soil survey between Brunswick County and Columbus County to
+match the USGS Topographic Quadrangle Digital Raster Graphic (DRG).
+The boundaries of streams and water bodies were evaluated and
+adjusted to match the 1998 Digital Orthophotographic Quadrangles
+(DOQs).  The MIDU staff digitized the special features with the
+ARCGIS Version 9.1 software.  A ten percent check of the digital
+data was done by the Major Land Resource Area (MLRA) Project Office
+in Raleigh, North Carolina.  Once the review was completed, the
+seamless county geodatabases for the soils, spot symbols and linear
+features were converted to ARC/INFO coverages and exported from
+ARCGIS Version 9.1 as ARC interchange files.
+</procdesc><srcused>NRCS1, NRCS2, CGIA1</srcused><procdate>2007</procdate></procstep><procstep><procdesc>
+The National Soil Information System (NASIS) database was developed
+by NRCS soil scientists according to national standards.  The soil
+scientists used the map unit acreages from the digital soil survey
+as a guide to populate the NASIS database.
+</procdesc><srcused>NRCS3</srcused><procdate>2007</procdate></procstep><procstep><procdesc>
+The MIDU staff checked the soil survey coverages with a set of ARC
+Macro Language (AML) programs developed by NCGC.  The soil survey
+coverages were processed using the January 2006 SSURGO Certification
+AML programs for seamless projects.  These ARC/INFO programs
+identified areas within the coverages that needed revision.  The data
+were edited. The North Carolina NRCS soil scientists supplied the
+SSURGO download from NASIS.  The minor codes in the soils coverages
+were replaced with the map unit key codes to link the map units in
+the spatial data to the NASIS database.  Upon successful completion
+of the SSURGO Evaluation, the area symbol was added to each feature
+in the soil survey coverages with the att_check.aml program.  The
+county coverages, feature file and the metadata were electronically
+transferred to the NRCS Staging Server to be joined with the
+tabular data.
+</procdesc><srcused>NRCS3</srcused><procdate>2007</procdate></procstep><procstep><procdesc>
+The spatial data for Brunswick County, North Carolina soil survey
+area were downloaded from the Soil Data Mart on October 15, 2012.
+The individual shapefiles were appended into a geodatabase for region 3.
+The data were processed in ARCGIS 10.1 using a topology object with
+a 0.1 meter cluster tolerance for the purpose of eliminating gaps and
+overlaps within the region 3 soils geodatabase.  Individual soil survey
+area data were exported as shapefiles from the regional geodatabase.  A
+datum transformation from NAD83 to WGS84 using the NAD_1983_To_WGS_1984_1
+datum transformation method was applied to the data.  The data were
+checked with the SSURGO Evaluation scripts provided by U.S. Department
+of Agriculture, Natural Resources Conservation Service. The shapefiles
+were uploaded to the soil data warehouse for archival and distribution.
+</procdesc><srcused>NRCS4</srcused><procdate>2013</procdate></procstep><procstep><procdesc>
+The spatial data for the entire SSURGO database was recertified in October
+of 2019 to reduce storage requirements and to improve map display
+and geoprocessing performance.  The SSURGO data is internally managed
+using 12 Regional Transactional Spatial Databases (RTSD) that are in
+an ESRI File Geodatabase format.  The spatial extent of the RTSDs follow the
+Soil and Plant Science Division (SPSD) regional administrative boundaries.
+The XY coordinate system of this RTSD is USA Contiguous Albers Equal Area
+Conic USGS Version WKID: 102039 and has an XY storage precision of 0.001
+meters.  The RTSDs were recreated using a reduced storage precision of 0.1
+meters to reduce the physical size of the data.  The SSURGO data was also
+generalized by removing excess vertices, using a tolerance of 1 meter.
+The topology was validated at the CONUS level using a tolerance of 0.2
+meters.  This effort directly affects the gSSURGO and gNATSGO product since
+these deliverables are in a File Geodatabase format.
+</procdesc><srcused>NRCS4</srcused><procdate>2019</procdate></procstep><procstep><procdesc>
+The Natural Resources Conservation Service State Soil Scientist or
+delegate, upon completion of data quality verification, determined
+that the tabular data should be released for official use. A
+selected set of map units and components in the soil survey legend was
+copied to a staging database, and rating values for selected
+interpretations were generated. The list of selected interpretations is
+stored in the database table named sainterp.
+</procdesc><srcused>NASIS</srcused><procdate>20190916</procdate></procstep><procstep><procdesc>
+The Natural Resources Conservation Service State Soil Scientist or
+delegate verified that the labels on the digitized soil map units
+link to map units in the tabular database, and certified the joined
+data sets for release to the Soil Data Warehouse. A system assigned
+version number and date stamp were added and the data were copied to
+the data warehouse. The tabular data for the map units and components
+were extracted from the data warehouse and reformatted into the soil
+data delivery data model, then stored in the Soil Data Mart. The spatial
+data were copied to the Soil Data Mart without change.
+</procdesc><srcused>NASIS</srcused><procdate>20190916</procdate></procstep></lineage></dataqual><spdoinfo><direct>Vector</direct></spdoinfo><spref><horizsys><geograph><latres>0.000001</latres><longres>0.0000001</longres><geogunit>decimal degrees</geogunit></geograph><geodetic><horizdn>World Geodetic System 1984</horizdn><ellips>World Geodetic System 1984</ellips><semiaxis>6378137.00000</semiaxis><denflat>298.257222</denflat></geodetic></horizsys></spref><eainfo><detailed><enttyp><enttypl>Special Soil Features</enttypl><enttypd>
+Special Soil Features represent soil, miscellaneous area, or landform
+features that are too small to be digitized as soil delineations
+(area features).
+</enttypd><enttypds>Agricultural Handbook 18, Soil Survey Manual, 1993, USDA, SCS.</enttypds></enttyp><attr><attrlabl>Special Soil Features Codes</attrlabl><attrdef>
+Special Soil Features labels represent specific Special Soil
+Features. These features are identified with a descriptive
+label. The label is assigned to the point or line assigned
+to represent the feature on maps.
+</attrdef><attrdefs>
+Agricultural Handbook 18, Soil Survey Manual, 1993, USDA, SCS;
+National Soil Survey Handbook, Title 430-VI, part 647
+(current issue), USDA, NRCS.
+</attrdefs><attrdomv><codesetd><codesetn>
+Classification and Correlation of the Soils of Brunswick County,
+North Carolina
+</codesetn><codesets>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</codesets></codesetd></attrdomv></attr></detailed><overview><eaover>
+Map Unit Delineations are closed polygons that may be dominated
+by a single soil or miscellaneous area component plus allowable
+similar or dissimilar soils, or they can be geographic mixtures
+of groups of soils or soils and miscellaneous areas.
+
+The map unit symbol uniquely identifies each closed map unit
+delineation. Each symbol corresponds to a map unit name. The
+map unit key is used to link to information in the National
+Soil Information System tables.
+
+Map Unit Delineations are described by the National Soil
+Information System database. This attribute database gives the
+proportionate extent of the component soils and the properties for
+each soil. The database contains both estimated and measured data
+on the physical and chemical soil properties and soil
+interpretations for engineering, water management, recreation,
+agronomic, woodland, range, and wildlife uses of the soil.
+
+The National Soil Information System database contains static
+metadata. It documents the data structure and includes such
+information as what tables, columns, indexes, and relationships
+are defined as well as a variety of attributes of each of these
+database objects. Attributes include table and column
+descriptions and detailed domain information.
+
+The National Soil Information System database also contains a
+distribution metadata. It records the criteria used for selecting
+map units and components for inclusion in the set of distributed
+data.
+
+Special features are described in the feature table.  It includes an
+area symbol, feature label, feature name, and feature description for
+each special and ad hoc feature in the survey area.
+</eaover><eadetcit>
+Soil Taxonomy: A basic system of soil classification for making and
+interpreting soil surveys. Agricultural Handbook 436, 1999, USDA, SCS.
+
+Keys to Soil Taxonomy (current issue), USDA, SCS.
+
+National Soil Survey Handbook, Title 430-VI, part 647 (current
+issue), USDA, NRCS.
+
+Agricultural Handbook 18, Soil Survey Manual, 1993, USDA, SCS.
+</eadetcit></overview></eainfo><distinfo><distrib><cntinfo><cntorgp><cntorg>
+U.S. Department of Agriculture, Natural
+Resources Conservation Service, National
+Geospatial Center of Excellence
+</cntorg></cntorgp><cntaddr><addrtype>mailing and physical address</addrtype><address>501 West Felix Street, Building 23</address><city>Fort Worth</city><state>Texas</state><postal>76115</postal></cntaddr><cntvoice>800 672 5559</cntvoice><cnttdd>202 720 2600</cnttdd><cntfax>817 509 3469</cntfax></cntinfo></distrib><resdesc>Brunswick County, North Carolina SSURGO</resdesc><distliab>
+Although these data have been processed successfully on a computer
+system at the U.S. Department of Agriculture, no warranty expressed
+or implied is made by the Agency regarding the utility of the data
+on any other system, nor shall the act of distribution constitute
+any such warranty. The U.S. Department of Agriculture will warrant
+the delivery of this product in computer readable format, and will
+offer appropriate adjustment of credit when the product is determined
+unreadable by correctly adjusted computer input peripherals, or
+when the physical medium is delivered in damaged condition. Request
+for adjustment of credit must be made within 90 days from the date
+of this shipment from the ordering site.
+
+The U.S. Department of Agriculture, nor any of its agencies are
+liable for misuse of the data, for damage, for transmission of
+viruses, or for computer contamination through the distribution of
+these data sets. The U.S. Department of Agriculture (USDA) prohibits
+discrimination in all its programs and activities on the basis of race,
+color, national origin, sex, religion, age, disability, political
+beliefs, sexual orientation, or marital or family status. (Not all
+prohibited bases apply to all programs.)
+</distliab><stdorder><digform><digtinfo><formname>ESRI shapefile</formname><formcont>spatial</formcont><transize>42.5</transize></digtinfo><digtopt><onlinopt><computer><networka><networkr>URL:http://DataGateway.nrcs.usda.gov/</networkr></networka></computer><accinstr>
+Select desired survey area at above Internet
+Web site. An email address is required for receipt of
+instructions on retrieval via anonymous FTP. Anticipate a
+delay between submission of request at Web site and receipt of
+email message.
+</accinstr></onlinopt></digtopt></digform><fees>
+There is currently no direct charge for requesting data or for
+retrieval via FTP.
+</fees><ordering>
+Visit the above mentioned Internet Web Site, select state or
+territory, then select individual soil survey area of interest.
+Spatial line data and locations of special feature symbols are in
+ESRI ArcGIS shapefile, format. The National Soil Information
+System attribute soil data are available in variable length, pipe
+delimited, ASCII file format.
+</ordering><turnarnd>Typically within four hours</turnarnd></stdorder></distinfo><metainfo><metd>20190916</metd><metc><cntinfo><cntorgp><cntorg>U.S. Department of Agriculture, Natural Resources Conservation Service</cntorg></cntorgp><cntpos>State Soil Scientist</cntpos><cntaddr><addrtype>mailing address</addrtype><address>4407 Bland Road, Suite 117</address><address/><address/><address/><city>Raleigh</city><state>NC</state><postal>27609</postal></cntaddr><cntvoice>919-873-2141</cntvoice><cnttdd/><cntfax>919-873-2157</cntfax><cntemail>kent.clary@nc.usda.gov</cntemail></cntinfo></metc><metstdn>Content Standard for Digital Geospatial Metadata</metstdn><metstdv>FGDC-STD-001-1998</metstdv></metainfo></metadata>",10981

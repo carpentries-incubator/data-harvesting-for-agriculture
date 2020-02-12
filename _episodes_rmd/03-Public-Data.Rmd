@@ -1,10 +1,5 @@
 ---
-title: "Ag Carpentry - Weather and Soil Data"
-author: "Brittani"
-date: '2019-10-29'
-output:
-  html_document: default
-  pdf_document: default
+title: "Lesson 02: Weather Data"
 source: Rmd
 ---
 
@@ -87,6 +82,7 @@ source("functions.R")
 > str(weather)
 >```
 > The object `weather` is a list of 7 objects, the last of which is the data. In the next excerise we will explore what variables are in this dataframe. 
+{: .callout}
 
 > # Exercise 1: Explore the weather data
 >
@@ -149,8 +145,8 @@ equivalent are not so apparent.
 > 
 > ```{r convprec}
 > weather_data$prec <- mm_to_in(weather_data$prcp..mm.day.)
-> 
-```
+> ```
+{: .callout}
 
 > Exercise 2: Unit Conversions
 >
@@ -177,6 +173,7 @@ equivalent are not so apparent.
 > 2018 compared to the average precipitation from the years 2000 to 2017. This is a common way
 > to look at seasonal rainfall and allows us to look at the rainfall during the critical months
 > of July and August. First, we need to organize the data in a new dataset with the average total rainfall for each month.
+{: .callout}
 
 > # Adding a month variable
 > 
@@ -189,6 +186,7 @@ equivalent are not so apparent.
 > weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 > head(weather_data$month)
 > ```
+{: .callout}
 
 > # Taking sum or average by groups 
 >
@@ -206,6 +204,7 @@ equivalent are not so apparent.
 >
 >Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January.
 >
+{: .callout}
 
 > #Subsetting the data
 >
@@ -215,6 +214,7 @@ equivalent are not so apparent.
 > ```{r monthdata}
 > monthprec_2018 <- subset(by_month_year, year==2018) 
 > ```
+{: .callout}
 
 > # Exercise 3: Subsetting
 >
@@ -238,6 +238,7 @@ equivalent are not so apparent.
 > ```{r}
 > monthprec_hist <- avgprec_by_month(subset(by_month_year, year != 2018))
 > ```
+{: .callout}
 
 > #Merging
 > 
@@ -251,6 +252,7 @@ equivalent are not so apparent.
 > ```{r plotdata}
 > prec_plot <- merge(monthprec_hist, monthprec_2018, by = "month")
 > ```
+{: .callout}
 
 > # Making the graph
 >
@@ -272,5 +274,6 @@ woud also need to look at historic yield. But on your field, you will know those
 average and be able to have a pretty clear idea of weather impacted the average yield in
 a growing season. 
 >
-> Another possible graph you could make with these data is on the accumulated GDD each month. 
+> Another possible graph you could make with these data is on the accumulated GDD each month.
+{: .callout}
 
