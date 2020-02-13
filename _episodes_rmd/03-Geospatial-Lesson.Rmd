@@ -85,7 +85,7 @@ Because we have already set the working directory for this file, we only need to
 supply the file name. 
 
 ```{r boundary}
-boundary <- read_sf("data/boundary.gpkg")
+boundary <- read_sf("data/boundary_transformed.gpkg")
 ```
 
 There are many functions for reading files into the
@@ -137,7 +137,7 @@ st_crs(boundaryutm)
 ```
 
 **Exercise**
-1. Bring the file called "asplanted.gpkg" in your environment. Name
+1. Bring the file called "asplanted_transformed.gpkg" in your environment. Name
 the object `planting`. This file contains the planting information for 2017.
 2. Identify the CRS of the object. 
 3. Look at the geometry features. What kind of geometric features are in this dataset?
@@ -146,7 +146,7 @@ the object `planting`. This file contains the planting information for 2017.
 **Solution**
 
 ```{r transformplanting}
-planting <- read_sf("data/asplanted.gpkg")
+planting <- read_sf("data/asplanted_transformed.gpkg")
 
 st_crs(planting)
 
@@ -208,8 +208,19 @@ https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo}
+<<<<<<< HEAD
 boundarynew <- read_sf("data/boundary_transformed.gpkg")
+=======
+<<<<<<< HEAD
+boundarynew <- read_sf("data/asplanted_transformed.gpkg")
+boundary <- subset(boundary, Type == "Trial")
+boundary.sp <- as(boundary, "Spatial")
+lwgeom::st_make_valid(boundary)
+=======
+boundarynew <- read_sf("data/boundary_test.shp")
+>>>>>>> 9043463c928a975c0174ae5f34fd60759bb3b9ed
 boundary.sp <- as(boundarynew, "Spatial")
+>>>>>>> 6db20200ff876b4991151f3bee1d7a998cf32483
 plot(boundary.sp)
 ssurgo <- get_ssurgo(boundary.sp, "test")
 ```

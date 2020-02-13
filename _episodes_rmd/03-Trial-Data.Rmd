@@ -14,6 +14,7 @@ library(sf)
 knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
 source("functions.R")
 ```
+
 ####Motivating Questions:
 - What are the common file types in agricultural data?
 
