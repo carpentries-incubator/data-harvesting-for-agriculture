@@ -170,6 +170,6 @@ c_s_s_soil <- function(ssurgo){
   spatial <- merge.data.frame(spatial, component.agg, by="mukey")
   spatial <- spatial[,-5]
   spatial <- dplyr::distinct(spatial)
-  spatial <- spatial[,6:9]
+  #spatial <- spatial[,6:9]
   return(spatial)
 }

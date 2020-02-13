@@ -239,7 +239,7 @@ st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES', upda
 ## Updating layer `boundary_utm' to data source `boundary_utm.gpkg' using driver `GPKG'
 ## options:        OVERWRITE=YES 
 ## Updating existing layer boundary_utm
-## Writing 2 features with 0 fields and geometry type Multi Polygon.
+## Writing 2 features with 1 fields and geometry type Multi Polygon.
 ```
 
 The new .gpkg file will be visible in your working directory. One common problem
@@ -264,9 +264,7 @@ We can also plot the data where the polygons change color based on the value of 
 map_poly(boundary, 'Type', 'Part of Field')
 ```
 
-```
-## Error: Fill argument neither colors nor valid variable name(s)
-```
+![plot of chunk unnamed-chunk-3](../figure/unnamed-chunk-3-1.png)
 
 #SSURGO Soil Data
 
@@ -282,45 +280,23 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 
 
 ```r
+<<<<<<< HEAD
 boundarynew <- read_sf("data/asplanted_transformed.gpkg")
 boundary <- subset(boundary, Type == "Trial")
-```
-
-```
-## Error in eval(e, x, parent.frame()): object 'Type' not found
-```
-
-```r
 boundary.sp <- as(boundary, "Spatial")
 lwgeom::st_make_valid(boundary)
-```
-
-```
-## Simple feature collection with 2 features and 0 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 2 x 1
-##                                                                             geom
-##                                                               <MULTIPOLYGON [°]>
-## 1 (((-82.87319 40.84574, -82.87306 40.83986, -82.87306 40.83957, -82.87316 40.8…
-## 2 (((-82.87803 40.83981, -82.87805 40.84098, -82.87683 40.84091, -82.87598 40.8…
-```
-
-```r
+=======
+boundarynew <- read_sf("data/boundary_test.shp")
+boundary.sp <- as(boundarynew, "Spatial")
+>>>>>>> 6db20200ff876b4991151f3bee1d7a998cf32483
 plot(boundary.sp)
-```
-
-![plot of chunk ssurgo](../figure/ssurgo-1.png)
-
-```r
 ssurgo <- get_ssurgo(boundary.sp, "samplefield")
 ```
 
 ```
-## Error in {: task 1 failed - "Download of https://sdmdataaccess.nrcs.usda.gov/Spatial/SDMNAD83Geographic.wfs?Service=WFS&Version=1.0.0&Request=GetFeature&Typename=SurveyAreaPoly&BBOX=-82.8785271106089,40.8394549766663,-82.8730573328604,40.846601 failed!"
+## Error: <text>:1:1: unexpected input
+## 1: <<
+##     ^
 ```
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
@@ -431,8 +407,7 @@ your own field.
 
 # Example with your own field
 
-Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, For an example of how this is done with clay, silt, and sand content, contact 
-the workshop instructors. 
+Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, we are going to make a table of the clay, silt, and sand content as well as the water content of the different soil types. There is a function `c_s_s_soil()` in `functions.R` that uses the soil depth to take an average of the soil measures for each soil type. The only parameter that needs to be 
 
 
 ```r
