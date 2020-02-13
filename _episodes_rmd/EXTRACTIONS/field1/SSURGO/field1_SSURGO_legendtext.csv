@@ -1,0 +1,20 @@
+recdate,legendtextkind,textcat,textsubcat,text,lkey,legtextkey
+,Correlation notes,correlation decision,tentative,"This soil identification legend of DeKalb County, a subset of MLRA's 95B and 108A, is built primarily from McHenry County updated legend and some of the map units along with DMU were copied and updated from other counties.
+
+The following map units along with DMU were copied from the McHenry County update (IL111): 59A, 60C2, 62A, 67A, 103A, 104A, 148A, 198A, 206A, 219A, 221B, 221C2, 318D2, 325B, 327B, 330A, 344B, 488A, 512A, 512B, 512C2, 527B, 527C2, 527D2, 656B, 656C2, 791A, 791B, 792A, 792B, 802B, 865.
+
+The following map units were copied from Whiteside County, Illinois (IL195): 51A, 68A, 171B, 3076A.
+ 
+The following map units were copied from Kane County, Illinois (IL089): 60D2, 171A, 233A, 233B, 236A, 325C2.
+
+The following map units were copied from DeKalb County, Illinois (IL037): 662A (344A), 662B (344B), 662C2 (344C2), 663A (148A), 663B (148B), 667A (105A), 667B (105B), 667C2 (105C2), 668A (134A), 668B (134B).
+
+The following map units were copied from McLean County, Illinois (IL113): 193A, 193B, 193C2.
+
+The following map units were copied from :
+Marshall County, Illinois (IL123) - 356A,
+Edgar County, Illinois (IL045) - 348B,
+Fountain county, Indiana (IN045) - WyA (348A)
+
+Most of these map units are approved during the field reviews.",11320,67684
+10/24/2007 00:00:00,Correlation notes,,,10/24/2007 Added correlation notes to the Map Unit Text Notes section. When DeKalb was updated NASIS was relatively new and nobody new that we needed to have correlation notes in NASIS.,11320,67685

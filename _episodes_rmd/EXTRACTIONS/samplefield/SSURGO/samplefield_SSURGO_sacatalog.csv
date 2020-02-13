@@ -1,0 +1,703 @@
+areasymbol,areaname,saversion,saverest,tabularversion,tabularverest,tabnasisexportdate,tabcertstatus,tabcertstatusdesc,fgdcmetadata,sacatalogkey
+OH033,"Crawford County, Ohio",19,09/16/2019 13:33:34,17,09/16/2019 13:33:34,09/03/2019 17:16:46,"certified, major components","09-03-2019 version includes new spatial and tabular data.  Spatial data was edited to reduce geometry size and coordinate precision of SSURGO, and to standardize vertex density.  Map unit name for So was changed, and this map unit includes completely new tabular data.  Includes minor edits to other map units.  Includes 2 new interpretations - FOR - Windthrow Hazard and ENG - New Ohio Septic Rating (OH) - and edits to other interpretations.","<metadata><idinfo><citation><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>20190916</pubdate><title>
+Soil Survey Geographic (SSURGO) database for
+Crawford County, Ohio
+</title><pubinfo><pubplace>Fort Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</publish></pubinfo><othercit>oh033</othercit><onlink>URL:http://DataGateway.nrcs.usda.gov/</onlink></citeinfo></citation><descript><abstract>
+This data set is a digital soil survey and generally is the most
+detailed level of soil geographic data developed by the National
+Cooperative Soil Survey. The information was prepared by digitizing
+maps, by compiling information onto a planimetric correct base
+and digitizing, or by revising digitized maps using remotely
+sensed and other information.
+This data set consists of georeferenced digital map data and
+computerized attribute data. The map data are in a soil survey area
+extent format and include a detailed, field verified inventory
+of soils and miscellaneous areas that normally occur in a repeatable
+pattern on the landscape and that can be cartographically shown at
+the scale mapped. A special soil features layer (point and line
+features) is optional. This layer displays the location of features
+too small to delineate at the mapping scale, but they are large
+enough and contrasting enough to significantly influence use and
+management. The soil map units are linked to attributes in the
+National Soil Information System relational database, which gives
+the proportionate extent of the component soils and their properties.
+</abstract><purpose>
+SSURGO depicts information about the kinds and distribution of
+soils on the landscape. The soil map and data used in the SSURGO
+product were prepared by soil scientists as part of the National
+Cooperative Soil Survey.
+</purpose><supplinf>
+Digital versions of hydrography, cultural features, and other
+associated layers that are not part of the SSURGO data set may be
+available from the primary organization listed in the Point of
+Contact.
+</supplinf></descript><timeperd><timeinfo><rngdates><begdate>20040301</begdate><enddate>20190916</enddate></rngdates></timeinfo><current>publication date</current></timeperd><status><progress>Complete</progress><update>As needed</update></status><spdom><bounding><westbc>-83.113</westbc><eastbc>-82.724</eastbc><northbc>40.997</northbc><southbc>40.703</southbc></bounding></spdom><keywords><theme><themekt>None</themekt><themekey>soil survey</themekey><themekey>soils</themekey><themekey>Soil Survey Geographic</themekey><themekey>SSURGO</themekey></theme><place><placekt>USGS Geographic Names Information System (GNIS)</placekt><placekey>Ohio</placekey><placekey>Crawford County</placekey><placekey>Blooming Grove Quadrangle</placekey><placekey>Bucyrus Quadrangle</placekey><placekey>Caledonia Quadrangle</placekey><placekey>Chatfield Quadrangle</placekey><placekey>Crestline Quadrangle</placekey><placekey>Galion Quadrangle</placekey><placekey>Lykens Quadrangle</placekey><placekey>Monnett Quadrangle</placekey><placekey>New Washington Quadrangle</placekey><placekey>North Robinson Quadrangle</placekey><placekey>Oceola Quadrangle</placekey><placekey>Shelby Quadrangle</placekey></place></keywords><accconst>None</accconst><useconst>
+The U.S. Department of Agriculture, Natural Resources Conservation
+Service, should be acknowledged as the data source in products
+derived from these data.
+This data set is not designed for use as a primary regulatory tool
+in permitting or citing decisions, but may be used as a reference
+source. This is public information and may be interpreted by
+organizations, agencies, units of government, or others based on
+needs; however, they are responsible for the appropriate
+application. Federal, State, or local regulatory bodies are not to
+reassign to the Natural Resources Conservation Service any
+authority for the decisions that they make. The Natural Resources
+Conservation Service will not perform any evaluations of these maps
+for purposes related solely to State or local regulatory programs.
+Photographic or digital enlargement of these maps to scales greater
+than at which they were originally mapped can cause misinterpretation
+of the data. If enlarged, maps do not show the small areas of
+contrasting soils that could have been shown at a larger scale. The
+depicted soil boundaries, interpretations, and analysis derived from
+them do not eliminate the need for onsite sampling, testing, and
+detailed study of specific sites for intensive uses. Thus, these data
+and their interpretations are intended for planning purposes only.
+Digital data files are periodically updated. Files are dated, and
+users are responsible for obtaining the latest version of the data.
+</useconst><ptcontac><cntinfo><cntorgp><cntorg>U.S. Department of Agriculture, Natural Resources Conservation Service</cntorg></cntorgp><cntpos>State Soil Scientist</cntpos><cntaddr><addrtype>mailing address</addrtype><address>200 N. High St..</address><address>Room 522</address><address/><address/><city>Columbus</city><state>OH</state><postal>43215-2478</postal></cntaddr><cntvoice>614-255-2483</cntvoice><cnttdd>800-877-8339</cnttdd><cntfax>614-255-2549</cntfax><cntemail>steven.baker@oh.usda.gov</cntemail></cntinfo></ptcontac></idinfo><dataqual><attracc><attraccr>
+The attribute accuracy is tested by manual
+comparison of the source with hard copy plots and/or symbolized
+display of the map data on an interactive computer graphic system.
+Selected attributes that cannot be visually verified on plots or
+on screen are interactively queried and verified on screen. In
+addition, the attributes are tested against a master set of valid
+attributes. All attribute data conform to the attribute codes in
+the signed classification and correlation document and amendment(s).
+</attraccr></attracc><logic>
+Certain node/geometry and topology GT- polygon/chain relationships
+are collected or generated to satisfy topological requirements
+(the GT-polygon corresponds to the soil delineation). Some of these
+requirements include: chains must begin and end at nodes, chains
+must connect to each other at nodes, chains do not extend through
+nodes, left and right GT-polygons are defined for each chain
+element and are consistent throughout, and the chains representing
+the limits of the file are free of gaps. The tests of logical
+consistency are performed using vendor software. All internal
+polygons are tested for closure with vendor software and are checked
+on hard copy plots. All data are checked for common soil lines (i.e.,
+adjacent polygons with the same label). Edge locations generally do
+not deviate from centerline to centerline by more than 0.01 inch.
+The Soil Survey of (OH033) Crawford County, Ohio is edge matched to all
+of the adjacent SSURGO certified soil surveys:
+OH077  Huron County, Ohio
+OH101  Marion County, Ohio
+OH117  Morrow County, Ohio
+OH139  Richland County, Ohio
+OH147  Seneca County, Ohio
+OH175  Wyandot County, Ohio
+All feature edges (polygon and line segments) match adjacent ones
+in the edge matched survey areas, and all feature labels
+match the adjacent feature labels in edge matched surveys.
+Descriptive attributes (tabular information about the polygons and
+line segments) were developed specifically for each survey area.
+The soil survey area boundary for Crawford County matches the soil
+survey area boundary for the adjacent certified soil surveys.
+</logic><complete>
+A map unit is a collection of areas defined and named in terms of
+their soil components or miscellaneous areas or both. Each map
+unit differs in some respect from all others in a survey area and
+each map unit has a symbol that uniquely identifies the map unit
+on a soil map. Each individual area, point, or line so identified
+on the map is a delineation.
+Soil Scientists identify small areas of soils or miscellaneous areas
+that have properties and behavior significantly different than the
+named soils in the surrounding map unit. These minor components
+may be indicated as special features. If they have a minimal effect
+on use and management, or could not be precisely located, they may
+not be indicated on the map.
+A map unit has specified kinds of soils or miscellaneous areas
+(map unit components), each with a designated range in
+proportionate extent. Map units include one or more kinds of soil
+or miscellaneous area. Miscellaneous areas are areas that have little
+or no recognizable soil.
+Specific National Cooperative Soil Survey standards and procedures
+were used in the classification of soils, design and name of map
+units, and location of special soil features. These standards are
+outlined in Agricultural Handbook 18, Soil Survey Manual, 1993,
+USDA, NRCS; Agricultural Handbook 436, Soil Taxonomy, 1995,
+USDA, NRCS; and all Amendments; Keys to Soil Taxonomy,
+(current issue) USDA, NRCS; National Soil Survey
+Handbook, title 430-VI,(current issue) USDA, NRCS.
+The actual composition and interpretive purity of the map unit
+delineations were based on data collected by scientists during
+the course of preparing the soil maps. Adherence to National
+Cooperative Soil Survey standards and procedures is based on
+peer review, quality control, and quality assurance. Quality
+control is outlined in the memorandum of understanding for the
+soil survey area and in documents that reside with the Natural
+Resources Conservation Service state soil scientist. Four kinds
+of map units are used in soil surveys: consociations, complexes,
+associations, and undifferentiated groups.
+Consociations - Consociations are named for the dominant soil.
+In a consociation, delineated areas use a single name from the
+dominant component in the map unit. Dissimilar components are
+minor in extent. The soil component in a consociation may be
+identified at any taxonomic level. Soil series is the lowest
+taxonomic level. A consociation that is named as a miscellaneous
+area is dominantly that kind of area and minor components do not
+significantly affect the use of the map unit. The total amount of
+dissimilar inclusions of other components in a map unit generally
+does not exceed about 15 percent if limiting and 25 percent if
+nonlimiting. A single component of a dissimilar limiting inclusion
+generally does not exceed 10 percent if very contrasting.
+Complexes and associations - Complexes and associations consist
+of two or more  dissimilar components that occur in a regularly
+repeating pattern. The total amount of other dissimilar components
+is minor extent. The following arbitrary rule determines whether
+complex or association is used in the name. The major components
+of an association can be separated at the scale of mapping. In
+either case, because the major components are sufficiently different
+in morphology or behavior, the map unit cannot be called a
+consociation. In each delineation of a complex or an association,
+each major component is normally present though their proportions
+may vary appreciably from one delineation to another. The total
+amount of inclusions in a map unit that are dissimilar to any of
+the major components does not exceed 15 percent if limiting and
+25 percent if nonlimiting. A single kind of dissimilar limiting
+inclusion usually does not exceed 10 percent.
+Undifferentiated groups - Undifferentiated groups consist of two
+or more components that are not consistently associated
+geographically and, therefore, do not always occur together in
+the same map delineation. These components are included in the
+same named map unit because their use and management are the same
+or very similar for common uses. Generally they are grouped together
+because some common feature, such as steepness, stoniness, or
+flooding, determines their use and management. If two or more
+additional map units would serve no useful purpose, they may be
+included in the same unit. Each delineation has at least one of the
+major components, and some may have all of them. The same principles
+regarding the proportion of minor components that apply to
+consociations also apply to undifferentiated groups. The same
+principles regarding proportion of inclusion apply to
+undifferentiated groups as to consociations.
+Minimum documentation consists of three complete soil profile
+descriptions that are collected for each soil added to the legend,
+one additional per 3,000 acres mapped; three 10 observation
+transects for each map unit, one additional 10 point transect per
+3,000 acres.
+A defined standard or level of confidence in the interpretive
+purity of the map unit delineations is attained by adjusting the
+kind and intensity of field investigations. Field investigations
+and data collection are carried out in sufficient detail to name
+map units and to identify accurately and consistently areas of
+about 2 acres.
+</complete><posacc><horizpa><horizpar>
+The accuracy of these digital data is based upon their
+compilation to base maps that meet National Map
+Accuracy Standards at a scale of 1 inch equals 1,000
+feet. The difference in positional accuracy between the
+soil boundaries and special soil features locations in the
+field and their digitized map locations is unknown. The
+locational accuracy of soil delineations on the ground varies
+with the transition between map units.
+For example, on long gently sloping landscapes the transition
+occurs gradually over many feet. Where landscapes change
+abruptly from steep to level, the transition will be very
+narrow. Soil delineation boundaries and special soil features
+generally were digitized within 0.01 inch of their locations on
+the digitizing source. The digital map elements are edge matched
+between data sets. The data along each quadrangle edge are
+matched against the data for the adjacent quadrangle. Edge
+locations generally do not deviate from centerline to centerline
+by more than 0.01 inch.
+</horizpar></horizpa></posacc><lineage><srcinfo><srccite><citeinfo><origin>U. S. Department of Agriculture, Soil Conservation Service</origin><pubdate>unpublished material</pubdate><title>copies of original Soil Survey field sheets</title><geoform>map</geoform></citeinfo></srccite><srcscale>15840</srcscale><typesrc>paper</typesrc><srctime><timeinfo><sngdate><caldate>1974</caldate></sngdate></timeinfo><srccurr>date of final correlation</srccurr></srctime><srccitea>SCS1</srccitea><srccontr>
+field mapping source with information on original
+soil map unit designation and delineation
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>U. S. Department of Agriculture, Soil Conservation Service</origin><pubdate>1979</pubdate><title>Soil Survey of Crawford County, Ohio</title><geoform>atlas</geoform><pubinfo><pubplace>Washington, D.C.</pubplace><publish>U. S. Government Printing Office</publish></pubinfo></citeinfo></srccite><srcscale>15840</srcscale><typesrc>paper</typesrc><srctime><timeinfo><sngdate><caldate>1974</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>SCS2</srccitea><srccontr>original inked soil line overlays used for atlas sheet publication</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>U. S. Department of Agriculture, Soil Conservation Service</origin><pubdate>unpublished material</pubdate><title>original inked soil line overlays</title><geoform>map</geoform></citeinfo></srccite><srcscale>15840</srcscale><typesrc>stable based medium</typesrc><srctime><timeinfo><sngdate><caldate>1974</caldate></sngdate></timeinfo><srccurr>date of final correlation</srccurr></srctime><srccitea>SCS3</srccitea><srccontr>used for raster scanning</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>U.S. Geological Survey (USGS), EROS Data Center</origin><pubdate>1999</pubdate><title>
+National Elevation Dataset,
+30-meter Digital Elevation Models (DEMs)
+</title><geoform>raster</geoform><pubinfo><pubplace>Sioux Falls, South Dakota</pubplace><publish>U.S. Geological Survey</publish></pubinfo></citeinfo></srccite><srcscale>24000</srcscale><typesrc>raster digital data, online</typesrc><srctime><timeinfo><sngdate><caldate>1999</caldate></sngdate></timeinfo><srccurr>source map</srccurr></srctime><srccitea>USGS1</srccitea><srccontr>ground control point source for SYRUP process</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>U.S. Geological Survey</origin><pubdate>1993-1999</pubdate><title>3.75 minute digital orthophotographs</title><geoform>remote-sensing image</geoform><pubinfo><pubplace>Columbus, Ohio</pubplace><publish>U. S. Geological Survey</publish></pubinfo></citeinfo></srccite><srcscale>12000</srcscale><typesrc>online, MrSid compression</typesrc><srctime><timeinfo><rngdates><begdate>1993</begdate><enddate>1999</enddate></rngdates></timeinfo><srccurr>date aerial photography was flown</srccurr></srctime><srccitea>USGS2</srccitea><srccontr>
+source of control points and image data for
+orthorectification procedure
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+Ohio State University Center for Mapping in cooperation
+with the U.S. Geological survey
+</origin><pubdate>2000</pubdate><title>County boundaries Statewide</title><geoform>vector</geoform><pubinfo><pubplace>Columbus, Ohio</pubplace><publish>
+GIS Support Center,
+Ohio Department of Administrative Services
+</publish></pubinfo></citeinfo></srccite><srcscale>24000</srcscale><typesrc>online</typesrc><srctime><timeinfo><rngdates><begdate>1999</begdate><enddate>2000</enddate></rngdates></timeinfo><srccurr>1999</srccurr></srctime><srccitea>ODNR1</srccitea><srccontr>source of survey area boundary</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>2004</pubdate><title>National Soil Information System (NASIS) data base</title><geoform>unknown</geoform><pubinfo><pubplace>Fort Collins, Colorado</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</publish></pubinfo></citeinfo></srccite><typesrc>database</typesrc><srctime><timeinfo><rngdates><begdate>2004</begdate><enddate>2004</enddate></rngdates></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NASIS</srccitea><srccontr>attribute (tabular) information</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>
+Soil Survey Geographic (SSURGO) database for
+Crawford County, Ohio
+</title><geoform>vector digital data</geoform></citeinfo></srccite><srcscale>24000</srcscale><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>20050613</caldate></sngdate></timeinfo><srccurr>date submitted for recertification</srccurr></srctime><srccitea>NRCS1</srccitea><srccontr>data submitted for SSURGO recertification</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>2005</pubdate><title>
+Soil Survey Geographic (SSURGO) database
+for Crawford County, Ohio
+</title><geoform>vector digital data</geoform><pubinfo><pubplace>Fort Collins, Colorado</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service,
+Information Technology Center
+</publish></pubinfo><onlink>&lt;http://soildatamart.nrcs.usda.gov/&gt;</onlink></citeinfo></srccite><srcscale>24000</srcscale><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>2005</caldate></sngdate></timeinfo><srccurr>date of publication</srccurr></srctime><srccitea>NRCS2</srccitea><srccontr>source for digital revision</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>2005 - 2009</pubdate><title>
+Soil Survey Geographic (SSURGO) databases
+for adjacent surveys
+</title><geoform>vector digital data</geoform><pubinfo><pubplace>Fort Collins, Colorado</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service,
+Information Technology Center
+</publish></pubinfo><othercit>
+These soil surveys are adjacent to (OH033) Crawford County, Ohio:
+OH077  Huron County, Ohio
+OH101  Marion County, Ohio
+OH117  Morrow County, Ohio
+OH139  Richland County, Ohio
+OH147  Seneca County, Ohio
+OH175  Wyandot County, Ohio
+</othercit><onlink>&lt;http://soildatamart.nrcs.usda.gov/&gt;</onlink></citeinfo></srccite><srcscale>12000, 24000</srcscale><typesrc>online</typesrc><srctime><timeinfo><rngdates><begdate>2005</begdate><enddate>2009</enddate></rngdates></timeinfo><srccurr>dates of publication</srccurr></srctime><srccitea>NRCS3</srccitea><srccontr>used to check joins to the adjacent soil surveys</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+State of Ohio Office of Information Technology,
+Ohio Geographically Referenced Information Program
+</origin><pubdate>2006</pubdate><title>Crawford Co, OH - 2006 1 Foot Ortho SID Mosaic</title><geoform>raster digital data</geoform><pubinfo><pubplace>Columbus, OH</pubplace><publish>
+State of Ohio Office of Information Technology,
+Ohio Geographically Referenced Information Program
+</publish></pubinfo></citeinfo></srccite><srcscale>2400</srcscale><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>2006</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>OGRIP1</srccitea><srccontr>imagery used for verification of soils features</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Farm Service Agency,
+Aerial Photography Field Office
+</origin><pubdate>2010</pubdate><title>
+National Agriculture Imagery Program (NAIP) full county
+orthophoto mosaic in MrSID format
+</title><geoform>remote-sensing image</geoform><pubinfo><pubplace>Salt Lake City, Utah</pubplace><publish>Aerial Photography Field Office</publish></pubinfo></citeinfo></srccite><typesrc>CD-ROM</typesrc><srctime><timeinfo><sngdate><caldate>2010</caldate></sngdate></timeinfo><srccurr>date of imagery</srccurr></srctime><srccitea>NAIP1</srccitea><srccontr>imagery used for verification of soils features</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>2009</pubdate><title>
+Soil Survey Geographic (SSURGO) database for
+Crawford County, Ohio
+</title><geoform>vector digital data</geoform><pubinfo><pubplace>Fort Worth, Texas</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service,
+National Cartography and Geospatial Center
+</publish></pubinfo></citeinfo></srccite><typesrc>online</typesrc><srctime><timeinfo><sngdate><caldate>2009</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>NRCS4</srccitea><srccontr>
+certified SSURGO product used as source
+for digital revision
+</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>ARCGIS geodatabase for Crawford County, OH</title><geoform>vector digital data</geoform></citeinfo></srccite><srcscale>24000</srcscale><typesrc>ARCGIS geodatabase</typesrc><srctime><timeinfo><sngdate><caldate>2011</caldate></sngdate></timeinfo><srccurr>date of soil survey update</srccurr></srctime><srccitea>NRCS5</srccitea><srccontr>source for digital revision</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</origin><pubdate>2009 - 2010</pubdate><title>
+Soil Survey Geographic (SSURGO) databases
+for adjacent surveys
+</title><geoform>vector digital data</geoform><pubinfo><pubplace>Fort Collins, Colorado</pubplace><publish>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service,
+Information Technology Center
+</publish></pubinfo><othercit>
+These SSURGO certified soil surveys are adjacent to
+the Soil Survey of (OH033) Crawford County, Ohio:
+OH077  Huron County, Ohio
+OH101  Marion County, Ohio
+OH117  Morrow County, Ohio
+OH139  Richland County, Ohio
+OH147  Seneca County, Ohio
+OH175  Wyandot County, Ohio
+</othercit><onlink>&lt;http://soildatamart.nrcs.usda.gov/&gt;</onlink></citeinfo></srccite><srcscale>12000, 24000</srcscale><typesrc>online</typesrc><srctime><timeinfo><rngdates><begdate>2009</begdate><enddate>2010</enddate></rngdates></timeinfo><srccurr>dates of publication</srccurr></srctime><srccitea>NRCS6</srccitea><srccontr>used to check joins to the adjacent soil surveys</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Farm Service Agency,
+Aerial Photography Field Office
+</origin><pubdate>2011</pubdate><title>
+National Agriculture Imagery Program (NAIP) full county
+orthophoto mosaic in MrSID format
+</title><geoform>remote-sensing image</geoform><pubinfo><pubplace>Salt Lake City, Utah</pubplace><publish>Aerial Photography Field Office</publish></pubinfo></citeinfo></srccite><typesrc>DVD</typesrc><srctime><timeinfo><sngdate><caldate>2011</caldate></sngdate></timeinfo><srccurr>date of imagery</srccurr></srctime><srccitea>NAIP2</srccitea><srccontr>imagery used for verification of soil features</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Farm Service Agency,
+Aerial Photography Field Office
+</origin><pubdate>2013</pubdate><title>
+National Agriculture Imagery Program (NAIP) full county
+orthophoto mosaic in MrSID format
+</title><geoform>remote-sensing image</geoform><pubinfo><pubplace>Salt Lake City, Utah</pubplace><publish>Aerial Photography Field Office</publish></pubinfo></citeinfo></srccite><typesrc>DVD</typesrc><srctime><timeinfo><sngdate><caldate>2013</caldate></sngdate></timeinfo><srccurr>date of imagery</srccurr></srctime><srccitea>NAIP3</srccitea><srccontr>imagery used for verification of soil features</srccontr></srcinfo><srcinfo><srccite><citeinfo><origin>
+U.S. Department of Agriculture, Natural Resources
+Conservation Service
+</origin><pubdate>unpublished material</pubdate><title>region 11 soils geodatabase</title><geoform>file geodatabase</geoform></citeinfo></srccite><typesrc>vector digital data</typesrc><srctime><timeinfo><rngdates><begdate>2006</begdate><enddate>2018</enddate></rngdates></timeinfo><srccurr>SSURGO publication date</srccurr></srctime><srccitea>NRCS7</srccitea><srccontr>Source of digital revision - recreated yearly</srccontr></srcinfo><procstep><procdesc>
+Field procedures for the second order soil survey included plotting of
+soil boundaries determined by field observations in conjuction with
+aerial photo interpretation. Boundaries were verified at closely spaced
+intervals and the soils in each delineation were identified by
+traversing and transecting the landscape.  Soil Scientists described and
+analyzed the data. The classification and map unit names were finalized
+at the final correlation conference in 1975 and signed in 1975. The
+published soil survey report was released in 1979.
+</procdesc><srcused>SCS1</srcused><procdate>1979</procdate></procstep><procstep><procdesc>
+Perfect map unit joins, involving field investigations, were conducted
+by Soil Scientists to provide seamless coverage with all adjacent Ohio,
+county soil surveys.
+</procdesc><srcused>SCS1, ODNR1</srcused><procdate>2002</procdate></procstep><procstep><procdesc>
+The soil lines and special features were raster scanned from inked
+mylars at 1:15,840 scale.  The soil lines, symbols and special features
+were raster scanned from paper map sheets without the photo background
+by Draft-co Inc. Martins Ferry, Ohio.  Each photo overlay was then
+aligned with its corresponding special features and soil delineation
+overlay in the CAD environment.  This align was followed by a digital
+orthorectification process (SYRUP- Simple Yet Robust Universal
+Parametric-Orthorectification).  Inputs into the model include the
+scanned and registered soil delineation overlays, special soil features
+overlays, and photo background overlays, as well as standard 1-meter
+resolution USGS digital ortho quarter quads (DOQQ), and a standard USGS
+30-meter, seamless Digital Elevation Model (DEM).
+The first step in the SYRUP process is to obtain sufficient ground
+control points (GCPs) between each mapsheet overlay and its
+corresponding DOQQs.  This is performed using ERDAS Imagine software
+(ERDAS, Inc., 2001).  GCPs are recorded in a text file along with their
+associated elevation values gathered from the DEM and are input into the
+SYRUP model.  The root mean square error (RMSE) of each individual
+control point and the average RMSE of all control points were calculated
+using X-file and Y-file coordinates, X-ground and Y-ground coordinates,
+and Z-elevation values.  The RMSE describes the deviation between the
+actual location of a GCP and the value calculated by the transformation
+and must be lower than 10.00 for each mapsheet.  The RMSE values were
+calculated by the ERDAS Imagine software, based on a two-dimensional
+registration, because this was the only type of registration ERDAS
+Imagine provides.
+Since ultimately a three dimensional registration (SYRUP) was being
+applied to the data, a specific RMSE value to be used as a breakpoint
+value for quality control purposes was not appropriate in this case.
+Rather, relative values were compared and used as an index to flag
+certain areas for further spatial examination and GCP adjustment.  A
+spatial measurement was used as a rigid indicator of quality control.
+This is a measurement of the distance between mapsheet overlay locations
+after ortho-rectification and their corresponding actual DOQQ locations.
+Distance measurements were examined at extremely large scales (1:1,000
+or larger) to assure compliance with minimum USGS National Map Accuracy
+Standards (NMAS).  The SYRUP extension to ERDAS Imagine uses a
+statistical model involving a statistical approximation to produce a
+geometrically correct version of each publication mapsheet overlay.
+Resulting images were also visually compared with corresponding DOQQ
+images using the Swipe tool in ERDAS Imagine for quality.  Problem areas
+in need of increased quality were edited by adding and/or adjusting
+control points where needed.  These areas can them be processed through
+the SYRUP model once again.   ERDAS Imagine was then used to convert the
+raster image (*.img) file format to grid raster file format for viewing
+in ARC/INFO.
+The raster, soil delineation layer was then converted to a binary,
+raster .tif using AutoCAD.  Hitachi software in a CAD environment was
+used to convert the binary raster lines into vector lines.  AutoCAD
+software was used to clean vector lines and attribute the soil polygons
+with their appropriate soil map unit symbols.  The clean lines were then
+splined using a quadratic B-spline in AutoCAD software and
+generalized using ESRI software.
+Bodies of water were aligned to the ortho photo image except for areas
+less than 2 acres in size.  Areas less than 2 acres in size were shown
+as a point special feature labeled 'WAT'.  Most errors found on the
+published soil maps were corrected by a soil scientist who referred to
+copies of the original soil survey field sheets.  A few errors were
+field checked by soil scientists and corrected.
+The orthorectified symbol/feature overlays were used as a background
+reference image to determine which map unit symbols were associated with
+which soil polygons.  Special soil features were also digitized and
+attributed as separate point and line coverages using AutoCAD. Cultural
+features are then exported out of AutoCad with the appropriate object
+data attached to each feature.
+The line work and symbols are processed using a series of queries and
+spatial joins in MapInfo. The formed polygons are then returned to
+AutoCad and written out as an ARC/INFO coverage for a final product.
+Quality assurance/quality control was conducted by the Ohio Department
+of Natural Resources.  All Soil Line placements and labels were checked
+and verified.  In addition, label placement locations for soil polygons
+were moved to the centroid of polygons where possible or to other
+locations to prevent the overlap of labels from adjoining polygons and
+special features.  ARC/INFO software was used to edge match quarter
+quadrangles of soil data which were then merged into a county-wide
+layer.  The data were then sent to the Wisconsin Digitizing Unit where
+it was processed with the 20040211 Recert AMLs provided by National
+Cartographic and Geospatial Center.
+</procdesc><srcused>ODNR1, SCS2, SCS3, USGS1, USGS2</srcused><procdate>2002</procdate></procstep><procstep><procdesc>
+The National Soil Information System data base was developed by Natural
+Resources Conservation Service and Ohio Department of Natural Resources
+soil scientists according to national standards.
+</procdesc><srcused>SCS1</srcused><procdate>2002</procdate></procstep><procstep><procdesc>
+For join purposes with Huron and Richland Counties, Ohio, edits were
+done on the North and East border of Crawford County. These edits were
+performed by soil scientists at the Ohio Soil Survey Office, Newark,
+Ohio, and submitted to the USDA, Natural Resources Conservation Service,
+Wisconsin Digitizing Unit (WIDU) for SSURGO Certification. Once the data
+passed the SSURGO Certification checks, it was submitted to the
+Soil Data Mart for archival and distribution.
+</procdesc><srcused>NRCS1</srcused><procdate>20050927</procdate></procstep><procstep><procdesc>
+For join purposes with Morrow County, Ohio, edits were
+done on the North East border of Crawford County. These edits were
+performed by soil scientists at the Ohio Soil Survey Office, Newark,
+Ohio, and submitted to the USDA, Natural Resources Conservation Service,
+Wisconsin Digitizing Unit (WIDU) for SSURGO Certification. Once the data
+passed the SSURGO Certification checks, it was submitted to the
+Soil Data Mart for archival and distribution.
+</procdesc><srcused>NRCS1</srcused><procdate>20051025</procdate></procstep><procstep><procdesc>
+12-08-2006 version includes data required by National Bulletin 430-5-7.
+Includes changes to the interpretations Embankments, dikes, and levees (OH)
+and Pond reservoir areas (OH).
+</procdesc><srcused>NASIS</srcused><procdate>20061208</procdate></procstep><procstep><procdesc>
+08-03-2007 version includes the following new interpretations:
+AWM - Filter Group (OH);
+ENG - Drip Distribution Above Grade (OH);
+ENG - Drip Distribution at or Below Grade (OH);
+ENG - Leaching Trench and Soil Absorption (OH);
+ENG - Mound with Pressure Distribution (OH);
+GRL - Pasture and Hayland SG (OH).
+</procdesc><srcused>NASIS</srcused><procdate>20070803</procdate></procstep><procstep><procdesc>12-07-2007 version includes DHS and MIL interpretations.</procdesc><srcused>NASIS</srcused><procdate>20071207</procdate></procstep><procstep><procdesc>
+01-06-2009 version includes changes to hydrologic group, and other minor
+edits to the tabular data.
+</procdesc><srcused>NASIS</srcused><procdate>20090106</procdate></procstep><procstep><procdesc>
+The Michigan Digitizing Unit (MIDU) staff downloaded the SSURGO data
+for Crawford County and the adjacent surveys from the Soil Data
+Warehouse (SDW).  The MIDU staff imported the coverages into a
+geodatabase and checked the spatial data with the ARCGIS Version 9.2
+software.  To remove excess vertices, the soil boundaries were
+generalized at a tolerance of 0.5 meters.  The boundaries of this soil
+survey were adjusted to match the boundaries of the adjacent soil
+surveys at a tolerance of 0.1 meters.  After the soil survey was
+edited, the area, line and point feature classes were converted to
+ARC/INFO coverages and exported as e00 files.  The digital maps of the
+mapping units and the special soil features were imported into the
+ARC/INFO Version 7.2.1 software for review and certification.  The
+MIDU staff checked the data with a set of ARC Macro Language (AML)
+programs developed by the NCGC.  The seamless coverages were checked
+using the January 2006 SSURGO Evaluation AML programs.  The labels in
+the spatial data matched the symbols in the mapunit table from NASIS.
+Upon successful completion of the SSURGO Evaluation, the county
+coverages, feature file and the metadata were electronically
+transferred to the NRCS Staging Server to be joined with
+the tabular data.
+</procdesc><srcused>NASIS, NRCS2, NRCS3</srcused><procdate>20091211</procdate></procstep><procstep><procdesc>
+The spatial data underwent a quality control review by soil and
+cartographic staff at the Findlay, OH MLRA Soil Survey Office.
+Cartographic edits for the recorrelation projects were made to a SSURGO
+certified dataset downloaded from the Soil Data Mart, August 2011 using
+ArcGIS 9.3.  Most spatial edits for the recorrelation projects were made
+to change mapunit symbols for recorrelated mapunits and a few edits were
+made to some county data sets to create new mapunit polygons.  In
+addition, some line work was done to fix polygon join problems at county
+and state boundaries for soil map units included in the recorrelation
+projects.  Line edits were made with reference to 2006 MrSID (OH) and
+2010 NAIP (OH &amp; IN) orthophotography. Cartographic staff made checks and
+edits for topologic errors that included common lines and points and
+slivers. After a quality assurance review was completed by regional
+staff, the seamless county geodatabase for the soil surveys was forwarded
+to the certification team at the Michigan Digitizing Unit (MIDU) in
+East Lansing, Michigan.
+Project: MLRA 111B OH&amp;IN Glynwood/Morley C-slopes; FYs 2009-2011
+Initiated to harmonize soil mapunit names and data across MLRA 111B for
+glacial till soils on C-slopes.
+Early soil surveys in MLRA 111B correlated consociations of Morley
+series as both moderately well drained and well drained phases. Glynwood
+soil series was later established to replace the moderately well drained
+phase, thereby restricting the Morley series to the well drained phase.
+Both series were subsequently correlated as consociations on C-slopes.
+Soil mapunit transects were completed on 23 map units in 14 counties to
+determine map unit composition.  Glynwood soils were found to be the
+predominant component in all mapunits. Summaries of the transect data
+were used to update tabular data.  Mapunit composition was shown to vary
+between ground moraines and end moraines on the till plain, so map unit
+phases were developed for both landforms.  Erosion class designations
+from the published surveys were retained in the recorrelation.  The 23
+map units from non-MLRA areas were recorrelated to 6 regional mapunits
+for MLRA 111B.  Approved at the August 2011 project completion review.
+</procdesc><srcused>NAIP1, NRCS4, OGRIP1</srcused><procdate>2011</procdate></procstep><procstep><procdesc>
+The MIDU staff checked the spatial data with the ARCGIS Version 9.3
+software. To remove excess vertices, the soil boundaries were
+generalized at a 0.5 meter tolerance. The boundaries of this soil
+survey were adjusted to match the adjacent soil surveys at the
+0.1 meter tolerance. After the soil survey was edited, the feature
+classes for the areas, lines and points were imported into the
+ARC/INFO Version 9.3 software for review and certification. The MIDU
+staff checked the data with a set of ARC Macro Language (AML) programs
+developed by the USDA-NRCS National Cartographic and Geospatial Center
+(NCGC). The seamless coverages were checked using the July 2009 SSURGO
+Evaluation AML programs. The labels in the spatial data matched the
+symbols in the mapunit table from NASIS. Upon successful completion of
+the SSURGO Evaluation, the area, line and point coverages, the feature
+file and the metadata were electronically transferred to the NRCS
+Staging Server to be joined with the tabular data.
+</procdesc><srcused>NRCS5, NRCS6</srcused><procdate>2011</procdate></procstep><procstep><procdesc>
+The spatial data for Crawford County, Ohio soil survey area were downloaded from the
+Soil Data Mart on October 15, 2012.  The individual shapefiles were appended into a
+geodatabase for region 11.  The data were processed in ARCGIS 10.1 using a topology
+object with a 0.1 meter cluster tolerance for the purpose of eliminating gaps and
+overlaps within the region 11 soils geodatabase.  Individual soil survey area data
+were exported as shapefiles from the regional geodatabase.  A datum transformation
+from NAD83 to WGS84 using the NAD_1983_To_WGS_1984_1 datum transformation method was
+applied to the data.  The data were checked with the SSURGO Evaluation scripts provided
+by U.S. Department of Agriculture, Natural Resources Conservation Service. The shapefiles
+were uploaded to the soil data warehouse for archival and distribution.
+</procdesc><srcused>NRCS7</srcused><procdate>2013</procdate></procstep><procstep><procdesc>
+The spatial data underwent a quality control review by soil and
+cartographic staff at the Findlay, OH MLRA Soil Survey Office.
+Cartographic edits for the Soil Data Recorrelation Join (SDJR)
+project were made to a SSURGO certified dataset downloaded from
+the Web Soil Survey, January 2014 using ArcGIS 10.1. Most spatial
+edits for the SDJR projects were made to change mapunit symbols
+for recorrelated mapunits.  Edits were made to some county data
+sets to create new mapunit polygons. In addition, some line work
+was done to fix polygon join problems at county boundaries for
+soil map units included in the SDJR projects. Edits were made to
+some adjacent soil polygons to coordinate the separation between
+ground moraine and end moraine phases of map units. Line edits were
+made with reference to 2006 MrSID (OH), 2011 and 2013 NAIP
+orthophotography (OH) and 2012 NAIP (IN). Cartographic staff made
+checks and edits for topologic errors that included common lines
+and points and slivers. After a quality assurance review was completed
+by regional staff, the seamless county geodatabase for the soil surveys
+was forwarded to the certification team at the MLRA Office, Region 11
+in Indianapolis, Indiana.
+</procdesc><srcused>OGRIP1, NAIP2, NAIP3, NASIS</srcused><procdate>20140904</procdate></procstep><procstep><procdesc>
+The spatial data for Crawford County, Ohio soil survey area
+were received from Findlay, Ohio MLRA Soil Survey Office.
+The individual shapefiles were appended into a file geodatabase
+for Region 11. The Region 11 staff checked the spatial data with
+the ArcGIS 10.2 software.  The spatial data was checked with
+SSURGO quality assurance tools provided by U.S. Department of
+Agriculture, Natural Resources Conservation Service. The labels
+in the spatial data matched the symbols in the mapunit table from
+NASIS. Individual soil survey area data were exported as shapefiles
+from the regional file geodatabase. Upon successful completion of
+the SSURGO Evaluation, the area, line and point shapefiles, the
+feature file and the metadata were electronically transferred to
+the NRCS Staging Server to be joined with the tabular data for
+archival and distribution.
+</procdesc><srcused>NRCS7</srcused><procdate>20140910</procdate></procstep><procstep><procdesc>
+The spatial data for the entire SSURGO database was recertified in October
+of 2019 to reduce storage requirements and to improve map display
+and geoprocessing performance.  The SSURGO data is internally managed
+using 12 Regional Transactional Spatial Databases (RTSD) that are in
+an ESRI File Geodatabase format.  The spatial extent of the RTSDs follow the
+Soil and Plant Science Division (SPSD) regional administrative boundaries.
+The XY coordinate system of this RTSD is USA Contiguous Albers Equal Area
+Conic USGS Version WKID: 102039 and has an XY storage precision of 0.001
+meters.  The RTSDs were recreated using a reduced storage precision of 0.1
+meters to reduce the physical size of the data.  The SSURGO data was also
+generalized by removing excess vertices, using a tolerance of 1 meter.
+The topology was validated at the CONUS level using a tolerance of 0.2
+meters.  This effort directly affects the gSSURGO and gNATSGO product since
+these deliverables are in a File Geodatabase format.
+</procdesc><srcused>NRCS7</srcused><procdate>2019</procdate></procstep><procstep><procdesc>
+The Natural Resources Conservation Service State Soil Scientist or
+delegate, upon completion of data quality verification, determined
+that the tabular data should be released for official use. A
+selected set of map units and components in the soil survey legend was
+copied to a staging database, and rating values for selected
+interpretations were generated. The list of selected interpretations is
+stored in the database table named sainterp.
+</procdesc><srcused>NASIS</srcused><procdate>20190916</procdate></procstep><procstep><procdesc>
+The Natural Resources Conservation Service State Soil Scientist or
+delegate verified that the labels on the digitized soil map units
+link to map units in the tabular database, and certified the joined
+data sets for release to the Soil Data Warehouse. A system assigned
+version number and date stamp were added and the data were copied to
+the data warehouse. The tabular data for the map units and components
+were extracted from the data warehouse and reformatted into the soil
+data delivery data model, then stored in the Soil Data Mart. The spatial
+data were copied to the Soil Data Mart without change.
+
+09-16-2019 version includes new spatial and tabular data.  Spatial data was edited to reduce geometry size and coordinate precision of SSURGO, and to standardize vertex density.  Map unit name for So was changed, and this map unit includes completely new tabular data.  Includes minor edits to other map units.  Includes 2 new interpretations - FOR - Windthrow Hazard and ENG - New Ohio Septic Rating (OH) - and edits to other interpretations.</procdesc><srcused>NASIS</srcused><procdate>20190916</procdate></procstep></lineage></dataqual><spdoinfo><direct>Vector</direct></spdoinfo><spref><horizsys><geograph><latres>0.000001</latres><longres>0.0000001</longres><geogunit>decimal degrees</geogunit></geograph><geodetic><horizdn>World Geodetic System 1984</horizdn><ellips>World Geodetic System 1984</ellips><semiaxis>6378137.00000</semiaxis><denflat>298.257222</denflat></geodetic></horizsys></spref><eainfo><detailed><enttyp><enttypl>Special Soil Features</enttypl><enttypd>
+Special Soil Features represent soil, miscellaneous area, or landform
+features that are too small to be digitized as soil delineations
+(area features).
+</enttypd><enttypds>
+Agricultural Handbook 18,
+Soil Survey Manual, 1993, USDA, SCS.
+</enttypds></enttyp><attr><attrlabl>Special Soil Features Codes</attrlabl><attrdef>
+Special Soil Features labels represent specific Special Soil
+Features. These features are identified with a descriptive
+label. The label is assigned to the point or line assigned
+to represent the feature on maps.
+</attrdef><attrdefs>
+Agricultural Handbook 18, Soil Survey Manual, 1993, USDA, SCS;
+National Soil Survey Handbook, Title 430-VI, part 647
+(current issue), USDA, NRCS.
+</attrdefs><attrdomv><codesetd><codesetn>
+Classification and Correlation of the
+Soils of Crawford County, Ohio
+</codesetn><codesets>
+U.S. Department of Agriculture,
+Natural Resources Conservation Service
+</codesets></codesetd></attrdomv></attr></detailed><overview><eaover>
+Map Unit Delineations are closed polygons that may be dominated
+by a single soil or miscellaneous area component plus allowable
+similar or dissimilar soils, or they can be geographic mixtures
+of groups of soils or soils and miscellaneous areas.
+The map unit symbol uniquely identifies each closed map unit
+delineation. Each symbol corresponds to a map unit name. The
+map unit key is used to link to information in the National
+Soil Information System tables.
+Map Unit Delineations are described by the National Soil
+Information System database. This attribute database gives the
+proportionate extent of the component soils and the properties for
+each soil. The database contains both estimated and measured data
+on the physical and chemical soil properties and soil
+interpretations for engineering, water management, recreation,
+agronomic, woodland, range, and wildlife uses of the soil.
+The National Soil Information System database contains static
+metadata. It documents the data structure and includes such
+information as what tables, columns, indexes, and relationships
+are defined as well as a variety of attributes of each of these
+database objects. Attributes include table and column
+descriptions and detailed domain information.
+The National Soil Information System database also contains a
+distribution metadata. It records the criteria used for selecting
+map units and components for inclusion in the set of distributed
+data.
+Special features are described in the feature table.  It includes an
+area symbol, feature label, feature name, and feature description for
+each special and ad hoc feature in the survey area.
+</eaover><eadetcit>
+Soil Taxonomy: A basic system of soil classification for making and
+interpreting soil surveys. Agricultural Handbook 436, 1999, USDA, SCS.
+Keys to Soil Taxonomy (current issue), USDA, SCS.
+National Soil Survey Handbook, Title 430-VI, part 647 (current
+issue), USDA, NRCS.
+Agricultural Handbook 18, Soil Survey Manual, 1993, USDA, SCS.
+</eadetcit></overview></eainfo><distinfo><distrib><cntinfo><cntorgp><cntorg>
+U.S. Department of Agriculture, Natural
+Resources Conservation Service, National
+Geospatial Center of Excellence
+</cntorg></cntorgp><cntaddr><addrtype>mailing and physical address</addrtype><address>501 West Felix Street, Building 23</address><city>Fort Worth</city><state>Texas</state><postal>76115</postal></cntaddr><cntvoice>800 672 5559</cntvoice><cnttdd>202 720 2600</cnttdd><cntfax>817 509 3469</cntfax></cntinfo></distrib><resdesc>Crawford County, Ohio SSURGO</resdesc><distliab>
+Although these data have been processed successfully on a computer
+system at the U.S. Department of Agriculture, no warranty expressed
+or implied is made by the Agency regarding the utility of the data
+on any other system, nor shall the act of distribution constitute
+any such warranty. The U.S. Department of Agriculture will warrant
+the delivery of this product in computer readable format, and will
+offer appropriate adjustment of credit when the product is determined
+unreadable by correctly adjusted computer input peripherals, or
+when the physical medium is delivered in damaged condition. Request
+for adjustment of credit must be made within 90 days from the date
+of this shipment from the ordering site.
+The U.S. Department of Agriculture, nor any of its agencies are
+liable for misuse of the data, for damage, for transmission of
+viruses, or for computer contamination through the distribution of
+these data sets. The U.S. Department of Agriculture (USDA) prohibits
+discrimination in all its programs and activities on the basis of race,
+color, national origin, sex, religion, age, disability, political
+beliefs, sexual orientation, or marital or family status. (Not all
+prohibited bases apply to all programs.)
+</distliab><stdorder><digform><digtinfo><formname>ESRI shapefile</formname><formcont>spatial</formcont><transize>39.3</transize></digtinfo><digtopt><onlinopt><computer><networka><networkr>URL:http://DataGateway.nrcs.usda.gov/</networkr></networka></computer><accinstr>
+Select desired survey area at above Internet
+Web site. An email address is required for receipt of
+instructions on retrieval via anonymous FTP. Anticipate a
+delay between submission of request at Web site and receipt of
+email message.
+</accinstr></onlinopt></digtopt></digform><fees>
+There is currently no direct charge for requesting data or for
+retrieval via FTP.
+</fees><ordering>
+Visit the above mentioned Internet Web Site, select state or
+territory, then select individual soil survey area of interest.
+Spatial line data and locations of special feature symbols are in
+ESRI ArcGIS shapefile, format. The National Soil Information
+System attribute soil data are available in variable length, pipe
+delimited, ASCII file format.
+</ordering><turnarnd>Typically within four hours</turnarnd></stdorder></distinfo><metainfo><metd>20190916</metd><metc><cntinfo><cntorgp><cntorg>U.S. Department of Agriculture, Natural Resources Conservation Service</cntorg></cntorgp><cntpos>State Soil Scientist</cntpos><cntaddr><addrtype>mailing address</addrtype><address>200 N. High St..</address><address>Room 522</address><address/><address/><city>Columbus</city><state>OH</state><postal>43215-2478</postal></cntaddr><cntvoice>614-255-2483</cntvoice><cnttdd>800-877-8339</cnttdd><cntfax>614-255-2549</cntfax><cntemail>steven.baker@oh.usda.gov</cntemail></cntinfo></metc><metstdn>Content Standard for Digital Geospatial Metadata</metstdn><metstdv>FGDC-STD-001-1998</metstdv></metainfo></metadata>",11531

@@ -1,0 +1,92 @@
+geomftname,geomfname,geomfmod,geomfeatid,existsonfeat,rvindicator,cokey,cogeomdkey
+Landform,moraines,,NA,NA,No ,17960866,27312741
+Landform,till plains,,NA,NA,Yes,17960866,27312855
+Landform,terraces,,NA,NA,Yes,17960867,27313051
+Landform,lake plains,,NA,NA,Yes,17960868,27312507
+Landform,deltas,,NA,NA,No ,17960868,27313052
+Landform,end moraines,,NA,NA,No ,17960869,27312508
+Landform,ground moraines,,NA,NA,Yes,17960869,27312856
+Landform,depressions,,NA,NA,Yes,17960897,27312751
+Landform,rises,slight,3,5,No ,17960898,27312527
+Landform,rises,slight,4,6,No ,17960898,27312528
+Landform,end moraines,,6,NA,No ,17960898,27312529
+Landform,flats,,1,5,Yes,17960898,27312767
+Landform,flats,,2,6,No ,17960898,27312768
+Landform,ground moraines,,5,NA,Yes,17960898,27312875
+Landform,till plains,,NA,NA,Yes,17960899,27312876
+Landform,ground moraines,,5,NA,Yes,17960900,27312857
+Landform,rises,slight,3,5,No ,17960900,27312509
+Landform,rises,slight,4,6,No ,17960900,27312510
+Landform,end moraines,,6,NA,No ,17960900,27312511
+Landform,flats,,1,5,Yes,17960900,27312742
+Landform,flats,,2,6,No ,17960900,27312743
+Landform,depressions,,NA,NA,Yes,17960901,27312744
+Landform,depressions,,NA,NA,Yes,17960929,27312769
+Landform,depressions,,NA,NA,Yes,17960930,27312770
+Landform,rises,slight,4,6,No ,17960931,27312531
+Landform,end moraines,,6,NA,No ,17960931,27312532
+Landform,flats,,1,5,Yes,17960931,27312771
+Landform,flats,,2,6,No ,17960931,27312772
+Landform,ground moraines,,5,NA,Yes,17960931,27312877
+Landform,rises,slight,3,5,No ,17960931,27312530
+Landform,glacial lakes (relict),,NA,NA,Yes,17961023,27312575
+Landform,glacial lakes (relict),,NA,NA,Yes,17961024,27312576
+Landform,glacial lakes (relict),,NA,NA,Yes,17961025,27312577
+Landform,glacial lakes (relict),,NA,NA,Yes,17961026,27312578
+Landform,glacial lakes (relict),,NA,NA,Yes,17961027,27312579
+Landform,depressions,,3,1,No ,17961049,27313134
+Landform,drainageways,,2,1,Yes,17961049,27312685
+Landscape,till plains,,1,NA,Yes,17961049,27312684
+Landform,end moraines,,3,1,No ,17961050,27312687
+Landform,ground moraines,,2,1,Yes,17961050,27312957
+Landscape,till plains,,1,NA,Yes,17961050,27312686
+Landform,drainageways,,2,3,No ,17961051,27312688
+Landform,depressions,,1,3,Yes,17961051,27313135
+Landscape,till plains,,3,NA,Yes,17961051,27312689
+Landform,till plains,,NA,NA,Yes,17961056,27312888
+Landform,glacial lakes (relict),,NA,NA,Yes,17961057,27312580
+Landform,glacial lakes (relict),,NA,NA,Yes,17961058,27312581
+Landform,depressions,,2,1,Yes,17961123,27313152
+Landscape,till plains,,1,NA,Yes,17961123,27312985
+Landform,ground moraines,,2,1,Yes,17961124,27313197
+Landscape,till plains,,1,NA,Yes,17961124,27312986
+Landform,ground moraines,,2,1,Yes,17961125,27313198
+Landscape,till plains,water-modified,1,NA,Yes,17961125,27312987
+Landform,depressions,,2,1,Yes,17961126,27313153
+Landscape,till plains,,1,NA,Yes,17961126,27312988
+Landform,end moraines,,3,1,No ,17961214,27312691
+Landform,ground moraines,,2,1,Yes,17961214,27312958
+Landscape,till plains,,1,NA,Yes,17961214,27312690
+Landform,end moraines,,3,1,No ,17961215,27312693
+Landform,ground moraines,,2,1,Yes,17961215,27312959
+Landscape,till plains,,1,NA,Yes,17961215,27312692
+Landform,depressions,,3,1,No ,17961216,27313136
+Landform,drainageways,,2,1,Yes,17961216,27312695
+Landscape,till plains,,1,NA,Yes,17961216,27312694
+Landform,drainageways,,2,3,No ,17961217,27312697
+Landform,depressions,,1,3,Yes,17961217,27313137
+Landscape,till plains,,3,NA,Yes,17961217,27312696
+Landform,drainageways,,2,3,No ,17961218,27312699
+Landform,depressions,,1,3,Yes,17961218,27313138
+Landscape,till plains,,3,NA,Yes,17961218,27312698
+Landform,ground moraines,,2,1,Yes,17961219,27312960
+Landform,end moraines,,3,1,No ,17961219,27312701
+Landscape,till plains,,1,NA,Yes,17961219,27312700
+Landform,end moraines,,3,1,No ,17961220,27312702
+Landform,ground moraines,,2,1,Yes,17961220,27312961
+Landscape,till plains,,1,NA,Yes,17961220,27312703
+Landform,drainageways,,2,1,Yes,17961224,27312704
+Landform,depressions,,3,1,No ,17961224,27313139
+Landscape,till plains,,1,NA,Yes,17961224,27312705
+Landform,drainageways,,2,1,Yes,17961227,27312995
+Landform,depressions,,3,1,No ,17961227,27313155
+Landscape,till plains,,1,NA,Yes,17961227,27312996
+Landform,drainageways,,2,3,No ,17961228,27312998
+Landform,depressions,,1,3,Yes,17961228,27313156
+Landscape,till plains,,3,NA,Yes,17961228,27312997
+Landform,end moraines,,3,1,No ,17961229,27312999
+Landform,ground moraines,,2,1,Yes,17961229,27313202
+Landscape,till plains,,1,NA,Yes,17961229,27313000
+Landform,end moraines,,3,1,No ,17961230,27313002
+Landform,ground moraines,,2,1,Yes,17961230,27313203
+Landscape,till plains,,1,NA,Yes,17961230,27313001
