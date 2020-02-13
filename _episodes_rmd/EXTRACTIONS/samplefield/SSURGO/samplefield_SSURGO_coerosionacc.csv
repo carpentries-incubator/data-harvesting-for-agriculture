@@ -1,10 +1,20 @@
 erokind,rvindicator,cokey,coeroacckey
 Sheet erosion,Yes,17961050,1254282
 Rill erosion,No ,17961050,1254283
+<<<<<<< HEAD
 Sheet erosion,Yes,17961124,1254241
 Rill erosion,No ,17961124,1254242
 Sheet erosion,Yes,17961125,1254243
 Rill erosion,No ,17961125,1254244
+=======
+Sheet erosion,No ,17961209,1254231
+Rill erosion,Yes,17961209,1254232
+Rill erosion,Yes,17961211,1254226
+Sheet erosion,No ,17961211,1254227
+Sheet erosion,No ,17961212,1254228
+Rill erosion,Yes,17961212,1254229
+Gully erosion,No ,17961212,1254230
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 Sheet erosion,Yes,17961214,1254284
 Rill erosion,No ,17961214,1254285
 Rill erosion,Yes,17961215,1254286

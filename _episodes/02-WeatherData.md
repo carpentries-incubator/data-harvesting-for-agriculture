@@ -43,7 +43,8 @@ source: Rmd
 > 
 > 
 > ```r
-> boundary <- read_sf("data/boundary.gpkg")
+> #boundary <- read_sf("data/boundary.gpkg") # JPN CHANGED TO SEE IF IT WORKS
+> boundary <- read_sf("data/boundary_transformed.gpkg")
 > lon <- cent_long(boundary)
 > lat <- cent_lat(boundary)
 > ```
@@ -60,7 +61,7 @@ source: Rmd
 >```
 >
 >```
->## Downloading DAYMET data for: Field1 at 41.7430279883331/-81.9757922217347 latitude/longitude !
+>## Downloading DAYMET data for: Field1 at 40.8430279883331/-82.8757922217347 latitude/longitude !
 >```
 >
 >```
@@ -78,21 +79,21 @@ source: Rmd
 > ```
 > ## List of 7
 > ##  $ site     : chr "Field1"
-> ##  $ tile     : num 11750
-> ##  $ latitude : num 41.7
-> ##  $ longitude: num -82
-> ##  $ altitude : num 172
-> ##  $ tile     : num 11750
+> ##  $ tile     : num 11749
+> ##  $ latitude : num 40.8
+> ##  $ longitude: num -82.9
+> ##  $ altitude : num 310
+> ##  $ tile     : num 11749
 > ##  $ data     :'data.frame':	6935 obs. of  9 variables:
 > ##   ..$ year         : num [1:6935] 2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
 > ##   ..$ yday         : num [1:6935] 1 2 3 4 5 6 7 8 9 10 ...
-> ##   ..$ dayl..s.     : num [1:6935] 32486 32486 32486 32486 32832 ...
-> ##   ..$ prcp..mm.day.: num [1:6935] 0 1 13 6 2 0 0 0 0 4 ...
-> ##   ..$ srad..W.m.2. : num [1:6935] 250 224 176 189 160 ...
-> ##   ..$ swe..kg.m.2. : num [1:6935] 20 16 12 12 8 8 8 4 4 0 ...
-> ##   ..$ tmax..deg.c. : num [1:6935] 9.5 14.5 12.5 12 1.5 3.5 3.5 6 7 9.5 ...
-> ##   ..$ tmin..deg.c. : num [1:6935] -2.5 4.5 2 -0.5 -4 -2 -2.5 -4 2 4 ...
-> ##   ..$ vp..Pa.      : num [1:6935] 520 840 720 600 440 520 520 440 720 800 ...
+> ##   ..$ dayl..s.     : num [1:6935] 32832 32832 32832 33178 33178 ...
+> ##   ..$ prcp..mm.day.: num [1:6935] 0 0 8 27 0 0 0 0 0 2 ...
+> ##   ..$ srad..W.m.2. : num [1:6935] 259 234 163 182 195 ...
+> ##   ..$ swe..kg.m.2. : num [1:6935] 52 52 44 44 44 40 40 40 40 36 ...
+> ##   ..$ tmax..deg.c. : num [1:6935] 8.5 14 14.5 12 3.5 1.5 4 3.5 6.5 9 ...
+> ##   ..$ tmin..deg.c. : num [1:6935] -4.5 3 4.5 0.5 -4.5 -4.5 -4 -5.5 -1.5 3 ...
+> ##   ..$ vp..Pa.      : num [1:6935] 440 760 840 640 440 440 440 400 560 760 ...
 > ##  - attr(*, "class")= chr "daymetr"
 > ```
 > The object `weather` is a list of 7 objects, the last of which is the data. In the next excerise we will explore what variables are in this dataframe. 
@@ -119,13 +120,13 @@ source: Rmd
 > > ## 'data.frame':	6935 obs. of  9 variables:
 > > ##  $ year         : num  2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
 > > ##  $ yday         : num  1 2 3 4 5 6 7 8 9 10 ...
-> > ##  $ dayl..s.     : num  32486 32486 32486 32486 32832 ...
-> > ##  $ prcp..mm.day.: num  0 1 13 6 2 0 0 0 0 4 ...
-> > ##  $ srad..W.m.2. : num  250 224 176 189 160 ...
-> > ##  $ swe..kg.m.2. : num  20 16 12 12 8 8 8 4 4 0 ...
-> > ##  $ tmax..deg.c. : num  9.5 14.5 12.5 12 1.5 3.5 3.5 6 7 9.5 ...
-> > ##  $ tmin..deg.c. : num  -2.5 4.5 2 -0.5 -4 -2 -2.5 -4 2 4 ...
-> > ##  $ vp..Pa.      : num  520 840 720 600 440 520 520 440 720 800 ...
+> > ##  $ dayl..s.     : num  32832 32832 32832 33178 33178 ...
+> > ##  $ prcp..mm.day.: num  0 0 8 27 0 0 0 0 0 2 ...
+> > ##  $ srad..W.m.2. : num  259 234 163 182 195 ...
+> > ##  $ swe..kg.m.2. : num  52 52 44 44 44 40 40 40 40 36 ...
+> > ##  $ tmax..deg.c. : num  8.5 14 14.5 12 3.5 1.5 4 3.5 6.5 9 ...
+> > ##  $ tmin..deg.c. : num  -4.5 3 4.5 0.5 -4.5 -4.5 -4 -5.5 -1.5 3 ...
+> > ##  $ vp..Pa.      : num  440 760 840 640 440 440 440 400 560 760 ...
 > > ```
 > > The date is reported as the year and day of the year. 
 > > Other variables include day length, precipitation, solar radiation, snow water equivalent, maximum temperature, minimum temperature, and vapor pressure. 
@@ -201,7 +202,7 @@ source: Rmd
 > > ```
 > > 
 > > ```
-> > ## [1] 49.1 58.1 54.5 53.6 34.7 38.3
+> > ## [1] 47.3 57.2 58.1 53.6 38.3 34.7
 > > ```
 > > 
 > > ```r
@@ -209,7 +210,7 @@ source: Rmd
 > > ```
 > > 
 > > ```
-> > ## [1] 94.1
+> > ## [1] 97.7
 > > ```
 > > 
 > > ```r
@@ -217,7 +218,7 @@ source: Rmd
 > > ```
 > > 
 > > ```
-> > ## [1] -13
+> > ## [1] -16.6
 > > ```
 > > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
 > {: .solution}
@@ -243,25 +244,18 @@ source: Rmd
 > ```r
 > weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 > head(weather_data$month)
-> 
-> This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv). 
 > ```
 > 
 > ```
-> ## Error: <text>:4:6: unexpected symbol
-> ## 3: 
-> ## 4: This is
-> ##         ^
+> ## [1] Jan Jan Jan Jan Jan Jan
+> ## 12 Levels: Jan < Feb < Mar < Apr < May < Jun < Jul < Aug < Sep < ... < Dec
 > ```
+> 
+> This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv).
+> 
 > 
 > ```r
-> write .csv(weather_data, "weather_2000_2018.csv") 
-> ```
-> 
-> ```
-> ## Error: <text>:1:7: unexpected symbol
-> ## 1: write .csv
-> ##           ^
+> write.csv(weather_data, "weather_2000_2018.csv") 
 > ```
 {: .callout}
 
@@ -276,18 +270,20 @@ source: Rmd
 > 
 > ```r
 > by_month_year <- sumprec_by_monthyear(weather_data)
-> ```
-> 
-> ```
-> ## Error: Column `month` is unknown
-> ```
-> 
-> ```r
 > head(by_month_year)
 > ```
 > 
 > ```
-> ## Error in head(by_month_year): object 'by_month_year' not found
+> ## # A tibble: 6 x 3
+> ## # Groups:   month [1]
+> ##   month  year prec_month
+> ##   <ord> <dbl>      <dbl>
+> ## 1 Jan    2000      2.44 
+> ## 2 Jan    2001      0.984
+> ## 3 Jan    2002      1.69 
+> ## 4 Jan    2003      1.65 
+> ## 5 Jan    2004      3.31 
+> ## 6 Jan    2005      7.68
 > ```
 >
 > Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January. 
@@ -302,10 +298,6 @@ source: Rmd
 > ```r
 > monthprec_2018 <- subset(by_month_year, year == 2018) 
 > ```
-> 
-> ```
-> ## Error in subset(by_month_year, year == 2018): object 'by_month_year' not found
-> ```
 {: .callout}
 
 > ## Exercise 3: Subsetting
@@ -319,7 +311,21 @@ source: Rmd
 > > ```
 > > 
 > > ```
-> > ## Error in subset(by_month_year, year != 2018): object 'by_month_year' not found
+> > ## # A tibble: 216 x 3
+> > ## # Groups:   month [12]
+> > ##    month  year prec_month
+> > ##    <ord> <dbl>      <dbl>
+> > ##  1 Jan    2000      2.44 
+> > ##  2 Jan    2001      0.984
+> > ##  3 Jan    2002      1.69 
+> > ##  4 Jan    2003      1.65 
+> > ##  5 Jan    2004      3.31 
+> > ##  6 Jan    2005      7.68 
+> > ##  7 Jan    2006      3.07 
+> > ##  8 Jan    2007      5.87 
+> > ##  9 Jan    2008      2.64 
+> > ## 10 Jan    2009      1.85 
+> > ## # … with 206 more rows
 > > ```
 > > 
 > > ```r
@@ -327,7 +333,22 @@ source: Rmd
 > > ```
 > > 
 > > ```
-> > ## Error in subset(by_month_year, year == 2015): object 'by_month_year' not found
+> > ## # A tibble: 12 x 3
+> > ## # Groups:   month [12]
+> > ##    month  year prec_month
+> > ##    <ord> <dbl>      <dbl>
+> > ##  1 Jan    2015       2.28
+> > ##  2 Feb    2015       1.57
+> > ##  3 Mar    2015       2.52
+> > ##  4 Apr    2015       3.74
+> > ##  5 May    2015       3.58
+> > ##  6 Jun    2015       7.24
+> > ##  7 Jul    2015       3.70
+> > ##  8 Aug    2015       4.25
+> > ##  9 Sep    2015       2.13
+> > ## 10 Oct    2015       2.83
+> > ## 11 Nov    2015       2.36
+> > ## 12 Dec    2015       3.86
 > > ```
 > > We see that the monthly rainfall in June was 7.91 inches. We could also find this by taking a subset with the year and month.
 > > 
@@ -336,7 +357,11 @@ source: Rmd
 > > ```
 > > 
 > > ```
-> > ## Error in subset(by_month_year, year == 2015 & month == "Jun"): object 'by_month_year' not found
+> > ## # A tibble: 1 x 3
+> > ## # Groups:   month [1]
+> > ##   month  year prec_month
+> > ##   <ord> <dbl>      <dbl>
+> > ## 1 Jun    2015       7.24
 > > ```
 > >
 > {: .solution}
@@ -347,10 +372,6 @@ source: Rmd
 > 
 > ```r
 > monthprec_hist <- avgprec_by_month(subset(by_month_year, year != 2018))
-> ```
-> 
-> ```
-> ## Error in subset(by_month_year, year != 2018): object 'by_month_year' not found
 > ```
 {: .callout}
 
@@ -366,10 +387,6 @@ source: Rmd
 > 
 > ```r
 > prec_plot <- merge(monthprec_hist, monthprec_2018, by = "month")
-> ```
-> 
-> ```
-> ## Error in merge(monthprec_hist, monthprec_2018, by = "month"): object 'monthprec_hist' not found
 > ```
 {: .callout}
 
@@ -387,19 +404,10 @@ source: Rmd
 > ```r
 > monthly_prec <- ggplot(prec_plot) + 
 >   geom_bar(aes(x = month, y = prec_month), stat = 'identity') 
-> ```
-> 
-> ```
-> ## Error in ggplot(prec_plot): object 'prec_plot' not found
-> ```
-> 
-> ```r
 > monthly_prec + geom_point(aes(month, prec_avg), show.legend = TRUE) + ggtitle("2018 Monthly Precipitation Compared to Average")
 > ```
 > 
-> ```
-> ## Error in eval(expr, envir, enclos): object 'monthly_prec' not found
-> ```
+> ![plot of chunk precmonthplot](../fig/precmonthplot-1.png)
 >
 > The most notable feature of the weather graph is the below average rainfall in July, the most 
 critical growing period for corn. To understand whether this affected yield on the field, we

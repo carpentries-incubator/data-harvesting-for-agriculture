@@ -1,4 +1,5 @@
 pmgroupname,rvindicator,cokey,copmgrpkey
+<<<<<<< HEAD
 loamy till,Yes,17960866,13006831
 outwash,Yes,17960867,13006786
 glaciolacustrine deposits,Yes,17960868,13006646
@@ -26,6 +27,27 @@ glaciolacustrine deposits,Yes,17961123,13006864
 "Wisconsin loamy till derived from limestone, sandstone, and shale",Yes,17961124,13006768
 glaciolacustrine deposits over Wisconsin till,Yes,17961125,13006770
 "Wisconsin loamy till derived from limestone, sandstone, and shale",Yes,17961126,13006769
+=======
+till,Yes,17960876,13006616
+till,Yes,17960877,13006836
+till,Yes,17960878,13006733
+till,Yes,17960976,13006532
+loamy till,Yes,17960977,13006838
+alluvium,Yes,17961008,13006798
+alluvium,Yes,17961018,13006574
+alluvium,Yes,17961019,13006840
+loamy alluvium,Yes,17961021,13006575
+"Wisconsin loamy till derived from limestone, sandstone, and shale",Yes,17961049,13006821
+"Wisconsin loamy till derived from limestone, sandstone, and shale",Yes,17961050,13006678
+"till derived from limestone, sandstone, and shale",Yes,17961051,13006820
+loamy alluvium,Yes,17961097,13006753
+loamy alluvium,Yes,17961098,13006677
+loamy alluvium,Yes,17961099,13006819
+"Wisconsin loamy till derived from limestone, sandstone, and shale",Yes,17961209,13006693
+"Wisconsin loamy till derived from limestone, sandstone, and shale",Yes,17961210,13006862
+"Wisconsin loamy till derived from limestone, sandstone, and shale",Yes,17961211,13006766
+"Wisconsin loamy till derived from limestone, sandstone, and shale",Yes,17961212,13006767
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 Wisconsin loamy till derived from sandstone and shale,Yes,17961214,13006679
 Wisconsin loamy till derived from sandstone and shale,Yes,17961215,13006680
 Wisconsin loamy till derived from sandstone and shale,Yes,17961216,13006822

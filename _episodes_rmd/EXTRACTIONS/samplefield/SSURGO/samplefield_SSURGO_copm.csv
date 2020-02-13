@@ -1,4 +1,5 @@
 pmorder,pmmodifier,pmgenmod,pmkind,pmorigin,copmgrpkey,copmkey
+<<<<<<< HEAD
 NA,,,Till,,13006548,18245233
 NA,,,Till,,13006562,18245247
 NA,,,Till,,13006563,18245248
@@ -7,10 +8,18 @@ NA,,,Glaciolacustrine deposits,,13006646,18245343
 NA,,,Till,,13006647,18245344
 NA,,,Till,,13006654,18245353
 NA,Clayey,,Glaciolacustrine deposits,,13006665,18245364
+=======
+NA,,,Till,,13006532,18245214
+NA,,,Alluvium,,13006574,18245259
+NA,Loamy,,Alluvium,,13006575,18245260
+NA,,,Till,,13006616,18245307
+NA,Loamy,,Alluvium,,13006677,18245376
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006678,18245377
 NA,Loamy,Wisconsin,Till,Sandstone and shale,13006679,18245378
 1,Loamy,Wisconsin,Till,Sandstone and shale,13006680,18245379
 NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006692,18245394
+<<<<<<< HEAD
 NA,Clayey,,Glaciolacustrine deposits,,13006705,18245407
 NA,,,Till,,13006707,18245409
 NA,,,Glaciolacustrine deposits,,13006738,18245445
@@ -18,11 +27,17 @@ NA,,,Glaciolacustrine deposits,,13006738,18245445
 2,,,Coprogenic material,,13006739,18245447
 NA,,,Till,,13006740,18245448
 NA,,,Till,,13006741,18245449
+=======
+1,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006693,18245395
+NA,,,Till,,13006733,18245440
+NA,Loamy,,Alluvium,,13006753,18245463
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 NA,Loamy,Wisconsin,Till,Sandstone and shale,13006754,18245464
 NA,Loamy,Wisconsin,Till,Sandstone and shale,13006755,18245465
 1,Loamy,Wisconsin,Till,Sandstone and shale,13006756,18245466
 NA,,,Till,Sandstone and shale,13006757,18245467
 NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006765,18245475
+<<<<<<< HEAD
 NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006768,18245478
 NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006769,18245479
 1,,,Glaciolacustrine deposits,,13006770,18245480
@@ -32,11 +47,26 @@ NA,,,Till,,13006787,18245498
 NA,,,Lacustrine deposits,,13006795,18245506
 NA,,,Glaciolacustrine deposits,,13006804,18245515
 NA,,,Till,,13006805,18245516
+=======
+1,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006766,18245476
+1,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006767,18245477
+NA,,,Alluvium,,13006798,18245509
+NA,Loamy,,Alluvium,,13006819,18245531
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 NA,,,Till,"Limestone, sandstone, and shale",13006820,18245532
 NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006821,18245533
 NA,Loamy,Wisconsin,Till,Sandstone and shale,13006822,18245534
 NA,,,Till,Sandstone and shale,13006823,18245535
+<<<<<<< HEAD
 NA,Loamy,,Till,,13006831,18245544
 NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006860,18245579
 NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006861,18245580
 NA,,,Glaciolacustrine deposits,,13006864,18245583
+=======
+NA,,,Till,,13006836,18245549
+NA,Loamy,,Till,,13006838,18245551
+NA,,,Alluvium,,13006840,18245553
+NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006860,18245579
+NA,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006861,18245580
+1,Loamy,Wisconsin,Till,"Limestone, sandstone, and shale",13006862,18245581
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96

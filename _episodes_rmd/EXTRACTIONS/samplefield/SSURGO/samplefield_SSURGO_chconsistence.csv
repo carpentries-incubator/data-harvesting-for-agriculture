@@ -10,6 +10,7 @@ Friable,NA,NA,NA,Nonfluid,Slightly sticky,Slightly plastic,Yes,52474467,5301069
 Firm,NA,NA,NA,Deformable,Moderately sticky,Moderately plastic,Yes,52474468,5301070
 Firm,NA,NA,NA,Deformable,Moderately sticky,Moderately plastic,Yes,52474469,5301071
 Very firm,NA,NA,NA,Semideformable,Moderately sticky,Moderately plastic,Yes,52474470,5301274
+<<<<<<< HEAD
 Firm,NA,NA,NA,,,,Yes,52474628,5301215
 Friable,NA,NA,NA,,,,Yes,52474629,5301298
 Firm,NA,NA,NA,,,,Yes,52474630,5301216
@@ -21,6 +22,23 @@ Firm,NA,NA,NA,,,,Yes,52474635,5301079
 Friable,NA,NA,NA,,,,Yes,52474640,5301280
 Firm,NA,NA,NA,,,,Yes,52474641,5301192
 Very firm,NA,NA,NA,,,,Yes,52474642,5301281
+=======
+Friable,NA,NA,NA,,,,Yes,52474836,5301227
+Firm,NA,NA,NA,,,,Yes,52474837,5301132
+Firm,NA,NA,NA,,,,Yes,52474838,5301310
+Very firm,NA,NA,NA,,,,Yes,52474839,5301133
+Friable,NA,NA,NA,,,,Yes,52474840,5300966
+Firm,NA,NA,NA,,,,Yes,52474841,5300967
+Very firm,NA,NA,NA,,,,Yes,52474842,5301242
+Very firm,NA,NA,NA,,,,Yes,52474843,5301041
+Friable,NA,NA,NA,,,,Yes,52474844,5301243
+Firm,NA,NA,NA,,,,Yes,52474845,5301042
+Firm,NA,NA,NA,,,,Yes,52474846,5301043
+Friable,NA,NA,NA,,,,Yes,52474847,5301044
+Firm,NA,NA,NA,,,,Yes,52474848,5301045
+Very firm,NA,NA,NA,,,,Yes,52474849,5301244
+Firm,NA,NA,NA,,,,Yes,52474850,5301151
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 Very firm,NA,NA,NA,,,,Yes,52474854,5300968
 Friable,NA,NA,NA,,,,Yes,52474855,5301245
 Firm,NA,NA,NA,,,,Yes,52474856,5301152

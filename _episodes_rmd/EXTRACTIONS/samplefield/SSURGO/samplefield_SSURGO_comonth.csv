@@ -1,4 +1,5 @@
 monthseq,month,flodfreqcl,floddurcl,pondfreqcl,ponddurcl,ponddep.l,ponddep.r,ponddep.h,dlyavgprecip.l,dlyavgprecip.r,dlyavgprecip.h,dlyavgpotet.l,dlyavgpotet.r,dlyavgpotet.h,cokey,comonthkey
+<<<<<<< HEAD
 4,April,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960866,188408222
 8,August,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960866,188408223
 12,December,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960866,188408224
@@ -11,6 +12,8 @@ monthseq,month,flodfreqcl,floddurcl,pondfreqcl,ponddurcl,ponddep.l,ponddep.r,pon
 11,November,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960866,188408231
 10,October,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960866,188408232
 9,September,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960866,188408233
+=======
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 6,June,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961218,188410058
 2,February,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17961218,188410059
 5,May,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17961218,188410060
@@ -59,6 +62,7 @@ monthseq,month,flodfreqcl,floddurcl,pondfreqcl,ponddurcl,ponddep.l,ponddep.r,pon
 3,March,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961224,188410139
 5,May,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961224,188410140
 12,December,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961224,188410141
+<<<<<<< HEAD
 4,April,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960897,188408306
 8,August,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960897,188408307
 12,December,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960897,188408308
@@ -95,6 +99,68 @@ monthseq,month,flodfreqcl,floddurcl,pondfreqcl,ponddurcl,ponddep.l,ponddep.r,pon
 11,November,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17961023,188408699
 10,October,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961023,188408700
 9,September,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961023,188408701
+=======
+4,April,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408246
+8,August,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960876,188408247
+12,December,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408248
+2,February,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408249
+1,January,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408250
+7,July,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408251
+6,June,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408252
+3,March,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408253
+5,May,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408254
+11,November,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17960876,188408255
+10,October,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960876,188408256
+9,September,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960876,188408257
+4,April,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408258
+8,August,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408259
+12,December,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408260
+2,February,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408261
+1,January,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408262
+7,July,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408263
+6,June,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408264
+3,March,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408265
+5,May,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408266
+11,November,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408267
+10,October,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408268
+9,September,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960877,188408269
+4,April,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408558
+8,August,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408559
+12,December,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408560
+2,February,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408561
+1,January,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408562
+7,July,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408563
+6,June,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408564
+3,March,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408565
+5,May,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408566
+11,November,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408567
+10,October,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408568
+9,September,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960976,188408569
+4,April,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408570
+8,August,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408571
+12,December,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408572
+2,February,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408573
+1,January,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408574
+7,July,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408575
+6,June,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408576
+3,March,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408577
+5,May,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408578
+11,November,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408579
+10,October,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408580
+9,September,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17960977,188408581
+4,April,Occasional,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408678
+8,August,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408679
+12,December,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408680
+2,February,Occasional,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408681
+1,January,Occasional,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408682
+7,July,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408683
+6,June,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408684
+3,March,Occasional,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408685
+5,May,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408686
+11,November,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408687
+10,October,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408688
+9,September,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961019,188408689
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 1,January,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961049,188408774
 2,February,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961049,188408775
 3,March,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961049,188408776
@@ -131,6 +197,7 @@ monthseq,month,flodfreqcl,floddurcl,pondfreqcl,ponddurcl,ponddep.l,ponddep.r,pon
 3,March,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17961051,188408807
 2,February,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17961051,188408808
 1,January,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17961051,188408809
+<<<<<<< HEAD
 2,February,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17961123,188409290
 12,December,None,,Frequent,Long (7 to 30 days),0,15,30,NA,NA,NA,NA,NA,NA,17961123,188409291
 7,July,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961123,188409292
@@ -179,6 +246,44 @@ monthseq,month,flodfreqcl,floddurcl,pondfreqcl,ponddurcl,ponddep.l,ponddep.r,pon
 5,May,None,,Frequent,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961126,188409335
 11,November,None,,Frequent,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961126,188409336
 12,December,None,,Frequent,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961126,188409337
+=======
+6,June,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409062
+8,August,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409063
+7,July,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409064
+11,November,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409065
+10,October,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409066
+9,September,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409067
+1,January,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409068
+2,February,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409069
+3,March,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409070
+4,April,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409071
+5,May,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409072
+12,December,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961097,188409073
+8,August,,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961098,188409074
+1,January,Frequent,Brief (2 to 7 days),Occasional,Brief (2 to 7 days),0,7,15,NA,NA,NA,NA,NA,NA,17961098,188409075
+7,July,,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961098,188409076
+6,June,Frequent,Brief (2 to 7 days),Occasional,Brief (2 to 7 days),0,7,15,NA,NA,NA,NA,NA,NA,17961098,188409077
+11,November,Frequent,Brief (2 to 7 days),Occasional,Brief (2 to 7 days),0,7,15,NA,NA,NA,NA,NA,NA,17961098,188409078
+10,October,,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961098,188409079
+3,March,Frequent,Brief (2 to 7 days),Occasional,Brief (2 to 7 days),0,7,15,NA,NA,NA,NA,NA,NA,17961098,188409080
+9,September,,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961098,188409081
+4,April,Frequent,Brief (2 to 7 days),Occasional,Brief (2 to 7 days),0,7,15,NA,NA,NA,NA,NA,NA,17961098,188409082
+2,February,Frequent,Brief (2 to 7 days),Occasional,Brief (2 to 7 days),0,7,15,NA,NA,NA,NA,NA,NA,17961098,188409083
+12,December,Frequent,Brief (2 to 7 days),Occasional,Brief (2 to 7 days),0,7,15,NA,NA,NA,NA,NA,NA,17961098,188409084
+5,May,Frequent,Brief (2 to 7 days),Occasional,Brief (2 to 7 days),0,7,15,NA,NA,NA,NA,NA,NA,17961098,188409085
+6,June,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409086
+7,July,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409087
+8,August,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409088
+9,September,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409089
+10,October,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409090
+11,November,,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409091
+5,May,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409092
+4,April,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409093
+12,December,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409094
+2,February,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409095
+1,January,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409096
+3,March,Frequent,Brief (2 to 7 days),None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961099,188409097
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 7,July,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961214,188410010
 8,August,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961214,188410011
 9,September,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961214,188410012
@@ -275,3 +380,54 @@ monthseq,month,flodfreqcl,floddurcl,pondfreqcl,ponddurcl,ponddep.l,ponddep.r,pon
 4,April,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961230,188410211
 3,March,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961230,188410212
 2,February,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961230,188410213
+<<<<<<< HEAD
+=======
+11,November,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409950
+6,June,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409951
+4,April,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409952
+3,March,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409953
+2,February,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409954
+10,October,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409955
+7,July,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409956
+8,August,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409957
+9,September,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409958
+1,January,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409959
+5,May,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409960
+12,December,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961209,188409961
+7,July,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961210,188409962
+9,September,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961210,188409963
+4,April,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961210,188409964
+2,February,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961210,188409965
+6,June,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961210,188409966
+11,November,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961210,188409967
+10,October,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961210,188409968
+8,August,None,,,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961210,188409969
+1,January,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961210,188409970
+3,March,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961210,188409971
+5,May,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961210,188409972
+12,December,None,,Occasional,Long (7 to 30 days),0,7,15,NA,NA,NA,NA,NA,NA,17961210,188409973
+1,January,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409974
+8,August,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409975
+10,October,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409976
+3,March,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409977
+12,December,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409978
+5,May,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409979
+9,September,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409980
+7,July,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409981
+6,June,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409982
+4,April,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409983
+2,February,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409984
+11,November,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961211,188409985
+7,July,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409986
+1,January,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409987
+2,February,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409988
+12,December,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409989
+8,August,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409990
+4,April,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409991
+9,September,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409992
+10,October,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409993
+11,November,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409994
+5,May,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409995
+3,March,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409996
+6,June,None,,None,,NA,NA,NA,NA,NA,NA,NA,NA,NA,17961212,188409997
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96

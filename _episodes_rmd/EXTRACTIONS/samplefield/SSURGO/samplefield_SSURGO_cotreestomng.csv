@@ -1,4 +1,5 @@
 plantsym,plantsciname,plantcomname,cokey,cotreestomngkey
+<<<<<<< HEAD
 PIST,Pinus strobus,eastern white pine,17960866,30922167
 JUNI,Juglans nigra,black walnut,17960866,30922168
 LITU,Liriodendron tulipifera,tuliptree,17960866,30922169
@@ -14,6 +15,30 @@ JUNI,Juglans nigra,black walnut,17960899,30922200
 PIGL,Picea glauca,white spruce,17961023,30922343
 FRAM2,Fraxinus americana,white ash,17961023,30922344
 ACRU,Acer rubrum,red maple,17961023,30922345
+=======
+ACRU,Acer rubrum,red maple,17960876,30922173
+PIST,Pinus strobus,eastern white pine,17960876,30922174
+PIGL,Picea glauca,white spruce,17960876,30922175
+LITU,Liriodendron tulipifera,tuliptree,17960876,30922176
+LITU,Liriodendron tulipifera,tuliptree,17960877,30922177
+PIAB,Picea abies,Norway spruce,17960877,30922178
+PIST,Pinus strobus,eastern white pine,17960877,30922179
+PRSE2,Prunus serotina,black cherry,17960976,30922269
+PIST,Pinus strobus,eastern white pine,17960976,30922270
+JUNI,Juglans nigra,black walnut,17960976,30922271
+LITU,Liriodendron tulipifera,tuliptree,17960976,30922272
+PIRE,Pinus resinosa,red pine,17960976,30922273
+LITU,Liriodendron tulipifera,tuliptree,17960977,30922274
+PIRE,Pinus resinosa,red pine,17960977,30922275
+JUNI,Juglans nigra,black walnut,17960977,30922276
+PRSE2,Prunus serotina,black cherry,17960977,30922277
+PIST,Pinus strobus,eastern white pine,17960977,30922278
+PIST,Pinus strobus,eastern white pine,17961019,30922338
+PIAB,Picea abies,Norway spruce,17961019,30922339
+FRAM2,Fraxinus americana,white ash,17961019,30922340
+LITU,Liriodendron tulipifera,tuliptree,17961019,30922341
+JUNI,Juglans nigra,black walnut,17961019,30922342
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 ACSA2,Acer saccharinum,silver maple,17961049,30922364
 PODE3,Populus deltoides,eastern cottonwood,17961049,30922365
 LIST2,Liquidambar styraciflua,sweetgum,17961049,30922366
@@ -34,6 +59,7 @@ QUPA2,Quercus palustris,pin oak,17961050,30922380
 ACSA2,Acer saccharinum,silver maple,17961050,30922381
 PODE3,Populus deltoides,eastern cottonwood,17961050,30922382
 QURU,Quercus rubra,northern red oak,17961050,30922383
+<<<<<<< HEAD
 ACRU,Acer rubrum,red maple,17961124,30922609
 FRPE,Fraxinus pennsylvanica,green ash,17961124,30922610
 PIST,Pinus strobus,eastern white pine,17961124,30922611
@@ -71,6 +97,64 @@ TADI2,Taxodium distichum,baldcypress,17961126,30922642
 LIST2,Liquidambar styraciflua,sweetgum,17961126,30922643
 PODE3,Populus deltoides,eastern cottonwood,17961126,30922644
 ACSA2,Acer saccharinum,silver maple,17961126,30922645
+=======
+FRAM2,Fraxinus americana,white ash,17961209,30923167
+JUVI,Juniperus virginiana,eastern redcedar,17961209,30923168
+QUVE,Quercus velutina,black oak,17961209,30923169
+ACRU,Acer rubrum,red maple,17961209,30923170
+PIST,Pinus strobus,eastern white pine,17961209,30923171
+FRPE,Fraxinus pennsylvanica,green ash,17961209,30923172
+PRSE2,Prunus serotina,black cherry,17961209,30923173
+ROPS,Robinia pseudoacacia,black locust,17961209,30923174
+ACSA2,Acer saccharinum,silver maple,17961209,30923175
+PIRE,Pinus resinosa,red pine,17961209,30923176
+LITU,Liriodendron tulipifera,tuliptree,17961209,30923177
+PODE3,Populus deltoides,eastern cottonwood,17961209,30923178
+QUAL,Quercus alba,white oak,17961209,30923179
+QURU,Quercus rubra,northern red oak,17961209,30923180
+QUBI,Quercus bicolor,swamp white oak,17961209,30923181
+QUPA2,Quercus palustris,pin oak,17961209,30923182
+PLOC,Platanus occidentalis,American sycamore,17961209,30923183
+QUBI,Quercus bicolor,swamp white oak,17961210,30923184
+QUPA2,Quercus palustris,pin oak,17961210,30923185
+TADI2,Taxodium distichum,baldcypress,17961210,30923186
+PLOC,Platanus occidentalis,American sycamore,17961210,30923187
+ACSA2,Acer saccharinum,silver maple,17961210,30923188
+PODE3,Populus deltoides,eastern cottonwood,17961210,30923189
+LIST2,Liquidambar styraciflua,sweetgum,17961210,30923190
+ACRU,Acer rubrum,red maple,17961210,30923191
+FRPE,Fraxinus pennsylvanica,green ash,17961210,30923192
+PIAB,Picea abies,Norway spruce,17961210,30923193
+FRAM2,Fraxinus americana,white ash,17961210,30923194
+FRAM2,Fraxinus americana,white ash,17961211,30923195
+PIPU,Picea pungens,blue spruce,17961211,30923196
+QUVE,Quercus velutina,black oak,17961211,30923197
+ACRU,Acer rubrum,red maple,17961211,30923198
+FRPE,Fraxinus pennsylvanica,green ash,17961211,30923199
+PIST,Pinus strobus,eastern white pine,17961211,30923200
+PIAB,Picea abies,Norway spruce,17961211,30923201
+PINI,Pinus nigra,Austrian pine,17961211,30923202
+PRSE2,Prunus serotina,black cherry,17961211,30923203
+ROPS,Robinia pseudoacacia,black locust,17961211,30923204
+LITU,Liriodendron tulipifera,tuliptree,17961211,30923205
+PIRE,Pinus resinosa,red pine,17961211,30923206
+QUAL,Quercus alba,white oak,17961211,30923207
+PIGL,Picea glauca,white spruce,17961211,30923208
+PODE3,Populus deltoides,eastern cottonwood,17961211,30923209
+QURU,Quercus rubra,northern red oak,17961211,30923210
+ABFR,Abies fraseri,Fraser fir,17961211,30923211
+JUNI,Juglans nigra,black walnut,17961211,30923212
+QUPA2,Quercus palustris,pin oak,17961211,30923213
+PISY,Pinus sylvestris,Scotch pine,17961211,30923214
+PLOC,Platanus occidentalis,American sycamore,17961211,30923215
+JUNI,Juglans nigra,black walnut,17961212,30923216
+LITU,Liriodendron tulipifera,tuliptree,17961212,30923217
+PIRE,Pinus resinosa,red pine,17961212,30923218
+QUAL,Quercus alba,white oak,17961212,30923219
+QURU,Quercus rubra,northern red oak,17961212,30923220
+PIST,Pinus strobus,eastern white pine,17961212,30923221
+FRAM2,Fraxinus americana,white ash,17961212,30923222
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 JUVI,Juniperus virginiana,eastern redcedar,17961214,30923223
 QUVE,Quercus velutina,black oak,17961214,30923224
 ACRU,Acer rubrum,red maple,17961214,30923225

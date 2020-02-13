@@ -8,7 +8,7 @@ source: Rmd
 library(knitr)
 library(httr)
 knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
-source("functions.R")
+source("./functions.R")
 ```
 
 
@@ -39,7 +39,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 
 Below are the packages that we will use in this episode.
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+```{r, message=TRUE, warning=TRUE, include=TRUE}
 library(sf)
 library(fasterize)
 library(gstat)
@@ -191,7 +191,7 @@ plot(boundary$geom)
 
 We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide the function `map_poly()` in the functions.R script for making a simple map with polygon features colored based on a given variable. The function requires a spatial object and a variable name in ''.
 
-```{r}
+```{r echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
 map_poly(boundary, 'Type', 'Part of Field')
 ```
 
@@ -209,6 +209,7 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 
 ```{r ssurgo}
 <<<<<<< HEAD
+<<<<<<< HEAD
 boundarynew <- read_sf("data/boundary_transformed.gpkg")
 =======
 <<<<<<< HEAD
@@ -223,6 +224,12 @@ boundary.sp <- as(boundarynew, "Spatial")
 >>>>>>> 6db20200ff876b4991151f3bee1d7a998cf32483
 plot(boundary.sp)
 ssurgo <- get_ssurgo(boundary.sp, "test")
+=======
+#boundarynew <- read_sf("data/asplanted_transformed.gpkg")
+#boundary <- subset(boundary, Type == "Trial")
+#boundary.sp <- as(boundary, "Spatial")
+#ssurgo <- get_ssurgo(boundary.sp, "samplefield")
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 ```
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
@@ -237,7 +244,7 @@ Let's make a map of the soil types on this field. First, we need to locate the p
 `tabular` with the soil names; these can be found in `muaggatt`.
 
 ```{r names}
-names <- ssurgo$tabular$muaggatt 
+#names <- ssurgo$tabular$muaggatt 
 ```
 
 *Exercise 4*: What are the soil types present on the field as seen in `names`? Are the soil 
@@ -246,7 +253,7 @@ defined by anything other than the soil type?
 *Exercise 4 Solution*
 
 ```{r soilnames}
-names
+#names
 ```
 
 Looking at `names` we can see there are eight types of soil on the field, and the dataframe 
@@ -258,10 +265,10 @@ and the spatial data by the `musym`. Note that in one of the dataframes the vari
 capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.
 
 ```{r soilmerge}
-spatial <- as(ssurgo$spatial, "sf")
-spatial <- dplyr::rename(spatial, musym = MUSYM)
-spatial <- merge(spatial, names, by = "musym")
-head(spatial$muname)
+#spatial <- as(ssurgo$spatial, "sf")
+#spatial <- dplyr::rename(spatial, musym = MUSYM)
+#spatial <- merge(spatial, names, by = "musym")
+#head(spatial$muname)
 ```
 
 *Exercise 5*: Create the Soil Map
@@ -273,8 +280,8 @@ Use `map_poly()` to make a map where the polygon color is informed by the soil n
 *Exercise 5 Solution*
 
 ```{r}
-map_soil <- map_poly(spatial, 'muname', "Soil Type")
-map_soil
+#map_soil <- map_poly(spatial, 'muname', "Soil Type")
+#map_soil
 ```
 
 The map shows that there are quite a few soil types on the field, and several show up
@@ -288,5 +295,5 @@ your own field.
 Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, we are going to make a table of the clay, silt, and sand content as well as the water content of the different soil types. There is a function `c_s_s_soil()` in `functions.R` that uses the soil depth to take an average of the soil measures for each soil type. The only parameter that needs to be 
 
 ```{r soilmap}
-soil_content <- c_s_s_soil(ssurgo = ssurgo)
+#soil_content <- c_s_s_soil(ssurgo = ssurgo)
 ```
