@@ -53,6 +53,7 @@ library(tmap)
 library(ggplot2)
 library(gridExtra)
 library(grid)
+library(FedData)
 ```
 
 ###Introducing Spatial Data with SSURGO data
@@ -196,11 +197,10 @@ There are several ways to visualize spatial data. First, we can use `plot()` to 
 plot(boundary$geom)
 ```
 
-We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide the function `map_poly()` in the functions.R script for making a simple map with polygon features colored based on a given variable. 
+We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide the function `map_poly()` in the functions.R script for making a simple map with polygon features colored based on a given variable. The function requires a spatial object and a variable name in ''.
 
 ```{r plotboth }
-tm_shape(boundary) + tm_polygons('Type') +
-  tm_layout(legend.outside = TRUE, frame = FALSE) 
+map_poly(boundary, 'Type')
 ```
 
 #SSURGO Soil Data
@@ -213,13 +213,14 @@ that has a function `get_ssurgo()` for accessing the soil data in the R environm
 
 https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 
-The next line brings the SSURGO data into the R environment with the name `ssurgo` and the 
-object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs 
-to be `spatial` rather than `sf`, so we trasnform the object with `as(boundary,"Spatial")`.
+The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo}
-bound.sp <- as(boundary, "Spatial")
-ssurgo <- get_ssurgo(bound.sp, "field1")
+boundarynew <- read_sf("~/Documents/Data Carpentry/data/boundary.gpkg")
+boundary <- st_make_valid(boundarynew)
+
+boundary.sp <- as(boundarynew, "Spatial")
+ssurgo <- get_ssurgo(boundary.sp, "field1")
 ```
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
