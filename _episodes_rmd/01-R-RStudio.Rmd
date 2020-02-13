@@ -352,6 +352,7 @@ or make ./ or ../ paths work to navigate to where the file is living.**
 **Dena: Sequence needed here:
 1) Where is your working directory actually now? (Mine was C:\Users\Dena\Documents, which is totally disconnected from where our stuff will be.)
 2) Change it to C:\ or D:\ DataHarvesting(YourOS)\SampleData (I think)
+2b) In the process if you're on Windows all those \ marks need to become / marks - Brittani says there's a point and click option
 3) Download the file.csv into the SampleData folder unless we've already put it there for them
 4) Then read in the file**
 
