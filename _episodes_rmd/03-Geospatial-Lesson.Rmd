@@ -52,12 +52,9 @@ source("./functions.R")
 - Projecting your data in utm is necessary for many of the geometric operations
 you perform (e.g. making trial grids and splitting plots into subplot data)
 - Different data formats that you are likely to encounter include gpkg, shp
-(cpg, dbf, prj, sbn, sbx), geojson, and tif
+(cpg, dbf, prj, sbn, sbx), geojson, and tif **Dena: We don't discuss most of these in the lesson - tweak description or add overview?**
 
-### Setup
-
-Below are the packages that we will use in this episode.
-
+<!-- Setup -->
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 library(sf)
 library(fasterize)
@@ -81,6 +78,19 @@ library(plyr)
 
 ### Introducing Spatial Data with SSURGO data
 
+**Dena: This would be a good point for an "We're starting with a bunch of miscellanous files and by the end of this lesson here's
+the things you'll be able to do with them" overview? Rough notes below, they just aren't pre-bolded...**
+
+**Spatial data can be stored in many different ways, and an important part of using your farm's data will involve understanding
+what format your data is already in and what format another program needs it to be in. During the course of this lesson, we'll learn:
+
+* How to identify which coordinate reference system a data file is using
+* How, when, and why to transform data from the WGS84 standard to the UTM standard (or vice versa)
+* How to save the transformed data as a new file
+* Some ways of creating visualizations from your data
+* How to get key soil type data for your farm from the publicly available SSURGO database
+**/end add?**
+
 #### What is a CRS?
 
 Geospatial data has a coordinate reference system (CRS) that reports how the map is projected and what point is used as a reference. A projection is a way of making the earth's curved surface fit into something you 
@@ -102,15 +112,15 @@ effect on your outcome.
 #### Reading in the Boundary File
 
 Before we can look at a CRS in R, we need to have a geospatial file in the R environment. We will bring in the field boundary. Use the function `read_sf()` to bring the dataset into your R environment.
-Because we have already set the working directory for this file, we only need to
-supply the file name. 
+**Dena's rewrite: Because we have already set the working directory for this file, we don't need to
+give the whole path, just the data subdirectory that the gpkg file is stored within.** 
 
 ```{r boundary}
 boundary <- read_sf("data/boundary_transformed.gpkg")
 ```
 
 There are many functions for reading files into the
-environment, but `read_sf()` creates an object of class `sf` or simple feature. This class
+environment, but `read_sf()` creates an object of class **`sf`** or **simple feature.** This class
 makes accessing spatial data much easier. Much like a data frame, you can access
 variables within an `sf` object using the `$` operator. For this and other reasons like the number of spatial
 calculations available for `sf` objects, this class is perferred in most situations.
@@ -122,11 +132,12 @@ The function for retreiving the CRS of a simple feature is `st_crs().` Generally
 ```{r checkCRS}
 st_crs(boundary)
 ```
-The boundary file is projected in longitude and latitude using the WGS84 datum. This will be CRS of most of the data you see. 
+The boundary file is projected in longitude and latitude using the WGS84 datum. This will be the CRS of most of the data you see. 
 
 
-Sometimes when looking at a shapefile, the .prj file can be lost. Then `st_crs()` will return empty, but `sf` objects contain a geometry column. We can see the geometric points for the vertices of
-each polygon or the points in the data.
+Sometimes when looking at a shapefile, the .prj file can be lost. Then `st_crs()` will 
+return empty, but `sf` objects contain a geometry column. We can see the geometric points 
+for the vertices of each polygon or the points in the data.
 
 ```{r geometry}
 head(boundary$geom)
@@ -136,7 +147,10 @@ The trial design is in lat/long using WGS84.
 
 ## UTM Zones
 
-Some coordinate reference systems, such as UTM zones, are measured in meters. Latitude and longitude represent a different type of CRS, defined in terms of angles across a sphere. If we want to create measures of distance, we need the trial design in UTM. But there are many UTM zones, so we must determine the zone of the trial area. 
+Some coordinate reference systems, such as UTM zones, are measured in meters. 
+Latitude and longitude represent a different type of CRS, defined in terms of angles 
+across a sphere. If we want to create measures of distance, we need the trial design 
+in UTM. But there are many UTM zones, so we must determine the zone of the trial area. 
 
 The UTM system divides the surface of Earth between 80°S and 84°N latitude into
 60 zones, each 6° of longitude in width. Zone 1 covers longitude 180° to 174° W;
@@ -145,9 +159,20 @@ East.
 
 #### st_transform and ESPG Codes
 
-For reprojecting spatial data, the function `st_transform()` uses an ESPG code to transform a simple feature to the new CRS. EPSG Geodetic Parameter Dataset is a public registry of spatial reference systems, Earth ellipsoids, coordinate transformations and related units of measurement. The ESPG is one way to assign or transform the CRS in R. 
+For reprojecting spatial data, the function `st_transform()` uses an ESPG code 
+to transform a simple feature to the new CRS. EPSG Geodetic Parameter Dataset is 
+a public registry of spatial reference systems, Earth ellipsoids, coordinate 
+transformations and related units of measurement. The ESPG is one way to assign 
+or transform the CRS in R. 
 
-The ESPG for UTM always begins with "326" and the last numbers are the number of the zone. The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design  files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude with WGS84.
+The ESPG for UTM always begins with "326" and the last numbers are the number of the zone.
+The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design 
+files will need to be transformed back into WGS84 before you implement the trial. Also, all 
+files from your machinery, such as yield, as-applied, and as-planted, will be reported in 
+latitude and longitude with WGS84.
+
+**Dena: I feel like this is a fantastic place to have an exercise with the name and/or first few lines of a file of each
+type to ask them to look at them and identify which is which and describe what that means, to check understanding?**
 
 #### Transforming
 
@@ -158,8 +183,8 @@ st_crs(boundaryutm)
 ```
 
 **Exercise**
-1. Bring the file called "asplanted_transformed.gpkg" in your environment. Name
-the object `planting`. This file contains the planting information for 2017.
+1. Bring the file called "asplanted_transformed.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?**
+in your environment. Name the object `planting`. This file contains the planting information for 2017.
 2. Identify the CRS of the object. 
 3. Look at the geometry features. What kind of geometric features are in this dataset?
 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
@@ -198,9 +223,13 @@ file from UTM to lat/long and save the new file during trial design, so this is 
 st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
-The new .gpkg file will be visible in your working directory. One common problem
-with these files is that when you try to open a .gpkg file for the first time in
-R, it might not work if you haven't opened it in QGIS before.
+The new .gpkg file will be visible in your working directory. **Dena: (Check it out:
+Browse to your working directory in Windows File Explorer or Mac Finder and see the
+date and time on your new file.)**
+
+One common problem with these files is that when you try to open a .gpkg file for the first time in
+R, it might not work if you haven't opened it in QGIS before. **Dena: Is this something to 
+mention here, or should it go in the section where we're opening things with QGIS?**
 
 #### Visualizing the data
 
