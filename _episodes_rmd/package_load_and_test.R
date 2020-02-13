@@ -9,7 +9,9 @@
 # console prompt says | , an installation is still in process.)
 
 library("rgdal")
+library("plyr")
 library("dplyr")
+library("sp")
 library("sf")
 library("gstat")
 library("tmap")

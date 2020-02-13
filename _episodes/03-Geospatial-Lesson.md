@@ -293,12 +293,38 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 
 
 ```r
+boundarynew <- read_sf("data/asplanted.gpkg")
+boundary <- subset(boundary, Type == "Trial")
 boundary.sp <- as(boundary, "Spatial")
-ssurgo <- get_ssurgo(boundary.sp, "field1")
+lwgeom::st_make_valid(boundary)
 ```
 
 ```
-## Error in {: task 1 failed - "Cannot open layer"
+## Simple feature collection with 2 features and 1 field
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -81.97817 ymin: 41.73981 xmax: -81.97327 ymax: 41.74615
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## # A tibble: 2 x 2
+##   Type                                                                      geom
+##   <chr>                                                       <MULTIPOLYGON [°]>
+## 1 Trial (((-81.97803 41.73981, -81.97805 41.74098, -81.97683 41.74091, -81.9759…
+## 2 Trial (((-81.97339 41.74573, -81.97327 41.73986, -81.9741 41.73985, -81.97412…
+```
+
+```r
+plot(boundary.sp)
+```
+
+![plot of chunk ssurgo](../figure/ssurgo-1.png)
+
+```r
+ssurgo <- get_ssurgo(boundary.sp, "samplefield")
+```
+
+```
+## Error in {: task 1 failed - "Download of https://sdmdataaccess.nrcs.usda.gov/Spatial/SDMNAD83Geographic.wfs?Service=WFS&Version=1.0.0&Request=GetFeature&Typename=SurveyAreaPoly&BBOX=-81.978165150311,41.7398141866265,-81.9732655092103,41.7461469570485 failed!"
 ```
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
@@ -378,20 +404,15 @@ head(spatial$muname)
 
 *Exercise 5*: Create the Soil Map
 
-Use `tmap` to make a map where the polygon color is informed by the soil names in
-`muname`. *Hint*: use `tm_polygons()`.
+Use `map_poly()` to make a map where the polygon color is informed by the soil names in
+`muname`. 
 
 
 *Exercise 5 Solution*
 
 
 ```r
-map_soil <- tm_shape(spatial) + tm_polygons('muname', title = "Soil Type") + tm_layout(legend.outside = TRUE, frame = FALSE)+
-  tm_legend(text.size = 1,
-            title.size = 1,
-            width = 100,
-            bg.color = "white"
-           )
+map_soil <- map_poly(spatial, 'muname', "Soil Type")
 ```
 
 ```
@@ -412,7 +433,9 @@ be difficult to understand the different soils without more information about so
 and texture. This is also provided within SSURGO and is likely something you know about in 
 your own field. 
 
-For an example of how this is done with clay, silt, and sand content, contact 
+# Example with your own field
+
+Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, For an example of how this is done with clay, silt, and sand content, contact 
 the workshop instructors. 
 
 
