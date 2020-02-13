@@ -181,6 +181,7 @@ The function `st_transform_utm()` transforms a simple feature into a new CRS. Th
 boundaryutm <- st_transform_utm(boundary)
 st_crs(boundaryutm)
 ```
+**Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
 
 **Exercise**
 1. Bring the file called "asplanted_transformed.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?**
@@ -250,6 +251,9 @@ We can also plot the data where the polygons change color based on the value of 
 ```{r echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
 map_poly(boundary, 'Type', 'Part of Field')
 ```
+
+**Dena: Is this their first detailed picture? Maybe pause to discuss what types of boundaries they might find useful and
+the theory of how to do them?**
 
 # SSURGO Soil Data
 
