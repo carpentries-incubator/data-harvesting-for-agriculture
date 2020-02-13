@@ -1,0 +1,10 @@
+musym,muname,mukind,mustatus,muacres,mapunitlfw.l,mapunitlfw.r,mapunitlfw.h,mapunitpfa.l,mapunitpfa.r,mapunitpfa.h,farmlndcl,muhelcl,muwathelcl,muwndhelcl,interpfocus,invesintens,iacornsr,nhiforsoigrp,nhspiagr,vtsepticsyscl,mucertstat,lkey,mukey
+BgB,"Bennington silt loam, 2 to 6 percent slopes",Consociation,NA,34011,NA,NA,NA,NA,NA,NA,Prime farmland if drained,NA,NA,NA,,Order 2,NA,NA,NA,NA,NA,11531,168539
+Cr,Condit-Bennington silt loams,Complex,NA,25122,NA,NA,NA,NA,NA,NA,Prime farmland if drained,NA,NA,NA,,,NA,NA,NA,NA,NA,11531,168557
+HpE,"Hennepin-Alexandria silt loams, 18 to 50 percent slopes",Complex,NA,775,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,11531,168570
+Lo,Lobdell silt loam,Consociation,NA,2935,NA,NA,NA,NA,NA,NA,All areas are prime farmland,NA,NA,NA,,,NA,NA,NA,NA,NA,11531,168578
+Pm,"Pewamo silty clay loam, low carbonate till, 0 to 2 percent slopes",Consociation,NA,24143,NA,NA,NA,NA,NA,NA,Prime farmland if drained,NA,NA,NA,,Order 2,NA,NA,NA,NA,NA,11531,168588
+Sh,"Shoals silt loam, 0 to 2 percent slopes, frequently flooded",Consociation,NA,5959,NA,NA,NA,NA,NA,NA,Prime farmland if drained and either protected from flooding or not frequently flooded during the growing season,NA,NA,NA,,Order 2,NA,NA,NA,NA,NA,11531,168591
+BeA,"Bennington silt loam, 0 to 2 percent slopes",Consociation,NA,20403,NA,NA,NA,NA,NA,NA,Prime farmland if drained,NA,NA,NA,,Order 2,NA,NA,NA,NA,NA,11531,1019357
+Crd1B1,"Cardington silt loam, 2 to 6 percent slopes",Consociation,NA,9264,NA,NA,NA,NA,NA,NA,All areas are prime farmland,NA,NA,NA,,Order 2,NA,NA,NA,NA,NA,11531,2996476
+Crd1C2,"Cardington silt loam, 6 to 12 percent slopes, eroded",Consociation,NA,6408,NA,NA,NA,NA,NA,NA,Not prime farmland,NA,NA,NA,,Order 2,NA,NA,NA,NA,NA,11531,2996690

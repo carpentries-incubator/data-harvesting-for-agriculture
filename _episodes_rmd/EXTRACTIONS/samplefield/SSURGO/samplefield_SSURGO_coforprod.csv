@@ -1,0 +1,117 @@
+plantsym,plantsciname,plantcomname,siteindexbase,siteindex.l,siteindex.r,siteindex.h,fprod.l,fprod.r,fprod.h,cokey,cofprodkey
+ACRU,Acer rubrum,red maple,,NA,NA,NA,NA,NA,NA,17960876,25335293
+QUVE,Quercus velutina,black oak,,NA,NA,NA,NA,NA,NA,17960876,25335294
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,80,NA,NA,NA,NA,17960876,25335295
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),NA,90,NA,NA,72,NA,17960876,25335296
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),NA,86,NA,NA,NA,NA,17960877,25335297
+LITU,Liriodendron tulipifera,tuliptree,Beck 1962 (360),NA,90,NA,NA,86,NA,17960877,25335298
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,80,NA,NA,57,NA,17960877,25335299
+QUVE,Quercus velutina,black oak,"Carmean 1971, 1972 (808)",NA,80,NA,NA,NA,NA,17960877,25335300
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17960877,25335301
+QUAL,Quercus alba,white oak,,NA,NA,NA,NA,NA,NA,17960976,25335387
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,85,NA,NA,72,NA,17960976,25335388
+LITU,Liriodendron tulipifera,tuliptree,,NA,NA,NA,NA,NA,NA,17960977,25335389
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,80,NA,NA,57,NA,17960977,25335390
+QUAL,Quercus alba,white oak,"Carmean 1971, 1972 (804)",NA,75,NA,NA,57,NA,17960977,25335391
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961019,25335430
+LITU,Liriodendron tulipifera,tuliptree,Beck 1962 (360),NA,95,NA,NA,100,NA,17961019,25335431
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,87,NA,NA,72,NA,17961019,25335432
+JUNI,Juglans nigra,black walnut,,NA,NA,NA,NA,NA,NA,17961019,25335433
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961209,25335824
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961209,25335825
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961209,25335826
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),86,86,86,NA,NA,NA,17961209,25335827
+LITU,Liriodendron tulipifera,tuliptree,Beck 1962 (360),90,90,90,86,86,86,17961209,25335828
+QUAL,Quercus alba,white oak,,NA,NA,NA,NA,NA,NA,17961209,25335829
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),80,80,80,57,57,57,17961209,25335830
+PODE3,Populus deltoides,eastern cottonwood,,NA,NA,NA,NA,NA,NA,17961210,25335831
+QUBI,Quercus bicolor,swamp white oak,,NA,NA,NA,NA,NA,NA,17961210,25335832
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),90,90,90,72,72,72,17961210,25335833
+ACRU,Acer rubrum,red maple,,NA,NA,NA,NA,NA,NA,17961210,25335834
+FRPE,Fraxinus pennsylvanica,green ash,,NA,NA,NA,NA,NA,NA,17961210,25335835
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961210,25335836
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961211,25335837
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961211,25335838
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961211,25335839
+JUNI,Juglans nigra,black walnut,,NA,NA,NA,NA,NA,NA,17961211,25335840
+LITU,Liriodendron tulipifera,tuliptree,,NA,NA,NA,NA,NA,NA,17961211,25335841
+QUAL,Quercus alba,white oak,"Carmean 1971, 1972 (804)",75,75,75,57,57,57,17961211,25335842
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),80,80,80,57,57.9,62,17961211,25335843
+LITU,Liriodendron tulipifera,tuliptree,,NA,NA,NA,NA,NA,NA,17961212,25335844
+QUAL,Quercus alba,white oak,"Carmean 1971, 1972 (804)",NA,75,NA,NA,57,NA,17961212,25335845
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,80,NA,NA,57,NA,17961212,25335846
+JUNI,Juglans nigra,black walnut,,NA,NA,NA,NA,NA,NA,17961212,25335847
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961212,25335848
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961212,25335849
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961212,25335850
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961214,25335851
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961214,25335852
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961214,25335853
+LITU,Liriodendron tulipifera,tuliptree,Beck 1962 (360),NA,90,NA,NA,86,NA,17961214,25335854
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,80,NA,NA,57,NA,17961214,25335855
+QUAL,Quercus alba,white oak,,NA,NA,NA,NA,NA,NA,17961214,25335856
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,80,NA,NA,57,NA,17961215,25335857
+QUAL,Quercus alba,white oak,"Carmean 1971, 1972 (804)",NA,75,NA,NA,57,NA,17961215,25335858
+LITU,Liriodendron tulipifera,tuliptree,,NA,NA,NA,NA,NA,NA,17961215,25335859
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961215,25335860
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961215,25335861
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961215,25335862
+FRPE,Fraxinus pennsylvanica,green ash,,NA,NA,NA,NA,NA,NA,17961216,25335863
+ACRU,Acer rubrum,red maple,,NA,NA,NA,NA,NA,NA,17961216,25335864
+PODE3,Populus deltoides,eastern cottonwood,,NA,NA,NA,NA,NA,NA,17961216,25335865
+QUBI,Quercus bicolor,swamp white oak,,NA,NA,NA,NA,NA,NA,17961216,25335866
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),NA,90,NA,NA,72,NA,17961216,25335867
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),NA,90,NA,NA,72,NA,17961217,25335868
+QUBI,Quercus bicolor,swamp white oak,,NA,NA,NA,NA,NA,NA,17961217,25335869
+PODE3,Populus deltoides,eastern cottonwood,Broadfoot 1960 (710),NA,98,NA,NA,123,NA,17961217,25335870
+ACRU,Acer rubrum,red maple,Lloyd 1971b (094),NA,71,NA,NA,44,NA,17961217,25335871
+FRPE,Fraxinus pennsylvanica,green ash,,NA,NA,NA,NA,NA,NA,17961217,25335872
+FRPE,Fraxinus pennsylvanica,green ash,,NA,NA,NA,NA,NA,NA,17961218,25335873
+ACRU,Acer rubrum,red maple,Lloyd 1971b (094),NA,71,NA,NA,44,NA,17961218,25335874
+PODE3,Populus deltoides,eastern cottonwood,Broadfoot 1960 (710),NA,98,NA,NA,123,NA,17961218,25335875
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),NA,90,NA,NA,72,NA,17961218,25335876
+QUBI,Quercus bicolor,swamp white oak,,NA,NA,NA,NA,NA,NA,17961218,25335877
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),NA,86,NA,NA,NA,NA,17961219,25335878
+LITU,Liriodendron tulipifera,tuliptree,Beck 1962 (360),NA,90,NA,NA,86,NA,17961219,25335879
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,80,NA,NA,57,NA,17961219,25335880
+QUAL,Quercus alba,white oak,,NA,NA,NA,NA,NA,NA,17961219,25335881
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961219,25335882
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961219,25335883
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961219,25335884
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961220,25335885
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961220,25335886
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961220,25335887
+LITU,Liriodendron tulipifera,tuliptree,,NA,NA,NA,NA,NA,NA,17961220,25335888
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),NA,80,NA,NA,57,NA,17961220,25335889
+QUAL,Quercus alba,white oak,"Carmean 1971, 1972 (804)",NA,75,NA,NA,57,NA,17961220,25335890
+ACRU,Acer rubrum,red maple,,NA,NA,NA,NA,NA,NA,17961224,25335905
+FRPE,Fraxinus pennsylvanica,green ash,,NA,NA,NA,NA,NA,NA,17961224,25335906
+QUBI,Quercus bicolor,swamp white oak,,NA,NA,NA,NA,NA,NA,17961224,25335907
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),NA,90,NA,NA,72,NA,17961224,25335908
+PODE3,Populus deltoides,eastern cottonwood,,NA,NA,NA,NA,NA,NA,17961224,25335909
+PODE3,Populus deltoides,eastern cottonwood,,NA,NA,NA,NA,NA,NA,17961227,25335918
+QUBI,Quercus bicolor,swamp white oak,,NA,NA,NA,NA,NA,NA,17961227,25335919
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),90,90,90,72,72,72,17961227,25335920
+ACRU,Acer rubrum,red maple,,NA,NA,NA,NA,NA,NA,17961227,25335921
+FRPE,Fraxinus pennsylvanica,green ash,,NA,NA,NA,NA,NA,NA,17961227,25335922
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961227,25335923
+ACRU,Acer rubrum,red maple,Lloyd 1971b (094),71,71,71,43,43.2,43.5,17961228,25335924
+FRPE,Fraxinus pennsylvanica,green ash,,NA,NA,NA,NA,NA,NA,17961228,25335925
+FRAM2,Fraxinus americana,white ash,Lloyd 1971a (170),71,71,71,72,72,72,17961228,25335926
+QUBI,Quercus bicolor,swamp white oak,,NA,NA,NA,NA,NA,NA,17961228,25335927
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),90,90,90,72,72,72,17961228,25335928
+PODE3,Populus deltoides,eastern cottonwood,Broadfoot 1960 (710),98,98,98,126,127.5,129,17961228,25335929
+LITU,Liriodendron tulipifera,tuliptree,,NA,NA,NA,NA,NA,NA,17961229,25335930
+QUAL,Quercus alba,white oak,"Carmean 1971, 1972 (804)",75,75,75,57,57,57,17961229,25335931
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),80,80,80,57,57.9,62,17961229,25335932
+JUNI,Juglans nigra,black walnut,,NA,NA,NA,NA,NA,NA,17961229,25335933
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961229,25335934
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961229,25335935
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961229,25335936
+ACSA3,Acer saccharum,sugar maple,,NA,NA,NA,NA,NA,NA,17961230,25335937
+PRSE2,Prunus serotina,black cherry,,NA,NA,NA,NA,NA,NA,17961230,25335938
+FRAM2,Fraxinus americana,white ash,,NA,NA,NA,NA,NA,NA,17961230,25335939
+QUPA2,Quercus palustris,pin oak,Broadfoot 1963 (860),86,86,86,NA,NA,NA,17961230,25335940
+LITU,Liriodendron tulipifera,tuliptree,Beck 1962 (360),90,90,90,86,86,86,17961230,25335941
+QUAL,Quercus alba,white oak,,NA,NA,NA,NA,NA,NA,17961230,25335942
+QURU,Quercus rubra,northern red oak,Schnur 1937 (820),80,80,80,57,57,57,17961230,25335943

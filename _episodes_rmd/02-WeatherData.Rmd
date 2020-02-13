@@ -3,7 +3,7 @@ title: "Weather Data"
 source: Rmd
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE}
 library(knitr)
 library(sf)
 library(fasterize)
@@ -61,7 +61,8 @@ source("functions.R")
 > weather data. The functions `cent_long()` and `cent_lat()` give the mean longitude and latitude points of the bounding box around the `sf` object that is supplied. This should be a point near the middle of the field. 
 > 
 > ```{r location}
-> boundary <- read_sf("data/boundary.gpkg")
+> #boundary <- read_sf("data/boundary.gpkg")
+> boundary <- read_sf("data/boundary_transformed.gpkg")
 > lon <- cent_long(boundary)
 > lat <- cent_lat(boundary)
 > ```
@@ -182,11 +183,12 @@ source("functions.R")
 > ```{r addmonth}
 > weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 > head(weather_data$month)
+> ```
 > 
-> This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv). 
+> This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv).
+> 
 > ```{r}
-> write .csv(weather_data, "weather_2000_2018.csv") 
-> 
+> write.csv(weather_data, "weather_2000_2018.csv") 
 > ```
 {: .callout}
 

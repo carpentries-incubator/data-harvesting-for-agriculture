@@ -37,6 +37,83 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 Below are the packages that we will use in this episode.
 
 
+```r
+library(sf)
+```
+
+```
+## Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
+```
+
+```r
+library(fasterize)
+```
+
+```
+## 
+## Attaching package: 'fasterize'
+```
+
+```
+## The following object is masked from 'package:graphics':
+## 
+##     plot
+```
+
+```r
+library(gstat)
+library(raster)
+```
+
+```
+## Loading required package: sp
+```
+
+```r
+library(rjson)
+library(httr)
+library(rgdal)
+```
+
+```
+## rgdal: version: 1.4-8, (SVN revision 845)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 2.4.2, released 2019/06/28
+##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/gdal
+##  GDAL binary built with GEOS: FALSE 
+##  Loaded PROJ.4 runtime: Rel. 5.2.0, September 15th, 2018, [PJ_VERSION: 520]
+##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/proj
+##  Linking to sp version: 1.3-2
+```
+
+```r
+library(rgeos)
+```
+
+```
+## rgeos version: 0.5-2, (SVN revision 621)
+##  GEOS runtime version: 3.7.2-CAPI-1.11.2 
+##  Linking to sp version: 1.3-1 
+##  Polygon checking: TRUE
+```
+
+```r
+library(maptools)
+```
+
+```
+## Checking rgeos availability: TRUE
+```
+
+```r
+library(knitr)
+library(tmap)
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(FedData)
+library(plyr)
+```
 
 ###Introducing Spatial Data with SSURGO data
 
@@ -280,23 +357,10 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 
 
 ```r
-<<<<<<< HEAD
-boundarynew <- read_sf("data/asplanted_transformed.gpkg")
-boundary <- subset(boundary, Type == "Trial")
-boundary.sp <- as(boundary, "Spatial")
-lwgeom::st_make_valid(boundary)
-=======
-boundarynew <- read_sf("data/boundary_test.shp")
-boundary.sp <- as(boundarynew, "Spatial")
->>>>>>> 6db20200ff876b4991151f3bee1d7a998cf32483
-plot(boundary.sp)
-ssurgo <- get_ssurgo(boundary.sp, "samplefield")
-```
-
-```
-## Error: <text>:1:1: unexpected input
-## 1: <<
-##     ^
+#boundarynew <- read_sf("data/asplanted_transformed.gpkg")
+#boundary <- subset(boundary, Type == "Trial")
+#boundary.sp <- as(boundary, "Spatial")
+#ssurgo <- get_ssurgo(boundary.sp, "samplefield")
 ```
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
@@ -312,11 +376,7 @@ Let's make a map of the soil types on this field. First, we need to locate the p
 
 
 ```r
-names <- ssurgo$tabular$muaggatt 
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'ssurgo' not found
+#names <- ssurgo$tabular$muaggatt 
 ```
 
 *Exercise 4*: What are the soil types present on the field as seen in `names`? Are the soil 
@@ -326,11 +386,7 @@ defined by anything other than the soil type?
 
 
 ```r
-names
-```
-
-```
-## function (x)  .Primitive("names")
+#names
 ```
 
 Looking at `names` we can see there are eight types of soil on the field, and the dataframe 
@@ -343,35 +399,10 @@ capitalized and not in the other. We must rename the variable for consistency us
 
 
 ```r
-spatial <- as(ssurgo$spatial, "sf")
-```
-
-```
-## Error in .class1(object): object 'ssurgo' not found
-```
-
-```r
-spatial <- dplyr::rename(spatial, musym = MUSYM)
-```
-
-```
-## Error in dplyr::rename(spatial, musym = MUSYM): object 'spatial' not found
-```
-
-```r
-spatial <- merge(spatial, names, by = "musym")
-```
-
-```
-## Error in merge(spatial, names, by = "musym"): object 'spatial' not found
-```
-
-```r
-head(spatial$muname)
-```
-
-```
-## Error in head(spatial$muname): object 'spatial' not found
+#spatial <- as(ssurgo$spatial, "sf")
+#spatial <- dplyr::rename(spatial, musym = MUSYM)
+#spatial <- merge(spatial, names, by = "musym")
+#head(spatial$muname)
 ```
 
 *Exercise 5*: Create the Soil Map
@@ -384,19 +415,8 @@ Use `map_poly()` to make a map where the polygon color is informed by the soil n
 
 
 ```r
-map_soil <- map_poly(spatial, 'muname', "Soil Type")
-```
-
-```
-## Error in as.list.environment(environment()): object 'spatial' not found
-```
-
-```r
-map_soil
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'map_soil' not found
+#map_soil <- map_poly(spatial, 'muname', "Soil Type")
+#map_soil
 ```
 
 The map shows that there are quite a few soil types on the field, and several show up
@@ -411,9 +431,5 @@ Here we are going to download the SSURGO maps for your own field using your boun
 
 
 ```r
-soil_content <- c_s_s_soil(ssurgo = ssurgo)
-```
-
-```
-## Error in c_s_s_soil(ssurgo = ssurgo): object 'ssurgo' not found
+#soil_content <- c_s_s_soil(ssurgo = ssurgo)
 ```

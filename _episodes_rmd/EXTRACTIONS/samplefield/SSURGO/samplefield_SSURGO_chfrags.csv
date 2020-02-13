@@ -1,0 +1,339 @@
+fragvol.l,fragvol.r,fragvol.h,fragkind,fragsize.l,fragsize.r,fragsize.h,fragshp,fraground,fraghard,chkey,chfragskey
+0,2,3,,2,4,5,,,,52474321,90193389
+0,2,3,,5,40,75,,,,52474321,90193390
+0,1,1,,75,162,250,,,,52474321,90193391
+0,2,3,,2,4,5,,,,52474322,90193392
+0,2,3,,5,40,75,,,,52474322,90193393
+0,1,1,,75,162,250,,,,52474322,90193394
+0,3,6,,2,4,5,,,,52474323,90193395
+0,3,6,,5,40,75,,,,52474323,90193396
+0,1,1,,75,162,250,,,,52474323,90193397
+0,3,6,,2,4,5,,,,52474324,90193398
+0,2,3,,5,40,75,,,,52474324,90193399
+0,1,1,,75,162,250,,,,52474324,90193400
+0,6,11,,2,4,5,,,,52474325,90193401
+0,5,9,,5,40,75,,,,52474325,90193402
+0,1,1,,75,162,250,,,,52474325,90193403
+0,7,14,,2,4,5,,,,52474326,90193404
+0,6,11,,5,40,75,,,,52474326,90193405
+0,1,1,,75,162,250,,,,52474326,90193406
+0,5,9,,2,4,5,,,,52474402,90193556
+0,3,6,,5,40,75,,,,52474402,90193557
+0,2,3,,75,162,250,,,,52474402,90193558
+0,1,1,,250,625,1000,,,,52474402,90193559
+0,6,11,,2,4,5,,,,52474403,90193560
+0,5,9,,5,40,75,,,,52474403,90193561
+0,2,3,,75,162,250,,,,52474403,90193562
+0,1,1,,250,625,1000,,,,52474403,90193563
+0,6,11,,2,4,5,,,,52474404,90193564
+0,5,9,,5,40,75,,,,52474404,90193565
+0,2,3,,75,162,250,,,,52474404,90193566
+0,1,1,,250,625,1000,,,,52474404,90193567
+0,3,6,,2,4,5,,,,52474405,90193568
+0,2,3,,5,40,75,,,,52474405,90193569
+0,1,1,,75,162,250,,,,52474405,90193570
+0,6,11,,2,4,5,,,,52474406,90193571
+0,3,6,,5,40,75,,,,52474406,90193572
+0,1,1,,75,162,250,,,,52474406,90193573
+0,6,14,,2,4,5,,,,52474407,90193574
+0,6,11,,5,40,75,,,,52474407,90193575
+0,2,3,,75,162,250,,,,52474407,90193576
+0,2,3,,2,4,5,,,,52474436,90193639
+0,2,3,,5,40,75,,,,52474436,90193640
+0,3,6,,2,4,5,,,,52474437,90193641
+0,3,6,,5,40,75,,,,52474437,90193642
+0,5,9,,2,4,5,,,,52474438,90193643
+0,3,6,,5,40,75,,,,52474438,90193644
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474460,90193695
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474460,90193696
+0,2,3,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474460,90193697
+0,2,9,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474461,90193698
+0,3,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474461,90193699
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474461,90193700
+0,4,6,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474462,90193701
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474462,90193702
+0,3,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474462,90193703
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474462,90193704
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474463,90193705
+0,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474463,90193706
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474463,90193707
+0,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474464,90193708
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474464,90193709
+0,2,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474464,90193710
+0,2,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474465,90193711
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474465,90193712
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474465,90193713
+0,1,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474465,90193714
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474466,90193715
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474466,90193716
+1,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474466,90193717
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474466,90193718
+0,0,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474467,90193719
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474467,90193720
+0,1,2,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474467,90193721
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474467,90193722
+1,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474468,90193723
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474468,90193724
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474468,90193725
+1,2,8,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474468,90193726
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474469,90193727
+1,2,8,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474469,90193728
+1,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474469,90193729
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474469,90193730
+1,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474470,90193731
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474470,90193732
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474470,90193733
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474470,90193734
+0,0,3,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474558,90193967
+0,0,1,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474559,90193968
+0,0,2,Mixed rock fragments,5,40,75,Nonflat,Rounded,Strongly cemented,52474559,90193969
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Rounded,Strongly cemented,52474559,90193970
+0,5,9,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474560,90193971
+0,2,6,Mixed rock fragments,5,40,75,Nonflat,Rounded,Strongly cemented,52474560,90193972
+0,0,2,Mixed rock fragments,75,162,250,Nonflat,Rounded,Strongly cemented,52474560,90193973
+0,0,5,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474561,90193974
+0,0,2,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474562,90193975
+0,0,2,Mixed rock fragments,5,40,75,Nonflat,Rounded,Strongly cemented,52474562,90193976
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Rounded,Strongly cemented,52474562,90193977
+0,6,20,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474563,90193978
+0,3,15,Mixed rock fragments,5,40,75,Nonflat,Rounded,Strongly cemented,52474563,90193979
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Rounded,Strongly cemented,52474563,90193980
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474564,90193981
+0,0,3,Mixed rock fragments,5,40,75,Nonflat,Rounded,Strongly cemented,52474564,90193982
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474565,90193983
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Rounded,Strongly cemented,52474565,90193984
+0,2,6,Mixed rock fragments,5,40,75,Nonflat,Rounded,Strongly cemented,52474566,90193985
+0,0,2,Mixed rock fragments,75,162,250,Nonflat,Rounded,Strongly cemented,52474566,90193986
+0,3,9,Mixed rock fragments,2,4,5,Nonflat,Rounded,Strongly cemented,52474566,90193987
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474836,90194851
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474836,90194852
+0,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474836,90194853
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474837,90194854
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474837,90194855
+1,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474837,90194856
+0,1,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474837,90194857
+1,2,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474838,90194858
+1,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474838,90194859
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474838,90194860
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474838,90194861
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474839,90194862
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474839,90194863
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474839,90194864
+0,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474839,90194865
+0,1,3,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474840,90194866
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474840,90194867
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474840,90194868
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474841,90194869
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474841,90194870
+0,2,9,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474841,90194871
+0,3,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474841,90194872
+0,3,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474842,90194873
+0,3,6,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474842,90194874
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474842,90194875
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474842,90194876
+0,4,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474843,90194877
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474843,90194878
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474843,90194879
+0,5,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474843,90194880
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474844,90194881
+0,2,4,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474844,90194882
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474844,90194883
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474845,90194884
+0,4,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474845,90194885
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474845,90194886
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474845,90194887
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474846,90194888
+0,3,14,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474846,90194889
+0,3,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474846,90194890
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474846,90194891
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474847,90194892
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474847,90194893
+0,3,4,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474847,90194894
+0,3,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474848,90194895
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474848,90194896
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474848,90194897
+0,3,14,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474848,90194898
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474849,90194899
+0,5,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474849,90194900
+0,4,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474849,90194901
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474849,90194902
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474850,90194903
+0,4,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474850,90194904
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474850,90194905
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474850,90194906
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474854,90194914
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474854,90194915
+0,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474854,90194916
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474854,90194917
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474855,90194918
+0,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474855,90194919
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474855,90194920
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474856,90194921
+1,2,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474856,90194922
+1,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474856,90194923
+1,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474857,90194924
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474857,90194925
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474857,90194926
+0,1,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474857,90194927
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474858,90194928
+0,2,4,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474858,90194929
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474858,90194930
+0,3,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474859,90194931
+0,3,14,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474859,90194932
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474859,90194933
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474860,90194934
+0,4,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474860,90194935
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474860,90194936
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474860,90194937
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474861,90194938
+0,5,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474861,90194939
+0,4,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474861,90194940
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474861,90194941
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474862,90194942
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474862,90194943
+0,1,3,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474862,90194944
+0,2,9,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474863,90194945
+0,3,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474863,90194946
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474863,90194947
+0,3,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474864,90194948
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474864,90194949
+0,3,6,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474864,90194950
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474864,90194951
+0,0,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474865,90194952
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474865,90194953
+0,1,2,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474865,90194954
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474865,90194955
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474866,90194956
+1,2,8,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474866,90194957
+1,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474866,90194958
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474866,90194959
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474867,90194960
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474867,90194961
+1,2,8,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474867,90194962
+1,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474867,90194963
+1,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474868,90194964
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474868,90194965
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474868,90194966
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474868,90194967
+1,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474869,90194968
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474869,90194969
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474869,90194970
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474869,90194971
+1,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474870,90194972
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474870,90194973
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474870,90194974
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474870,90194975
+1,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474871,90194976
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474871,90194977
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474871,90194978
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474871,90194979
+0,0,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474872,90194980
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474872,90194981
+0,1,2,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474872,90194982
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474872,90194983
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474873,90194984
+1,2,8,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474873,90194985
+1,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474873,90194986
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474873,90194987
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474874,90194988
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474874,90194989
+1,2,8,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474874,90194990
+1,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474874,90194991
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474875,90194992
+0,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474875,90194993
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474875,90194994
+1,2,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474876,90194995
+1,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474876,90194996
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474876,90194997
+0,1,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474877,90194998
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474877,90194999
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474877,90195000
+1,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474877,90195001
+0,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474878,90195002
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474878,90195003
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474878,90195004
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474878,90195005
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474879,90195006
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474879,90195007
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474879,90195008
+0,4,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474879,90195009
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474880,90195010
+0,5,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474880,90195011
+0,4,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474880,90195012
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474880,90195013
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474881,90195014
+0,2,4,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474881,90195015
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474881,90195016
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474882,90195017
+0,3,14,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474882,90195018
+0,3,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474882,90195019
+0,3,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474892,90195043
+0,3,6,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474892,90195044
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474892,90195045
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474892,90195046
+0,1,3,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474893,90195047
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474893,90195048
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474893,90195049
+0,3,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474894,90195050
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474894,90195051
+0,2,9,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474894,90195052
+0,1,3,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474907,90195083
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474907,90195084
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474907,90195085
+0,3,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474908,90195086
+0,3,6,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474908,90195087
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474908,90195088
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474908,90195089
+0,3,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474909,90195090
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474909,90195091
+0,2,9,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474909,90195092
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474909,90195093
+1,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474910,90195094
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474910,90195095
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474910,90195096
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474910,90195097
+1,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474911,90195098
+0,1,2,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474911,90195099
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474911,90195100
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474911,90195101
+0,0,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474912,90195102
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474912,90195103
+0,1,2,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474912,90195104
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474913,90195105
+0,1,5,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474913,90195106
+1,2,8,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474913,90195107
+1,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474913,90195108
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474914,90195109
+1,2,8,Mixed rock fragments,2,4,5,Nonflat,Subangular,Very strongly cemented,52474914,90195110
+1,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Very strongly cemented,52474914,90195111
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Very strongly cemented,52474914,90195112
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474915,90195113
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474915,90195114
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474915,90195115
+0,4,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474915,90195116
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474916,90195117
+0,1,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474916,90195118
+0,1,4,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474916,90195119
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474917,90195120
+0,3,14,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474917,90195121
+0,3,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474917,90195122
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474917,90195123
+0,1,3,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474918,90195124
+0,5,11,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474918,90195125
+0,4,11,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474918,90195126
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474918,90195127
+1,2,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474919,90195128
+1,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474919,90195129
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474919,90195130
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Very strongly cemented,52474919,90195131
+0,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474920,90195132
+0,3,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474920,90195133
+0,1,2,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474920,90195134
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474920,90195135
+0,1,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474921,90195136
+0,0,1,Mixed rock fragments,250,425,600,Nonflat,Subangular,Strongly cemented,52474921,90195137
+1,3,10,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474921,90195138
+1,2,10,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474921,90195139
+0,1,5,Mixed rock fragments,2,4,5,Nonflat,Subangular,Strongly cemented,52474922,90195140
+0,2,3,Mixed rock fragments,5,40,75,Nonflat,Subangular,Strongly cemented,52474922,90195141
+0,0,1,Mixed rock fragments,75,162,250,Nonflat,Subangular,Strongly cemented,52474922,90195142

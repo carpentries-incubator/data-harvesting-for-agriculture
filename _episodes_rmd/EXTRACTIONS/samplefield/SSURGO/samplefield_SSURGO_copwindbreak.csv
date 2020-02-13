@@ -1,0 +1,174 @@
+wndbrkht.l,wndbrkht.r,wndbrkht.h,plantsym,plantsciname,plantcomname,cokey,copwindbreakkey
+NA,5,NA,PIPU,Picea pungens,blue spruce,17960876,96313930
+NA,3,NA,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17960876,96313931
+NA,5,NA,CRPH,Crataegus phaenopyrum,Washington hawthorn,17960876,96313932
+NA,8,NA,PIAB,Picea abies,Norway spruce,17960876,96313933
+NA,7,NA,PINI,Pinus nigra,Austrian pine,17960876,96313934
+NA,9,NA,PIST,Pinus strobus,eastern white pine,17960876,96313935
+NA,5,NA,ABCO,Abies concolor,white fir,17960876,96313936
+NA,11,NA,QUPA2,Quercus palustris,pin oak,17960876,96313937
+NA,6,NA,THOC2,Thuja occidentalis,arborvitae,17960876,96313938
+NA,2,NA,COAM2,Cornus amomum,silky dogwood,17960876,96313939
+NA,3,NA,VIDE,Viburnum dentatum,southern arrowwood,17960877,96313940
+NA,9,NA,QUPA2,Quercus palustris,pin oak,17960877,96313941
+NA,5,NA,FRPE,Fraxinus pennsylvanica,green ash,17960877,96313942
+NA,6,NA,PINI,Pinus nigra,Austrian pine,17960877,96313943
+NA,9,NA,PIST,Pinus strobus,eastern white pine,17960877,96313944
+NA,5,NA,CRPH,Crataegus phaenopyrum,Washington hawthorn,17960877,96313945
+NA,5,NA,JUVI,Juniperus virginiana,eastern redcedar,17960877,96313946
+NA,5,NA,MAPO,Maclura pomifera,osageorange,17960877,96313947
+NA,2,NA,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17960877,96313948
+NA,4,NA,JUVI,Juniperus virginiana,eastern redcedar,17960976,96314172
+NA,4,NA,MAPO,Maclura pomifera,osageorange,17960976,96314173
+NA,3,NA,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17960976,96314174
+NA,3,NA,CRPH,Crataegus phaenopyrum,Washington hawthorn,17960976,96314175
+NA,2,NA,CORA6,Cornus racemosa,gray dogwood,17960976,96314176
+NA,4,NA,PIBA2,Pinus banksiana,jack pine,17960976,96314177
+NA,5,NA,CASP8,Catalpa speciosa,northern catalpa,17960976,96314178
+NA,2,NA,COAM2,Cornus amomum,silky dogwood,17960976,96314179
+NA,6,NA,GLTR,Gleditsia triacanthos,honeylocust,17960976,96314180
+NA,2,NA,COAM2,Cornus amomum,silky dogwood,17960977,96314181
+NA,11,NA,QUPA2,Quercus palustris,pin oak,17960977,96314182
+NA,7,NA,THOC2,Thuja occidentalis,arborvitae,17960977,96314183
+NA,7,NA,ABCO,Abies concolor,white fir,17960977,96314184
+NA,5,NA,CRPH,Crataegus phaenopyrum,Washington hawthorn,17960977,96314185
+NA,10,NA,PIAB,Picea abies,Norway spruce,17960977,96314186
+NA,9,NA,PINI,Pinus nigra,Austrian pine,17960977,96314187
+NA,12,NA,PIST,Pinus strobus,eastern white pine,17960977,96314188
+NA,7,NA,PIPU,Picea pungens,blue spruce,17960977,96314189
+NA,3,NA,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17960977,96314190
+NA,2,NA,COAM2,Cornus amomum,silky dogwood,17961019,96314295
+NA,6,NA,ABCO,Abies concolor,white fir,17961019,96314296
+NA,11,NA,QUPA2,Quercus palustris,pin oak,17961019,96314297
+NA,6,NA,THOC2,Thuja occidentalis,arborvitae,17961019,96314298
+NA,5,NA,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961019,96314299
+NA,9,NA,PIAB,Picea abies,Norway spruce,17961019,96314300
+NA,8,NA,PINI,Pinus nigra,Austrian pine,17961019,96314301
+NA,12,NA,PIST,Pinus strobus,eastern white pine,17961019,96314302
+NA,6,NA,PIPU,Picea pungens,blue spruce,17961019,96314303
+NA,3,NA,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961019,96314304
+2,2,2,COAM2,Cornus amomum,silky dogwood,17961227,96315417
+5,5,5,ABCO,Abies concolor,white fir,17961227,96315418
+9,9,9,QUBI,Quercus bicolor,swamp white oak,17961227,96315419
+11,11,11,QUPA2,Quercus palustris,pin oak,17961227,96315420
+4,4,4,TADI2,Taxodium distichum,baldcypress,17961227,96315421
+6,6,6,THOC2,Thuja occidentalis,arborvitae,17961227,96315422
+5,5,5,PIPU,Picea pungens,blue spruce,17961227,96315423
+3,3,3,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961227,96315424
+7,7,7,JUVI,Juniperus virginiana,eastern redcedar,17961227,96315425
+4,4,4,ALGL2,Alnus glutinosa,European alder,17961227,96315426
+5,5,5,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961227,96315427
+7,7,7,FRPE,Fraxinus pennsylvanica,green ash,17961227,96315428
+8,8,8,PIAB,Picea abies,Norway spruce,17961227,96315429
+7,7,7,PINI,Pinus nigra,Austrian pine,17961227,96315430
+9,9,9,PIST,Pinus strobus,eastern white pine,17961227,96315431
+5,5,5,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961228,96315432
+9,9,9,PIST,Pinus strobus,eastern white pine,17961228,96315433
+4,4,4,ALGL2,Alnus glutinosa,European alder,17961228,96315434
+7,7,7,FRPE,Fraxinus pennsylvanica,green ash,17961228,96315435
+8,8,8,PIAB,Picea abies,Norway spruce,17961228,96315436
+7,7,7,PINI,Pinus nigra,Austrian pine,17961228,96315437
+7,7,7,JUVI,Juniperus virginiana,eastern redcedar,17961228,96315438
+5,5,5,PIPU,Picea pungens,blue spruce,17961228,96315439
+3,3,3,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961228,96315440
+5,5,5,ABCO,Abies concolor,white fir,17961228,96315441
+9,9,9,QUBI,Quercus bicolor,swamp white oak,17961228,96315442
+11,11,11,QUPA2,Quercus palustris,pin oak,17961228,96315443
+4,4,4,TADI2,Taxodium distichum,baldcypress,17961228,96315444
+6,6,6,THOC2,Thuja occidentalis,arborvitae,17961228,96315445
+2,2,2,COAM2,Cornus amomum,silky dogwood,17961228,96315446
+2,2.1,3,COAM2,Cornus amomum,silky dogwood,17961229,96315447
+3,3,3,VIDE,Viburnum dentatum,southern arrowwood,17961229,96315448
+11,11,11,QURU,Quercus rubra,northern red oak,17961229,96315449
+6,6,6,ABCO,Abies concolor,white fir,17961229,96315450
+9,10.9,11,QUPA2,Quercus palustris,pin oak,17961229,96315451
+5,5,5,TADI2,Taxodium distichum,baldcypress,17961229,96315452
+5,5.9,6,THOC2,Thuja occidentalis,arborvitae,17961229,96315453
+2,2,2,VIPR,Viburnum prunifolium,blackhaw,17961229,96315454
+9,9,9,QUVE,Quercus velutina,black oak,17961229,96315455
+2,3,4,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961229,96315456
+4,4,4,JUVI,Juniperus virginiana,eastern redcedar,17961229,96315457
+5,5,5,MAPO,Maclura pomifera,osageorange,17961229,96315458
+6,6,6,PIPU,Picea pungens,blue spruce,17961229,96315459
+8,8,8,FRPE,Fraxinus pennsylvanica,green ash,17961229,96315460
+12,12,12,PIST,Pinus strobus,eastern white pine,17961229,96315461
+4,5,6,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961229,96315462
+8,9,10,PIAB,Picea abies,Norway spruce,17961229,96315463
+6,7.8,8,PINI,Pinus nigra,Austrian pine,17961229,96315464
+6,6,6,PINI,Pinus nigra,Austrian pine,17961230,96315465
+3,3,3,ALGL2,Alnus glutinosa,European alder,17961230,96315466
+4.3,4.8,5,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961230,96315467
+5,5,5,FRPE,Fraxinus pennsylvanica,green ash,17961230,96315468
+6,6,6,PIAB,Picea abies,Norway spruce,17961230,96315469
+9,9,9,PIST,Pinus strobus,eastern white pine,17961230,96315470
+4.3,4.8,5,JUVI,Juniperus virginiana,eastern redcedar,17961230,96315471
+5,5,5,MAPO,Maclura pomifera,osageorange,17961230,96315472
+2,2.1,2.3,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961230,96315473
+6,6,6,THOC2,Thuja occidentalis,arborvitae,17961230,96315474
+11,11,11,QUBI,Quercus bicolor,swamp white oak,17961230,96315475
+9,9,9,QUPA2,Quercus palustris,pin oak,17961230,96315476
+9,9,9,QUSH,Quercus shumardii,Shumard's oak,17961230,96315477
+3,3,3,TADI2,Taxodium distichum,baldcypress,17961230,96315478
+3,3,3,VIPR,Viburnum prunifolium,blackhaw,17961230,96315479
+2,2,2,COAM2,Cornus amomum,silky dogwood,17961230,96315480
+2.7,2.9,3,VIDE,Viburnum dentatum,southern arrowwood,17961230,96315481
+3,3,3,ALGL2,Alnus glutinosa,European alder,17961209,96315256
+4.3,4.8,5,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961209,96315257
+5,5,5,FRPE,Fraxinus pennsylvanica,green ash,17961209,96315258
+6,6,6,PIAB,Picea abies,Norway spruce,17961209,96315259
+6,6,6,PINI,Pinus nigra,Austrian pine,17961209,96315260
+9,9,9,PIST,Pinus strobus,eastern white pine,17961209,96315261
+4.3,4.8,5,JUVI,Juniperus virginiana,eastern redcedar,17961209,96315262
+5,5,5,MAPO,Maclura pomifera,osageorange,17961209,96315263
+2,2.1,2.3,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961209,96315264
+11,11,11,QUBI,Quercus bicolor,swamp white oak,17961209,96315265
+9,9,9,QUPA2,Quercus palustris,pin oak,17961209,96315266
+9,9,9,QUSH,Quercus shumardii,Shumard's oak,17961209,96315267
+3,3,3,TADI2,Taxodium distichum,baldcypress,17961209,96315268
+6,6,6,THOC2,Thuja occidentalis,arborvitae,17961209,96315269
+3,3,3,VIPR,Viburnum prunifolium,blackhaw,17961209,96315270
+2,2,2,COAM2,Cornus amomum,silky dogwood,17961209,96315271
+2.7,2.9,3,VIDE,Viburnum dentatum,southern arrowwood,17961209,96315272
+2,2,2,COAM2,Cornus amomum,silky dogwood,17961210,96315273
+5,5,5,ABCO,Abies concolor,white fir,17961210,96315274
+9,9,9,QUBI,Quercus bicolor,swamp white oak,17961210,96315275
+11,11,11,QUPA2,Quercus palustris,pin oak,17961210,96315276
+4,4,4,TADI2,Taxodium distichum,baldcypress,17961210,96315277
+6,6,6,THOC2,Thuja occidentalis,arborvitae,17961210,96315278
+7,7,7,JUVI,Juniperus virginiana,eastern redcedar,17961210,96315279
+5,5,5,PIPU,Picea pungens,blue spruce,17961210,96315280
+3,3,3,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961210,96315281
+4,4,4,ALGL2,Alnus glutinosa,European alder,17961210,96315282
+5,5,5,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961210,96315283
+7,7,7,FRPE,Fraxinus pennsylvanica,green ash,17961210,96315284
+8,8,8,PIAB,Picea abies,Norway spruce,17961210,96315285
+7,7,7,PINI,Pinus nigra,Austrian pine,17961210,96315286
+9,9,9,PIST,Pinus strobus,eastern white pine,17961210,96315287
+4,5,6,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961211,96315288
+8,8,8,FRPE,Fraxinus pennsylvanica,green ash,17961211,96315289
+8,9,10,PIAB,Picea abies,Norway spruce,17961211,96315290
+6,7.8,8,PINI,Pinus nigra,Austrian pine,17961211,96315291
+12,12,12,PIST,Pinus strobus,eastern white pine,17961211,96315292
+4,4,4,JUVI,Juniperus virginiana,eastern redcedar,17961211,96315293
+5,5,5,MAPO,Maclura pomifera,osageorange,17961211,96315294
+6,6,6,PIPU,Picea pungens,blue spruce,17961211,96315295
+9,9,9,QUVE,Quercus velutina,black oak,17961211,96315296
+2,3,4,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961211,96315297
+6,6,6,ABCO,Abies concolor,white fir,17961211,96315298
+9,10.9,11,QUPA2,Quercus palustris,pin oak,17961211,96315299
+5,5,5,TADI2,Taxodium distichum,baldcypress,17961211,96315300
+5,5.9,6,THOC2,Thuja occidentalis,arborvitae,17961211,96315301
+2,2,2,VIPR,Viburnum prunifolium,blackhaw,17961211,96315302
+2,2.1,3,COAM2,Cornus amomum,silky dogwood,17961211,96315303
+11,11,11,QURU,Quercus rubra,northern red oak,17961211,96315304
+3,3,3,VIDE,Viburnum dentatum,southern arrowwood,17961211,96315305
+NA,2,NA,COAM2,Cornus amomum,silky dogwood,17961212,96315306
+NA,7,NA,ABCO,Abies concolor,white fir,17961212,96315307
+NA,11,NA,QUPA2,Quercus palustris,pin oak,17961212,96315308
+NA,7,NA,THOC2,Thuja occidentalis,arborvitae,17961212,96315309
+NA,7,NA,PIPU,Picea pungens,blue spruce,17961212,96315310
+NA,3,NA,VIOPA2,Viburnum opulus var. americanum,American cranberrybush,17961212,96315311
+NA,5,NA,CRPH,Crataegus phaenopyrum,Washington hawthorn,17961212,96315312
+NA,10,NA,PIAB,Picea abies,Norway spruce,17961212,96315313
+NA,9,NA,PINI,Pinus nigra,Austrian pine,17961212,96315314
+NA,12,NA,PIST,Pinus strobus,eastern white pine,17961212,96315315
