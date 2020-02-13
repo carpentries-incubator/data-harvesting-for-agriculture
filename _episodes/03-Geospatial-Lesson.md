@@ -66,7 +66,7 @@ supply the file name.
 
 
 ```r
-boundary <- read_sf("data/boundary.gpkg")
+boundary <- read_sf("data/boundary_transformed.gpkg")
 ```
 
 There are many functions for reading files into the
@@ -101,33 +101,20 @@ head(boundary$geom)
 ```
 
 ```
-## Geometry set for 6 features 
+## Geometry set for 2 features 
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
-## bbox:           xmin: -81.97853 ymin: 41.73949 xmax: -81.97306 ymax: 41.7466
+## bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## First 5 geometries:
 ```
 
 ```
-## MULTIPOLYGON (((-81.97319 41.74574, -81.97385 4...
+## MULTIPOLYGON (((-82.87319 40.84574, -82.87306 4...
 ```
 
 ```
-## MULTIPOLYGON (((-81.97805 41.74098, -81.97803 4...
-```
-
-```
-## MULTIPOLYGON (((-81.9741 41.73985, -81.97306 41...
-```
-
-```
-## MULTIPOLYGON (((-81.97807 41.74157, -81.97806 4...
-```
-
-```
-## MULTIPOLYGON (((-81.97817 41.74612, -81.97807 4...
+## MULTIPOLYGON (((-82.87803 40.83981, -82.87805 4...
 ```
 
 The trial design is in lat/long using WGS84. 
@@ -163,7 +150,7 @@ st_crs(boundaryutm)
 ```
 
 **Exercise**
-1. Bring the file called "asplanted.gpkg" in your environment. Name
+1. Bring the file called "asplanted_transformed.gpkg" in your environment. Name
 the object `planting`. This file contains the planting information for 2017.
 2. Identify the CRS of the object. 
 3. Look at the geometry features. What kind of geometric features are in this dataset?
@@ -173,7 +160,7 @@ the object `planting`. This file contains the planting information for 2017.
 
 
 ```r
-planting <- read_sf("data/asplanted.gpkg")
+planting <- read_sf("data/asplanted_transformed.gpkg")
 
 st_crs(planting)
 ```
@@ -192,27 +179,27 @@ planting$geom
 ## Geometry set for 6382 features 
 ## geometry type:  POINT
 ## dimension:      XY
-## bbox:           xmin: -81.97843 ymin: 41.73952 xmax: -81.97315 ymax: 41.74653
+## bbox:           xmin: -82.87843 ymin: 40.83952 xmax: -82.87315 ymax: 40.84653
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ## First 5 geometries:
 ```
 
 ```
-## POINT (-81.97829 41.73953)
+## POINT (-82.87829 40.83953)
 ```
 
 ```
-## POINT (-81.97828 41.73953)
-## POINT (-81.97828 41.73953)
+## POINT (-82.87828 40.83953)
+## POINT (-82.87828 40.83953)
 ```
 
 ```
-## POINT (-81.97827 41.73953)
+## POINT (-82.87827 40.83953)
 ```
 
 ```
-## POINT (-81.97825 41.73953)
+## POINT (-82.87825 40.83953)
 ```
 
 ```r
@@ -252,7 +239,7 @@ st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES', upda
 ## Updating layer `boundary_utm' to data source `boundary_utm.gpkg' using driver `GPKG'
 ## options:        OVERWRITE=YES 
 ## Updating existing layer boundary_utm
-## Writing 10 features with 1 fields and geometry type Multi Polygon.
+## Writing 2 features with 0 fields and geometry type Multi Polygon.
 ```
 
 The new .gpkg file will be visible in your working directory. One common problem
@@ -277,7 +264,9 @@ We can also plot the data where the polygons change color based on the value of 
 map_poly(boundary, 'Type', 'Part of Field')
 ```
 
-![plot of chunk unnamed-chunk-3](../figure/unnamed-chunk-3-1.png)
+```
+## Error: Fill argument neither colors nor valid variable name(s)
+```
 
 #SSURGO Soil Data
 
@@ -293,24 +282,31 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 
 
 ```r
-boundarynew <- read_sf("data/asplanted.gpkg")
+boundarynew <- read_sf("data/asplanted_transformed.gpkg")
 boundary <- subset(boundary, Type == "Trial")
+```
+
+```
+## Error in eval(e, x, parent.frame()): object 'Type' not found
+```
+
+```r
 boundary.sp <- as(boundary, "Spatial")
 lwgeom::st_make_valid(boundary)
 ```
 
 ```
-## Simple feature collection with 2 features and 1 field
+## Simple feature collection with 2 features and 0 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
-## bbox:           xmin: -81.97817 ymin: 41.73981 xmax: -81.97327 ymax: 41.74615
+## bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 2 x 2
-##   Type                                                                      geom
-##   <chr>                                                       <MULTIPOLYGON [°]>
-## 1 Trial (((-81.97803 41.73981, -81.97805 41.74098, -81.97683 41.74091, -81.9759…
-## 2 Trial (((-81.97339 41.74573, -81.97327 41.73986, -81.9741 41.73985, -81.97412…
+## # A tibble: 2 x 1
+##                                                                             geom
+##                                                               <MULTIPOLYGON [°]>
+## 1 (((-82.87319 40.84574, -82.87306 40.83986, -82.87306 40.83957, -82.87316 40.8…
+## 2 (((-82.87803 40.83981, -82.87805 40.84098, -82.87683 40.84091, -82.87598 40.8…
 ```
 
 ```r
@@ -324,7 +320,7 @@ ssurgo <- get_ssurgo(boundary.sp, "samplefield")
 ```
 
 ```
-## Error in {: task 1 failed - "Download of https://sdmdataaccess.nrcs.usda.gov/Spatial/SDMNAD83Geographic.wfs?Service=WFS&Version=1.0.0&Request=GetFeature&Typename=SurveyAreaPoly&BBOX=-81.978165150311,41.7398141866265,-81.9732655092103,41.7461469570485 failed!"
+## Error in {: task 1 failed - "Download of https://sdmdataaccess.nrcs.usda.gov/Spatial/SDMNAD83Geographic.wfs?Service=WFS&Version=1.0.0&Request=GetFeature&Typename=SurveyAreaPoly&BBOX=-82.8785271106089,40.8394549766663,-82.8730573328604,40.846601 failed!"
 ```
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
