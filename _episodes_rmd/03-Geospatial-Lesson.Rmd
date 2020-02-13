@@ -235,11 +235,6 @@ mention here, or should it go in the section where we're opening things with QGI
 
 There are several ways to visualize spatial data. First, we can use `plot()` to look at the basic shape of the data. 
 
-```{r}
-x = c(1:10)
-y = c(43:52)
-plot(x~y)
-```
 
 ```{r}
 plot(boundary$geom)
@@ -270,7 +265,6 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 boundarynew <- read_sf("data/asplanted_transformed.gpkg")
 boundary <- subset(boundary, Type == "Trial")
 boundary.sp <- as(boundary, "Spatial")
-#ssurgo <- get_ssurgo(boundary.sp, "field1")
 
 # JPN: here is the mess: set redo=TRUE to force re-download
 download_ssurgo <- function(name_of_field, boundary_sp_in, redo=FALSE){
@@ -297,7 +291,6 @@ download_ssurgo <- function(name_of_field, boundary_sp_in, redo=FALSE){
   )    
 }
 
-#ssurgo <- get_ssurgo(boundary.sp, "samplefield")
 ssurgo <- download_ssurgo("samplefield", boundary.sp)
 
 ```
@@ -352,25 +345,10 @@ Use `map_poly()` to make a map where the polygon color is informed by the soil n
 
 *Exercise 5 Solution*
 
-```{r echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
-
-#map_poly2 <- function(sfobject, variable, name){
-#  tm_shape(sfobject) + tm_polygons(variable, title = name) +
-#    tm_layout(legend.outside = TRUE, frame = FALSE) 
-#}
-
-#map_soil <- map_poly(spatial, 'muname', "Soil Type")
-#map_poly(spatial, 'muname', "Soil Type")
-#map_soil
-
-#tm_layout(legend.width=1)
-#tm_shape(spatial) + tm_polygons('muname')#, title = "Soil Type") #+ tm_layout(legend.outside = TRUE, frame = FALSE) 
-
-```
 
 ```{r}
-#map_poly(boundary, 'Type', 'Part of Field')
-plot(c(1,2,3), c(4,5,6))
+map_soil <- map_poly(spatial, 'muname', "Soil Type")
+map_soil
 ```
 
 
