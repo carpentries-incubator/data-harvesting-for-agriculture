@@ -31,6 +31,8 @@ objectives:
 
 ![plot of chunk stuff2](../fig/stuff2-1.png)
 
+![plot of chunk stuff3](../fig/stuff3-1.png)
+
 
 ## TO-ADD
 

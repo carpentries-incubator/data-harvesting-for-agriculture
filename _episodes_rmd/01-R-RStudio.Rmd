@@ -35,6 +35,12 @@ y = c(243:252)
 plot(x~y)
 ```
 
+```{r stuff3, echo=FALSE, fig.width=8, fig.height=6}
+x = c(322:331)
+y = c(243:252)
+plot(x~y)
+```
+
 
 ## TO-ADD
 
