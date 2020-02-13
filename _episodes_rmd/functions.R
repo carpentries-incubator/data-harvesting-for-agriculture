@@ -12,6 +12,19 @@ st_transform_utm <- function(sfobject){
   return(newobj)
 }
 
+# `long2UTM()` is a function written to take the argument `long` and output the
+# result of the equation. `floor()` returns the largest integer that is not
+# greater than the input.  The `st_bbox()` function returns the bounding box of
+# the dataset, i.e. the four corners defining a rectangle that would contain all
+# of the polygons.  By taking the mean of the first and third items returned by
+# `st_bbox()`, we get the longitude of the point directly in the center of the box.
+# 
+# The code below pastes together the full
+# ESPG code for any `utmzone` we calculate with `long2UTM`. `paste0()` pastes
+# together the two arguments `"326"` and `utmzone` as string. But when we transform
+# `trial` into UTM, we only need the ESPG number. So we convert that to numeric with
+# `as.numeric()`, giving us a final ESPG of `r paste0("326", utmzone)`.
+
 cent_long <- function(sfobject){
   mean(st_bbox(sfobject)[c(1,3)])
 }
@@ -53,3 +66,9 @@ ha_to_ac <- function(varc){
 kg_to_lb <- function(varc){
   conv_unit(varc, "kg", "lb") 
 }
+
+map_poly <- function(sfobject, variable){
+  tm_shape(sfobject) + tm_polygons('variable') +
+    tm_layout(legend.outside = TRUE, frame = FALSE) 
+}
+
