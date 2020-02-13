@@ -29,9 +29,9 @@ objectives:
 
 
 
-![plot of chunk stuff4](figure/stuff4-1.png)
+![plot of chunk stuff4](../figure/stuff4-1.png)
 
-![plot of chunk stuff3](figure/stuff3-1.png)
+![plot of chunk stuff3](../figure/stuff3-1.png)
 
 
 ## TO-ADD
@@ -96,7 +96,7 @@ I'm gonna trya thing
 plot(c(1,2,3), c(4,5,6))
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-2](../figure/unnamed-chunk-2-1.png)
 -->
 
 
