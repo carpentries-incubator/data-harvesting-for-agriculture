@@ -166,7 +166,7 @@ c_s_s_soil <- function(ssurgo){
   
   # save data to the ssurgo shapefile
   spatial <- as(ssurgo$spatial, "sf")
-  spatial <- rename(spatial, c("MUKEY" = "mukey"))
+  spatial <- dplyr::rename(spatial, mukey = MUKEY)
   spatial <- merge.data.frame(spatial, component.agg, by="mukey")
   spatial <- spatial[,-5]
   spatial <- dplyr::distinct(spatial)
