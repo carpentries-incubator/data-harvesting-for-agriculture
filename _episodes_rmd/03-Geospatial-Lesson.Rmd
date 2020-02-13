@@ -196,10 +196,9 @@ There are several ways to visualize spatial data. First, we can use `plot()` to 
 plot(boundary$geom)
 ```
 
-We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide a function for making a simple graph of polygon features colored based on a given variable. 
+We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide the function `map_poly()` in the functions.R script for making a simple map with polygon features colored based on a given variable. 
 
 ```{r plotboth }
-plot(boundary$geom)
 tm_shape(boundary) + tm_polygons('Type') +
   tm_layout(legend.outside = TRUE, frame = FALSE) 
 ```
