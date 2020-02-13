@@ -8,6 +8,7 @@ source: Rmd
 
 
 
+
 #### Motivating Questions:
 - What are the common file types in agricultural data?
 - What applications do I need to open these files?
@@ -250,6 +251,7 @@ st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES', upda
 ```
 ## Updating layer `boundary_utm' to data source `boundary_utm.gpkg' using driver `GPKG'
 ## options:        OVERWRITE=YES 
+## Updating existing layer boundary_utm
 ## Writing 10 features with 1 fields and geometry type Multi Polygon.
 ```
 
