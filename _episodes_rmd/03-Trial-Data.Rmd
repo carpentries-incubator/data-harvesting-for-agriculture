@@ -234,3 +234,24 @@ map_nitrogen <- tm_shape(nitrogen) + tm_dots('Rt_Appl', title = "NH3 (pounds)") 
 map_nitrogen
 ```
 
+In `trialutm` there are 11 variables, but the variables we might want to map are
+`NRATE` and `SEEDRATE`. The following map is created with functions from a package 
+called `tmap`. We are using `tm_polygon()`
+fill the polygons with a color based on the variable `NRATE` inside the object
+`trialutm `. For a different kind of geospatial data such as points, we need to use
+`tm_dots()` or `tm_squares()`. `tmap` provides many options for displaying data, 
+including text markers on the map. Text labels might be good for making a map of 
+several land parcels with their names as the label. We use other arguments in the
+code below to choose the position of the map
+legend, title of the variable, size of text, and width of legend.
+
+
+```{r map}
+tm_shape(trialutm) + tm_polygons('NRATE', title = "Nitrogen Rate") +
+  tm_layout(legend.outside = TRUE, frame = FALSE) +
+  tm_legend(text.size = 1,
+            title.size = 1,
+            width = 100,
+            bg.color = "white")
+```
+
