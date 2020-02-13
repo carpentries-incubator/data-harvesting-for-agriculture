@@ -29,7 +29,7 @@ objectives:
 knitr::opts_chunk$set(echo = TRUE, fig.path='../fig/')
 ```
 
-```{r stuff2, echo=FALSE, fig.width=8, fig.height=6}
+```{r stuff4, echo=FALSE, fig.width=8, fig.height=6}
 x = c(22:31)
 y = c(243:252)
 plot(x~y)

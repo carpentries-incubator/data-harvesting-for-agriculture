@@ -1,8 +1,8 @@
-I"Jâ<!-- JPN: updated fig path here manually for plots to show -->
+I"Mâ<!-- JPN: updated fig path here manually for plots to show -->
 
-<p><img src="..fig/stuff2-1.png" alt="plot of chunk stuff2" /></p>
+<p><img src="../fig/stuff4-1.png" alt="plot of chunk stuff4" /></p>
 
-<p><img src="..fig/stuff3-1.png" alt="plot of chunk stuff3" /></p>
+<p><img src="../fig/stuff3-1.png" alt="plot of chunk stuff3" /></p>
 
 <h2 id="to-add">TO-ADD</h2>
 
@@ -86,7 +86,7 @@ I'm gonna trya thing
 plot(c(1,2,3), c(4,5,6))
 ```
 
-![plot of chunk unnamed-chunk-2](..fig/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-2](../fig/unnamed-chunk-2-1.png)
 -->
 
 <!-- JPN: this is just a test to see if I get what is going on here
