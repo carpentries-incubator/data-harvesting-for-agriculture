@@ -9,8 +9,8 @@
 # console prompt says | , an installation is still in process.)
 
 library("rgdal")
-library("dplyr")
 library("plyr")
+library("dplyr")
 library("sp")
 library("sf")
 library("gstat")
