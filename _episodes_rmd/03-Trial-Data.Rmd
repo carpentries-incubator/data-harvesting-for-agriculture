@@ -17,7 +17,7 @@ require(ggplot2)
 require(gridExtra)
 library(readr)
 library(measurements)
-# knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
+source("../bin/chunk-options.R")
 source("functions.R")
 ```
 
