@@ -1,0 +1,877 @@
+I"V�<!-- JPN: updated fig path here manually for plots to show -->
+
+<p><img src="../figure/stuff4-1.png" alt="plot of chunk stuff4" /></p>
+
+<p><img src="../figure/stuff3-1.png" alt="plot of chunk stuff3" /></p>
+
+<h2 id="to-add">TO-ADD</h2>
+
+<ul>
+  <li>vigenettes - what is it, where can you find it in R studio interface &amp; online</li>
+  <li>how to use “help”</li>
+  <li>”::” &lt;- what does this mean, multiple packages with the same name</li>
+  <li>how to set working directory, get working directory, how to point and click =&gt; session =&gt; working directory
+    <ul>
+      <li>throw this on top of all your scripts</li>
+    </ul>
+  </li>
+  <li>windows vs. mac directories =&gt; mention this, but with the point and click this should not be an issue</li>
+  <li>
+    <font color="magenta">ADD: stuff about '/workdir/' which is where '/data' will live</font>
+  </li>
+  <li>
+    <font color="magenta">Add in all set workdirectory and the, and sourcing the functions file, everytime</font>
+  </li>
+</ul>
+
+<h2 id="assumptions----for-debugging"><font color="magenta">Assumptions -- FOR DEBUGGING</font></h2>
+
+<ol>
+  <li>
+    <font color="magenta">Everybody has installed R and R studio</font>
+  </li>
+  <li>
+    <font color="magenta">They have been able to run the install script we sent them and have all packages installed</font>
+  </li>
+  <li>
+    <font color="magenta">They *do* need an intro to the layout of RStudio, and what everything does.</font>
+  </li>
+</ol>
+
+<font color="green">DENA: I think we need a "basic programming concepts" even before we get to this -- we need to give them the omelet maker and the picture of the assembly line, or maybe a harvesting machine equivalent, so there's something human and understandable and relatable before they get straight into scary command line-looking things. Should we put it in here or at the end of the previous intro chapter?</font>
+
+<h2 id="getting-to-know-r-and-rstudio">Getting to know R and RStudio</h2>
+
+<font color="magenta">A good bit of this might be more suitable to the Setup section as it's got a lot about the setup and running of Rstudio.</font>
+
+<h3 id="outline-for-this-section"><font color="magenta">Outline for this section</font></h3>
+<ol>
+  <li>
+    <font color="magenta">Let's open RStudio </font>
+  </li>
+  <li>
+    <font color="magenta">Where is the console? (screen shot) Vocab: *console*</font>
+  </li>
+  <li>
+    <font color="magenta">Let's use RStudio as a calculator by putting numbers into the console</font>
+  </li>
+</ol>
+
+<p>In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.</p>
+
+<p>If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel).</p>
+
+<p>In this lesson, we will be making use of another software called “RStudio” as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  <strong>Some sort of analogy here would be grand (Jill) – Dena’s analogy: It’s a little like having a toaster. You can make toast over a fire, but having a toaster makes the job easier and less scorch-prone.</strong></p>
+
+<p>We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the <code class="highlighter-rouge">Console</code> that you can see as the left hand panel in the figure below:</p>
+
+<p><img src="../fig/Rstudio_blank.png" alt="starting R studio" /></p>
+
+<font color="magenta"> **Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? </font>
+<font color="green">Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
+
+<p>This has a prompt where commands can be entered.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">7</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 12
+</code></pre></div></div>
+
+<!-- JPN: here is a test plot you can uncomment if you wanna try it
+I'm gonna trya thing
+
+
+```r
+plot(c(1,2,3), c(4,5,6))
+```
+
+![plot of chunk unnamed-chunk-2](../figure/unnamed-chunk-2-1.png)
+-->
+
+<!-- JPN: this is just a test to see if I get what is going on here
+
+```r
+data = read.csv('data/fertilizer_use.csv')
+print(head(data))
+```
+
+```
+##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+## 5 1968 Corn     3116      1855   1778
+## 6 1969 Corn     3287      1789   1765
+```
+-->
+
+<p>After you hit enter, you will see the result of the command.  Let’s try a few others:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Performing arithmetic</span><span class="w">
+</span><span class="m">6</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 8
+</code></pre></div></div>
+
+<p>Whoa!  What did I do just there with this <code class="highlighter-rouge">#</code>?  This is called “leaving a comment in your code” and everything following the <code class="highlighter-rouge">#</code>
+symbol is called a <em>comment</em>. A
+comment is a line, or part of a line, that is ignored by R.  This means you can
+use comments to explain what is happening in the code or why you did something
+a certain way.  Comments start with the <code class="highlighter-rouge">#</code> character, and can take up the
+whole line or just the end of a line.  As we go through this workshop, I
+encourage you to put lots of comments in your code. Think of them as a way to
+take notes!  Here is an example of a comment at the end of a line while we are doing some arithematic:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">2</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c1"># this raises two to the third power</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 8
+</code></pre></div></div>
+
+<h2 id="variables-in-r">Variables in R</h2>
+
+<h3 id="outline-of-this-section"><font color="magenta">Outline of this Section</font></h3>
+
+<ol>
+  <li>
+    <font color="magenta">what is a variable? Vocab: *variable*</font>
+  </li>
+  <li>
+    <font color="magenta">how do we assign a variable? Vocab: *assign*</font>
+  </li>
+  <li>
+    <font color="magenta">What can we do with this variable? -&gt; Generic manipulations (addition, multiplication, etc)</font>
+    <ul>
+      <li>
+        <font color="magenta">for this, use a "real world" thing that farmers might be into... something something nitrogen levels?</font>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <font color="magenta">Talk about how this variable now shows up in the data area and have a screen shot of where that is</font>
+  </li>
+</ol>
+
+<font color="magenta">I stole this bit from the Python Fundementals Episode, not sure if that is groovy or not.  I *think* its ok if we follow the rules of their license but we should double check. I also stole a few things from the R-fundementals workshop and so we need to credit them as well.</font>
+
+<font color="magenta">Also I've left in the links to glossary references that may or may not be there - for example if you click on the "assign" link, it goes nowhere right now.</font>
+
+<font color="magenta">Also, we should change this whole `weight_kg` thing into something that is more agri-centric?  I think?</font>
+
+<p>This is great but not very interesting.
+To do anything useful with data, we need to assign its value to a <em>variable</em>.
+In R, we can <a href="../reference/#assign">assign</a> a value to a
+<a href="../reference/#variable">variable</a>, by typing a little left arrow sign <code class="highlighter-rouge">&lt;-</code>.
+For example, to assign value <code class="highlighter-rouge">60</code> to a variable <code class="highlighter-rouge">weight_kg</code>, we would execute:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">60</span><span class="w">
+</span></code></pre></div></div>
+
+<p>From now on, whenever we use <code class="highlighter-rouge">weight_kg</code>, R will substitute the value we assigned to
+it. In layman’s terms, <strong>a variable is a placeholder name for something that can be updated regularly</strong>. (In calendar terms, “today” is a variable name that represents a date that changes every 24 hours. Being able to refer to something as “today” is a lot simpler than updating that number every day at midnight.)</p>
+
+<p>In R, variable names:</p>
+
+<ul>
+  <li>can include letters, digits, and underscores</li>
+  <li>cannot start with a digit</li>
+  <li>are <a href="../reference/#case-sensitive">case sensitive</a>.</li>
+</ul>
+
+<p>This means that, for example:</p>
+<ul>
+  <li><code class="highlighter-rouge">weight0</code> is a valid variable name, whereas <code class="highlighter-rouge">0weight</code> is not</li>
+  <li><code class="highlighter-rouge">weight</code> and <code class="highlighter-rouge">Weight</code> are different variables</li>
+</ul>
+
+<font color="magenta">Also from the R-programming workshop, possibly said another way:</font>
+
+<blockquote class="callout">
+  <h2 id="variable-naming-conventions">Variable Naming Conventions</h2>
+
+  <p>Historically, R programmers have used a variety of conventions for naming variables. The <code class="highlighter-rouge">.</code> character
+in R can be a valid part of a variable name; thus the above assignment could have easily been <code class="highlighter-rouge">weight.kg &lt;- 57.5</code>.
+This is often confusing to R newcomers who have programmed in languages where <code class="highlighter-rouge">.</code> has a more significant meaning <strong>, or to people 
+who are used to file names like resume.doc where the component after . identifies the type of a file. –Dena</strong>.
+Today, most R programmers 1) start variable names with lower case letters, 2) separate words in variable names with
+underscores, and 3) use only lowercase letters, underscores, and numbers in variable names. The book <em>R Packages</em> includes
+a <a href="http://r-pkgs.had.co.nz/style.html">chapter</a> on this and other style considerations.</p>
+</blockquote>
+
+<h3 id="types-of-data">Types of data</h3>
+
+<font color="magenta">Do we need to get into datatypes here?  Or can we just skip it and get into it when we look at an actual dataset that has columns of different datatypes?</font>
+<font color="green">DENA: Introduce each concept right when we need to know it and right when we're going to use it. That way it's directly relevant to what's in front of them next.)</font>
+
+<p>R knows various types of data. The ones you are likely to come across are:</p>
+
+<ul>
+  <li>integer numbers (whole numbers)</li>
+  <li>floating point numbers (numbers with decimals), and</li>
+  <li>names or words that sort data into “categories” <font color="magenta">(maybe something better here?)  Save types of data until we get into the columns stuff?</font><strong>Dena: This isn’t a helpful example to me; I honestly don’t know what data type this is trying to describe.</strong></li>
+</ul>
+
+<p>In the example above, variable <code class="highlighter-rouge">weight_kg</code> has an integer value of <code class="highlighter-rouge">60</code>.
+To create a variable with a floating point value, we can execute:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">60.0</span><span class="w">
+</span></code></pre></div></div>
+
+<font color="magenta">Here I don't know if we should get into the print function right now like they do in the Python lesson or not</font>
+
+<font color="magenta">I also don't know if we want to use "&lt;-" all the time or the "=" sign.  I *feel* like "=" is more intiuative but I'm not 100% sure on that one, could be my Python bias showing :)</font>
+<p><strong>Dena: “&lt;-“ saves all kinds of confusion about “=” vs “==” and so forth, and it’s something that won’t lead to confusion about whether it’s the mathematical use case or not? I’ve never seen it before since I’m not an R person, but I like it.</strong></p>
+
+<p>We can do arithematic with variables like we did with numbers before:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Performing arithmetic with our variable: multiply it by a factor of 2.2</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">2.2</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 132
+</code></pre></div></div>
+<!-- weight in lbs = 2.2 x weight in kg -->
+
+<p>The above command, however, did not change the value of <code class="highlighter-rouge">weight_kg</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 60
+</code></pre></div></div>
+
+<p>To change the value of the <code class="highlighter-rouge">weight_kg</code> variable, we have to
+<strong>assign</strong> <code class="highlighter-rouge">weight_kg</code> a new value using the equals <code class="highlighter-rouge">&lt;-</code> sign:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">60.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">2.2</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 132
+</code></pre></div></div>
+
+<blockquote class="callout">
+  <h2 id="variables-as-sticky-notes">Variables as Sticky Notes</h2>
+
+  <p>A variable is analogous to a sticky note with a name written on it:
+assigning a value to a variable is like putting that sticky note on a particular value.</p>
+
+  <p><img src="../fig/python-sticky-note-variables-01.svg" alt="Variables as Sticky Notes" /></p>
+
+  <p>This means that assigning a value to one variable does <strong>not</strong> change
+values of other variables.
+For example, let’s store the subject’s weight in pounds in its own variable:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># There are 2.2 pounds per kilogram</span><span class="w">
+</span><span class="n">weight_lb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">weight_kg</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 132
+</code></pre></div>  </div>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_lb</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 290.4
+</code></pre></div>  </div>
+
+  <p><img src="../fig/python-sticky-note-variables-02.svg" alt="Creating Another Variable" /></p>
+
+  <p>Let’s now change <code class="highlighter-rouge">weight_kg</code>:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">100.0</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 100
+</code></pre></div>  </div>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_lb</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 290.4
+</code></pre></div>  </div>
+  <p>We can see that even though we updated <code class="highlighter-rouge">weight_kg</code>, the variable <code class="highlighter-rouge">weight_lb</code> was not changed.</p>
+
+  <p><img src="../fig/python-sticky-note-variables-03.svg" alt="Updating a Variable" /></p>
+
+  <p>Since <code class="highlighter-rouge">weight_lb</code> doesn’t “remember” where its value comes from,
+it is not updated when we change <code class="highlighter-rouge">weight_kg</code>.</p>
+</blockquote>
+
+<font color="magenta">Note: there is another way of explaining this in the R lesson:</font>
+<p><a href="http://swcarpentry.github.io/r-novice-inflammation/01-starting-with-data/index.html">http://swcarpentry.github.io/r-novice-inflammation/01-starting-with-data/index.html</a></p>
+
+<font color="magenta">Do we want to have this example for them too or just get right into scripts and whatnot?</font>
+
+<blockquote class="challenge">
+  <h2 id="assigning-values-to-variables">Assigning Values to Variables</h2>
+
+  <p>Draw diagrams showing what variables refer to what values after each statement in the following program:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mass</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">47.5</span><span class="w">
+</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">122</span><span class="w">
+</span><span class="n">mass</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">2.0</span><span class="w">
+</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">20</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mass</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">47.5</span><span class="w">
+</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">122</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/mass-age-assign-1.svg" alt="Assigning Variables" /></p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mass</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">2.0</span><span class="w">
+</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">20</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/mass-age-assign-2.svg" alt="Assigning Variables" /></p>
+
+  </blockquote>
+</blockquote>
+
+<h2 id="writing-and-saving-r-scripts">Writing and Saving R Scripts</h2>
+
+<font color="magenta"> NOTE: I'm wondering if we want to push this section to later -- i.e. if we want to just go right to "getting your data into R" and do some examples just using the console and then start worrying about saving files later in the day once they have some cool plots that they made with R that they might want to reproduce.</font>
+<font color="green">DENA: Yes, move it later -- we're after early gratification with minimal fear and dread.) ETA after a second read: It makes a reasonable amount of sense here, but the outline I'm less sure of what we're doing with it?</font>
+
+<h3 id="outline-of-this-section-1"><font color="magenta">Outline of this section</font></h3>
+<ol>
+  <li>
+    <font color="magenta">Analogy - scripting is like writing a set of instructions, a letter, something. Vocab: *scripts/scripting* </font>
+  </li>
+  <li>
+    <font color="magenta">Where do we write scripts in RStudio - screen shot of window, a screen shot of what to do if there is only the console and no script - how do you open a script interface </font>
+  </li>
+  <li>
+    <font color="magenta">Redo stuff with variable in script (nitrogen levels calculation), but call it something different</font>
+  </li>
+  <li>
+    <font color="magenta">How to run a script - Run vs. Source -&gt; they are in the same place!  Screenshot of this. Vocab: *running a script*</font>
+  </li>
+  <li>
+    <font color="magenta">Point out that it shows up in the data-listing place</font>
+  </li>
+  <li><del><font color="magenta">How do we find out the value of our new variable that we wrote in a script?</font></del>
+    <ol>
+      <li><del><font color="magenta">Using the console like before - because in RStudio the console and scripting interface are linked! (this is not true in other things like PyCharm... this is slightly an aside though so use an aside thing)</font></del></li>
+      <li><del><font color="magenta">Using a print statement - emphasize that you *have* to use print in the script to see the variable!</font></del></li>
+    </ol>
+  </li>
+  <li>
+    <font color="magenta">How to save our script -&gt; where does it save to?</font>
+  </li>
+  <li>
+    <font color="magenta">Closing and re-opening a script to re-run.</font>
+  </li>
+</ol>
+
+<p>Now that we have some idea of what kinds of calculations we want to do in R, we might want to know how to save our work.  We do this in something called a <em>script</em> which is essentially a list of instructions that will tell R what to do, in the order we give them.</p>
+
+<p>We can open up a <em>script file</em> where we will type in all our instructions by going to the little green plus at the top left of RStudio and selecting “R Script” from the dropdown menu <font color="magenta">(this was for a Mac, not sure if its different for windows)</font>:</p>
+
+<p><img src="../fig/opening_script_in_Rstudio.png" alt="Opening a script in Rstudio" /></p>
+
+<p>In our new scripting window, we can type the commands that we had worked through before into this script and then tell R to do the calculation by putting our cursor on the last line (end of line 3) and pressing the “Run” button in the upper right corner of the scripting window:</p>
+
+<p><img src="../fig/output_script_save-02.png" alt="Run a script" /></p>
+
+<font color="magenta">Do we want to teach them about Source vs. Run at this point? </font>
+
+<p>You can see that these variable names have now popped up in the <em>Global Environment</em> window at the upper left – this is a way we can keep track of our variables as we run our scripts.</p>
+
+<p>Finally, we want to be able to save all of our hard work!  We can do this like we would save any file on our computer, but make sure you put it in a place were you’ll remember on your computer. <font color="magenta">(do we need screen shots?  I assume everybody knows how to save a file and how to choose where to save it but maybe this isn't 100% correct?)</font></p>
+
+<p>You’ll note now that the little upper tab on the left of the scripting window has the file name I chose, but with the extension <code class="highlighter-rouge">.R</code>.  This is the extension of an R-script and it means that its in a format that R can execute.</p>
+
+<p><img src="../fig/output_script_save-03.png" alt="save a script" /></p>
+
+<p>If you close this file and want to re-open it, you can use <code class="highlighter-rouge">File -&gt; Open File...</code> to open it up in R. <font color="magenta">(This could be different on a Windows, also not sure how much detail we want here and if we want a screen shot or not)</font></p>
+
+<!--## OPTIONAL: What is a function?
+
+<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this. </font> **Dena: Yeah, right here is not where I'd do functions -- either earlier or in the next file, but saving the file is generally the "end" of a sequence, you do a thing and then you save it and then you're done?**
+
+-->
+
+<h2 id="getting-your-data-into-r">Getting your data into R</h2>
+
+<h3 id="outline-of-this-section-2"><font color="magenta">Outline of this Section</font></h3>
+<ol>
+  <li>
+    <font color="magenta">Let's talk about the dataset we are going to use here -- facts about this dataset</font>
+  </li>
+  <li>
+    <font color="magenta">This is what this dataset looks like (show snapshot of csv)</font>
+  </li>
+  <li>
+    <font color="magenta">To get this data into R where we can do math to it like we did with our variable above we have to do something called "reading in our data".  To do this, we'll use something called a *function* to assign a variable the value of this table -- i.e. we want a variable that will store all the rows and columns of our dataset</font>
+    <ul>
+      <li>
+        <font color="magenta">Talk a bit about what a function is here -- omelets? Vocab: *function*</font>
+      </li>
+      <li>
+        <font color="magenta">we also have to talk about the fact that we give the file name as a parameter to this function. Vocab: *function parameter*</font>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>As an example of a dataset in spreadsheet form that we can use to demonstrate
+the R language, we are using the <a href="https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx">USDA - Economic Research Service’s fertilizer
+use and price dataset</a>.
+Of the various tables of data on this website, will be looking at Table 2 called “Estimated U.S. plant nutrient use by selected crops”
+which shows 1,000 nutrient short tons of nitrogen,
+phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the
+US from 1964-2016.</p>
+
+<p>This table has been reformatted into a CSV file for ease of import into
+R.  You can download the CSV from: <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv" download="">https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv</a>. <font color="magenta">NOTE: I had to *explicitly* save this as a .csv file, it default downloaded as a txt file.  And I had to right-click on the link to save it at all, eventhough I had the download tag in the HTML.  Not sure how to fix this at the moment.</font> <strong>Dena: That’s most likely a mime type problem on the web server end?</strong></p>
+
+<p><strong>Dena: Problem with reading this in – how do you ask R what directory it’s currently considering you to be “in” for relative path types of things? I knew data/filename.csv wasn’t going to work for me because that’s not a path I’ve got set up in the demo folder,
+but I can’t figure out how to ask R where its “current directory” equivalent is in order to figure out how to either change directories
+or make ./ or ../ paths work to navigate to where the file is living.</strong></p>
+
+<p><strong>Dena: Sequence needed here:
+1) Where is your working directory actually now? (Mine was C:\Users\Dena\Documents, which is totally disconnected from where our stuff will be.)
+2) Change it to C:\ or D:\ DataHarvesting(YourOS)\SampleData (I think)
+2b) In the process if you’re on Windows all those \ marks need to become / marks - Brittani says there’s a point and click option
+3) Download the file.csv into the SampleData folder unless we’ve already put it there for them
+4) Then read in the file</strong></p>
+
+<p>The top few lines of this file look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Year,Crop,Nitrogen,Phosphate,Potash
+## 1964,Corn,1623,1053,829
+## 1965,Corn,2151,1336,1204
+## 1966,Corn,2596,1626,1513
+## 1967,Corn,3044,1857,1750
+</code></pre></div></div>
+
+<p>It can be opened in Excel if you want to get a quick look at it that way, or we can
+dive straight into looking at it in R.  Save it into your <code class="highlighter-rouge">data</code> folder in
+your RStudio project for this lesson.</p>
+
+<font color="magenta"> **NOTE: this assumes they have already created the `data` folder -&gt; I assume this will be somewhere in the setup directions?? </font>
+<font color="green">DENA: It should be both in the setup directions and on the USB key.)</font>
+
+<p>In R, we can use a <em>function</em> called <code class="highlighter-rouge">read.csv</code> to import data from a CSV
+(comma-separated value) file.</p>
+
+<blockquote class="callout">
+  <h3 id="what-is-a-function">What is a function?</h3>
+
+  <p>A function is a bit of code that we want to be able to reuse again and again.  For example, let’s say you want to make yourself an omelet every morning, wouldn’t it be great if you had some sort of machine that would do it for you?</p>
+
+  <p>Let’s imagine an omelet-making scenario. You start with some eggs, some cheese, and some other ingredients, use utensils and heat, and end up with something cooked and edible on a plate.</p>
+
+  <p>Here’s what that process might look like in terms a step closer to programming:</p>
+  <pre><code>
+function make_omelet(eggs, cheese, chives) {
+   for each bowl
+       crack eggs
+       discard shells
+       if the ingredients list is longer than eggs
+           add other ingredients to bowl as well
+       else
+           ready to cook
+  pour bowl into hot pan
+  cook
+  serve
+  done
+}
+
+</code></pre>
+
+  <p>In this example, we’re telling the system these things:</p>
+  <ul>
+    <li>A function (repeatable sequence of commands) named <code class="highlighter-rouge">make_omelet</code> takes several inputs (the ingredients list in parentheses)</li>
+    <li>The part in the curly braces <code class="highlighter-rouge">{}</code> tells the function what to do with the inputs (also called arguments or parameters – you can think of this as an ingredients list if it helps)</li>
+  </ul>
+
+  <p>To use a function we have to <em>call</em> it in a specific way.  Let’s try with an R function called <code class="highlighter-rouge">print</code> which will just echo back what we give it as an <em>input parameter</em>:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">100.0</span><span class="w"> </span><span class="c1"># assign the value of 100.0 to a variable called "weight_kg"</span><span class="w">
+</span><span class="n">print</span><span class="p">(</span><span class="n">weight_kg</span><span class="p">)</span><span class="w"> </span><span class="c1"># print out the value of the variable to the screen</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 100
+</code></pre></div>  </div>
+  <p>In this example, we <em>called</em> the function by using the function name, <code class="highlighter-rouge">print</code> followed by parenthisis in which we put our <em>input parameter</em> in this case the variable <code class="highlighter-rouge">weight_kg</code>, the value of which we wanted to print to the screen.
+This was a bit of a silly example since we’ve been able to show the value of variables without this function before, but it is a nice example of a function being used. <font color="magenta">(wording has got to be better here)</font> <strong>Dena: maybe move the whole stack up to where we’re introducing variables?</strong></p>
+
+</blockquote>
+
+<p>Let’s use a function called <code class="highlighter-rouge">read.csv</code><font color="purple">(BRITTANI: The way this is written now, we have already seen read.csv. We need to decide where we want to put the function omlet example in relation to reading the csv.)</font>. that will import our table of data into R so we can use it:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fert_use</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/fertilizer_use.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Note here that the name of the function is <code class="highlighter-rouge">read.csv</code>, the <em>input parameter</em> is the name of the file we want to read in, including the <code class="highlighter-rouge">data</code> folder we created earlier.  The <code class="highlighter-rouge">/</code> after <code class="highlighter-rouge">data</code> just indicates to R that it should look inside this folder for the file named <code class="highlighter-rouge">fertilizer_use.csv</code>.  <font color="magenta">(Again here, I'm assuming we already went over how to make the data folder, how to save stuff inside the data folder, and whatnot)</font>.  We <em>assigned</em> the value of this table – all of its row and column data – into a variable called <code class="highlighter-rouge">fert_use</code>.</p>
+
+<p>Just like with our <code class="highlighter-rouge">weight_kg</code> and <code class="highlighter-rouge">weight_lb</code> variables before, it now shows up in the <em>Global Environment</em> window at the upper left of RStudio.</p>
+
+<h2 id="explore-your-data-in-r">Explore your data in R</h2>
+
+<h4 id="outline-for-this-section-1"><font color="magenta">Outline for this section</font></h4>
+<ol>
+  <li>
+    <font color="magenta">Explore your data with the "head" function </font>
+    <ul>
+      <li>
+        <font color="magenta">Your data is stored as a special thing called a dataframe - explain what this is. Vocab: *dataframe*</font>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <font color="magenta">Using the str function</font>
+  </li>
+  <li>
+    <font color="magenta">NOT IN HERE YET: Also show how to look at your data in R (like "View(data)")? Maybe?  Or you can click on it?</font>
+  </li>
+  <li>
+    <font color="magenta">We can access the columns of your tabular dataset with a $ thing</font>
+  </li>
+  <li>
+    <font color="magenta">We can access the rows of your tabular dataset with ... (not sure we wanna do this)</font>
+  </li>
+</ol>
+
+<font color="magenta">I am starting of with the "head" function because I think its more intuative than the "str" function and allows for a more gentle walk through of what a dataframe is, but I think this can definitely be open for debate and might just be my own biases of the order in which I learned things!</font>
+
+<p>Now that you have your data imported into R, it would be nice to take a look at it!  One quick way to do this is using the <code class="highlighter-rouge">head</code> function like so:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+## 5 1968 Corn     3116      1855   1778
+## 6 1969 Corn     3287      1789   1765
+</code></pre></div></div>
+
+<p>This lets us look at our table of data, but it formats things in a nice way, with the name of each column at the top and the row numbered on the left side.</p>
+
+<p>We can also control how many rows print out by including an <em>optional parameter</em> in our function call:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##   Year Crop Nitrogen Phosphate Potash
+## 1 1964 Corn     1623      1053    829
+## 2 1965 Corn     2151      1336   1204
+## 3 1966 Corn     2596      1626   1513
+## 4 1967 Corn     3044      1857   1750
+</code></pre></div></div>
+
+<p>Note that we can call the <code class="highlighter-rouge">head</code> function without this parameter and it will run just fine with some default value.  If we want to specify the number of rows, we include this as <code class="highlighter-rouge">parameter name = parameter value</code>.  In this case, our <code class="highlighter-rouge">parameter name</code> for the <code class="highlighter-rouge">head</code> function is <code class="highlighter-rouge">n</code> and the <code class="highlighter-rouge">parameter value</code> is <code class="highlighter-rouge">4</code>.  Different functions will have different parameter names and we can find out more information about these parameters by appending a <code class="highlighter-rouge">?</code> to the front of our function call which will print out a bit of info about these optional parameters:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">head</span><span class="w">
+</span></code></pre></div></div>
+
+<!-- JPN: this looks not great
+> ### Finding Help for a Function
+>
+> 
+> ```r
+> ?head
+> ```
+>
+> Will output:
+> 
+> 
+> <table width="100%" summary="page for head {utils}"><tr><td>head {utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+> 
+> <h2>
+> Return the First or Last Part of an Object
+> </h2>
+> 
+> <h3>Description</h3>
+> 
+> <p>Returns the first or last parts of a vector, matrix, table, data frame
+> or function.  Since <code>head()</code> and <code>tail()</code> are generic
+> functions, they may also have been extended to other classes.
+> </p>
+> 
+> 
+> <h3>Usage</h3>
+> 
+> <pre>
+> head(x, ...)
+> ## Default S3 method:
+> head(x, n = 6L, ...)
+> ## S3 method for class 'data.frame'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'matrix'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'ftable'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'table'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'function'
+> head(x, n = 6L, ...)
+> 
+> tail(x, ...)
+> ## Default S3 method:
+> tail(x, n = 6L, ...)
+> ## S3 method for class 'data.frame'
+> tail(x, n = 6L, ...)
+> ## S3 method for class 'matrix'
+> tail(x, n = 6L, addrownums = TRUE, ...)
+> ## S3 method for class 'ftable'
+> tail(x, n = 6L, addrownums = FALSE, ...)
+> ## S3 method for class 'table'
+> tail(x, n = 6L, addrownums = TRUE, ...)
+> ## S3 method for class 'function'
+> tail(x, n = 6L, ...)
+> </pre>
+> 
+> 
+> <h3>Arguments</h3>
+> 
+> <table summary="R argblock">
+> <tr valign="top"><td><code>x</code></td>
+> <td>
+> <p>an object</p>
+> </td></tr>
+> <tr valign="top"><td><code>n</code></td>
+> <td>
+> <p>a single integer.  If positive or zero, size for the resulting
+> object: number of elements for a vector (including lists), rows for
+> a matrix or data frame or lines for a function.  If negative, all but
+> the <code>n</code> last/first number of elements of <code>x</code>.</p>
+> </td></tr>
+> <tr valign="top"><td><code>addrownums</code></td>
+> <td>
+> <p>if there are no row names, create them from the row
+> numbers.</p>
+> </td></tr>
+> <tr valign="top"><td><code>...</code></td>
+> <td>
+> <p>arguments to be passed to or from other methods.</p>
+> </td></tr>
+> </table>
+> 
+> 
+> <h3>Details</h3>
+> 
+> <p>For matrices, 2-dim tables and data frames, <code>head()</code> (<code>tail()</code>) returns
+> the first (last) <code>n</code> rows when <code>n &gt;= 0</code> or all but the
+> last (first) <code>n</code> rows when <code>n &lt; 0</code>.  <code>head.matrix()</code> and
+> <code>tail.matrix()</code> are exported.  For functions, the
+> lines of the deparsed function are returned as character strings.
+> </p>
+> <p>If a matrix has no row names, then <code>tail()</code> will add row names of
+> the form <code>"[n,]"</code> to the result, so that it looks similar to the
+> last lines of <code>x</code> when printed.  Setting
+> <code>addrownums = FALSE</code> suppresses this behaviour.
+> </p>
+> 
+> 
+> <h3>Value</h3>
+> 
+> <p>An object (usually) like <code>x</code> but generally smaller.  For
+> <code><a href="../../stats/html/ftable.html">ftable</a></code> objects <code>x</code>, a transformed <code>format(x)</code>.
+> </p>
+> 
+> 
+> <h3>Author(s)</h3>
+> 
+> <p>Patrick Burns, improved and corrected by R-Core. Negative argument
+> added by Vincent Goulet.
+> </p>
+> 
+> 
+> <h3>Examples</h3>
+> 
+> <pre>
+> head(letters)
+> head(letters, n = -6L)
+> 
+> head(freeny.x, n = 10L)
+> head(freeny.y)
+> 
+> tail(letters)
+> tail(letters, n = -6L)
+> 
+> tail(freeny.x)
+> tail(freeny.y)
+> 
+> tail(library)
+> 
+> head(stats::ftable(Titanic))
+> </pre>
+> 
+> <hr /><div style="text-align: center;">[Package <em>utils</em> version 3.6.2 <a href="00Index.html">Index</a>]</div>
+{: .callout}
+-->
+
+<p>Now let’s say we want to look at only the first few entries of the <code class="highlighter-rouge">Years</code> column of our dataset?  We can do this by making use of the fact that our variable <code class="highlighter-rouge">fert_use</code> is a special type of variable called a <em>dataframe</em> which allows us to use special notation to print out individual columns by saying <code class="highlighter-rouge">dataframe name $ dataframe column</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Year</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 1964 1965 1966 1967
+</code></pre></div></div>
+
+<p>Here the label of the column, <code class="highlighter-rouge">Year</code> is used to access this column alone and print out its first 4 entries.  Let’s try another one:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Crop</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] Corn Corn Corn Corn
+## Levels: Corn Cotton Other Soybeans Wheat
+</code></pre></div></div>
+
+<p>We’ll note we got a bit of extra information when we are looking at the <code class="highlighter-rouge">Crop</code> column.  With the column <code class="highlighter-rouge">Years</code>, R stored the data as pure numbers (integer, or “whole” numbers without decimal places in this case).  With <code class="highlighter-rouge">Crop</code>, R has stored this column as something called a <em>factor</em> which is a way to store information that is best sorted into different categories instead of numbers – this is often called a <em>categorical variable</em> while <code class="highlighter-rouge">Years</code> is called a <em>numerical variable</em>.  R also tells us how many <em>levels</em> this categorical column has, which is just R’s way of counting up the number of categories that <code class="highlighter-rouge">Crop</code> can be.  In this case, we see there are 5 categories of crops in this dataset, <code class="highlighter-rouge">Corn</code>, <code class="highlighter-rouge">Cotton</code>, <code class="highlighter-rouge">Other</code>, <code class="highlighter-rouge">Soybeans</code> and <code class="highlighter-rouge">Wheat</code>.  Note that by default R is ordering them alphetetically.</p>
+
+<h3 id="using-str-to-get-column-types">Using <code class="highlighter-rouge">str</code> to get column types</h3>
+
+<font color="magenta">I think we should do this after head and discussing different types of data. </font>
+<font color="green">DENA: Can we ditch this entirely? Do we need str if we've given them the head example already? </font>
+<font color="purple">BRITTANI: I would say that we need both str and head. str contains information that head does not, such as the class of the object and variables.)</font>
+
+<p>Like with the function <code class="highlighter-rouge">head</code>, the <code class="highlighter-rouge">str</code> function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">fert_use</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## 'data.frame':	265 obs. of  5 variables:
+##  $ Year     : int  1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 ...
+##  $ Crop     : Factor w/ 5 levels "Corn","Cotton",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Nitrogen : int  1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 ...
+##  $ Phosphate: int  1053 1336 1626 1857 1855 1789 2136 2024 1994 1988 ...
+##  $ Potash   : int  829 1204 1513 1750 1778 1765 2046 1946 1992 2052 ...
+</code></pre></div></div>
+
+<p>Note here that <code class="highlighter-rouge">str</code> is the function name that we <em>called</em> with the <em>input parameter</em> of <code class="highlighter-rouge">fert_use</code> which is the variable that is storing our table of data.</p>
+
+<p>The <code class="highlighter-rouge">str</code> function prints out the first few entries of each row, the <code class="highlighter-rouge">...</code> just means that it has truncated its output for the sake of clarity.</p>
+
+<p>We see that the <code class="highlighter-rouge">str</code> function is also telling us something about how our data is formatted:</p>
+<ul>
+  <li>There are 5 columns (variables) in our dataset - <code class="highlighter-rouge">Year</code>, <code class="highlighter-rouge">Crop</code>, <code class="highlighter-rouge">Nitrogen</code> <font color="magenta">(something? units?)</font>, <code class="highlighter-rouge">Phosphate</code>, and <code class="highlighter-rouge">Potash</code>.</li>
+  <li>There are 265 <code class="highlighter-rouge">observations</code>, or rows, in our dataset</li>
+  <li>The <code class="highlighter-rouge">Year</code>, <code class="highlighter-rouge">Nitrogen</code>, <code class="highlighter-rouge">Phosphate</code>, and <code class="highlighter-rouge">Potash</code> columns are <code class="highlighter-rouge">int</code> types, meaning they are comprised of whole numbers (numbers without decimals)</li>
+  <li>The <code class="highlighter-rouge">Crop</code> column is being interpreted in R as something called a <code class="highlighter-rouge">factor</code>.  This is a way to represent data that is comprised of categories, in this case we are told there are 5 <code class="highlighter-rouge">levels</code> which just means there are only 5 categories of crop in this dataset.  The trailing 1’s are just R’s way of tagging which row entry in this column is in what category - a 1 means an entry that is tagged as “Corn”.  <font color="magenta">(I am not 100% on this, I *think* this is what R is doing but I am not sure)</font></li>
+</ul>
+
+<p>The <code class="highlighter-rouge">str</code> function also tells us that our variable <code class="highlighter-rouge">fert_use</code> is a <em>dataframe</em> by printing <code class="highlighter-rouge">'data.frame'</code> at the top of its output.</p>
+
+<h2 id="doing-stuff-with-data-in-r-better-name-obvs">Doing stuff with data in R (better name obvs)</h2>
+
+<h3 id="outline-for-this-section-2"><font color="magenta">Outline for this section</font></h3>
+<ol>
+  <li>
+    <font color="magenta">We can manipulate columns with functions</font>
+    <ul>
+      <li>
+        <font color="magenta">example: min function (or something)</font>
+      </li>
+      <li>
+        <font color="magenta">How to learn about functions you might want to use? --&gt; We already learned a bit about the helping "?" function, but we can also look at how to google things.</font>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>Now that we have read in some data and have some idea of what our dataset contains, let’s actually think about manipulating our dataset!  One thing we might want to know is find out the time span overwhich this data was taken.  We can find out the minimum time in our dataset by applying the the <code class="highlighter-rouge">min</code> function on our <code class="highlighter-rouge">Year</code> column:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">min</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Year</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 1964
+</code></pre></div></div>
+
+<p>And we can find the maximum year in our dataset in a similar fashion:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">max</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Year</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 2016
+</code></pre></div></div>
+
+<p>Now we know our dataset is taken from 1964-2016!  This is of course something we could have known by reading the description of this table, so let’s try something more interesting: the minimum measurement of Nitrogen:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">min</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Nitrogen</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] NA
+</code></pre></div></div>
+
+<p>Whoa!  What just happened?  In R, <code class="highlighter-rouge">NA</code> means missing data.  Let’s take a look at a the first 50 entries of our <code class="highlighter-rouge">Nitrogen</code> column:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Nitrogen</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">50</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1] 1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 3773 3885 5210 5181 4888
+## [16] 5274 5244 5588 5360 3960 5391 5666 4807 4194 4499 4601 4748 4715 4887 4369
+## [31] 4603 4158 4829 4792 4846 4650 4909 4249 4720 4710 4792 5023 4690 5714 5224
+## [46] 4875 5610   NA   NA   NA
+</code></pre></div></div>
+
+<p>You can see from these first 50 entries, that we have a lot of <code class="highlighter-rouge">NA</code>
+values.  By default, if I apply the <code class="highlighter-rouge">min</code> function and it encounters any <code class="highlighter-rouge">NA</code> values, it returns <code class="highlighter-rouge">NA</code>.  To
+figure out what to do, let’s look at the help page.  To find the help page for any
+function, type a question mark and then the name of the function.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">min</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Ah, there is an <em>optional parameter</em> called <code class="highlighter-rouge">na.rm</code>, and the description of it says that it
+controls whether or not <code class="highlighter-rouge">NA</code> values are stripped out before calculating the mean.
+We can make R take out <code class="highlighter-rouge">NA</code>’s before calculating the minimum by setting the optional parameter to <code class="highlighter-rouge">TRUE</code>.
+(In R, <code class="highlighter-rouge">TRUE</code> and <code class="highlighter-rouge">FALSE</code> should always be in all caps.)</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">min</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Nitrogen</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 16
+</code></pre></div></div>
+
+<p>Hey it worked!  Let’s try a few more examples.</p>
+
+<blockquote class="challenge">
+  <h2 id="finding-the-maximum-nitrogen-measurement">Finding the Maximum Nitrogen Measurement</h2>
+
+  <p>Use the <code class="highlighter-rouge">max</code> function to calculate the maximum nitrogen measurement in your dataset.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">max</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Nitrogen</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 6317
+</code></pre></div>    </div>
+
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="maximum-crop">Maximum Crop</h2>
+
+  <p>What happens when you try to apply the max function to the <code class="highlighter-rouge">Crop</code> column?  Why do you think that is?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-2">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#max(fert_use$Crop, na.rm=TRUE)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>The <code class="highlighter-rouge">max</code> function only is meaningful for numerical data, in this case you are trying to apply it to a column that is made up of categories and R got confused and printing out an error message.</p>
+
+  </blockquote>
+</blockquote>
+
+:ET

@@ -1,5 +1,6 @@
 ---
 title: "Introduction to R and RStudio"
+output: html_document
 questions:
 - <font color="magenta">THESE ARE NOT UPDATED -- WE CAN DO THIS LAST</font>
 - How can I work with a spreadsheet in a more advanced and reproducible manner than
@@ -26,21 +27,8 @@ objectives:
 <!-- JPN: updated fig path here manually for plots to show -->
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
+source("../bin/chunk-options.R")
 ```
-
-```{r stuff4, echo=FALSE, fig.width=8, fig.height=6}
-x = c(22:31)
-y = c(243:252)
-plot(x~y)
-```
-
-```{r stuff3, echo=FALSE, fig.width=8, fig.height=6}
-x = c(322:331)
-y = c(243:252)
-plot(x~y)
-```
-
 
 ## TO-ADD
 
