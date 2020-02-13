@@ -32,7 +32,7 @@ to the root level of your C drive and running it from  there. (Your new path sho
 C:\DataharvestingWin\ as opposed to the old path of D:\DataHarvestingWin\.) 
 
 ### Launching the programs (Windows)
-Within DataHarvestingWin, the folders with Start Menu in their names contain shortcuts
+Within DataHarvestingWin, the **folders with Start Menu in their names** contain shortcuts
 to run the software.
 
 Choose the version that corresponds to the drive you're planning to run it from --
@@ -41,18 +41,16 @@ drive.
 
 If you're running from USB but it wasn't assigned the letter D, find:
 
- **DataHarvestingWin/ProgramFiles/RStudio/bin/rstudio.exe**\
-    (and)\
- **DataHarvestingWin/ProgramFiles/R/R-3.6.2/R.exe**
+ DataHarvestingWin/ProgramFiles/RStudio/bin/rstudio.exe\
 
-and double-click them to run.
+and double-click it to run.
 
 The first time you run R Studio, you'll be prompted to select your installation of R. 
 
 1. Choose the **"Choose a specific version of R"** item next to the large text box.
 2. Use the **Browse** button to navigate to:
 
- **DataHarvestingWin/ProgramFiles/R/R-3.6.2/** 
+ DataHarvestingWin/ProgramFiles/R/R-3.6.2/ 
 
 and choose **Select Folder.**
 
@@ -63,6 +61,9 @@ If the Start folder's shortcut doesn't work for you in QGIS, and you get an erro
 missing DLL, there's a location mismatch to resolve. Ask a class helper for assistance 
 in switching the .env file that you're using.
 
+
+
+<hr>
 ### Launching the programs from the USB drive (Mac)
 
 **NEED MAC INFO HERE**
@@ -87,10 +88,14 @@ instructions instead.
 * Once it's installed, open RStudio to make sure it works and you don't get any
   error messages.
 * When RStudio is open and working, create a new R script file and copy in the 
-contents of [this file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). Run each line in this script. (Note that this
-process will likely take 3 - 4 hours on Windows 10 because of virus checking procedures
+contents of [this file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). 
+* Run each line in this script. (Note that this
+process will likely take **3 - 4 hours on Windows 10** because of virus checking procedures
 that were already taken care of on the USB keys. If you can wait for the USB keys, you'll have
 a faster way to get up and running.)
+* After you've run the installation items, create a new R script file and copy in the 
+contents of [the package load and test file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_load_and_test.R). 
+* Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
 
 
 ### macOS
