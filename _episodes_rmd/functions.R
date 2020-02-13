@@ -68,7 +68,7 @@ kg_to_lb <- function(varc){
 }
 
 map_poly <- function(sfobject, variable){
-  tm_shape(sfobject) + tm_polygons('variable') +
+  tm_shape(sfobject) + tm_polygons(variable) +
     tm_layout(legend.outside = TRUE, frame = FALSE) 
 }
 
