@@ -207,10 +207,8 @@ https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo}
-boundarynew <- read_sf("data/asplanted.gpkg")
-boundary <- subset(boundary, Type == "Trial")
-boundary.sp <- as(boundary, "Spatial")
-lwgeom::st_make_valid(boundary)
+boundarynew <- read_sf("data/boundary_test.shp")
+boundary.sp <- as(boundarynew, "Spatial")
 plot(boundary.sp)
 ssurgo <- get_ssurgo(boundary.sp, "samplefield")
 ```
@@ -275,8 +273,7 @@ your own field.
 
 # Example with your own field
 
-Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, For an example of how this is done with clay, silt, and sand content, contact 
-the workshop instructors. 
+Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, we are going to make a table of the clay, silt, and sand content as well as the water content of the different soil types. There is a function `c_s_s_soil()` in `functions.R` that uses the soil depth to take an average of the soil measures for each soil type. The only parameter that needs to be 
 
 ```{r soilmap}
 soil_content <- c_s_s_soil(ssurgo = ssurgo)
