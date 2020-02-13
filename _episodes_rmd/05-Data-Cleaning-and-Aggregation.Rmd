@@ -1,0 +1,429 @@
+---
+title: "Ag Carpentry - Data Cleaning and Aggregation"
+author: "Aolin Gong"
+date: "11/4/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
+```
+
+#### Motivating Questions:
+- "Why is it important to clean the data before proceeding with analysis?"
+- "How can I quickly and efficiently identify problems with my data?"
+- "How can identify and remove incorrect values from my dataset?"
+#### Objectives:
+- "Confirm that data are formatted correctly"
+- "Enumerate common problems encountered with data formatting."
+- "Visualize the distribution of recorded values"
+- "Identify and remove outliers in a dataset using R and QGIS"
+- "Correct other issues specific to how data were collected"
+#### Keypoints:
+- "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
+- "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
+- "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
+
+## Setup
+
+First we will load the packages needed for this episode.  You should already
+have these installed from the last episode.
+
+```{r}
+library(sf)
+library(fasterize)
+library(gstat)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+library(knitr)
+library(tmap)
+library(ggplot2)
+library(gridExtra)
+```
+
+Next, we will define a few functions that we will be using.  Feel free to copy
+and paste this code into your script.
+
+```{r functions}
+st_over <- function(x, y) {
+  sapply(sf::st_intersects(x, y), function(z)
+    if (length(z) == 0)
+      NA_integer_
+    else
+      z[1])
+}
+
+st_interpolate <- function(obj, v, rst, type = "idw") {
+  obj_sp <- as(obj, "Spatial")
+  
+  fml <- as.formula(paste0(v, " ~ 1"))
+  if (!(type %in% c("idw", "nng"))) {
+    stop(paste0(
+      "Type not implemented! ",
+      "Choose between idw (inverse distance weighted), ",
+      "and nng (nearest neighbor)."
+    ))
+  }
+  
+  if (type == "idw") {
+    # Setting nmax to 5 and idp to 1 is an
+    #  inverse weighted interpolation:
+    gs <- gstat::gstat(formula = fml, locations = obj_sp,
+                       nmax = 5, set = list(idp = 1))
+  } else {
+    # Setting nmax to 1 and idp to 0 is equivalent to
+    #  nearest neighbor interpolation:
+    gs <- gstat::gstat(formula = fml, locations = obj_sp,
+                       nmax = 1, set = list(idp = 0))
+  }
+  
+  x <- raster::interpolate(rst, gs)
+  return(x)
+}
+```
+
+In the last episode, we also imported our trial design.  We will include the
+code again here, in case you are just joining us.
+
+The following steps read in a trial design shapefile, transform the projection
+of file to utm projection, and then save the file in a geopackage. In many
+cases, the trial design shapefile is already in the correct form, and we are
+just checking the file in advance of creating the subplots of the trial design.
+
+```{r}
+trial <- read_sf("hord_f98_trialdesign_2017.shp")
+
+long2UTM <- function(long){
+  utm <- (floor((long + 180)/6) %% 60) + 1
+  return(utm)
+}
+utmzone <- long2UTM(mean(st_bbox(trial)[c(1,3)]))
+
+projutm <- as.numeric(paste0("326", utmzone))
+
+trialutm <- st_transform(trial, projutm)
+
+st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+```
+
+
+## Introduction to data cleaning
+
+Data cleaning is the process of removing or correcting errors in a dataset, and
+is very important to do before any sort of analysis.  For example, say you were
+manually entering yield values into a spreadsheet, and then wanted to take the
+average of all values entered.  If you accidentally typed an extra zero into
+some of the cells, the average that you calculate is going to be much higher
+than the true average.
+
+```{r}
+real_data <- c(900, 450, 200, 320)
+error_data <- c(900, 4500, 200, 320)
+mean(real_data)
+mean(error_data)
+```
+
+Therefore, we want to check for values like this before we do anything else.  If
+the values were manually entered and the intended value is obvious, they can be
+manually corrected.  For larger scale datasets, however, it is often most
+practical to discard problematic data.  Below, we draw a plot to see the rough
+distribution of values.  Then we identify a cutoff, and convert anything above
+the cutoff to missing data.
+
+```{r}
+plot(error_data)
+error_data[error_data > 2000] <- NA
+error_data
+```
+
+Data cleaning is a major reason why there needs to be good communication between
+data scientists and end users, in agriculture or any other discipline.  As the person
+who generates the data, you know best where the likely sources of error might be.
+Those sources of error might be something that someone who sits behind a computer
+all day would never think of.  You also know best what values are reasonable,
+and what values are suspiciously high or low.
+
+## Data cleaning and aggregation in the DIFM project
+
+After harvesting, we collect all the data needed for analysis, and in advance of
+running analysis, we clean and organize the data in order to remove machinary
+error and such. The common data that we collect for analysis includes yield
+(dry), seeding rate as-planted, nitrogen rate as-applied, electronic
+conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
+clean yield data, as-planted data, as-applied data, and sometimes EC data. For
+public data, we simply import them into our aggregated data set
+without cleaning, since they have already been cleaned before being released to
+the public.
+
+For different types of data, we have different ways to clean them. Here are the
+main concerns of the original data for the major varaibles:
+
+Yield, as-planted, and as-applied data:
+
+* We remove observations where the harvester/planter/applicator is moving too slow or too fast.
+* We remove observations on the edges of the plot.
+* We remove observations that are below or above three standard deviations from the mean.
+* We then aggregate them onto our units of observation.
+
+EC (Electrical conductivity) data:
+
+* We remove EC observations that are below or above three [standard deviations](https://en.wikipedia.org/wiki/Standard_deviation) from the mean.
+ 
+*For aggregation, we need to generate subplots (units of observation) of the
+original trial design, and then aggregate the cleaned datasets for different
+variables onto the subplots.  Once we have one value per variable per subplot,
+we can begin examining the relationships between the variables.*
+
+## Importing and visualizing boundaries and subplots
+
+The following steps read in a boundary shapefile, and transform the projection
+of file to utm projection for later use.
+
+```{r boundary}
+boundary <- read_sf("boundary.gpkg")
+boundary_utm <- st_transform(boundary, projutm)
+```
+
+After we read in the trial design file, we use a function to generate the
+subplots for this trial. Because the code for generating the subplots is
+somewhat complex, we have included it as a
+[supplementary file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/making%20subplots.R).
+For now, we will import a shapefile that already has the subplot boundaries
+defined, and will convert the projection to UTM.
+
+```{r read subplot}
+subplots <- read_sf("hord_f98_subplots_2017.shp")
+subplots_utm <- st_transform(subplots,projutm)
+```
+
+Here, we graph the subplots that we generated. Note that color indicates the ID
+number of the subplots, which starts from 1, at the right upper corner. We can
+check how many units of observation we are generating with this subplots shapefile.
+
+```{r vis subplots}
+plot(subplots)
+max(subplots$ID)
+```
+
+Then, we plot the geometry of subplots and boundary together, so that we get a
+better idea where the subplots are within the field.
+
+```{r visulize subplots}
+plot(subplots_utm$geometry)
+plot(boundary_utm$geom, add=TRUE)
+```
+
+## Importing the yield data and removing border observations
+
+After confirming the subplots we generated (which will become our units of
+observation), we bring the data sets for different variable in for cleaning.
+For example, we will import and clean the yield data.  To match our subplots,
+boundary, and trial design, we will also convert the yield data to UTM.
+
+```{r yield}
+yield <- read_sf("hord_f98_trialyield_2017.shp")
+yield_utm <- st_transform(yield, projutm)
+```
+
+We check the distribution of the yield data as we clean them to monitor the
+change made by each cleaning step. First, view the distrubution of the original
+data.
+
+```{r vis yield data}
+hist(yield_utm$Yld_Vol_Dr)
+```
+
+As you can see, we have some extreme values that we will want to get rid of.
+
+We need to remove the yield observations that are on the border of the plots,
+and also at the end of the plots.  The reason for this is that along the edge
+of a subplot, the harvester is likely to measure a mixture of two subplots,
+and therefore the data won't be accurate for either subplot.  Additionally,
+plants growing at the edge of the field are likely to suffer from wind and other
+effects, lowering their yields.
+
+First we will use the function `st_buffer` to create a buffer for each plot.
+We set the buffer inside the trial plots to be 4 meters to the edges, and any
+yield observations that are within a 4-meter distance to the edge of the plots
+are considered on the border.
+
+```{r}
+buffer <- st_buffer(trialutm, -4) # plots are 24 m wide and 2 yield passes
+```
+
+Next, we determine which yield observations are inside the buffer as using the
+`st_over` function, and mark those observations as "out". Finally, we
+remove the yield observations that are not in the buffer zone.
+
+```{r observations on border}
+ov <- st_over(yield_utm, st_geometry(buffer))
+yield$out <- is.na(ov) # demarcate the yield values removed
+yield_clean <- subset(yield, out == FALSE)
+```
+
+Here again, we check the distribution of cleaned yield.
+
+```{r view the distribution of yield data after taking out the yield points on the boader}
+hist(yield_clean$Yld_Vol_Dr)
+```
+
+## Removing outliers
+
+Even if we don't know the source of error, we can tell that some observations
+are incorrect just because they are far too small or too large.  How can we
+remove these in an objective, automatic way?  For yield and our other variables,
+we will calculate the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
+to get an idea of how much the observations tend to be different from the mean.
+Then, we will remove observations that are three standard deviations higher or
+lower than the mean.  If the data followed a normal distribution (*i.e* a bell
+curve), this would eliminate about one in 1000 data points.  In a real dataset,
+we can be fairly certain that those points are errors.  Our cutoff of three
+standard deviations is arbitrary, which is why we have looked at histograms of
+the data to help confirm that our cutoff makes sense.
+
+In the next few steps, we use `sd` and `mean` to calculate the standard
+deviation and mean of the yield distribution, respectively. Then we remove the
+yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd. 
+
+```{r 3sd}
+sd_yld <- sd(yield_clean$Yld_Vol_Dr)
+mean_yld <- mean(yield_clean$Yld_Vol_Dr)
+yield_clean <- subset(yield_clean,
+                      yield_clean$Yld_Vol_Dr > mean_yld - 3 * sd_yld &
+                        yield_clean$Yld_Vol_Dr <mean_yld + 3 * sd_yld)
+```
+
+Here again, we check the distribution of cleaned yield after taking out the
+yield observations that are outside the range of three standard deviations from
+the mean.
+
+```{r view the distribution of cleaned yield data}
+hist(yield_clean$Yld_Vol_Dr)
+```
+
+The next line transforms the cleaned yield into UTM projection.
+
+```{r reprojection of yield data}
+yield_clean <- st_transform(yield_clean, projutm)
+```
+
+**Question from Lindsay: Why didn't we just clean the data that had already
+been converted to UTM?**
+
+Finally, we save cleaned file into a geopackage.
+
+```{r save yield}
+st_write(yield_clean, "yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+```
+
+### Discussion
+
+What do you think could have caused these outliers (extreme values)?  If you
+were working with yield data from your own fields, what other sources of error
+might you want to look for?
+
+### Exercise
+
+Import the shapefile for nitrogen as-applied.  Remove observations from the
+buffer zone, as well as observations more then three standard deviations from
+the mean.
+
+##  Yield Interpolation/Aggregation
+
+Interpolation is the estimation of a value at a point that we didn't measure
+that is between two or more points that we did measure.  Aggregation is the
+combining of multiple data points into a single data point.  What we'll do here
+is a combination of interpolation and aggregation, where we will use multiple
+measurements across each subplot to generate one value for the subplot. In this
+case we will take the median value within each subplot.  Typically when the data
+are not normally-distributed or when there are errors, the median is more
+representative of the data than the mean is.  Here we will interpolate and
+aggregate yield as an example.  The other variables can be processed in the same
+way.
+
+**Question from Lindsay: Why do we need to covert class here?  Please provide an
+explanation.**
+
+```{r sf2sp}
+subplots_sp <- as(subplots_utm, "Spatial")
+yield_sp <- as(yield_clean, "Spatial")
+```
+
+**Explain more of what is happening in this code below**
+**Why is one line commented out?**
+
+```{r aggregate yield data}
+#proj4string(yield_sp)<- CRS("+proj=longlat +datum=WGS84")
+merge <- sp::over(subplots_sp, yield_sp,fn = median)
+subplots_merge <- SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE)
+```
+
+### Exercise
+
+Interpolate and aggregate nitrogen as-applied so that you have one value per
+sub-plot.
+
+**Solution**:
+
+```{r}
+#asapplied
+proj4string(asapplied) <- CRS("+proj=longlat +datum=WGS84")
+merge5 <- sp::over(subplots,asapplied,fn=mean)
+subplots@data <- cbind(merge5,subplots@data)
+head(subplots@data)
+```
+
+Processing the other variables:
+
+```{r}
+#ec
+proj4string(ec)<- CRS("+proj=longlat +datum=WGS84")
+merge2<-sp::over(subplots,ec,fn=median)
+subplots@data<-cbind(merge2,subplots@data)
+
+#asplanted and elevation
+proj4string(asplanted)<- CRS("+proj=longlat +datum=WGS84")
+merge3<-sp::over(subplots,asplanted,fn=median)
+subplots@data<-cbind(merge3,subplots@data)
+head(merge3)
+
+#topography
+topo <- spTransform(topography, CRS("+proj=longlat +datum=WGS84"))
+slopemerge <- sp::over(subplots,topo,fn=median)
+subplots@data <-cbind(slopemerge,subplots@data)
+
+head(subplots@data)
+```
+
+## Conclusion
+
+Now, we have one value per subplot for all of our variables, and because we
+cleaned the data first, we can be confident that value is a good representation
+of the subplot.
+
+**Add code here to make a scatter plot of as-applied vs. yield, now that we
+have one value for each for each subplot**
+
+####Other Files To Be Cleaned/Aggregated
+1. As-applied Data
+2. As-planted Data
+4. EC Data
+5. Elevation Data (from Internet or Trial Yield/As-planted file)
+6. Topography Data (Slope and Aspect generated from Elevation Data)
+7. SSURGO Data (Specify the soil content)
+8. Weather Data (daily/weekly/monthly data)
+
+####Supplementary Code/Function
+1. Code to generate the suplots(unit of observations) of the orginal trial design.
+2. Code to clean yield data.
+3. Code to generate Topography data.
+4. Code to process SSURGO data.
+5. Code to download weather data.
+
+
+
