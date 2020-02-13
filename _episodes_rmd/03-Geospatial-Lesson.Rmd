@@ -54,6 +54,7 @@ library(ggplot2)
 library(gridExtra)
 library(grid)
 library(FedData)
+library(plyr)
 ```
 
 ###Introducing Spatial Data with SSURGO data
@@ -216,8 +217,8 @@ https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo}
-boundarynew <- read_sf("~/Documents/Data Carpentry/data/boundary.gpkg")
-boundary <- st_make_valid(boundarynew)
+boundarynew <- read_sf("~/Documents/Data Carpentry/data/larson_eb2_boundary.shp")
+boundarynew <- st_make_valid(boundarynew)
 
 boundary.sp <- as(boundarynew, "Spatial")
 ssurgo <- get_ssurgo(boundary.sp, "field1")
@@ -229,12 +230,7 @@ dataframes with attributes collected for the soil and soil horizons. Note that t
 and their relationships with one another ar very complex. To use these data, you must carefully 
 read the SSURGO documentation. Merging the dataframes to have one value of the attributes for 
 each soil polygon requires reducing the dimension of the data, often by weighting the attributes
-by horizon depth. For an example of how this is done with clay, silt, and sand content, contact 
-the workshop instructors. 
-
-**Dena: Someone had commented in another version of this file that we should provide them with
-a method of getting this information that doesn't involve talking to the instructors. I agree with 
-that note.**
+by horizon depth.
 
 Let's make a map of the soil types on this field. First, we need to locate the part of
 `tabular` with the soil names; these can be found in `muaggatt`.
@@ -291,3 +287,9 @@ be difficult to understand the different soils without more information about so
 and texture. This is also provided within SSURGO and is likely something you know about in 
 your own field. 
 
+For an example of how this is done with clay, silt, and sand content, contact 
+the workshop instructors. 
+
+```{r soilmap}
+soil_content <- c_s_s_soil(ssurgo = ssurgo)
+```
