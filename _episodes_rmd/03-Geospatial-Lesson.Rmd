@@ -207,8 +207,10 @@ https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo}
+boundarynew <- read_sf("data/asplanted.gpkg")
 boundary <- subset(boundary, Type == "Trial")
 boundary.sp <- as(boundary, "Spatial")
+lwgeom::st_make_valid(boundary)
 plot(boundary.sp)
 ssurgo <- get_ssurgo(boundary.sp, "samplefield")
 ```
@@ -254,19 +256,14 @@ head(spatial$muname)
 
 *Exercise 5*: Create the Soil Map
 
-Use `tmap` to make a map where the polygon color is informed by the soil names in
-`muname`. *Hint*: use `tm_polygons()`.
+Use `map_poly()` to make a map where the polygon color is informed by the soil names in
+`muname`. 
 
 
 *Exercise 5 Solution*
 
 ```{r}
-map_soil <- tm_shape(spatial) + tm_polygons('muname', title = "Soil Type") + tm_layout(legend.outside = TRUE, frame = FALSE)+
-  tm_legend(text.size = 1,
-            title.size = 1,
-            width = 100,
-            bg.color = "white"
-           )
+map_soil <- map_poly(spatial, 'muname', "Soil Type")
 map_soil
 ```
 
@@ -276,7 +273,9 @@ be difficult to understand the different soils without more information about so
 and texture. This is also provided within SSURGO and is likely something you know about in 
 your own field. 
 
-For an example of how this is done with clay, silt, and sand content, contact 
+# Example with your own field
+
+Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, For an example of how this is done with clay, silt, and sand content, contact 
 the workshop instructors. 
 
 ```{r soilmap}
