@@ -1,2 +1,0 @@
-I"ý<p>All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in qrcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders</p>
-:ET
