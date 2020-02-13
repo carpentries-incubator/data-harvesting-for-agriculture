@@ -4,11 +4,30 @@ output: html_document
 source: Rmd
 ---
 
+<!-- #knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/') -->
+
 ```{r setup, include=FALSE}
-library(knitr)
-library(httr)
-knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
-source("./functions.R")
+#library(sf)
+#library(fasterize)
+#library(gstat)
+#library(raster)
+#library(rjson)
+#library(httr)
+#library(rgdal)
+#library(rgeos)
+#library(maptools)
+#library(tmap)
+#library(ggplot2)
+#library(gridExtra)
+#library(grid)
+#library(FedData)
+#library(plyr)
+
+#library(knitr)
+#library(httr)
+knitr::opts_chunk$set(echo = TRUE, fig.path='../fig/')
+
+#source("./functions.R")
 ```
 
 
@@ -39,7 +58,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 
 Below are the packages that we will use in this episode.
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+<!-- ```{r, message=FALSE, warning=FALSE, include=FALSE} -->
 library(sf)
 library(fasterize)
 library(gstat)
@@ -57,6 +76,8 @@ library(grid)
 library(FedData)
 library(plyr)
 ```
+
+
 
 ### Introducing Spatial Data with SSURGO data
 
@@ -186,6 +207,12 @@ R, it might not work if you haven't opened it in QGIS before.
 There are several ways to visualize spatial data. First, we can use `plot()` to look at the basic shape of the data. 
 
 ```{r}
+x = c(1:10)
+y = c(43:52)
+plot(x~y)
+```
+
+```{r}
 plot(boundary$geom)
 ```
 
@@ -212,7 +239,34 @@ boundarynew <- read_sf("data/asplanted_transformed.gpkg")
 boundary <- subset(boundary, Type == "Trial")
 boundary.sp <- as(boundary, "Spatial")
 #ssurgo <- get_ssurgo(boundary.sp, "field1")
-ssurgo <- get_ssurgo(boundary.sp, "samplefield")
+
+# JPN: here is the mess: set redo=TRUE to force re-download
+download_ssurgo <- function(name_of_field, boundary_sp_in, redo=FALSE){
+  tryCatch(
+    expr = {
+      ssurgo <- get_ssurgo(boundary_sp_in, name_of_field, force.redo=redo)
+      #message(log(x))
+      message("Successfully downloaded SSURGO.")
+      return(ssurgo)
+    },
+    error = function(e){
+      message('Caught an error!  Lets try again after waiting 5 seconds...')
+      print(e)
+      Sys.sleep(5.0)
+      download_ssurgo(name_of_field, boundary_sp_in)
+    },
+    warning = function(w){
+      message('Caught an warning!')
+      print(w)
+    },
+    finally = {
+      message('All done!  Woohoo!')
+    }
+  )    
+}
+
+#ssurgo <- get_ssurgo(boundary.sp, "samplefield")
+ssurgo <- download_ssurgo("samplefield", boundary.sp)
 
 ```
 
@@ -232,6 +286,7 @@ Let's make a map of the soil types on this field. First, we need to locate the p
 ```{r names}
 names <- ssurgo$tabular$muaggatt 
 ```
+
 
 *Exercise 4*: What are the soil types present on the field as seen in `names`? Are the soil 
 defined by anything other than the soil type?
@@ -265,10 +320,27 @@ Use `map_poly()` to make a map where the polygon color is informed by the soil n
 
 *Exercise 5 Solution*
 
-```{r}
-map_soil <- map_poly(spatial, 'muname', "Soil Type")
-map_soil
+```{r echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
+
+#map_poly2 <- function(sfobject, variable, name){
+#  tm_shape(sfobject) + tm_polygons(variable, title = name) +
+#    tm_layout(legend.outside = TRUE, frame = FALSE) 
+#}
+
+#map_soil <- map_poly(spatial, 'muname', "Soil Type")
+#map_poly(spatial, 'muname', "Soil Type")
+#map_soil
+
+#tm_layout(legend.width=1)
+#tm_shape(spatial) + tm_polygons('muname')#, title = "Soil Type") #+ tm_layout(legend.outside = TRUE, frame = FALSE) 
+
 ```
+
+```{r}
+#map_poly(boundary, 'Type', 'Part of Field')
+plot(c(1,2,3), c(4,5,6))
+```
+
 
 The map shows that there are quite a few soil types on the field, and several show up
 in different sections of the field. However, most of the soils are silt loam. It might 

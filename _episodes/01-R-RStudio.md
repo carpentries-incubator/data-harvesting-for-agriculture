@@ -29,6 +29,20 @@ objectives:
 
 
 
+![plot of chunk stuff2](../fig/stuff2-1.png)
+
+
+## TO-ADD
+
+ * vigenettes - what is it, where can you find it in R studio interface & online
+ * how to use "help"
+ * "::" <- what does this mean, multiple packages with the same name
+ * how to set working directory, get working directory, how to point and click => session => working directory
+    * throw this on top of all your scripts
+ * windows vs. mac directories => mention this, but with the point and click this should not be an issue
+ * <font color="magenta">ADD: stuff about '/workdir/' which is where '/data' will live</font>
+ * <font color="magenta">Add in all set workdirectory and the, and sourcing the functions file, everytime</font>
+
 
 ## <font color="magenta">Assumptions -- FOR DEBUGGING</font>
 
