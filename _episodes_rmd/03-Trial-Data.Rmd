@@ -11,6 +11,15 @@ source: Rmd
 ```{r setup, include=FALSE}
 library(knitr)
 library(sf)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+require(tmap)
+require(ggplot2)
+require(gridExtra)
+library(readr)
+library(measurements)
 knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
 source("functions.R")
 ```
@@ -29,20 +38,6 @@ source("functions.R")
 - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
 - Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
 
-Below are the packages that we will use in this episode.
-
-```{r}
-library(sf)
-library(httr)
-library(rgdal)
-library(rgeos)
-library(maptools)
-require(tmap)
-require(ggplot2)
-require(gridExtra)
-library(readr)
-library(measurements)
-```
 
 In this lesson we will explore the files that are generated during a trial season. These data include yield, as-applied, as-planted, and sometimes electricalconductivity. While you are likely using your yield maps every year to asses productivity, you might not be looking at your application maps if you normally use uniform rates. But if you use variable rate applications or have completed an agricutlural trial, your application map contains information about how well the machine applied the target rates. 
 
@@ -55,9 +50,9 @@ Read the yield, as-planted, and as-applied files and explore the variables.
 For each file, identify what variables might we be interested in and why?
 
 ```{r read}
-planting <- read_sf("data/asplanted.gpkg")
-nitrogen <- read_sf("data/asapplied.gpkg")
-yield <- read_sf("data/yield.gpkg")
+planting <- read_sf("data/asplanted_transformed.gpkg")
+nitrogen <- read_sf("data/asapplied_transformed.gpkg")
+yield <- read_sf("data/yield_transformed.gpkg")
 ```
 
 *Solutions and Discussion*
@@ -113,50 +108,13 @@ We see many names in the planting file. It appears that `Rt_A_C_` is the applied
 map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
 ```
 
-**Challenge** 
-Try modifying the code above to answer the following questions: 
-Why do we supply a title in `tm_dots` and why is `legend.outside = TRUE`?
-
-**Solution**
-If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the graph likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
-
-```{r seedmap2}
-tm_shape(planting) + tm_dots('Rt_A_C_') +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-```
-
-If we add `legend.outside = FALSE`, the legend will block part of the map. In some cases, the map may have a vacant section where the legend can go, but here we need to move the legend outside to be able to see all of the points on the field. 
-
-```{r seedmap3}
-tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
-  tm_layout(legend.outside = FALSE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-```
-
 ####Side-by-Side Maps
 
 Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the as-applied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to each other, so we have two columns and one row. 
 
 ```{r parex }
-map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-map_tgts <- tm_shape(planting) + tm_dots('Tgt_Rt_', title = "Target Seeding Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
+map_applieds <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
+map_tgts <- map_points(planting, 'Tgt_Rate_k', "Target Seeding Rate")
 tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1)
 ```
 
@@ -167,13 +125,7 @@ From the applied and target seeding rate maps, we can see that this trial had a 
 Now let's look at the yield map for this field. Using `tmap` we can graph the yield in bushels per acre.
 
 ```{r yieldmap }
-map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-map_yield
+map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
 ```
 
 Looking at the map we can see there are many extreme values, making the map look homogeneous. We will do an initial cleaning to remove these points. 
@@ -182,14 +134,9 @@ yield <- subset(yield, yield$Yld_Vol_Dr >= mean(yield$Yld_Vol_Dr) - 3*sd(yield$Y
 ```
 
 ```{r cleanyield }
-map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-map_yield
+map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
 ```
+
 ####Yield and Application Map
 
 Now that we know how to make side-by-side maps, we can do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the affect of the seed or nitrogen rates on yield. 
@@ -199,18 +146,8 @@ Make a map like in the previous example but with yield in bushels and the seedin
 Report what you see in the map?
 
 ```{r yield_appmap }
-map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
+map_applieds
+map_yield <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
 tmap_arrange(map_yield, map_applieds, ncol = 2, nrow = 1)
 ```
 
@@ -219,13 +156,9 @@ From the map, it is difficult to see any sign of yield response. This highlights
 Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. We can see that the nitrogen application is not as precise as the planting; we commonly see this due to the technology used. 
 
 ```{r nitrogenmap }
-nitrogen <- subset(nitrogen, nitrogen$Rt_Appl >= mean(nitrogen$Rt_Appl) - 3*sd(nitrogen$Rt_Appl) & nitrogen$Rt_Appl <= mean(nitrogen$Rt_Appl) + 3*sd(nitrogen$Rt_Appl))
-map_nitrogen <- tm_shape(nitrogen) + tm_dots('Rt_Appl', title = "NH3 (pounds)") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
+nitrogen <- subset(nitrogen, nitrogen$Rate_Appli >= mean(nitrogen$Rate_Appli) - 3*sd(nitrogen$Rate_Appli) & nitrogen$Rate_Appli <= mean(nitrogen$Rate_Appli) + 3*sd(nitrogen$Rate_Appli))
+
+map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
 map_nitrogen
 ```
 
@@ -242,11 +175,10 @@ legend, title of the variable, size of text, and width of legend.
 
 
 ```{r map}
-tm_shape(trialutm) + tm_polygons('NRATE', title = "Nitrogen Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = 1,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
+trial <- read_sf("data/trial_transformed.gpkg")
+tgts <- map_poly(trial, 'SEEDRATE', 'Seed') 
+tgtn <- map_poly(trial, 'NRATE', 'Nitrogen')
+tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1)
+
 ```
 
