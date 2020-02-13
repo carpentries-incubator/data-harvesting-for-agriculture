@@ -207,8 +207,10 @@ https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo}
+boundary <- subset(boundary, Type == "Trial")
 boundary.sp <- as(boundary, "Spatial")
-ssurgo <- get_ssurgo(boundary.sp, "field1")
+plot(boundary.sp)
+ssurgo <- get_ssurgo(boundary.sp, "samplefield")
 ```
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
