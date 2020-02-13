@@ -11,9 +11,8 @@ source: Rmd
 ```{r setup, include=FALSE}
 library(knitr)
 library(sf)
-knitr::opts_chunk$set(echo = TRUE)
-opts_knit$set(root.dir = "~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98")
-boundary <- read_sf("~/Box/Data Carpentry for Agronomy/DIFM Code and Information/hord f98/boundary.gpkg")
+knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
+source("functions.R")
 ```
 ####Motivating Questions:
 - What are the common file types in agricultural data?
@@ -55,9 +54,9 @@ Read the yield, as-planted, and as-applied files and explore the variables.
 For each file, identify what variables might we be interested in and why?
 
 ```{r read}
-planting <- read_sf("asplanted_clean.shp")
-nitrogen <- read_sf("asapplied_clean.shp")
-yield <- read_sf("hord_f98_trialyield_2017.shp")
+planting <- read_sf("data/asplanted.gpkg")
+nitrogen <- read_sf("data/asapplied.gpkg")
+yield <- read_sf("data/yield.gpkg")
 ```
 
 *Solutions and Discussion*
@@ -110,12 +109,7 @@ names(planting)
 We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
 
 ```{r seedmap}
-tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
+map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
 ```
 
 **Challenge** 
