@@ -2,9 +2,6 @@
 title: "Ag Carpentry - Trial Data"
 author: "Brittani"
 date: "2019-10-19"
-output:
-  pdf_document: default
-  html_document: default
 source: Rmd
 ---
 
@@ -20,7 +17,7 @@ require(ggplot2)
 require(gridExtra)
 library(readr)
 library(measurements)
-knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
+# knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
 source("functions.R")
 ```
 
@@ -90,7 +87,7 @@ There are several other variables that could be useful. First, the hybrid is loc
 
 ####Visualizing the Trial Data
 
-In the next section, we will have exercises to visually explore the trial data. We will look at the application maps, compare the application to the target application rates and the yield.
+In the next section, we will have exercises to visually explore the trial data. We will look at the importance of data cleaning visually with the yield maps. We will  application maps, compare the application to the target application rates and the yield.
 
 **Exercise**
 Make a map of the seed application rate from the `planting` file using `tmpap`. 
