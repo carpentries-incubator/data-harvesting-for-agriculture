@@ -37,87 +37,10 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 Below are the packages that we will use in this episode.
 
 
-```r
-library(sf)
-```
 
-```
-## Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
-```
+### Introducing Spatial Data with SSURGO data
 
-```r
-library(fasterize)
-```
-
-```
-## 
-## Attaching package: 'fasterize'
-```
-
-```
-## The following object is masked from 'package:graphics':
-## 
-##     plot
-```
-
-```r
-library(gstat)
-library(raster)
-```
-
-```
-## Loading required package: sp
-```
-
-```r
-library(rjson)
-library(httr)
-library(rgdal)
-```
-
-```
-## rgdal: version: 1.4-8, (SVN revision 845)
-##  Geospatial Data Abstraction Library extensions to R successfully loaded
-##  Loaded GDAL runtime: GDAL 2.4.2, released 2019/06/28
-##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/gdal
-##  GDAL binary built with GEOS: FALSE 
-##  Loaded PROJ.4 runtime: Rel. 5.2.0, September 15th, 2018, [PJ_VERSION: 520]
-##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/proj
-##  Linking to sp version: 1.3-2
-```
-
-```r
-library(rgeos)
-```
-
-```
-## rgeos version: 0.5-2, (SVN revision 621)
-##  GEOS runtime version: 3.7.2-CAPI-1.11.2 
-##  Linking to sp version: 1.3-1 
-##  Polygon checking: TRUE
-```
-
-```r
-library(maptools)
-```
-
-```
-## Checking rgeos availability: TRUE
-```
-
-```r
-library(knitr)
-library(tmap)
-library(ggplot2)
-library(gridExtra)
-library(grid)
-library(FedData)
-library(plyr)
-```
-
-###Introducing Spatial Data with SSURGO data
-
-####What is a CRS?
+#### What is a CRS?
 
 Geospatial data has a coordinate reference system (CRS) that reports how the map is projected and what point is used as a reference. A projection is a way of making the earth's curved surface fit into something you 
 can represent on a flat computer screen. The point used for reference during projection is called a datum.
@@ -135,7 +58,7 @@ made in a projection system that converts curved surfaces to flat ones for the s
 that it's difficult to make an orange peel lie flat. So the method you select will have an 
 effect on your outcome.
 
-####Reading in the Boundary File
+#### Reading in the Boundary File
 
 Before we can look at a CRS in R, we need to have a geospatial file in the R environment. We will bring in the field boundary. Use the function `read_sf()` to bring the dataset into your R environment.
 Because we have already set the working directory for this file, we only need to
@@ -152,7 +75,7 @@ makes accessing spatial data much easier. Much like a data frame, you can access
 variables within an `sf` object using the `$` operator. For this and other reasons like the number of spatial
 calculations available for `sf` objects, this class is perferred in most situations.
 
-####Check the coordinate reference system
+#### Check the coordinate reference system
 
 The function for retreiving the CRS of a simple feature is `st_crs().` Generally it is good practice to know the CRS of your files, but before combining files and performing operations on geospatial data, it is particularly important. Some commands will not work if the data is in the wrong CRS or if two dataframes are in different CRSs.
 
@@ -205,13 +128,13 @@ The UTM system divides the surface of Earth between 80°S and 84°N latitude int
 zone numbering increases eastward to zone 60 that covers longitude 174 to 180
 East. 
 
-####st_transform and ESPG Codes
+#### st_transform and ESPG Codes
 
 For reprojecting spatial data, the function `st_transform()` uses an ESPG code to transform a simple feature to the new CRS. EPSG Geodetic Parameter Dataset is a public registry of spatial reference systems, Earth ellipsoids, coordinate transformations and related units of measurement. The ESPG is one way to assign or transform the CRS in R. 
 
 The ESPG for UTM always begins with "326" and the last numbers are the number of the zone. The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design  files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude with WGS84.
 
-####Transforming
+#### Transforming
 
 The function `st_transform_utm()` transforms a simple feature into a new CRS. This function is in the functions.R script, and is described there.
 
@@ -293,7 +216,7 @@ st_crs(plantingutm)
 
 The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are 6382 points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
 
-####Save the file 
+#### Save the file 
 
 Use `st_write()` to save an sf object. If you do not specify a directory, the working 
 directory will be used. We include the object we are saving `boundaryutm` and the name 
@@ -323,7 +246,7 @@ The new .gpkg file will be visible in your working directory. One common problem
 with these files is that when you try to open a .gpkg file for the first time in
 R, it might not work if you haven't opened it in QGIS before.
 
-####Visualizing the data
+#### Visualizing the data
 
 There are several ways to visualize spatial data. First, we can use `plot()` to look at the basic shape of the data. 
 
@@ -343,7 +266,7 @@ map_poly(boundary, 'Type', 'Part of Field')
 
 ![plot of chunk unnamed-chunk-3](../figure/unnamed-chunk-3-1.png)
 
-#SSURGO Soil Data
+# SSURGO Soil Data
 
 The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil
 description of your field on the Web Soil Survey website below. The SSURGO dataset has been
@@ -357,11 +280,14 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 
 
 ```r
-#boundarynew <- read_sf("data/asplanted_transformed.gpkg")
-#boundary <- subset(boundary, Type == "Trial")
-#boundary.sp <- as(boundary, "Spatial")
-#ssurgo <- get_ssurgo(boundary.sp, "samplefield")
+boundarynew <- read_sf("data/asplanted_transformed.gpkg")
+boundary <- subset(boundary, Type == "Trial")
+boundary.sp <- as(boundary, "Spatial")
+#ssurgo <- get_ssurgo(boundary.sp, "field1")
+ssurgo <- get_ssurgo(boundary.sp, "samplefield")
 ```
+
+<font color="magenta">JPN: just a heads up that it looks like there can be errors in downloads for this data sometimes.  I'm wondering if its on the server-side, like too many requests or something.  Also, I had to delete the "EXTRACTIONS/samplefield" and re-run things which I'm wondering if this is because there are some file paths missing or something? We should test this on other folks computers.  If this is indeed the problem, we might want the code to force-delete these files before running. </font>
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
 object contains the polygons of soil types for the field, and  `tabular` contains many 
@@ -376,7 +302,7 @@ Let's make a map of the soil types on this field. First, we need to locate the p
 
 
 ```r
-#names <- ssurgo$tabular$muaggatt 
+names <- ssurgo$tabular$muaggatt 
 ```
 
 *Exercise 4*: What are the soil types present on the field as seen in `names`? Are the soil 
@@ -386,7 +312,31 @@ defined by anything other than the soil type?
 
 
 ```r
-#names
+names
+```
+
+```
+## # A tibble: 9 x 40
+##   musym muname mustatus slopegraddcp slopegradwta brockdepmin wtdepannmin
+##   <chr> <chr>  <lgl>           <dbl>        <dbl> <lgl>             <dbl>
+## 1 BgB   Benni… NA                  4          3.9 NA                   22
+## 2 Cr    Condi… NA                  1          1   NA                    7
+## 3 HpE   Henne… NA                 30         30   NA                  153
+## 4 Lo    Lobde… NA                  1          1   NA                   69
+## 5 Pm    Pewam… NA                  1          1   NA                   15
+## 6 Sh    Shoal… NA                  1          1   NA                   31
+## 7 BeA   Benni… NA                  1          1.2 NA                   22
+## 8 Crd1… Cardi… NA                  3          2.8 NA                   46
+## 9 Crd1… Cardi… NA                  9          8.4 NA                   46
+## # … with 33 more variables: wtdepaprjunmin <dbl>, flodfreqdcd <chr>,
+## #   flodfreqmax <chr>, pondfreqprs <dbl>, aws025wta <dbl>, aws050wta <dbl>,
+## #   aws0100wta <dbl>, aws0150wta <dbl>, drclassdcd <chr>, drclasswettest <chr>,
+## #   hydgrpdcd <chr>, iccdcd <lgl>, iccdcdpct <dbl>, niccdcd <dbl>,
+## #   niccdcdpct <dbl>, engdwobdcd <chr>, engdwbdcd <chr>, engdwbll <chr>,
+## #   engdwbml <chr>, engstafdcd <chr>, engstafll <chr>, engstafml <chr>,
+## #   engsldcd <chr>, engsldcp <chr>, englrsdcd <chr>, engcmssdcd <chr>,
+## #   engcmssmp <chr>, urbrecptdcd <chr>, urbrecptwta <dbl>, forpehrtdcp <chr>,
+## #   hydclprs <dbl>, awmmfpwwta <dbl>, mukey <dbl>
 ```
 
 Looking at `names` we can see there are eight types of soil on the field, and the dataframe 
@@ -399,10 +349,19 @@ capitalized and not in the other. We must rename the variable for consistency us
 
 
 ```r
-#spatial <- as(ssurgo$spatial, "sf")
-#spatial <- dplyr::rename(spatial, musym = MUSYM)
-#spatial <- merge(spatial, names, by = "musym")
-#head(spatial$muname)
+spatial <- as(ssurgo$spatial, "sf")
+spatial <- dplyr::rename(spatial, musym = MUSYM)
+spatial <- merge(spatial, names, by = "musym")
+head(spatial$muname)
+```
+
+```
+## [1] "Bennington silt loam, 0 to 2 percent slopes"
+## [2] "Bennington silt loam, 0 to 2 percent slopes"
+## [3] "Bennington silt loam, 0 to 2 percent slopes"
+## [4] "Bennington silt loam, 2 to 6 percent slopes"
+## [5] "Bennington silt loam, 2 to 6 percent slopes"
+## [6] "Condit-Bennington silt loams"
 ```
 
 *Exercise 5*: Create the Soil Map
@@ -415,9 +374,15 @@ Use `map_poly()` to make a map where the polygon color is informed by the soil n
 
 
 ```r
-#map_soil <- map_poly(spatial, 'muname', "Soil Type")
-#map_soil
+map_soil <- map_poly(spatial, 'muname', "Soil Type")
+map_soil
 ```
+
+```
+## Some legend labels were too wide. These labels have been resized to 0.50, 0.50, 0.50, 0.41, 0.38, 0.33, 0.37. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+```
+
+![plot of chunk unnamed-chunk-4](../figure/unnamed-chunk-4-1.png)
 
 The map shows that there are quite a few soil types on the field, and several show up
 in different sections of the field. However, most of the soils are silt loam. It might 
@@ -431,5 +396,103 @@ Here we are going to download the SSURGO maps for your own field using your boun
 
 
 ```r
-#soil_content <- c_s_s_soil(ssurgo = ssurgo)
+soil_content <- c_s_s_soil(ssurgo = ssurgo)
+```
+
+```
+## 
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |===                                                                   |   4%
+  |                                                                            
+  |=====                                                                 |   7%
+  |                                                                            
+  |========                                                              |  11%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |=============                                                         |  19%
+  |                                                                            
+  |================                                                      |  22%
+  |                                                                            
+  |==================                                                    |  26%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |=======================                                               |  33%
+  |                                                                            
+  |==========================                                            |  37%
+  |                                                                            
+  |=============================                                         |  41%
+  |                                                                            
+  |===============================                                       |  44%
+  |                                                                            
+  |==================================                                    |  48%
+  |                                                                            
+  |====================================                                  |  52%
+  |                                                                            
+  |=======================================                               |  56%
+  |                                                                            
+  |=========================================                             |  59%
+  |                                                                            
+  |============================================                          |  63%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |======================================================                |  78%
+  |                                                                            
+  |=========================================================             |  81%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |==============================================================        |  89%
+  |                                                                            
+  |=================================================================     |  93%
+  |                                                                            
+  |===================================================================   |  96%
+  |                                                                            
+  |======================================================================| 100%
+## 
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |========                                                              |  11%
+  |                                                                            
+  |================                                                      |  22%
+  |                                                                            
+  |=======================                                               |  33%
+  |                                                                            
+  |===============================                                       |  44%
+  |                                                                            
+  |=======================================                               |  56%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |======================================================                |  78%
+  |                                                                            
+  |==============================================================        |  89%
+  |                                                                            
+  |======================================================================| 100%
+```
+
+```r
+soil_content
+```
+
+```
+##     mukey AREASYMBOL SPATIALVER  MUSYM     clay     silt     sand water_storage
+## 1 1019357      OH033         10    BeA 30.88180 49.35860 19.75960      24.93720
+## 2  168539      OH033         10    BgB 31.09245 48.94345 19.96410      24.72030
+## 3  168557      OH033         10     Cr 33.80601 45.40116 20.79283      21.87375
+## 4  168570      OH033         10    HpE 28.17274 37.20299 34.62427      21.24000
+## 5  168578      OH033         10     Lo 23.32787 49.29454 27.37760      27.86000
+## 6  168588      OH033         10     Pm 34.08070 46.99515 18.92415      25.82340
+## 7  168591      OH033         10     Sh 21.67045 44.65005 33.67950      31.86120
+## 8 2996476      OH033         10 Crd1B1 30.17855 46.96980 22.85165      24.72070
+## 9 2996690      OH033         10 Crd1C2 29.92200 45.94210 24.13590      23.14610
 ```
