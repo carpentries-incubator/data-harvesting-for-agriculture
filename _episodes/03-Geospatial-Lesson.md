@@ -357,10 +357,34 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 
 
 ```r
+<<<<<<< HEAD
+<<<<<<< HEAD
+boundarynew <- read_sf("data/boundary_transformed.gpkg")
+=======
+<<<<<<< HEAD
+boundarynew <- read_sf("data/asplanted_transformed.gpkg")
+boundary <- subset(boundary, Type == "Trial")
+boundary.sp <- as(boundary, "Spatial")
+lwgeom::st_make_valid(boundary)
+=======
+boundarynew <- read_sf("data/boundary_test.shp")
+>>>>>>> 9043463c928a975c0174ae5f34fd60759bb3b9ed
+boundary.sp <- as(boundarynew, "Spatial")
+>>>>>>> 6db20200ff876b4991151f3bee1d7a998cf32483
+plot(boundary.sp)
+ssurgo <- get_ssurgo(boundary.sp, "test")
+=======
 #boundarynew <- read_sf("data/asplanted_transformed.gpkg")
 #boundary <- subset(boundary, Type == "Trial")
 #boundary.sp <- as(boundary, "Spatial")
 #ssurgo <- get_ssurgo(boundary.sp, "samplefield")
+>>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
+```
+
+```
+## Error: <text>:1:1: unexpected input
+## 1: <<
+##     ^
 ```
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
