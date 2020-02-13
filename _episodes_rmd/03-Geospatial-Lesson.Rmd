@@ -201,7 +201,7 @@ plot(boundary$geom)
 We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide the function `map_poly()` in the functions.R script for making a simple map with polygon features colored based on a given variable. The function requires a spatial object and a variable name in ''.
 
 ```{r plotboth }
-map_poly(boundary, 'Type')
+map_poly(boundary, 'Type', 'Part of Field')
 ```
 
 #SSURGO Soil Data
