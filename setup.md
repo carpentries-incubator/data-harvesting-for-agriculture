@@ -6,8 +6,7 @@ title: Setup
 ## Setup instructions
 
 Put together, there are about 4 to 5 Gb of software and data to install.
-This takes some time over most home network connections, so if you don't have
-the time or bandwidth to do this in advance, we are creating installed USB drives 
+This takes some time over most home network connections, so we are creating installed USB drives 
 that you can copy from.
 
 **If you want to take the software with you, we recommend that you copy it to your
@@ -66,53 +65,12 @@ in switching the .env file that you're using.
 <hr>
 ### Launching the programs from the USB drive (Mac)
 
-**NEED MAC INFO HERE**
+Macs won't allow you to run software from a USB drive the way Windows will, but we've copied the installation files here to save you the downloading time.
 
-<hr>
+For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html), but instead of downloading from the Internet, look in the DataHarvestingMac folder for your files.
 
-## If you choose to install before the workshop begins
+### Manual installation in advance
+If you'd like to get started before the workshop, and don't mind the download and installation time, you can also follow the manual installation instructions available here:
 
-### Windows
-If you're installing R, R Studio, and QGIS before the workshop begins, you can follow these
-instructions instead.
-
-**R and R Studio:**
-
-* Download R from
-  the [CRAN website](http://cran.r-project.org/bin/windows/base/release.htm).
-* Run the `.exe` file that was just downloaded
-* Go to the [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download)
-* Under *Installers* select **RStudio x.yy.zzz - Windows
-  Vista/7/8/10** (where x, y, and z represent version numbers)
-* Double click the file to install it
-* Once it's installed, open RStudio to make sure it works and you don't get any
-  error messages.
-* When RStudio is open and working, create a new R script file and copy in the 
-contents of [this file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). 
-* Run each line in this script. (Note that this
-process will likely take **3 - 4 hours on Windows 10** because of virus checking procedures
-that were already taken care of on the USB keys. If you can wait for the USB keys, you'll have
-a faster way to get up and running.)
-* After you've run the installation items, create a new R script file and copy in the 
-contents of [the package load and test file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_load_and_test.R). 
-* Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
-
-
-### macOS
-
-**UPDATE WITH JENNY'S INFO**
-
-* Download R from
-  the [CRAN website](http://cran.r-project.org/bin/macosx/).
-* Select the `.pkg` file for the latest R version
-* Double click on the downloaded file to install R
-* It is also a good idea to install [XQuartz](https://www.xquartz.org/) (needed
-  by some packages)
-* Go to the [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download)
-* Under *Installers* select **RStudio x.yy.zzz - Mac OS X 10.6+ (64-bit)**
-  (where x, y, and z represent version numbers)
-* Double click the file to install RStudio
-* Once it's installed, open RStudio to make sure it works and you don't get any
-  error messages.
-
-
+* ["Installing R and R Studio on Windows"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html)
+* ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/11-Installing-R-on-Windows/index.html)

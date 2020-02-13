@@ -1,18 +1,4 @@
 structgrpname,rvindicator,chkey,chstructgrpkey
-<<<<<<< HEAD
-weak fine and medium granular structure,Yes,52474315,28350311
-moderate medium and coarse subangular blocky structure,Yes,52474316,28350607
-structureless massive structure,Yes,52474317,28350608
-strong very fine and fine subangular blocky structure,Yes,52474338,28350316
-weak medium prismatic structure parting to moderate fine and medium subangular blocky structure,Yes,52474339,28350611
-structureless massive structure,Yes,52474340,28350612
-structureless massive structure,Yes,52474341,28350738
-moderate fine granular structure,Yes,52474342,28350737
-moderate fine prismatic structure parting to moderate fine angular blocky structure,Yes,52474343,28350326
-weak medium granular structure,Yes,52474439,28350383
-weak medium prismatic structure parting to angular blocky,Yes,52474440,28350384
-structureless massive structure,Yes,52474441,28350385
-=======
 weak medium subangular blocky structure parting to moderate medium granular structure,Yes,52474321,28350735
 moderate medium subangular blocky structure,Yes,52474322,28350323
 moderate medium subangular blocky structure,Yes,52474323,28350736
@@ -28,7 +14,6 @@ structureless massive structure,Yes,52474407,28350473
 weak medium granular structure,Yes,52474436,28350338
 weak medium subangular blocky structure,Yes,52474437,28350750
 structureless massive structure,Yes,52474438,28350479
->>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 weak medium subangular blocky structure parts to weak medium granular structure,Yes,52474460,28350405
 moderate medium subangular blocky structure,Yes,52474461,28350406
 structureless massive structure,Yes,52474462,28350407
@@ -40,23 +25,6 @@ moderate medium granular structure,Yes,52474467,28350259
 moderate medium prismatic structure parts to moderate medium subangular blocky structure,Yes,52474468,28350261
 moderate coarse prismatic structure parts to weak coarse subangular blocky structure,Yes,52474469,28350260
 structureless massive structure,Yes,52474470,28350869
-<<<<<<< HEAD
-weak medium prismatic structure parts to moderate medium subangular blocky structure,Yes,52474628,28350582
-structureless massive structure,Yes,52474629,28350885
-weak coarse subangular blocky structure,Yes,52474630,28350583
-moderate medium granular structure,Yes,52474631,28350423
-weak medium subangular blocky structure parts to moderate medium granular structure,Yes,52474632,28350275
-weak medium prismatic structure parts to moderate medium subangular blocky structure,Yes,52474633,28350276
-structureless massive structure,Yes,52474634,28350277
-moderate coarse subangular blocky structure,Yes,52474635,28350278
-weak fine granular structure,Yes,52474636,28350581
-moderate medium and coarse prismatic structure parts to moderate medium subangular blocky structure,Yes,52474637,28350420
-structureless massive structure,Yes,52474638,28350422
-weak coarse prismatic structure,Yes,52474639,28350421
-weak medium subangular blocky structure parts to weak medium granular structure,Yes,52474640,28350883
-moderate medium subangular blocky structure,Yes,52474641,28350580
-structureless massive structure,Yes,52474642,28350884
-=======
 moderate fine granular structure,Yes,52474558,28350665
 weak medium subangular blocky structure,Yes,52474559,28350666
 structureless massive structure,Yes,52474560,28350667
@@ -81,7 +49,6 @@ weak coarse subangular blocky structure parts to weak medium granular structure,
 weak medium prismatic structure parts to moderate medium and coarse subangular blocky structure,Yes,52474848,28350828
 structureless massive structure,Yes,52474849,28350913
 weak medium prismatic structure,Yes,52474850,28350717
->>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
 structureless massive structure,Yes,52474854,28350408
 weak medium subangular blocky structure parts to moderate medium granular structure,Yes,52474855,28350871
 weak medium prismatic structure parts to moderate medium subangular blocky structure,Yes,52474856,28350570

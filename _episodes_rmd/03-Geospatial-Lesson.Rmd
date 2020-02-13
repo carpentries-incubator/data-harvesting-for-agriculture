@@ -4,10 +4,29 @@ output: html_document
 source: Rmd
 ---
 
+<!-- #knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/') -->
+
 ```{r setup, include=FALSE}
-library(knitr)
-library(httr)
-knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
+#library(sf)
+#library(fasterize)
+#library(gstat)
+#library(raster)
+#library(rjson)
+#library(httr)
+#library(rgdal)
+#library(rgeos)
+#library(maptools)
+#library(tmap)
+#library(ggplot2)
+#library(gridExtra)
+#library(grid)
+#library(FedData)
+#library(plyr)
+
+#library(knitr)
+#library(httr)
+knitr::opts_chunk$set(echo = TRUE, fig.path='../fig/')
+
 source("./functions.R")
 ```
 
@@ -33,13 +52,10 @@ source("./functions.R")
 - Projecting your data in utm is necessary for many of the geometric operations
 you perform (e.g. making trial grids and splitting plots into subplot data)
 - Different data formats that you are likely to encounter include gpkg, shp
-(cpg, dbf, prj, sbn, sbx), geojson, and tif
+(cpg, dbf, prj, sbn, sbx), geojson, and tif **Dena: We don't discuss most of these in the lesson - tweak description or add overview?**
 
-### Setup
-
-Below are the packages that we will use in this episode.
-
-```{r, message=TRUE, warning=TRUE, include=TRUE}
+<!-- Setup -->
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 library(sf)
 library(fasterize)
 library(gstat)
@@ -58,9 +74,24 @@ library(FedData)
 library(plyr)
 ```
 
-###Introducing Spatial Data with SSURGO data
 
-####What is a CRS?
+
+### Introducing Spatial Data with SSURGO data
+
+**Dena: This would be a good point for an "We're starting with a bunch of miscellanous files and by the end of this lesson here's
+the things you'll be able to do with them" overview? Rough notes below, they just aren't pre-bolded...**
+
+**Spatial data can be stored in many different ways, and an important part of using your farm's data will involve understanding
+what format your data is already in and what format another program needs it to be in. During the course of this lesson, we'll learn:
+
+* How to identify which coordinate reference system a data file is using
+* How, when, and why to transform data from the WGS84 standard to the UTM standard (or vice versa)
+* How to save the transformed data as a new file
+* Some ways of creating visualizations from your data
+* How to get key soil type data for your farm from the publicly available SSURGO database
+**/end add?**
+
+#### What is a CRS?
 
 Geospatial data has a coordinate reference system (CRS) that reports how the map is projected and what point is used as a reference. A projection is a way of making the earth's curved surface fit into something you 
 can represent on a flat computer screen. The point used for reference during projection is called a datum.
@@ -78,34 +109,35 @@ made in a projection system that converts curved surfaces to flat ones for the s
 that it's difficult to make an orange peel lie flat. So the method you select will have an 
 effect on your outcome.
 
-####Reading in the Boundary File
+#### Reading in the Boundary File
 
 Before we can look at a CRS in R, we need to have a geospatial file in the R environment. We will bring in the field boundary. Use the function `read_sf()` to bring the dataset into your R environment.
-Because we have already set the working directory for this file, we only need to
-supply the file name. 
+**Dena's rewrite: Because we have already set the working directory for this file, we don't need to
+give the whole path, just the data subdirectory that the gpkg file is stored within.** 
 
 ```{r boundary}
 boundary <- read_sf("data/boundary_transformed.gpkg")
 ```
 
 There are many functions for reading files into the
-environment, but `read_sf()` creates an object of class `sf` or simple feature. This class
+environment, but `read_sf()` creates an object of class **`sf`** or **simple feature.** This class
 makes accessing spatial data much easier. Much like a data frame, you can access
 variables within an `sf` object using the `$` operator. For this and other reasons like the number of spatial
 calculations available for `sf` objects, this class is perferred in most situations.
 
-####Check the coordinate reference system
+#### Check the coordinate reference system
 
 The function for retreiving the CRS of a simple feature is `st_crs().` Generally it is good practice to know the CRS of your files, but before combining files and performing operations on geospatial data, it is particularly important. Some commands will not work if the data is in the wrong CRS or if two dataframes are in different CRSs.
 
 ```{r checkCRS}
 st_crs(boundary)
 ```
-The boundary file is projected in longitude and latitude using the WGS84 datum. This will be CRS of most of the data you see. 
+The boundary file is projected in longitude and latitude using the WGS84 datum. This will be the CRS of most of the data you see. 
 
 
-Sometimes when looking at a shapefile, the .prj file can be lost. Then `st_crs()` will return empty, but `sf` objects contain a geometry column. We can see the geometric points for the vertices of
-each polygon or the points in the data.
+Sometimes when looking at a shapefile, the .prj file can be lost. Then `st_crs()` will 
+return empty, but `sf` objects contain a geometry column. We can see the geometric points 
+for the vertices of each polygon or the points in the data.
 
 ```{r geometry}
 head(boundary$geom)
@@ -115,30 +147,45 @@ The trial design is in lat/long using WGS84.
 
 ## UTM Zones
 
-Some coordinate reference systems, such as UTM zones, are measured in meters. Latitude and longitude represent a different type of CRS, defined in terms of angles across a sphere. If we want to create measures of distance, we need the trial design in UTM. But there are many UTM zones, so we must determine the zone of the trial area. 
+Some coordinate reference systems, such as UTM zones, are measured in meters. 
+Latitude and longitude represent a different type of CRS, defined in terms of angles 
+across a sphere. If we want to create measures of distance, we need the trial design 
+in UTM. But there are many UTM zones, so we must determine the zone of the trial area. 
 
 The UTM system divides the surface of Earth between 80°S and 84°N latitude into
 60 zones, each 6° of longitude in width. Zone 1 covers longitude 180° to 174° W;
 zone numbering increases eastward to zone 60 that covers longitude 174 to 180
 East. 
 
-####st_transform and ESPG Codes
+#### st_transform and ESPG Codes
 
-For reprojecting spatial data, the function `st_transform()` uses an ESPG code to transform a simple feature to the new CRS. EPSG Geodetic Parameter Dataset is a public registry of spatial reference systems, Earth ellipsoids, coordinate transformations and related units of measurement. The ESPG is one way to assign or transform the CRS in R. 
+For reprojecting spatial data, the function `st_transform()` uses an ESPG code 
+to transform a simple feature to the new CRS. EPSG Geodetic Parameter Dataset is 
+a public registry of spatial reference systems, Earth ellipsoids, coordinate 
+transformations and related units of measurement. The ESPG is one way to assign 
+or transform the CRS in R. 
 
-The ESPG for UTM always begins with "326" and the last numbers are the number of the zone. The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design  files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude with WGS84.
+The ESPG for UTM always begins with "326" and the last numbers are the number of the zone.
+The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design 
+files will need to be transformed back into WGS84 before you implement the trial. Also, all 
+files from your machinery, such as yield, as-applied, and as-planted, will be reported in 
+latitude and longitude with WGS84.
 
-####Transforming
+**Dena: I feel like this is a fantastic place to have an exercise with the name and/or first few lines of a file of each
+type to ask them to look at them and identify which is which and describe what that means, to check understanding?**
+
+#### Transforming
 
 The function `st_transform_utm()` transforms a simple feature into a new CRS. This function is in the functions.R script, and is described there.
 ```{r transform}
 boundaryutm <- st_transform_utm(boundary)
 st_crs(boundaryutm)
 ```
+**Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
 
 **Exercise**
-1. Bring the file called "asplanted_transformed.gpkg" in your environment. Name
-the object `planting`. This file contains the planting information for 2017.
+1. Bring the file called "asplanted_transformed.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?**
+in your environment. Name the object `planting`. This file contains the planting information for 2017.
 2. Identify the CRS of the object. 
 3. Look at the geometry features. What kind of geometric features are in this dataset?
 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
@@ -159,7 +206,7 @@ st_crs(plantingutm)
 
 The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are `r nrow(planting)` points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
 
-####Save the file 
+#### Save the file 
 
 Use `st_write()` to save an sf object. If you do not specify a directory, the working 
 directory will be used. We include the object we are saving `boundaryutm` and the name 
@@ -177,13 +224,23 @@ file from UTM to lat/long and save the new file during trial design, so this is 
 st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
-The new .gpkg file will be visible in your working directory. One common problem
-with these files is that when you try to open a .gpkg file for the first time in
-R, it might not work if you haven't opened it in QGIS before.
+The new .gpkg file will be visible in your working directory. **Dena: (Check it out:
+Browse to your working directory in Windows File Explorer or Mac Finder and see the
+date and time on your new file.)**
 
-####Visualizing the data
+One common problem with these files is that when you try to open a .gpkg file for the first time in
+R, it might not work if you haven't opened it in QGIS before. **Dena: Is this something to 
+mention here, or should it go in the section where we're opening things with QGIS?**
+
+#### Visualizing the data
 
 There are several ways to visualize spatial data. First, we can use `plot()` to look at the basic shape of the data. 
+
+```{r}
+x = c(1:10)
+y = c(43:52)
+plot(x~y)
+```
 
 ```{r}
 plot(boundary$geom)
@@ -195,7 +252,10 @@ We can also plot the data where the polygons change color based on the value of 
 map_poly(boundary, 'Type', 'Part of Field')
 ```
 
-#SSURGO Soil Data
+**Dena: Is this their first detailed picture? Maybe pause to discuss what types of boundaries they might find useful and
+the theory of how to do them?**
+
+# SSURGO Soil Data
 
 The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil
 description of your field on the Web Soil Survey website below. The SSURGO dataset has been
@@ -207,30 +267,43 @@ https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 
 The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
-```{r ssurgo}
-<<<<<<< HEAD
-<<<<<<< HEAD
-boundarynew <- read_sf("data/boundary_transformed.gpkg")
-=======
-<<<<<<< HEAD
+```{r ssurgo, echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
 boundarynew <- read_sf("data/asplanted_transformed.gpkg")
 boundary <- subset(boundary, Type == "Trial")
 boundary.sp <- as(boundary, "Spatial")
-lwgeom::st_make_valid(boundary)
-=======
-boundarynew <- read_sf("data/boundary_test.shp")
->>>>>>> 9043463c928a975c0174ae5f34fd60759bb3b9ed
-boundary.sp <- as(boundarynew, "Spatial")
->>>>>>> 6db20200ff876b4991151f3bee1d7a998cf32483
-plot(boundary.sp)
-ssurgo <- get_ssurgo(boundary.sp, "test")
-=======
-#boundarynew <- read_sf("data/asplanted_transformed.gpkg")
-#boundary <- subset(boundary, Type == "Trial")
-#boundary.sp <- as(boundary, "Spatial")
+#ssurgo <- get_ssurgo(boundary.sp, "field1")
+
+# JPN: here is the mess: set redo=TRUE to force re-download
+download_ssurgo <- function(name_of_field, boundary_sp_in, redo=FALSE){
+  tryCatch(
+    expr = {
+      ssurgo <- get_ssurgo(boundary_sp_in, name_of_field, force.redo=redo)
+      #message(log(x))
+      message("Successfully downloaded SSURGO.")
+      return(ssurgo)
+    },
+    error = function(e){
+      message('Caught an error!  Lets try again after waiting 5 seconds...')
+      print(e)
+      Sys.sleep(5.0)
+      download_ssurgo(name_of_field, boundary_sp_in)
+    },
+    warning = function(w){
+      message('Caught an warning!')
+      print(w)
+    },
+    finally = {
+      message('All done!  Woohoo!')
+    }
+  )    
+}
+
 #ssurgo <- get_ssurgo(boundary.sp, "samplefield")
->>>>>>> 78e57546e21f90e24b9b92e70ac00bdd7df07d96
+ssurgo <- download_ssurgo("samplefield", boundary.sp)
+
 ```
+
+<font color="magenta">JPN: just a heads up that it looks like there can be errors in downloads for this data sometimes.  I'm wondering if its on the server-side, like too many requests or something.  Also, I had to delete the "EXTRACTIONS/samplefield" and re-run things which I'm wondering if this is because there are some file paths missing or something? We should test this on other folks computers.  If this is indeed the problem, we might want the code to force-delete these files before running. </font>
 
 The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` 
 object contains the polygons of soil types for the field, and  `tabular` contains many 
@@ -244,8 +317,9 @@ Let's make a map of the soil types on this field. First, we need to locate the p
 `tabular` with the soil names; these can be found in `muaggatt`.
 
 ```{r names}
-#names <- ssurgo$tabular$muaggatt 
+names <- ssurgo$tabular$muaggatt 
 ```
+
 
 *Exercise 4*: What are the soil types present on the field as seen in `names`? Are the soil 
 defined by anything other than the soil type?
@@ -253,7 +327,7 @@ defined by anything other than the soil type?
 *Exercise 4 Solution*
 
 ```{r soilnames}
-#names
+names
 ```
 
 Looking at `names` we can see there are eight types of soil on the field, and the dataframe 
@@ -265,10 +339,10 @@ and the spatial data by the `musym`. Note that in one of the dataframes the vari
 capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.
 
 ```{r soilmerge}
-#spatial <- as(ssurgo$spatial, "sf")
-#spatial <- dplyr::rename(spatial, musym = MUSYM)
-#spatial <- merge(spatial, names, by = "musym")
-#head(spatial$muname)
+spatial <- as(ssurgo$spatial, "sf")
+spatial <- dplyr::rename(spatial, musym = MUSYM)
+spatial <- merge(spatial, names, by = "musym")
+head(spatial$muname)
 ```
 
 *Exercise 5*: Create the Soil Map
@@ -279,10 +353,27 @@ Use `map_poly()` to make a map where the polygon color is informed by the soil n
 
 *Exercise 5 Solution*
 
-```{r}
+```{r echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
+
+#map_poly2 <- function(sfobject, variable, name){
+#  tm_shape(sfobject) + tm_polygons(variable, title = name) +
+#    tm_layout(legend.outside = TRUE, frame = FALSE) 
+#}
+
 #map_soil <- map_poly(spatial, 'muname', "Soil Type")
+#map_poly(spatial, 'muname', "Soil Type")
 #map_soil
+
+#tm_layout(legend.width=1)
+#tm_shape(spatial) + tm_polygons('muname')#, title = "Soil Type") #+ tm_layout(legend.outside = TRUE, frame = FALSE) 
+
 ```
+
+```{r}
+#map_poly(boundary, 'Type', 'Part of Field')
+plot(c(1,2,3), c(4,5,6))
+```
+
 
 The map shows that there are quite a few soil types on the field, and several show up
 in different sections of the field. However, most of the soils are silt loam. It might 
@@ -295,5 +386,6 @@ your own field.
 Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, we are going to make a table of the clay, silt, and sand content as well as the water content of the different soil types. There is a function `c_s_s_soil()` in `functions.R` that uses the soil depth to take an average of the soil measures for each soil type. The only parameter that needs to be 
 
 ```{r soilmap}
-#soil_content <- c_s_s_soil(ssurgo = ssurgo)
+soil_content <- c_s_s_soil(ssurgo = ssurgo)
+soil_content
 ```

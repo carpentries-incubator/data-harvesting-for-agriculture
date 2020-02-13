@@ -48,7 +48,7 @@ R is now **installed** on your computer.
 A window titled "R Console" should pop up:
 
 <img src="../fig/R_Console.png" width="40%">  
-\
+
 The `>` character is called the prompt and is the place where we enter commands for the program to interpret. For instance, if you type `25+5` followed by the return/enter key, you will see:
 
 
@@ -68,7 +68,7 @@ The `>` character is called the prompt and is the place where we enter commands 
 R will ask you if you want to save your work:
 
 <img src="../fig/closing_r_dontSAve.png" width="50%">
-\
+
 Click on "Don't Save". You have now left R.  
 
 We are not going to use R this way often, as we will use an integrated environment called RStudio.  
@@ -83,7 +83,7 @@ We are not going to use R this way often, as we will use an integrated environme
 3. Once the file has been downloaded, click on it. A window should pop up:
 
 <img src="../fig/Rstudio_download.png" width="50%">
-\
+
 Click on the RStudio icon and drag it into the Applications folder. 
 
 RStudio is now **installed** on your computer.
@@ -116,3 +116,4 @@ A window titled "RStudio" should pop up, looking something like this:
 
 
 <font color="magenta">Should cite Kenneth Tay's github</font>
+

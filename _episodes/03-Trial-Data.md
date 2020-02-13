@@ -11,6 +11,7 @@ source: Rmd
 ---
 
 
+
 ####Motivating Questions:
 - What are the common file types in agricultural data?
 
@@ -111,19 +112,6 @@ For each file, identify what variables might we be interested in and why?
 ```r
 planting <- read_sf("data/asplanted.gpkg")
 nitrogen <- read_sf("data/asapplied.gpkg")
-```
-
-```
-## Warning in CPL_read_ogr(dsn, layer, query, as.character(options), quiet, : GDAL
-## Error 1: unable to open database file: this file is a WAL-enabled database. It
-## cannot be opened because it is presumably read-only or in a read-only directory.
-```
-
-```
-## Error: Cannot open "/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asapplied.gpkg"; The source could be corrupt or not supported. See `st_drivers()` for a list of supported formats.
-```
-
-```r
 yield <- read_sf("data/yield.gpkg")
 ```
 
@@ -144,7 +132,10 @@ names(nitrogen)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'nitrogen' not found
+##  [1] "Product"      "Obj__Id"      "Track_deg_"   "Swth_Wdth_"   "Distance_f"  
+##  [6] "Duration_s"   "Elevation_"   "Area_Count"   "Diff_Statu"   "Time"        
+## [11] "Y_Offset_f"   "X_Offset_f"   "Rt_Apd_Ms_"   "Pass_Num"     "Speed_mph_"  
+## [16] "Prod_ac_hr"   "Date"         "Rate_Appli"   "Rate_Appli.1" "geom"
 ```
 
 ####As-Applied File
@@ -394,7 +385,35 @@ nitrogen <- subset(nitrogen, nitrogen$Rt_Appl >= mean(nitrogen$Rt_Appl) - 3*sd(n
 ```
 
 ```
-## Error in subset(nitrogen, nitrogen$Rt_Appl >= mean(nitrogen$Rt_Appl) - : object 'nitrogen' not found
+## Warning: Unknown or uninitialised column: 'Rt_Appl'.
+
+## Warning: Unknown or uninitialised column: 'Rt_Appl'.
+```
+
+```
+## Warning in mean.default(nitrogen$Rt_Appl): argument is not numeric or logical:
+## returning NA
+```
+
+```
+## Warning: Unknown or uninitialised column: 'Rt_Appl'.
+
+## Warning: Unknown or uninitialised column: 'Rt_Appl'.
+
+## Warning: Unknown or uninitialised column: 'Rt_Appl'.
+```
+
+```
+## Warning in mean.default(nitrogen$Rt_Appl): argument is not numeric or logical:
+## returning NA
+```
+
+```
+## Warning: Unknown or uninitialised column: 'Rt_Appl'.
+```
+
+```
+## Warning: Length of logical index must be 1 or 9913, not 0
 ```
 
 ```r
@@ -404,18 +423,11 @@ map_nitrogen <- tm_shape(nitrogen) + tm_dots('Rt_Appl', title = "NH3 (pounds)") 
             title.size = 1,
             width = 100,
             bg.color = "white")
-```
-
-```
-## Error in as.list.environment(environment()): object 'nitrogen' not found
-```
-
-```r
 map_nitrogen
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'map_nitrogen' not found
+## Error: The shape nitrogen only contains empty units.
 ```
 
 In `trialutm` there are 11 variables, but the variables we might want to map are
