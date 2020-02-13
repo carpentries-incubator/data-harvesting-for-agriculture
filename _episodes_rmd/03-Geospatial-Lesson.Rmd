@@ -27,7 +27,7 @@ source: Rmd
 #library(httr)
 knitr::opts_chunk$set(echo = TRUE, fig.path='../fig/')
 
-#source("./functions.R")
+source("./functions.R")
 ```
 
 
@@ -58,7 +58,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 
 Below are the packages that we will use in this episode.
 
-<!-- ```{r, message=FALSE, warning=FALSE, include=FALSE} -->
+```{r, message=FALSE, warning=FALSE, include=FALSE}
 library(sf)
 library(fasterize)
 library(gstat)
