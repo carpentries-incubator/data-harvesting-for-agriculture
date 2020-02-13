@@ -131,14 +131,14 @@ The ESPG for UTM always begins with "326" and the last numbers are the number of
 
 The function `st_transform_utm()` transforms a simple feature into a new CRS. This function is in the functions.R script, and is described there.
 ```{r transform}
-trialutm <- st_transform_utm(boundary)
-st_crs(boundary)
+boundaryutm <- st_transform_utm(boundary)
+st_crs(boundaryutm)
 ```
 
 **Exercise**
 1. Bring the file called "asplanted.gpkg" in your environment. Name
 the object `planting`. This file contains the planting information for 2017.
-2. Identify the CRS of the object. **Dena: So far I haven't seen anything that would help them understand how to do this, unless 326 or 4326 appear somewhere in code or data we haven't shown them in text yet? Or else I've missed something key that it may help to add in.**
+2. Identify the CRS of the object. 
 3. Look at the geometry features. What kind of geometric features are in this dataset?
 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
 
@@ -151,26 +151,18 @@ st_crs(planting)
 
 planting$geom
 
-planting_latlong <- st_transform(planting, 4326)
+plantingutm <- st_transform_utm(planting)
 
-st_crs(planting_latlong)
+st_crs(plantingutm)
 ```
 
-The cleaned planting file was in UTM initially. The zone is `r utmzone` which is to be 
-expected as it is from the same field as the trial design file we worked with earlier. 
-When we look at the geometry features, they are `r nrow(planting)` points defined in x 
-and y coordinates. Using the ESPG for lat/long we covered earlier 4326, we create a new
-file called `planting_latlong` with the CRS of WGS84.
-
-```{r transformtrial}
-trialutm <- st_transform(trial, projutm)
-```
+The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are `r nrow(planting)` points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
 
 ####Save the file 
 
 Use `st_write()` to save an sf object. If you do not specify a directory, the working 
-directory will be used. We include the object we are saving `trialutm` and the name 
-we would like to give the saved file `"trial.gpkg"`. Additionally, we specify the
+directory will be used. We include the object we are saving `boundaryutm` and the name 
+we would like to give the saved file `"boundary_utm.gpkg"`. Additionally, we specify the
 `layer_options` and `update` values to enable overwriting an existing file with the same name. 
 
 You can save the file as a .gpkg or .shp file. The advantage of a .gpkg file is
@@ -181,26 +173,24 @@ you will need to determine the CRS of the object. You will often need to transfo
 file from UTM to lat/long and save the new file during trial design, so this is an important step.
 
 ```{r save}
-st_write(trialutm, "trial_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
 The new .gpkg file will be visible in your working directory. One common problem
 with these files is that when you try to open a .gpkg file for the first time in
 R, it might not work if you haven't opened it in QGIS before.
-**Dena: Any idea why this is? During Thursday's meeting, we weren't sure if we were going to get into
-QGIS. If this is something that is critical, we should make sure to get QGIS available.**
 
 ####Visualizing the data
 
 There are several ways to visualize spatial data. First, we can use `plot()` to look at the basic shape of the data. 
 
-```{r plotboth }
+```{r}
 plot(boundary$geom)
 ```
 
 We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide the function `map_poly()` in the functions.R script for making a simple map with polygon features colored based on a given variable. The function requires a spatial object and a variable name in ''.
 
-```{r plotboth }
+```{r}
 map_poly(boundary, 'Type', 'Part of Field')
 ```
 
@@ -217,10 +207,7 @@ https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo}
-boundarynew <- read_sf("~/Documents/Data Carpentry/data/larson_eb2_boundary.shp")
-boundarynew <- st_make_valid(boundarynew)
-
-boundary.sp <- as(boundarynew, "Spatial")
+boundary.sp <- as(boundary, "Spatial")
 ssurgo <- get_ssurgo(boundary.sp, "field1")
 ```
 
@@ -271,7 +258,7 @@ Use `tmap` to make a map where the polygon color is informed by the soil names i
 
 *Exercise 5 Solution*
 
-```{r soilmap}
+```{r}
 map_soil <- tm_shape(spatial) + tm_polygons('muname', title = "Soil Type") + tm_layout(legend.outside = TRUE, frame = FALSE)+
   tm_legend(text.size = 1,
             title.size = 1,
