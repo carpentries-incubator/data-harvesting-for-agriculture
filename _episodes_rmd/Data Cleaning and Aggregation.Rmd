@@ -1,9 +1,8 @@
 ---
 title: "Ag Carpentry - Data Cleaning and Aggregation"
 author: "Aolin Gong"
-date: "2019-11-04"
+date: "11/4/2019"
 output: html_document
-source: Rmd
 ---
 
 ```{r setup, include=FALSE}
@@ -157,7 +156,7 @@ error and such. The common data that we collect for analysis includes yield
 (dry), seeding rate as-planted, nitrogen rate as-applied, electronic
 conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
 clean yield data, as-planted data, as-applied data, and sometimes EC data. For
-the other types of data, we simply import them into our aggregated data set
+public data, we simply import them into our aggregated data set
 without cleaning, since they have already been cleaned before being released to
 the public.
 
@@ -171,14 +170,14 @@ Yield, as-planted, and as-applied data:
 * We remove observations that are below or above three standard deviations from the mean.
 * We then aggregate them onto our units of observation.
 
-EC data:
+EC (Electrical conductivity) data:
 
-* We remove EC observations that are below or above three standard deviations from the mean.
+* We remove EC observations that are below or above three [standard deviations](https://en.wikipedia.org/wiki/Standard_deviation) from the mean.
  
-For aggregation, we need to generate subplots (units of observation) of the
+*For aggregation, we need to generate subplots (units of observation) of the
 original trial design, and then aggregate the cleaned datasets for different
 variables onto the subplots.  Once we have one value per variable per subplot,
-we can begin examining the relationships between the variables.
+we can begin examining the relationships between the variables.*
 
 ## Importing and visualizing boundaries and subplots
 
@@ -425,3 +424,6 @@ have one value for each for each subplot**
 3. Code to generate Topography data.
 4. Code to process SSURGO data.
 5. Code to download weather data.
+
+
+
