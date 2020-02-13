@@ -52,7 +52,7 @@ In this episode we’ll cover the basics of using R, which is a programming lang
 
 If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel). 
 
-In this lesson, we will be making use of another software called "RStudio" as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  **Some sort of analogy here would be grand**
+In this lesson, we will be making use of another software called "RStudio" as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  **Some sort of analogy here would be grand (Jill) -- Dena's analogy: It's a little like having a toaster. You can make toast over a fire, but having a toaster makes the job easier and less scorch-prone.**
 
 We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below:
 
@@ -181,7 +181,8 @@ This means that, for example:
 >
 > Historically, R programmers have used a variety of conventions for naming variables. The `.` character
 > in R can be a valid part of a variable name; thus the above assignment could have easily been `weight.kg <- 57.5`.
-> This is often confusing to R newcomers who have programmed in languages where `.` has a more significant meaning.
+> This is often confusing to R newcomers who have programmed in languages where `.` has a more significant meaning **, or to people 
+who are used to file names like resume.doc where the component after . identifies the type of a file. --Dena**.
 > Today, most R programmers 1) start variable names with lower case letters, 2) separate words in variable names with
 > underscores, and 3) use only lowercase letters, underscores, and numbers in variable names. The book *R Packages* includes
 > a [chapter](http://r-pkgs.had.co.nz/style.html) on this and other style considerations.
@@ -195,7 +196,7 @@ R knows various types of data. The ones you are likely to come across are:
 
 * integer numbers (whole numbers)
 * floating point numbers (numbers with decimals), and
-* names or words that sort data into "categories" <font color="magenta">(maybe something better here?)  Save types of data until we get into the columns stuff?</font>
+* names or words that sort data into "categories" <font color="magenta">(maybe something better here?)  Save types of data until we get into the columns stuff?</font>**Dena: This isn't a helpful example to me; I honestly don't know what data type this is trying to describe.**
 
 In the example above, variable `weight_kg` has an integer value of `60`.
 To create a variable with a floating point value, we can execute:
@@ -207,7 +208,7 @@ weight_kg <- 60.0
 
 <font color="magenta">Here I don't know if we should get into the print function right now like they do in the Python lesson or not</font>
 
-<font color="magenta">I also don't know if we want to use "<-" all the time or the "=" sign.  I *feel* like "=" is more intiuative but I'm not 100% sure on that one, could be my Python bias showing :)</font>
+<font color="magenta">I also don't know if we want to use "<-" all the time or the "=" sign.  I *feel* like "=" is more intiuative but I'm not 100% sure on that one, could be my Python bias showing :)</font> **Dena: "<-" saves all kinds of confusion about "=" vs "==" and so forth, and it's something that won't lead to confusion about whether it's the mathematical use case or not? I've never seen it before since I'm not an R person, but I like it.**
 
 We can do arithematic with variables like we did with numbers before:
 
@@ -349,7 +350,7 @@ weight_kg
 
 ## Writing and Saving R Scripts 
 
-<font color="magenta"> NOTE: I'm wondering if we want to push this section to later -- i.e. if we want to just go right to "getting your data into R" and do some examples just using the console and then start worrying about saving files later in the day once they have some cool plots that they made with R that they might want to reproduce.</font> <font color="green">DENA: Yes, move it later -- we're after early gratification with minimal fear and dread.)</font>
+<font color="magenta"> NOTE: I'm wondering if we want to push this section to later -- i.e. if we want to just go right to "getting your data into R" and do some examples just using the console and then start worrying about saving files later in the day once they have some cool plots that they made with R that they might want to reproduce.</font> <font color="green">DENA: Yes, move it later -- we're after early gratification with minimal fear and dread.) ETA after a second read: It makes a reasonable amount of sense here, but the outline I'm less sure of what we're doing with it?</font>
 
 
 ### <font color="magenta">Outline of this section</font>
@@ -390,7 +391,7 @@ If you close this file and want to re-open it, you can use `File -> Open File...
 
 <!--## OPTIONAL: What is a function?
 
-<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this. </font>
+<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this. </font> **Dena: Yeah, right here is not where I'd do functions -- either earlier or in the next file, but saving the file is generally the "end" of a sequence, you do a thing and then you save it and then you're done?**
 
 -->
 
@@ -412,7 +413,18 @@ phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the
 US from 1964-2016.
 
 This table has been reformatted into a CSV file for ease of import into
-R.  You can download the CSV from: <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv" download>https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv</a>. <font color="magenta">NOTE: I had to *explicitly* save this as a .csv file, it default downloaded as a txt file.  And I had to right-click on the link to save it at all, eventhough I had the download tag in the HTML.  Not sure how to fix this at the moment.</font>
+R.  You can download the CSV from: <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv" download>https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv</a>. <font color="magenta">NOTE: I had to *explicitly* save this as a .csv file, it default downloaded as a txt file.  And I had to right-click on the link to save it at all, eventhough I had the download tag in the HTML.  Not sure how to fix this at the moment.</font> **Dena: That's most likely a mime type problem on the web server end?**
+
+**Dena: Problem with reading this in -- how do you ask R what directory it's currently considering you to be "in" for relative path types of things? I knew data/filename.csv wasn't going to work for me because that's not a path I've got set up in the demo folder,
+but I can't figure out how to ask R where its "current directory" equivalent is in order to figure out how to either change directories
+or make ./ or ../ paths work to navigate to where the file is living.**
+
+**Dena: Sequence needed here:
+1) Where is your working directory actually now? (Mine was C:\Users\Dena\Documents, which is totally disconnected from where our stuff will be.)
+2) Change it to C:\ or D:\ DataHarvesting(YourOS)\SampleData (I think)
+2b) In the process if you're on Windows all those \ marks need to become / marks - Brittani says there's a point and click option
+3) Download the file.csv into the SampleData folder unless we've already put it there for them
+4) Then read in the file**
 
 The top few lines of this file look like:
 
@@ -474,7 +486,7 @@ In R, we can use a *function* called `read.csv` to import data from a CSV
 > ## [1] 100
 > ```
 > In this example, we _called_ the function by using the function name, `print` followed by parenthisis in which we put our _input parameter_ in this case the variable `weight_kg`, the value of which we wanted to print to the screen.
-> This was a bit of a silly example since we've been able to show the value of variables without this function before, but it is a nice example of a function being used. <font color="magenta">(wording has got to be better here)</font>
+> This was a bit of a silly example since we've been able to show the value of variables without this function before, but it is a nice example of a function being used. <font color="magenta">(wording has got to be better here)</font> **Dena: maybe move the whole stack up to where we're introducing variables?**
 >
 {: .callout}
 
