@@ -10,6 +10,8 @@
 
 library("rgdal")
 library("dplyr")
+library("plyr")
+library("sp")
 library("sf")
 library("gstat")
 library("tmap")
