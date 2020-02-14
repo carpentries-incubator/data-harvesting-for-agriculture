@@ -3,7 +3,7 @@ title: "Installing R and RStudio on Windows"
 questions:
 - Do I want to install the software before the workshop?
 - Can I download 5 Gb of installation files and data files over my network?
-- Am I comfortable with loading package installation scripts in R Studio?
+- Am I comfortable with running package installation scripts in R Studio?
 objectives:
 - If you'd like an instructor's assistance, we recommend you wait until the workshop.
 - If you'd like to experiment on your own, you can follow these instructions.
@@ -62,11 +62,11 @@ Here's where to make a new script:
 * Watch for any error messages along the way.
 * If the red stop sign in the top right corner of the console is still highlighted and the curosr is a gray |, an installation process is still running.
 * If you see a blue > in the console , you're ready to run the next line.
-(Note that this
-process will likely take **3 - 4 hours on Windows 10** because of virus checking procedures
+(Note that this process can take **3 - 4 hours on Windows 10** because of virus checking procedures
 that were already taken care of on the USB sticks. If you can wait for the USB sticks, you'll have
 a faster way to get up and running.)
 
+<img src="../fig/wininstall5-rstudioinstallscript2.png">
 
 
 ### Checking that the packages installed correctly
@@ -75,6 +75,7 @@ a faster way to get up and running.)
 contents of [the package load and test file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_load_and_test.R). 
 * Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
 
+<img src="../fig/wininstall6-rstudiolibraryload.png">
 
 
 
