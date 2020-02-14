@@ -14,7 +14,7 @@ source("../bin/chunk-options.R")
 ## TO-ADD
 
  * vigenettes - what is it, where can you find it in R studio interface & online
- * how to use "help"
+ * how to use "help" *and* how to google for help
  * "::" <- what does this mean, multiple packages with the same name
  * how to set working directory, get working directory, how to point and click => session => working directory
     * throw this on top of all your scripts
