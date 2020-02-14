@@ -71,5 +71,5 @@ For Macs, you can follow the instructions at ["Installing R and R Studio on a Ma
 ### Manual installation in advance
 If you'd like to get started before the workshop, and don't mind the download and installation time, you can also follow the manual installation instructions available here:
 
-* ["Installing R and R Studio on Windows"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html)
-* ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/11-Installing-R-on-Windows/index.html)
+* ["Installing R and R Studio on Windows"](https://data-carpentry-for-agriculture.github.io/trial-lesson/11-Installing-R-on-Windows/index.html)
+* ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html)
