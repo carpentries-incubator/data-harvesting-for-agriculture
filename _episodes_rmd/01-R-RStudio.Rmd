@@ -1,24 +1,6 @@
 ---
 title: "Introduction to R and RStudio"
-questions:
-- <font color="magenta">THESE ARE NOT UPDATED -- WE CAN DO THIS LAST</font>
-- How can I work with a spreadsheet in a more advanced and reproducible manner than
-  using MS Excel?
-- How can I keep my data and analysis organized?
-- How can I visualize my data with graphs?
-- Why would basic programming skills be useful to me for these tasks?
 source: Rmd
-objectives:
-- Describe the purpose of each pane in the RStudio IDE
-- Create a project to manage scripts and data
-- Assign a value to a variable
-- Perform arithmetic
-- Use a function
-- View the help page for a function
-- Create a new function
-- Import data from spreadsheet software
-- Install packages
-- Make a scatter plot using ggplot2
 ---
 
 
