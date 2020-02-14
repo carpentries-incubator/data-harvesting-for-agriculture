@@ -15,6 +15,5 @@ library(grid)
 library(FedData)
 library(plyr)
 
-source('./functions.R')
-
-#boundary <- read_sf("data/boundary_transformed.gpkg")
+source('/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/functions.R')
+plot(c(1,2,3), c(1,2,3))

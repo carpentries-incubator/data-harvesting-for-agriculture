@@ -60,10 +60,11 @@ Here's where to make a new script:
 
 <img src="../fig/wininstall4-rstudioinstallscript1.png">
 
-* Run each line in this script by selecting it and clicking Run. 
-* Watch for any error messages along the way.
-* If the red stop sign in the top right corner of the console is still highlighted and the curosr is a gray |, an installation process is still running.
-* If you see a blue > in the console , you're ready to run the next line.
+ * Run each line in this script by selecting it and clicking Run. 
+ * Watch for any error messages along the way.
+ * If the red stop sign in the top right corner of the console is still highlighted and the cursor is a gray \|, an installation process is still running.
+ * If you see a blue > in the console , you're ready to run the next line.
+
 (Note that this process can take **3 - 4 hours on Windows 10** because of virus checking procedures
 that were already taken care of on the USB sticks. If you can wait for the USB sticks, you'll have
 a faster way to get up and running.)
