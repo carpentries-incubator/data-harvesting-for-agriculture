@@ -28,7 +28,7 @@ However, if you copy to your own computer's hard drive, that will probably be C.
 
 On Windows, you can skip the 5 Gb download process by copying the DataHarvestingWin folder
 to the root level of your C drive and running it from  there. (Your new path should be
-C:\DataharvestingWin\ as opposed to the old path of D:\DataHarvestingWin\.) 
+C:\DataHarvestingWin\ as opposed to the old path of D:\DataHarvestingWin\.) 
 
 ### Launching the programs (Windows)
 Within DataHarvestingWin, the **folders with Start Menu in their names** contain shortcuts
