@@ -1,24 +1,23 @@
 ---
-title: "JPN: Installing R and RStudio on a Mac"
+title: "Installing R, RStudio, and QGIS on a Mac"
 questions:
-- <font color="magenta">TBD</font>
+- Do I want to install the software before the workshop?
+- Can I download a few Gb of installation files and data files over my network?
+- Am I comfortable with running package installation scripts in R Studio?
 objectives:
-- <font color="magenta">TBD</font>
+- If you'd like an instructor's assistance, we recommend you wait until the workshop.
+- If you'd like to experiment on your own, you can follow these instructions.
 source: Rmd
 ---
 
 
-
-<!-- JPN: updated fig path here manually for plots to show -->
+<!-- JPN: updated fig path here manually for plots to show, it turns out this is unneccesary though-->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
 ```
 
-
-## <font color="magenta">Assumptions -- FOR DEBUGGING</font>
-
- 1. <font color="magenta">Everybody knows how to download and install pkgs in general</font>
+# Installing R and RStudio
 
 ## Before you start
 
@@ -104,6 +103,21 @@ A window titled "RStudio" should pop up, looking something like this:
 
 3. To exit RStudio, click "RStudio" in the menu bar, then click "Quit RStudio". Alternatively, use the `Cmd-Q` shortcut. If prompted to save the workspace, do not save it.
 
+# Download and Install QGIS
 
-<font color="magenta">Should cite Kenneth Tay's github</font>
+To download QGIS, visit [the QGIS download site](https://qgis.org/en/site/forusers/download.html) and choose one of the standalone installers. Be sure to check your Mac version to download the correct package.
 
+Note: This is a ~1Gb file, so it's likely to take some time to download.
+
+You should see a new icon in your Applications folder:
+
+<img src="../fig/qgis_macInstall_applications.png">
+
+When you double click QGIS should open up:
+
+<img src="../fig/qgis_macInstall_opened.png">
+
+
+
+
+Citation: R/RStudio install structure from <a href="https://github.com/kjytay">Kenneth Tay</a>
