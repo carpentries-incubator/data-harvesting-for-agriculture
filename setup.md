@@ -28,12 +28,13 @@ The Mac installation time should be much faster than what we've experienced on t
 For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html), but instead of downloading from the Internet, look in the DataHarvestingMac folder for your files.
 
 
-## Windows: Three options
+## Windows: USB-based options
 
-The Windows manual installation process has taken 3-4 hours to complete in our test runs, so we have two much-faster options available for you based on our USB drives.
+The Windows manual installation process has taken 3-4 hours to complete in our test runs, so we have two much-faster options available for you based on our USB drives which should only take about 10-20 minutes.
 
-* If you want to keep the software and have about 5 Gb space free, you can copy it from the USB stick to your computer's C drive.
+* If you want to keep the software and have about 5 Gb space free, at the workshop you can copy it from the USB stick to your computer's C drive.
 * If you don't have about 5 Gb of space free, you can run the software directly on the USB drive. (However, we'll need the USB sticks back at the end of the workshop.)
+* If you don't want to wait for the workshop and want to download and install before you arrive, see "Manual installation in advance" below.
 
 ### Use the "start menu" folder for where you want to use it
 When these USB drives were created, they were assigned the letter D on a Windows computer.
