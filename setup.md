@@ -40,7 +40,7 @@ drive.
 
 If you're running from USB but it wasn't assigned the letter D, find:
 
- DataHarvestingWin/ProgramFiles/RStudio/bin/rstudio.exe\
+ DataHarvestingWin/ProgramFiles/RStudio/bin/rstudio.exe
 
 and double-click it to run.
 
@@ -61,10 +61,9 @@ missing DLL, there's a location mismatch to resolve. Ask a class helper for assi
 in switching the .env file that you're using.
 
 
-
 <hr>
-### Launching the programs from the USB drive (Mac)
 
+### Launching the programs from the USB drive (Mac)
 Macs won't allow you to run software from a USB drive the way Windows will, but we've copied the installation files here to save you the downloading time.
 
 For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html), but instead of downloading from the Internet, look in the DataHarvestingMac folder for your files.
