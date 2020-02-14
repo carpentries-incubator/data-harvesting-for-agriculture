@@ -83,3 +83,17 @@ An example of one of the tests' output:
 
 ## QGIS
 
+To download QGIS, visit [the QGIS download site](https://qgis.org/en/site/forusers/download.html) and choose one of the standalone installers. (Most people can run the 64 bit version, though if you're not sure, use the 32 bit package, because 64 bit computers can run the 32 bit edition.)
+
+Note: This is a 500 Mb file, so it's likely to take some time to download.
+
+Double-click the installation file once it's downloaded and follow the prompts.
+
+Once you've completed the process, you'll have a new Start Menu folder with several icons in it:
+
+<img src="../fig/wininstall8-qgis-menupots.png">
+
+Most of the time you'll want the regular Desktop version.
+
+<img src="../fig/wininstall9-qgis-launch.png">
+
