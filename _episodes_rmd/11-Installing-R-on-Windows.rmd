@@ -15,9 +15,14 @@ source: Rmd
 
 ## If you choose to install before the workshop begins
 
-### Windows
 If you're installing R, R Studio, and QGIS before the workshop begins, you can follow these
 instructions instead of the USB instructions. (All the steps below have been taken on the USB drives.)
+
+### Before you start
+
+Check that you have about 5 Gb of free space on your computer's hard drive. On Windows 10, you can open File Manager and click This PC for a look at your drive space.
+
+<img src="../fig/wininstall-1-file-mgr.PNG">
 
 **R and R Studio:**
 
