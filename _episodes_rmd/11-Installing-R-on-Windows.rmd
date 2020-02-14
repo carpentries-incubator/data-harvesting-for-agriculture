@@ -91,7 +91,7 @@ Double-click the installation file once it's downloaded and follow the prompts.
 
 Once you've completed the process, you'll have a new Start Menu folder with several icons in it:
 
-<img src="../fig/wininstall8-qgis-menupots.png">
+<img src="../fig/wininstall8-qgis-menuopts.png">
 
 Most of the time you'll want the regular Desktop version.
 
