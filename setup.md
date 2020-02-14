@@ -22,26 +22,25 @@ in the background.  You do not need to run it separately.
 
 If you want to install on your own, Mac installation time should be much faster than what we've experienced on the Windows side:
  * Macs install the software in about 20 minutes
- * Windows install the software in 3-4 hours.  Note for Windows users: **If you want to take the software with you, you will need to copy it to your computer. The Center for Digital Agriculture needs the USB drives back
-at the end of the workshop.**
+ * Windows install the software from scratch in 3-4 hours, but can be copied from one of our USB disks in about 10-20 minutes.  Note for Windows users: **If you want to take the software with you, you will need to copy it to your computer. The Center for Digital Agriculture needs the USB drives back at the end of the workshop.**
 
 
 ## Mac: Installation Instructions
 
-### Prefered Method: Internet-based Installation Instructions
+### Preferred Method: Internet-based Installation Instructions
 
 For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html).
 
-### Alernate: USB Installation Instructions
+### Alternate: USB Installation Instructions
 
-You can install from the USB drives at the workshop to save download time
+You can install from the USB drives at the workshop to save download time.
 Macs won't allow you to run software from a USB drive the way Windows will, but we've copied the installation files here to save you the downloading time.
 
 
 
 ## Windows: Installation instructions
 
-### Prefered Method: USB-based options
+### Preferred Method: USB-based options
 
 **Note: If you want to take the software with you, we recommend that you copy it to your
 computer's C drive. The Center for Digital Agriculture needs the USB drives back
