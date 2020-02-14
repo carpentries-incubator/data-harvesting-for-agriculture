@@ -20,7 +20,20 @@ using R much easier and more interactive. You need to install R before you
 install RStudio. Once installed, because RStudio is an IDE, RStudio will run R 
 in the background.  You do not need to run it separately. 
 
-## If you want to work from the USB drives
+## Mac: You can install from the USB drives to save download time
+Macs won't allow you to run software from a USB drive the way Windows will, but we've copied the installation files here to save you the downloading time.
+
+The Mac installation time should be much faster than what we've experienced on the Windows side, and anticipate it would be around 20 minutes.
+
+For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html), but instead of downloading from the Internet, look in the DataHarvestingMac folder for your files.
+
+
+## Windows: Three options
+
+The Windows manual installation process has taken 3-4 hours to complete in our test runs, so we have two much-faster options available for you based on our USB drives.
+
+* If you want to keep the software and have about 5 Gb space free, you can copy it from the USB stick to your computer's C drive.
+* If you don't have about 5 Gb of space free, you can run the software directly on the USB drive. (However, we'll need the USB sticks back at the end of the workshop.)
 
 ### Use the "start menu" folder for where you want to use it
 When these USB drives were created, they were assigned the letter D on a Windows computer.
@@ -30,7 +43,7 @@ On Windows, you can skip the 5 Gb download process by copying the DataHarvesting
 to the root level of your C drive and running it from  there. (Your new path should be
 C:\DataHarvestingWin\ as opposed to the old path of D:\DataHarvestingWin\.) 
 
-### Launching the programs (Windows)
+### Launching the programs 
 Within DataHarvestingWin, the **folders with Start Menu in their names** contain shortcuts
 to run the software.
 
@@ -62,11 +75,6 @@ in switching the .env file that you're using.
 
 
 <hr>
-
-### Launching the programs from the USB drive (Mac)
-Macs won't allow you to run software from a USB drive the way Windows will, but we've copied the installation files here to save you the downloading time.
-
-For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html), but instead of downloading from the Internet, look in the DataHarvestingMac folder for your files.
 
 ### Manual installation in advance
 If you'd like to get started before the workshop, and don't mind the download and installation time, you can also follow the manual installation instructions available here:
