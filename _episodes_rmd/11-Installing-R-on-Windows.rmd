@@ -1,9 +1,12 @@
 ---
-title: "JPN: Installing R and RStudio on a Mac"
+title: "Installing R and RStudio on Windows"
 questions:
-- <font color="magenta">TBD</font>
+- Do I want to install the software before the workshop?
+- Can I download 5 Gb of installation files and data files over my network?
+- Am I comfortable with loading package installation scripts in R Studio?
 objectives:
-- <font color="magenta">TBD</font>
+- If you'd like an instructor's assistance, we recommend you wait until the workshop.
+- If you'd like to experiment on your own, you can follow these instructions.
 source: Rmd
 ---
 
@@ -14,7 +17,7 @@ source: Rmd
 
 ### Windows
 If you're installing R, R Studio, and QGIS before the workshop begins, you can follow these
-instructions instead.
+instructions instead of the USB instructions. (All the steps below have been taken on the USB drives.)
 
 **R and R Studio:**
 
@@ -28,10 +31,10 @@ instructions instead.
 * Once it's installed, open RStudio to make sure it works and you don't get any
   error messages.
 * When RStudio is open and working, create a new R script file and copy in the 
-contents of [this file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). 
+contents of [this installation script file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). 
 * Run each line in this script. (Note that this
 process will likely take **3 - 4 hours on Windows 10** because of virus checking procedures
-that were already taken care of on the USB keys. If you can wait for the USB keys, you'll have
+that were already taken care of on the USB sticks. If you can wait for the USB sticks, you'll have
 a faster way to get up and running.)
 * After you've run the installation items, create a new R script file and copy in the 
 contents of [the package load and test file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_load_and_test.R). 
@@ -47,11 +50,8 @@ contents of [the package load and test file](https://github.com/data-carpentry-f
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
 ```
-
-
-## <font color="magenta">Assumptions -- FOR DEBUGGING</font>
-
- 1. <font color="magenta">Everybody knows how to download and install pkgs in general</font>
+ORIGINAL
+<hr>
 
 ## Before you start
 
