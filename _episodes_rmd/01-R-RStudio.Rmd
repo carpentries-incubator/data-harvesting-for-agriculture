@@ -1,9 +1,8 @@
 ---
 title: "Introduction to R and RStudio"
+include_overview: true
 source: Rmd
 ---
-
-
 
 <!-- JPN: updated fig path here manually for plots to show -->
 

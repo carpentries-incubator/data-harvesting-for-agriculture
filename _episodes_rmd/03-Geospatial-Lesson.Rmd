@@ -1,6 +1,7 @@
 ---
 title: "Geospatial Data and SSURGO"
 output: html_document
+include_overview: true
 source: Rmd
 ---
 
@@ -28,7 +29,6 @@ source: Rmd
 source("../bin/chunk-options.R")
 source("./functions.R")
 ```
-
 
 #### Motivating Questions:
 - What are the common file types in agricultural data?

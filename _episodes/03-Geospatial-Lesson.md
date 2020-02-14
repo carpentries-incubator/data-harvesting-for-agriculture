@@ -3,11 +3,11 @@
 # Instead, please edit 03-Geospatial-Lesson.md in _episodes_rmd/
 title: "Geospatial Data and SSURGO"
 output: html_document
+include_overview: true
 source: Rmd
 ---
 
 <!-- #knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/') -->
-
 
 
 
