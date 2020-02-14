@@ -7,7 +7,8 @@ include_overview: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+source("../bin/chunk-options.R")
+#knitr::opts_chunk$set(echo = TRUE)
 #setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
 ```
 

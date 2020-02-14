@@ -31,86 +31,126 @@ First we will load the packages needed for this episode.  You should already
 have these installed from the last episode.
 
 
-```r
+~~~
 library(sf)
-```
+~~~
+{: .language-r}
 
-```
-## Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
-```
 
-```r
+
+~~~
+Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
+~~~
+{: .output}
+
+
+
+~~~
 library(fasterize)
-```
+~~~
+{: .language-r}
 
-```
-## 
-## Attaching package: 'fasterize'
-```
 
-```
-## The following object is masked from 'package:graphics':
-## 
-##     plot
-```
 
-```r
+~~~
+
+Attaching package: 'fasterize'
+~~~
+{: .output}
+
+
+
+~~~
+The following object is masked from 'package:graphics':
+
+    plot
+~~~
+{: .output}
+
+
+
+~~~
 library(gstat)
 library(raster)
-```
+~~~
+{: .language-r}
 
-```
-## Loading required package: sp
-```
 
-```r
+
+~~~
+Loading required package: sp
+~~~
+{: .output}
+
+
+
+~~~
 library(rjson)
 library(httr)
 library(rgdal)
-```
+~~~
+{: .language-r}
 
-```
-## rgdal: version: 1.4-8, (SVN revision 845)
-##  Geospatial Data Abstraction Library extensions to R successfully loaded
-##  Loaded GDAL runtime: GDAL 2.4.2, released 2019/06/28
-##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/gdal
-##  GDAL binary built with GEOS: FALSE 
-##  Loaded PROJ.4 runtime: Rel. 5.2.0, September 15th, 2018, [PJ_VERSION: 520]
-##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/proj
-##  Linking to sp version: 1.3-2
-```
 
-```r
+
+~~~
+rgdal: version: 1.4-8, (SVN revision 845)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.4.2, released 2019/06/28
+ Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/gdal
+ GDAL binary built with GEOS: FALSE 
+ Loaded PROJ.4 runtime: Rel. 5.2.0, September 15th, 2018, [PJ_VERSION: 520]
+ Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/proj
+ Linking to sp version: 1.3-2 
+~~~
+{: .output}
+
+
+
+~~~
 library(rgeos)
-```
+~~~
+{: .language-r}
 
-```
-## rgeos version: 0.5-2, (SVN revision 621)
-##  GEOS runtime version: 3.7.2-CAPI-1.11.2 
-##  Linking to sp version: 1.3-1 
-##  Polygon checking: TRUE
-```
 
-```r
+
+~~~
+rgeos version: 0.5-2, (SVN revision 621)
+ GEOS runtime version: 3.7.2-CAPI-1.11.2 
+ Linking to sp version: 1.3-1 
+ Polygon checking: TRUE 
+~~~
+{: .output}
+
+
+
+~~~
 library(maptools)
-```
+~~~
+{: .language-r}
 
-```
-## Checking rgeos availability: TRUE
-```
 
-```r
+
+~~~
+Checking rgeos availability: TRUE
+~~~
+{: .output}
+
+
+
+~~~
 library(knitr)
 library(tmap)
 library(ggplot2)
 library(gridExtra)
-```
+~~~
+{: .language-r}
 
 Next, we will define a few functions that we will be using.  Feel free to copy
 and paste this code into your script.
 
 
-```r
+~~~
 st_over <- function(x, y) {
   sapply(sf::st_intersects(x, y), function(z)
     if (length(z) == 0)
@@ -146,7 +186,8 @@ st_interpolate <- function(obj, v, rst, type = "idw") {
   x <- raster::interpolate(rst, gs)
   return(x)
 }
-```
+~~~
+{: .language-r}
 
 In the last episode, we also imported our trial design.  We will include the
 code again here, in case you are just joining us.
@@ -157,49 +198,77 @@ cases, the trial design shapefile is already in the correct form, and we are
 just checking the file in advance of creating the subplots of the trial design.
 
 
-```r
+~~~
 trial <- read_sf("hord_f98_trialdesign_2017.shp")
-```
+~~~
+{: .language-r}
 
-```
-## Error: Cannot open "hord_f98_trialdesign_2017.shp"; The file doesn't seem to exist.
-```
 
-```r
+
+~~~
+Error: Cannot open "hord_f98_trialdesign_2017.shp"; The file doesn't seem to exist.
+~~~
+{: .error}
+
+
+
+~~~
 long2UTM <- function(long){
   utm <- (floor((long + 180)/6) %% 60) + 1
   return(utm)
 }
 utmzone <- long2UTM(mean(st_bbox(trial)[c(1,3)]))
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_bbox(trial): object 'trial' not found
-```
 
-```r
+
+~~~
+Error in st_bbox(trial): object 'trial' not found
+~~~
+{: .error}
+
+
+
+~~~
 projutm <- as.numeric(paste0("326", utmzone))
-```
+~~~
+{: .language-r}
 
-```
-## Error in paste0("326", utmzone): object 'utmzone' not found
-```
 
-```r
+
+~~~
+Error in paste0("326", utmzone): object 'utmzone' not found
+~~~
+{: .error}
+
+
+
+~~~
 trialutm <- st_transform(trial, projutm)
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_transform(trial, projutm): object 'trial' not found
-```
 
-```r
+
+~~~
+Error in st_transform(trial, projutm): object 'trial' not found
+~~~
+{: .error}
+
+
+
+~~~
 st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_write(trialutm, "trial.gpkg", layer_options = "OVERWRITE=YES", : object 'trialutm' not found
-```
+
+
+~~~
+Error in st_write(trialutm, "trial.gpkg", layer_options = "OVERWRITE=YES", : object 'trialutm' not found
+~~~
+{: .error}
 
 
 ## Introduction to data cleaning
@@ -212,23 +281,33 @@ some of the cells, the average that you calculate is going to be much higher
 than the true average.
 
 
-```r
+~~~
 real_data <- c(900, 450, 200, 320)
 error_data <- c(900, 4500, 200, 320)
 mean(real_data)
-```
+~~~
+{: .language-r}
 
-```
-## [1] 467.5
-```
 
-```r
+
+~~~
+[1] 467.5
+~~~
+{: .output}
+
+
+
+~~~
 mean(error_data)
-```
+~~~
+{: .language-r}
 
-```
-## [1] 1480
-```
+
+
+~~~
+[1] 1480
+~~~
+{: .output}
 
 Therefore, we want to check for values like this before we do anything else.  If
 the values were manually entered and the intended value is obvious, they can be
@@ -238,20 +317,25 @@ distribution of values.  Then we identify a cutoff, and convert anything above
 the cutoff to missing data.
 
 
-```r
+~~~
 plot(error_data)
-```
+~~~
+{: .language-r}
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+<img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 
-```r
+~~~
 error_data[error_data > 2000] <- NA
 error_data
-```
+~~~
+{: .language-r}
 
-```
-## [1] 900  NA 200 320
-```
+
+
+~~~
+[1] 900  NA 200 320
+~~~
+{: .output}
 
 Data cleaning is a major reason why there needs to be good communication between
 data scientists and end users, in agriculture or any other discipline.  As the person
@@ -297,21 +381,31 @@ The following steps read in a boundary shapefile, and transform the projection
 of file to utm projection for later use.
 
 
-```r
+~~~
 boundary <- read_sf("boundary.gpkg")
-```
+~~~
+{: .language-r}
 
-```
-## Error: Cannot open "boundary.gpkg"; The file doesn't seem to exist.
-```
 
-```r
+
+~~~
+Error: Cannot open "boundary.gpkg"; The file doesn't seem to exist.
+~~~
+{: .error}
+
+
+
+~~~
 boundary_utm <- st_transform(boundary, projutm)
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_transform(boundary, projutm): object 'boundary' not found
-```
+
+
+~~~
+Error in st_transform(boundary, projutm): object 'boundary' not found
+~~~
+{: .error}
 
 After we read in the trial design file, we use a function to generate the
 subplots for this trial. Because the code for generating the subplots is
@@ -321,62 +415,92 @@ For now, we will import a shapefile that already has the subplot boundaries
 defined, and will convert the projection to UTM.
 
 
-```r
+~~~
 subplots <- read_sf("hord_f98_subplots_2017.shp")
-```
+~~~
+{: .language-r}
 
-```
-## Error: Cannot open "hord_f98_subplots_2017.shp"; The file doesn't seem to exist.
-```
 
-```r
+
+~~~
+Error: Cannot open "hord_f98_subplots_2017.shp"; The file doesn't seem to exist.
+~~~
+{: .error}
+
+
+
+~~~
 subplots_utm <- st_transform(subplots,projutm)
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_transform(subplots, projutm): object 'subplots' not found
-```
+
+
+~~~
+Error in st_transform(subplots, projutm): object 'subplots' not found
+~~~
+{: .error}
 
 Here, we graph the subplots that we generated. Note that color indicates the ID
 number of the subplots, which starts from 1, at the right upper corner. We can
 check how many units of observation we are generating with this subplots shapefile.
 
 
-```r
+~~~
 plot(subplots)
-```
+~~~
+{: .language-r}
 
-```
-## Error in plot(subplots): object 'subplots' not found
-```
 
-```r
+
+~~~
+Error in plot(subplots): object 'subplots' not found
+~~~
+{: .error}
+
+
+
+~~~
 max(subplots$ID)
-```
+~~~
+{: .language-r}
 
-```
-## Error in eval(expr, envir, enclos): object 'subplots' not found
-```
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'subplots' not found
+~~~
+{: .error}
 
 Then, we plot the geometry of subplots and boundary together, so that we get a
 better idea where the subplots are within the field.
 
 
-```r
+~~~
 plot(subplots_utm$geometry)
-```
+~~~
+{: .language-r}
 
-```
-## Error in plot(subplots_utm$geometry): object 'subplots_utm' not found
-```
 
-```r
+
+~~~
+Error in plot(subplots_utm$geometry): object 'subplots_utm' not found
+~~~
+{: .error}
+
+
+
+~~~
 plot(boundary_utm$geom, add=TRUE)
-```
+~~~
+{: .language-r}
 
-```
-## Error in plot(boundary_utm$geom, add = TRUE): object 'boundary_utm' not found
-```
+
+
+~~~
+Error in plot(boundary_utm$geom, add = TRUE): object 'boundary_utm' not found
+~~~
+{: .error}
 
 ## Importing the yield data and removing border observations
 
@@ -386,34 +510,48 @@ For example, we will import and clean the yield data.  To match our subplots,
 boundary, and trial design, we will also convert the yield data to UTM.
 
 
-```r
+~~~
 yield <- read_sf("hord_f98_trialyield_2017.shp")
-```
+~~~
+{: .language-r}
 
-```
-## Error: Cannot open "hord_f98_trialyield_2017.shp"; The file doesn't seem to exist.
-```
 
-```r
+
+~~~
+Error: Cannot open "hord_f98_trialyield_2017.shp"; The file doesn't seem to exist.
+~~~
+{: .error}
+
+
+
+~~~
 yield_utm <- st_transform(yield, projutm)
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_transform(yield, projutm): object 'yield' not found
-```
+
+
+~~~
+Error in st_transform(yield, projutm): object 'yield' not found
+~~~
+{: .error}
 
 We check the distribution of the yield data as we clean them to monitor the
 change made by each cleaning step. First, view the distrubution of the original
 data.
 
 
-```r
+~~~
 hist(yield_utm$Yld_Vol_Dr)
-```
+~~~
+{: .language-r}
 
-```
-## Error in hist(yield_utm$Yld_Vol_Dr): object 'yield_utm' not found
-```
+
+
+~~~
+Error in hist(yield_utm$Yld_Vol_Dr): object 'yield_utm' not found
+~~~
+{: .error}
 
 As you can see, we have some extreme values that we will want to get rid of.
 
@@ -430,53 +568,77 @@ yield observations that are within a 4-meter distance to the edge of the plots
 are considered on the border.
 
 
-```r
+~~~
 buffer <- st_buffer(trialutm, -4) # plots are 24 m wide and 2 yield passes
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_buffer(trialutm, -4): object 'trialutm' not found
-```
+
+
+~~~
+Error in st_buffer(trialutm, -4): object 'trialutm' not found
+~~~
+{: .error}
 
 Next, we determine which yield observations are inside the buffer as using the
 `st_over` function, and mark those observations as "out". Finally, we
 remove the yield observations that are not in the buffer zone.
 
 
-```r
+~~~
 ov <- st_over(yield_utm, st_geometry(buffer))
-```
+~~~
+{: .language-r}
 
-```
-## Error in sf::st_intersects(x, y): object 'yield_utm' not found
-```
 
-```r
+
+~~~
+Error in sf::st_intersects(x, y): object 'yield_utm' not found
+~~~
+{: .error}
+
+
+
+~~~
 yield$out <- is.na(ov) # demarcate the yield values removed
-```
+~~~
+{: .language-r}
 
-```
-## Error in eval(expr, envir, enclos): object 'ov' not found
-```
 
-```r
+
+~~~
+Error in eval(expr, envir, enclos): object 'ov' not found
+~~~
+{: .error}
+
+
+
+~~~
 yield_clean <- subset(yield, out == FALSE)
-```
+~~~
+{: .language-r}
 
-```
-## Error in subset(yield, out == FALSE): object 'yield' not found
-```
+
+
+~~~
+Error in subset(yield, out == FALSE): object 'yield' not found
+~~~
+{: .error}
 
 Here again, we check the distribution of cleaned yield.
 
 
-```r
+~~~
 hist(yield_clean$Yld_Vol_Dr)
-```
+~~~
+{: .language-r}
 
-```
-## Error in hist(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
-```
+
+
+~~~
+Error in hist(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
+~~~
+{: .error}
 
 ## Removing outliers
 
@@ -497,55 +659,79 @@ deviation and mean of the yield distribution, respectively. Then we remove the
 yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd. 
 
 
-```r
+~~~
 sd_yld <- sd(yield_clean$Yld_Vol_Dr)
-```
+~~~
+{: .language-r}
 
-```
-## Error in is.data.frame(x): object 'yield_clean' not found
-```
 
-```r
+
+~~~
+Error in is.data.frame(x): object 'yield_clean' not found
+~~~
+{: .error}
+
+
+
+~~~
 mean_yld <- mean(yield_clean$Yld_Vol_Dr)
-```
+~~~
+{: .language-r}
 
-```
-## Error in mean(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
-```
 
-```r
+
+~~~
+Error in mean(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
+~~~
+{: .error}
+
+
+
+~~~
 yield_clean <- subset(yield_clean,
                       yield_clean$Yld_Vol_Dr > mean_yld - 3 * sd_yld &
                         yield_clean$Yld_Vol_Dr <mean_yld + 3 * sd_yld)
-```
+~~~
+{: .language-r}
 
-```
-## Error in subset(yield_clean, yield_clean$Yld_Vol_Dr > mean_yld - 3 * sd_yld & : object 'yield_clean' not found
-```
+
+
+~~~
+Error in subset(yield_clean, yield_clean$Yld_Vol_Dr > mean_yld - 3 * sd_yld & : object 'yield_clean' not found
+~~~
+{: .error}
 
 Here again, we check the distribution of cleaned yield after taking out the
 yield observations that are outside the range of three standard deviations from
 the mean.
 
 
-```r
+~~~
 hist(yield_clean$Yld_Vol_Dr)
-```
+~~~
+{: .language-r}
 
-```
-## Error in hist(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
-```
+
+
+~~~
+Error in hist(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
+~~~
+{: .error}
 
 The next line transforms the cleaned yield into UTM projection.
 
 
-```r
+~~~
 yield_clean <- st_transform(yield_clean, projutm)
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_transform(yield_clean, projutm): object 'yield_clean' not found
-```
+
+
+~~~
+Error in st_transform(yield_clean, projutm): object 'yield_clean' not found
+~~~
+{: .error}
 
 **Question from Lindsay: Why didn't we just clean the data that had already
 been converted to UTM?**
@@ -553,13 +739,17 @@ been converted to UTM?**
 Finally, we save cleaned file into a geopackage.
 
 
-```r
+~~~
 st_write(yield_clean, "yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
-```
+~~~
+{: .language-r}
 
-```
-## Error in st_write(yield_clean, "yield_clean.gpkg", layer_options = "OVERWRITE=YES", : object 'yield_clean' not found
-```
+
+
+~~~
+Error in st_write(yield_clean, "yield_clean.gpkg", layer_options = "OVERWRITE=YES", : object 'yield_clean' not found
+~~~
+{: .error}
 
 ### Discussion
 
@@ -590,42 +780,62 @@ way.
 explanation.**
 
 
-```r
+~~~
 subplots_sp <- as(subplots_utm, "Spatial")
-```
+~~~
+{: .language-r}
 
-```
-## Error in .class1(object): object 'subplots_utm' not found
-```
 
-```r
+
+~~~
+Error in .class1(object): object 'subplots_utm' not found
+~~~
+{: .error}
+
+
+
+~~~
 yield_sp <- as(yield_clean, "Spatial")
-```
+~~~
+{: .language-r}
 
-```
-## Error in .class1(object): object 'yield_clean' not found
-```
+
+
+~~~
+Error in .class1(object): object 'yield_clean' not found
+~~~
+{: .error}
 
 **Explain more of what is happening in this code below**
 **Why is one line commented out?**
 
 
-```r
+~~~
 #proj4string(yield_sp)<- CRS("+proj=longlat +datum=WGS84")
 merge <- sp::over(subplots_sp, yield_sp,fn = median)
-```
+~~~
+{: .language-r}
 
-```
-## Error in sp::over(subplots_sp, yield_sp, fn = median): object 'subplots_sp' not found
-```
 
-```r
+
+~~~
+Error in sp::over(subplots_sp, yield_sp, fn = median): object 'subplots_sp' not found
+~~~
+{: .error}
+
+
+
+~~~
 subplots_merge <- SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE)
-```
+~~~
+{: .language-r}
 
-```
-## Error in SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE): object 'subplots_sp' not found
-```
+
+
+~~~
+Error in SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE): object 'subplots_sp' not found
+~~~
+{: .error}
 
 ### Exercise
 
@@ -635,132 +845,218 @@ sub-plot.
 **Solution**:
 
 
-```r
+~~~
 #asapplied
 proj4string(asapplied) <- CRS("+proj=longlat +datum=WGS84")
-```
+~~~
+{: .language-r}
 
-```
-## Error in proj4string(asapplied) <- CRS("+proj=longlat +datum=WGS84"): object 'asapplied' not found
-```
 
-```r
+
+~~~
+Error in proj4string(asapplied) <- CRS("+proj=longlat +datum=WGS84"): object 'asapplied' not found
+~~~
+{: .error}
+
+
+
+~~~
 merge5 <- sp::over(subplots,asapplied,fn=mean)
-```
+~~~
+{: .language-r}
 
-```
-## Error in sp::over(subplots, asapplied, fn = mean): object 'subplots' not found
-```
 
-```r
+
+~~~
+Error in sp::over(subplots, asapplied, fn = mean): object 'subplots' not found
+~~~
+{: .error}
+
+
+
+~~~
 subplots@data <- cbind(merge5,subplots@data)
-```
+~~~
+{: .language-r}
 
-```
-## Error in cbind(merge5, subplots@data): object 'merge5' not found
-```
 
-```r
+
+~~~
+Error in cbind(merge5, subplots@data): object 'merge5' not found
+~~~
+{: .error}
+
+
+
+~~~
 head(subplots@data)
-```
+~~~
+{: .language-r}
 
-```
-## Error in head(subplots@data): object 'subplots' not found
-```
+
+
+~~~
+Error in head(subplots@data): object 'subplots' not found
+~~~
+{: .error}
 
 Processing the other variables:
 
 
-```r
+~~~
 #ec
 proj4string(ec)<- CRS("+proj=longlat +datum=WGS84")
-```
+~~~
+{: .language-r}
 
-```
-## Error in proj4string(ec) <- CRS("+proj=longlat +datum=WGS84"): object 'ec' not found
-```
 
-```r
+
+~~~
+Error in proj4string(ec) <- CRS("+proj=longlat +datum=WGS84"): object 'ec' not found
+~~~
+{: .error}
+
+
+
+~~~
 merge2<-sp::over(subplots,ec,fn=median)
-```
+~~~
+{: .language-r}
 
-```
-## Error in sp::over(subplots, ec, fn = median): object 'subplots' not found
-```
 
-```r
+
+~~~
+Error in sp::over(subplots, ec, fn = median): object 'subplots' not found
+~~~
+{: .error}
+
+
+
+~~~
 subplots@data<-cbind(merge2,subplots@data)
-```
+~~~
+{: .language-r}
 
-```
-## Error in cbind(merge2, subplots@data): object 'merge2' not found
-```
 
-```r
+
+~~~
+Error in cbind(merge2, subplots@data): object 'merge2' not found
+~~~
+{: .error}
+
+
+
+~~~
 #asplanted and elevation
 proj4string(asplanted)<- CRS("+proj=longlat +datum=WGS84")
-```
+~~~
+{: .language-r}
 
-```
-## Error in proj4string(asplanted) <- CRS("+proj=longlat +datum=WGS84"): object 'asplanted' not found
-```
 
-```r
+
+~~~
+Error in proj4string(asplanted) <- CRS("+proj=longlat +datum=WGS84"): object 'asplanted' not found
+~~~
+{: .error}
+
+
+
+~~~
 merge3<-sp::over(subplots,asplanted,fn=median)
-```
+~~~
+{: .language-r}
 
-```
-## Error in sp::over(subplots, asplanted, fn = median): object 'subplots' not found
-```
 
-```r
+
+~~~
+Error in sp::over(subplots, asplanted, fn = median): object 'subplots' not found
+~~~
+{: .error}
+
+
+
+~~~
 subplots@data<-cbind(merge3,subplots@data)
-```
+~~~
+{: .language-r}
 
-```
-## Error in cbind(merge3, subplots@data): object 'merge3' not found
-```
 
-```r
+
+~~~
+Error in cbind(merge3, subplots@data): object 'merge3' not found
+~~~
+{: .error}
+
+
+
+~~~
 head(merge3)
-```
+~~~
+{: .language-r}
 
-```
-## Error in head(merge3): object 'merge3' not found
-```
 
-```r
+
+~~~
+Error in head(merge3): object 'merge3' not found
+~~~
+{: .error}
+
+
+
+~~~
 #topography
 topo <- spTransform(topography, CRS("+proj=longlat +datum=WGS84"))
-```
+~~~
+{: .language-r}
 
-```
-## Error in spTransform(topography, CRS("+proj=longlat +datum=WGS84")): object 'topography' not found
-```
 
-```r
+
+~~~
+Error in spTransform(topography, CRS("+proj=longlat +datum=WGS84")): object 'topography' not found
+~~~
+{: .error}
+
+
+
+~~~
 slopemerge <- sp::over(subplots,topo,fn=median)
-```
+~~~
+{: .language-r}
 
-```
-## Error in sp::over(subplots, topo, fn = median): object 'subplots' not found
-```
 
-```r
+
+~~~
+Error in sp::over(subplots, topo, fn = median): object 'subplots' not found
+~~~
+{: .error}
+
+
+
+~~~
 subplots@data <-cbind(slopemerge,subplots@data)
-```
+~~~
+{: .language-r}
 
-```
-## Error in cbind(slopemerge, subplots@data): object 'slopemerge' not found
-```
 
-```r
+
+~~~
+Error in cbind(slopemerge, subplots@data): object 'slopemerge' not found
+~~~
+{: .error}
+
+
+
+~~~
 head(subplots@data)
-```
+~~~
+{: .language-r}
 
-```
-## Error in head(subplots@data): object 'subplots' not found
-```
+
+
+~~~
+Error in head(subplots@data): object 'subplots' not found
+~~~
+{: .error}
 
 ## Conclusion
 
