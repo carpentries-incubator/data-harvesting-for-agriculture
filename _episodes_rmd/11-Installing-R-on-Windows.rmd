@@ -1,5 +1,5 @@
 ---
-title: "Installing R and RStudio on Windows"
+title: "Installing R, RStudio, and QGIS on Windows"
 questions:
 - Do I want to install the software before the workshop?
 - Can I download 5 Gb of installation files and data files over my network?
