@@ -1,0 +1,104 @@
+I"�<!-- start cut from Windows veresion -->
+<hr />
+
+<h2 id="if-you-choose-to-install-before-the-workshop-begins">If you choose to install before the workshop begins</h2>
+
+<p>If you’re installing R, R Studio, and QGIS before the workshop begins, you can follow these
+instructions instead of the USB instructions. (All the steps below have been taken on the USB drives.)</p>
+
+<h3 id="before-you-start">Before you start</h3>
+
+<p>Check that you have about 5 Gb of free space on your computer’s hard drive. On Windows 10, you can open File Manager and click This PC for a look at your drive space.</p>
+
+<p><img src="../fig/wininstall-1-file-mgr.PNG" /></p>
+
+<h3 id="r-and-r-studio">R and R Studio</h3>
+
+<p>You’ll need to install R before R Studio, and after you’ve installed R Studio you’ll need to run some manual package installation and library loading scripts. We’ll start with R.</p>
+
+<ul>
+  <li>Download R from
+the <a href="http://cran.r-project.org/bin/windows/base/release.htm">CRAN website</a>.</li>
+  <li>Run the <code class="highlighter-rouge">.exe</code> file that was just downloaded</li>
+  <li>In the command line window that launches, you should see some R descriptive text and a “&gt;” symbol.</li>
+  <li>You can do some simple math on the command line (such as 5+12) to make sure it’s fully loaded and responding.</li>
+</ul>
+
+<p><img src="../fig/wininstall2-r.png" /></p>
+
+<p>Next:</p>
+
+<ul>
+  <li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio download page</a></li>
+  <li>Under <em>Installers</em> select <strong>RStudio x.yy.zzz - Windows
+Vista/7/8/10</strong> (where x, y, and z represent version numbers)</li>
+  <li>Double click the file to install it</li>
+  <li>Once it’s installed, open RStudio to make sure it works and you don’t get any
+error messages.</li>
+</ul>
+
+<p><img src="../fig/wininstall3-rstudio.png" /></p>
+
+<h3 id="installing-the-geospatial-and-federal-data-packages">Installing the geospatial and federal data packages</h3>
+
+<ul>
+  <li>When RStudio is open and working, create a new R script file and copy in the 
+contents of <a href="https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R">this installation script file</a>.</li>
+</ul>
+
+<p>Here’s where to make a new script:</p>
+
+<p><img src="../fig/wininstall4-rstudioinstallscript1.png" /></p>
+
+<ul>
+  <li>Run each line in this script by selecting it and clicking Run.</li>
+  <li>Watch for any error messages along the way.</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>If the red stop sign in the top right corner of the console is still highlighted and the curosr is a gray</td>
+          <td>, an installation process is still running.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>If you see a blue &gt; in the console , you’re ready to run the next line.
+(Note that this process can take <strong>3 - 4 hours on Windows 10</strong> because of virus checking procedures
+that were already taken care of on the USB sticks. If you can wait for the USB sticks, you’ll have
+a faster way to get up and running.)</li>
+</ul>
+
+<p><img src="../fig/wininstall5-rstudioinstallscript2.png" /></p>
+
+<h3 id="checking-that-the-packages-installed-correctly">Checking that the packages installed correctly</h3>
+
+<ul>
+  <li>After you’ve run the installation items, create a new R script file and copy in the 
+contents of <a href="https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_load_and_test.R">the package load and test file</a>.</li>
+  <li>Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.</li>
+</ul>
+
+<p><img src="../fig/wininstall6-rstudiolibraryload.png" /></p>
+
+<p>An example of one of the tests’ output:</p>
+
+<p><img src="../fig/wininstall7-rstudiotmaptest.png" /></p>
+
+<h2 id="qgis">QGIS</h2>
+
+<p>To download QGIS, visit <a href="https://qgis.org/en/site/forusers/download.html">the QGIS download site</a> and choose one of the standalone installers. (Most people can run the 64 bit version, though if you’re not sure, use the 32 bit package, because 64 bit computers can run the 32 bit edition.)</p>
+
+<p>Note: This is a 500 Mb file, so it’s likely to take some time to download.</p>
+
+<p>Double-click the installation file once it’s downloaded and follow the prompts.</p>
+
+<p>Once you’ve completed the process, you’ll have a new Start Menu folder with several icons in it:</p>
+
+<p><img src="../fig/wininstall8-qgis-menupots.png" /></p>
+
+<p>Most of the time you’ll want the regular Desktop version.</p>
+
+<p><img src="../fig/wininstall9-qgis-launch.png" /></p>
+
+:ET

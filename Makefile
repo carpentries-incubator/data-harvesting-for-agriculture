@@ -50,6 +50,7 @@ clean :
 clean-rmd :
 	@rm -rf ${RMD_DST}
 	@rm -rf fig/rmd-*
+	@rm -rf _episodes/*.md
 
 ## ----------------------------------------
 ## Commands specific to workshop websites.

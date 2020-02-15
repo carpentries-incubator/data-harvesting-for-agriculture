@@ -4,9 +4,7 @@
 title: "Ag Carpentry - Trial Data"
 author: "Brittani"
 date: "2019-10-19"
-output:
-  pdf_document: default
-  html_document: default
+include_overview: true
 source: Rmd
 ---
 
@@ -26,77 +24,6 @@ source: Rmd
 - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
 - Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
 
-Below are the packages that we will use in this episode.
-
-
-```r
-library(sf)
-library(httr)
-library(rgdal)
-```
-
-```
-## Loading required package: sp
-```
-
-```
-## rgdal: version: 1.4-8, (SVN revision 845)
-##  Geospatial Data Abstraction Library extensions to R successfully loaded
-##  Loaded GDAL runtime: GDAL 2.4.2, released 2019/06/28
-##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/gdal
-##  GDAL binary built with GEOS: FALSE 
-##  Loaded PROJ.4 runtime: Rel. 5.2.0, September 15th, 2018, [PJ_VERSION: 520]
-##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.6/Resources/library/rgdal/proj
-##  Linking to sp version: 1.3-2
-```
-
-```r
-library(rgeos)
-```
-
-```
-## rgeos version: 0.5-2, (SVN revision 621)
-##  GEOS runtime version: 3.7.2-CAPI-1.11.2 
-##  Linking to sp version: 1.3-1 
-##  Polygon checking: TRUE
-```
-
-```r
-library(maptools)
-```
-
-```
-## Checking rgeos availability: TRUE
-```
-
-```r
-require(tmap)
-```
-
-```
-## Loading required package: tmap
-```
-
-```r
-require(ggplot2)
-```
-
-```
-## Loading required package: ggplot2
-```
-
-```r
-require(gridExtra)
-```
-
-```
-## Loading required package: gridExtra
-```
-
-```r
-library(readr)
-library(measurements)
-```
 
 In this lesson we will explore the files that are generated during a trial season. These data include yield, as-applied, as-planted, and sometimes electricalconductivity. While you are likely using your yield maps every year to asses productivity, you might not be looking at your application maps if you normally use uniform rates. But if you use variable rate applications or have completed an agricutlural trial, your application map contains information about how well the machine applied the target rates. 
 
@@ -109,34 +36,29 @@ Read the yield, as-planted, and as-applied files and explore the variables.
 For each file, identify what variables might we be interested in and why?
 
 
-```r
-planting <- read_sf("data/asplanted.gpkg")
-nitrogen <- read_sf("data/asapplied.gpkg")
-yield <- read_sf("data/yield.gpkg")
-```
-
-```
-## Warning in CPL_read_ogr(dsn, layer, query, as.character(options), quiet, : GDAL
-## Error 1: unable to open database file: this file is a WAL-enabled database. It
-## cannot be opened because it is presumably read-only or in a read-only directory.
-```
-
-```
-## Error: Cannot open "/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/yield.gpkg"; The source could be corrupt or not supported. See `st_drivers()` for a list of supported formats.
-```
+~~~
+planting <- read_sf("data/asplanted_transformed.gpkg")
+nitrogen <- read_sf("data/asapplied_transformed.gpkg")
+yield <- read_sf("data/yield_transformed.gpkg")
+~~~
+{: .language-r}
 
 *Solutions and Discussion*
 
-```r
+~~~
 names(nitrogen)
-```
+~~~
+{: .language-r}
 
-```
-##  [1] "Product"      "Obj__Id"      "Track_deg_"   "Swth_Wdth_"   "Distance_f"  
-##  [6] "Duration_s"   "Elevation_"   "Area_Count"   "Diff_Statu"   "Time"        
-## [11] "Y_Offset_f"   "X_Offset_f"   "Rt_Apd_Ms_"   "Pass_Num"     "Speed_mph_"  
-## [16] "Prod_ac_hr"   "Date"         "Rate_Appli"   "Rate_Appli.1" "geom"
-```
+
+
+~~~
+ [1] "Product"      "Obj__Id"      "Track_deg_"   "Swth_Wdth_"   "Distance_f"  
+ [6] "Duration_s"   "Elevation_"   "Area_Count"   "Diff_Statu"   "Time"        
+[11] "Y_Offset_f"   "X_Offset_f"   "Rt_Apd_Ms_"   "Pass_Num"     "Speed_mph_"  
+[16] "Prod_ac_hr"   "Date"         "Rate_Appli"   "Rate_Appli.1" "geom"        
+~~~
+{: .output}
 
 ####As-Applied File
 
@@ -153,30 +75,43 @@ We can also see the automatic-section control reacting when the applicator is of
 The main variables in the harvest files are `Yld_Vol_Dr` and `Yld_Mass_D`. We also use speed (`Speed_mph_`) to eliminate the points collected when the machine was slowing down or speeding up as this effects the accuracy of the yield monitor. 
 
 
-```r
+~~~
 names(yield)
-```
+~~~
+{: .language-r}
 
-```
-## Error in eval(expr, envir, enclos): object 'yield' not found
-```
+
+
+~~~
+ [1] "Product"    "Obj__Id"    "Distance_f" "Track_deg_" "Duration_s"
+ [6] "Elevation_" "Time"       "Area_Count" "Swth_Wdth_" "Y_Offset_f"
+[11] "Crop_Flw_M" "Moisture__" "Yld_Mass_W" "Yld_Vol_We" "Yld_Mass_D"
+[16] "Yld_Vol_Dr" "Humidity__" "Air_Temp__" "Wind_Speed" "Soil_Temp_"
+[21] "Wind_Dir"   "Sky_Cond"   "Pass_Num"   "Speed_mph_" "Prod_ac_h_"
+[26] "Crop_Flw_V" "Date"       "Yield__Dry" "geom"      
+~~~
+{: .output}
 
 ####As-Planted File
 
 
-```r
+~~~
 names(planting)
-```
+~~~
+{: .language-r}
 
-```
-##  [1] "Product"      "Obj__Id"      "Distance_f"   "Track_deg_"   "Duration_s"  
-##  [6] "Elevation_"   "Time"         "Area_Count"   "Swth_Wdth_"   "Seed_Cnt__"  
-## [11] "Plant_Pop_"   "Rt_Apd_Ct_"   "SeedFlow_k"   "Tgt_Rate_k"   "Y_Offset_f"  
-## [16] "DF_Margin_"   "Humidity__"   "Air_Temp__"   "Wind_Speed"   "Soil_Temp_"  
-## [21] "Pass_Num"     "Speed_mph_"   "Prod_ac_h_"   "Prdt_Amt"     "Date"        
-## [26] "Population"   "Rate__Coun"   "Target_Rat"   "Population.1" "Date___Tim"  
-## [31] "geom"
-```
+
+
+~~~
+ [1] "Product"      "Obj__Id"      "Distance_f"   "Track_deg_"   "Duration_s"  
+ [6] "Elevation_"   "Time"         "Area_Count"   "Swth_Wdth_"   "Seed_Cnt__"  
+[11] "Plant_Pop_"   "Rt_Apd_Ct_"   "SeedFlow_k"   "Tgt_Rate_k"   "Y_Offset_f"  
+[16] "DF_Margin_"   "Humidity__"   "Air_Temp__"   "Wind_Speed"   "Soil_Temp_"  
+[21] "Pass_Num"     "Speed_mph_"   "Prod_ac_h_"   "Prdt_Amt"     "Date"        
+[26] "Population"   "Rate__Coun"   "Target_Rat"   "Population.1" "Date___Tim"  
+[31] "geom"        
+~~~
+{: .output}
 
 We see that the planting file has 33 variables, several of which appear to be identical. The main variables of interest are the planting rate (`Rt_A_C_`) and the target rate (`Tgt_Rt_`). These columns do appear under different names. We will discuss how to handle this below.
 
@@ -184,7 +119,7 @@ There are several other variables that could be useful. First, the hybrid is loc
 
 ####Visualizing the Trial Data
 
-In the next section, we will have exercises to visually explore the trial data. We will look at the application maps, compare the application to the target application rates and the yield.
+In the next section, we will have exercises to visually explore the trial data. We will look at the importance of data cleaning visually with the yield maps. We will  application maps, compare the application to the target application rates and the yield.
 
 **Exercise**
 Make a map of the seed application rate from the `planting` file using `tmpap`. 
@@ -193,92 +128,47 @@ Hint: Remember that different types of geometry features require different funct
 
 **Solution**
 
-```r
+~~~
 names(planting)
-```
+~~~
+{: .language-r}
 
-```
-##  [1] "Product"      "Obj__Id"      "Distance_f"   "Track_deg_"   "Duration_s"  
-##  [6] "Elevation_"   "Time"         "Area_Count"   "Swth_Wdth_"   "Seed_Cnt__"  
-## [11] "Plant_Pop_"   "Rt_Apd_Ct_"   "SeedFlow_k"   "Tgt_Rate_k"   "Y_Offset_f"  
-## [16] "DF_Margin_"   "Humidity__"   "Air_Temp__"   "Wind_Speed"   "Soil_Temp_"  
-## [21] "Pass_Num"     "Speed_mph_"   "Prod_ac_h_"   "Prdt_Amt"     "Date"        
-## [26] "Population"   "Rate__Coun"   "Target_Rat"   "Population.1" "Date___Tim"  
-## [31] "geom"
-```
+
+
+~~~
+ [1] "Product"      "Obj__Id"      "Distance_f"   "Track_deg_"   "Duration_s"  
+ [6] "Elevation_"   "Time"         "Area_Count"   "Swth_Wdth_"   "Seed_Cnt__"  
+[11] "Plant_Pop_"   "Rt_Apd_Ct_"   "SeedFlow_k"   "Tgt_Rate_k"   "Y_Offset_f"  
+[16] "DF_Margin_"   "Humidity__"   "Air_Temp__"   "Wind_Speed"   "Soil_Temp_"  
+[21] "Pass_Num"     "Speed_mph_"   "Prod_ac_h_"   "Prdt_Amt"     "Date"        
+[26] "Population"   "Rate__Coun"   "Target_Rat"   "Population.1" "Date___Tim"  
+[31] "geom"        
+~~~
+{: .output}
 
 We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
 
 
-```r
+~~~
 map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
-```
+~~~
+{: .language-r}
 
-![plot of chunk seedmap](../figure/seedmap-1.png)
-
-**Challenge** 
-Try modifying the code above to answer the following questions: 
-Why do we supply a title in `tm_dots` and why is `legend.outside = TRUE`?
-
-**Solution**
-If we remove the title from `tm_dots()`, we will have the original column name as the legend label. We might understand that this is the applied seed, but someone else looking at the graph likely would not. Also, if you create a map and want to look back it, you're unlikely to remember what this name meant.
-
-
-```r
-tm_shape(planting) + tm_dots('Rt_A_C_') +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-```
-
-```
-## Error: Invalid symbol colors
-```
-
-If we add `legend.outside = FALSE`, the legend will block part of the map. In some cases, the map may have a vacant section where the legend can go, but here we need to move the legend outside to be able to see all of the points on the field. 
-
-
-```r
-tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
-  tm_layout(legend.outside = FALSE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-```
-
-```
-## Error: Invalid symbol colors
-```
+<img src="../fig/rmd-seedmap-1.png" title="plot of chunk seedmap" alt="plot of chunk seedmap" width="612" style="display: block; margin: auto;" />
 
 ####Side-by-Side Maps
 
 Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the as-applied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to each other, so we have two columns and one row. 
 
 
-```r
-map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-map_tgts <- tm_shape(planting) + tm_dots('Tgt_Rt_', title = "Target Seeding Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
+~~~
+map_applieds <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
+map_tgts <- map_points(planting, 'Tgt_Rate_k', "Target Seeding Rate")
 tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1)
-```
+~~~
+{: .language-r}
 
-```
-## Error: Invalid symbol colors
-```
-
-![plot of chunk parex](../figure/parex-1.png)
+<img src="../fig/rmd-parex-1.png" title="plot of chunk parex" alt="plot of chunk parex" width="612" style="display: block; margin: auto;" />
 
 From the applied and target seeding rate maps, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
 
@@ -287,58 +177,28 @@ From the applied and target seeding rate maps, we can see that this trial had a 
 Now let's look at the yield map for this field. Using `tmap` we can graph the yield in bushels per acre.
 
 
-```r
-map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-```
+~~~
+map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+~~~
+{: .language-r}
 
-```
-## Error in as.list.environment(environment()): object 'yield' not found
-```
-
-```r
-map_yield
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'map_yield' not found
-```
+<img src="../fig/rmd-yieldmap-1.png" title="plot of chunk yieldmap" alt="plot of chunk yieldmap" width="612" style="display: block; margin: auto;" />
 
 Looking at the map we can see there are many extreme values, making the map look homogeneous. We will do an initial cleaning to remove these points. 
 
-```r
+~~~
 yield <- subset(yield, yield$Yld_Vol_Dr >= mean(yield$Yld_Vol_Dr) - 3*sd(yield$Yld_Vol_Dr) & yield$Yld_Vol_Dr <= mean(yield$Yld_Vol_Dr) + 3*sd(yield$Yld_Vol_Dr))
-```
-
-```
-## Error in subset(yield, yield$Yld_Vol_Dr >= mean(yield$Yld_Vol_Dr) - 3 * : object 'yield' not found
-```
+~~~
+{: .language-r}
 
 
-```r
-map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-```
+~~~
+map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+~~~
+{: .language-r}
 
-```
-## Error in as.list.environment(environment()): object 'yield' not found
-```
+<img src="../fig/rmd-cleanyield-1.png" title="plot of chunk cleanyield" alt="plot of chunk cleanyield" width="612" style="display: block; margin: auto;" />
 
-```r
-map_yield
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'map_yield' not found
-```
 ####Yield and Application Map
 
 Now that we know how to make side-by-side maps, we can do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the affect of the seed or nitrogen rates on yield. 
@@ -348,87 +208,35 @@ Make a map like in the previous example but with yield in bushels and the seedin
 Report what you see in the map?
 
 
-```r
-map_applieds <- tm_shape(planting) + tm_dots('Rt_A_C_', title = "Applied Seeding Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-map_yield <- tm_shape(yield) + tm_dots('Yld_Vol_Dr', title = "Yield (bu/ac)") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-```
+~~~
+map_applieds
+~~~
+{: .language-r}
 
-```
-## Error in as.list.environment(environment()): object 'yield' not found
-```
+<img src="../fig/rmd-yield_appmap-1.png" title="plot of chunk yield_appmap" alt="plot of chunk yield_appmap" width="612" style="display: block; margin: auto;" />
 
-```r
+~~~
+map_yield <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
 tmap_arrange(map_yield, map_applieds, ncol = 2, nrow = 1)
-```
+~~~
+{: .language-r}
 
-```
-## Error in tmap_arrange(map_yield, map_applieds, ncol = 2, nrow = 1): object 'map_yield' not found
-```
+<img src="../fig/rmd-yield_appmap-2.png" title="plot of chunk yield_appmap" alt="plot of chunk yield_appmap" width="612" style="display: block; margin: auto;" />
 
 From the map, it is difficult to see any sign of yield response. This highlights the importance of doing statistical rather than visual analysis of harvest data. 
 
 Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. We can see that the nitrogen application is not as precise as the planting; we commonly see this due to the technology used. 
 
 
-```r
-nitrogen <- subset(nitrogen, nitrogen$Rt_Appl >= mean(nitrogen$Rt_Appl) - 3*sd(nitrogen$Rt_Appl) & nitrogen$Rt_Appl <= mean(nitrogen$Rt_Appl) + 3*sd(nitrogen$Rt_Appl))
-```
+~~~
+nitrogen <- subset(nitrogen, nitrogen$Rate_Appli >= mean(nitrogen$Rate_Appli) - 3*sd(nitrogen$Rate_Appli) & nitrogen$Rate_Appli <= mean(nitrogen$Rate_Appli) + 3*sd(nitrogen$Rate_Appli))
 
-```
-## Warning: Unknown or uninitialised column: 'Rt_Appl'.
-
-## Warning: Unknown or uninitialised column: 'Rt_Appl'.
-```
-
-```
-## Warning in mean.default(nitrogen$Rt_Appl): argument is not numeric or logical:
-## returning NA
-```
-
-```
-## Warning: Unknown or uninitialised column: 'Rt_Appl'.
-
-## Warning: Unknown or uninitialised column: 'Rt_Appl'.
-
-## Warning: Unknown or uninitialised column: 'Rt_Appl'.
-```
-
-```
-## Warning in mean.default(nitrogen$Rt_Appl): argument is not numeric or logical:
-## returning NA
-```
-
-```
-## Warning: Unknown or uninitialised column: 'Rt_Appl'.
-```
-
-```
-## Warning: Length of logical index must be 1 or 9913, not 0
-```
-
-```r
-map_nitrogen <- tm_shape(nitrogen) + tm_dots('Rt_Appl', title = "NH3 (pounds)") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = .7,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
+map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
 map_nitrogen
-```
+~~~
+{: .language-r}
 
-```
-## Error: The shape nitrogen only contains empty units.
-```
+<img src="../fig/rmd-nitrogenmap-1.png" title="plot of chunk nitrogenmap" alt="plot of chunk nitrogenmap" width="612" style="display: block; margin: auto;" />
 
 In `trialutm` there are 11 variables, but the variables we might want to map are
 `NRATE` and `SEEDRATE`. The following map is created with functions from a package 
@@ -443,16 +251,13 @@ legend, title of the variable, size of text, and width of legend.
 
 
 
-```r
-tm_shape(trialutm) + tm_polygons('NRATE', title = "Nitrogen Rate") +
-  tm_layout(legend.outside = TRUE, frame = FALSE) +
-  tm_legend(text.size = 1,
-            title.size = 1,
-            width = 100,
-            bg.color = "white")
-```
+~~~
+trial <- read_sf("data/trial_transformed.gpkg")
+tgts <- map_poly(trial, 'SEEDRATE', 'Seed') 
+tgtn <- map_poly(trial, 'NRATE', 'Nitrogen')
+tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1)
+~~~
+{: .language-r}
 
-```
-## Error in as.list.environment(environment()): object 'trialutm' not found
-```
+<img src="../fig/rmd-map-1.png" title="plot of chunk map" alt="plot of chunk map" width="612" style="display: block; margin: auto;" />
 

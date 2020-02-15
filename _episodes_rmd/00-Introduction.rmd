@@ -1,4 +1,9 @@
-Welcome to Data Harvesting for Agriculture!
+---
+title: "Welcome to Data Harvesting for Agriculture!"
+include_overview: false
+source: Rmd
+---
+
 
 Our motivation for creating this workshop is the recent, rapid increase in the volume of data produced on farms and the use of such data for decision making by farmers.  We don't expect to replace the data analysis services that are currently provided by the Ag Tech industry, but we do want to arm you with knowledge to help you better communicate with those service providers.  Moreover, we believe that your data will be more valuable to you if you have some ability to analyze it yourself, regardless of whether you continue to do business with a particular company years in the future.  
 
