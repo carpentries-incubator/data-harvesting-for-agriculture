@@ -212,6 +212,7 @@ check how many units of observation we are generating with this subplots shapefi
 
 ```{r vis subplots}
 plot(subplots)
+names(subplots)
 max(subplots$ID)
 ```
 
