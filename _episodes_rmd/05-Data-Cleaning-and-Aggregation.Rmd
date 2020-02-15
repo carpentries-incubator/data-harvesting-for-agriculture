@@ -96,7 +96,7 @@ cases, the trial design shapefile is already in the correct form, and we are
 just checking the file in advance of creating the subplots of the trial design.
 
 ```{r}
-trial <- read_sf("hord_f98_trialdesign_2017.shp")
+trial <- read_sf("trial.gpkg")
 
 long2UTM <- function(long){
   utm <- (floor((long + 180)/6) %% 60) + 1
@@ -197,7 +197,7 @@ For now, we will import a shapefile that already has the subplot boundaries
 defined, and will convert the projection to UTM.
 
 ```{r read subplot}
-subplots <- read_sf("hord_f98_subplots_2017.shp")
+subplots <- read_sf("subplots.gpkg")
 subplots_utm <- st_transform(subplots,projutm)
 ```
 
@@ -226,7 +226,7 @@ For example, we will import and clean the yield data.  To match our subplots,
 boundary, and trial design, we will also convert the yield data to UTM.
 
 ```{r yield}
-yield <- read_sf("hord_f98_trialyield_2017.shp")
+yield <- read_sf("yield.gpkg")
 yield_utm <- st_transform(yield, projutm)
 ```
 
