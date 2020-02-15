@@ -39,11 +39,57 @@ For each file, identify what variables might we be interested in and why?
 
 ~~~
 planting <- read_sf("data/asplanted_transformed.gpkg")
+~~~
+{: .language-r}
+
+
+
+~~~
+Error: Cannot open "data/asplanted_transformed.gpkg"; The file doesn't seem to exist.
+~~~
+{: .error}
+
+
+
+~~~
 nitrogen <- read_sf("data/asapplied_transformed.gpkg")
+~~~
+{: .language-r}
+
+
+
+~~~
+Error: Cannot open "data/asapplied_transformed.gpkg"; The file doesn't seem to exist.
+~~~
+{: .error}
+
+
+
+~~~
 yield <- read_sf("data/yield_transformed.gpkg")
+~~~
+{: .language-r}
+
+
+
+~~~
+Error: Cannot open "data/yield_transformed.gpkg"; The file doesn't seem to exist.
+~~~
+{: .error}
+
+
+
+~~~
 trial <- read_sf("data/trial_transformed.gpkg")
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error: Cannot open "data/trial_transformed.gpkg"; The file doesn't seem to exist.
+~~~
+{: .error}
 
 *Solutions and Discussion*
 
@@ -55,12 +101,9 @@ names(nitrogen)
 
 
 ~~~
- [1] "Product"      "Obj__Id"      "Track_deg_"   "Swth_Wdth_"   "Distance_f"  
- [6] "Duration_s"   "Elevation_"   "Area_Count"   "Diff_Statu"   "Time"        
-[11] "Y_Offset_f"   "X_Offset_f"   "Rt_Apd_Ms_"   "Pass_Num"     "Speed_mph_"  
-[16] "Prod_ac_hr"   "Date"         "Rate_Appli"   "Rate_Appli.1" "geom"        
+Error in eval(expr, envir, enclos): object 'nitrogen' not found
 ~~~
-{: .output}
+{: .error}
 
 ####As-Applied File
 
@@ -85,14 +128,9 @@ names(yield)
 
 
 ~~~
- [1] "Product"    "Obj__Id"    "Distance_f" "Track_deg_" "Duration_s"
- [6] "Elevation_" "Time"       "Area_Count" "Swth_Wdth_" "Y_Offset_f"
-[11] "Crop_Flw_M" "Moisture__" "Yld_Mass_W" "Yld_Vol_We" "Yld_Mass_D"
-[16] "Yld_Vol_Dr" "Humidity__" "Air_Temp__" "Wind_Speed" "Soil_Temp_"
-[21] "Wind_Dir"   "Sky_Cond"   "Pass_Num"   "Speed_mph_" "Prod_ac_h_"
-[26] "Crop_Flw_V" "Date"       "Yield__Dry" "geom"      
+Error in eval(expr, envir, enclos): object 'yield' not found
 ~~~
-{: .output}
+{: .error}
 
 ####As-Planted File
 
@@ -105,15 +143,9 @@ names(planting)
 
 
 ~~~
- [1] "Product"      "Obj__Id"      "Distance_f"   "Track_deg_"   "Duration_s"  
- [6] "Elevation_"   "Time"         "Area_Count"   "Swth_Wdth_"   "Seed_Cnt__"  
-[11] "Plant_Pop_"   "Rt_Apd_Ct_"   "SeedFlow_k"   "Tgt_Rate_k"   "Y_Offset_f"  
-[16] "DF_Margin_"   "Humidity__"   "Air_Temp__"   "Wind_Speed"   "Soil_Temp_"  
-[21] "Pass_Num"     "Speed_mph_"   "Prod_ac_h_"   "Prdt_Amt"     "Date"        
-[26] "Population"   "Rate__Coun"   "Target_Rat"   "Population.1" "Date___Tim"  
-[31] "geom"        
+Error in eval(expr, envir, enclos): object 'planting' not found
 ~~~
-{: .output}
+{: .error}
 
 We see that the planting file has 33 variables, several of which appear to be identical. The main variables of interest are the planting rate (`Rt_A_C_`) and the target rate (`Tgt_Rt_`). These columns do appear under different names. We will discuss how to handle this below.
 
@@ -137,14 +169,9 @@ names(yield)
 
 
 ~~~
- [1] "Product"    "Obj__Id"    "Distance_f" "Track_deg_" "Duration_s"
- [6] "Elevation_" "Time"       "Area_Count" "Swth_Wdth_" "Y_Offset_f"
-[11] "Crop_Flw_M" "Moisture__" "Yld_Mass_W" "Yld_Vol_We" "Yld_Mass_D"
-[16] "Yld_Vol_Dr" "Humidity__" "Air_Temp__" "Wind_Speed" "Soil_Temp_"
-[21] "Wind_Dir"   "Sky_Cond"   "Pass_Num"   "Speed_mph_" "Prod_ac_h_"
-[26] "Crop_Flw_V" "Date"       "Yield__Dry" "geom"      
+Error in eval(expr, envir, enclos): object 'yield' not found
 ~~~
-{: .output}
+{: .error}
 
 #####Yield Map
 
@@ -156,7 +183,12 @@ map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-yieldmap-1.png" title="plot of chunk yieldmap" alt="plot of chunk yieldmap" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in as.list.environment(environment()): object 'yield' not found
+~~~
+{: .error}
 
 Looking at the map we can see there are many extreme values, making the map look homogeneous. We will do an initial cleaning to remove these points. 
 
@@ -167,12 +199,24 @@ yield <- subset(yield, yield$Yld_Vol_Dr >= mean(yield$Yld_Vol_Dr) - 3*sd(yield$Y
 {: .language-r}
 
 
+
+~~~
+Error in subset(yield, yield$Yld_Vol_Dr >= mean(yield$Yld_Vol_Dr) - 3 * : object 'yield' not found
+~~~
+{: .error}
+
+
 ~~~
 map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-cleanyield-1.png" title="plot of chunk cleanyield" alt="plot of chunk cleanyield" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in as.list.environment(environment()): object 'yield' not found
+~~~
+{: .error}
 
 ####Side-by-Side Maps
 
@@ -194,12 +238,43 @@ legend, title of the variable, size of text, and width of legend.
 
 ~~~
 tgts <- map_poly(trial, 'SEEDRATE', 'Seed') 
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in as.list.environment(environment()): object 'trial' not found
+~~~
+{: .error}
+
+
+
+~~~
 tgtn <- map_poly(trial, 'NRATE', 'Nitrogen')
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in as.list.environment(environment()): object 'trial' not found
+~~~
+{: .error}
+
+
+
+~~~
 tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-map-1.png" title="plot of chunk map" alt="plot of chunk map" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1): object 'tgts' not found
+~~~
+{: .error}
 
 We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
 
@@ -209,19 +284,55 @@ map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-seedmap-1.png" title="plot of chunk seedmap" alt="plot of chunk seedmap" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in as.list.environment(environment()): object 'planting' not found
+~~~
+{: .error}
 
 
 
 
 ~~~
 map_applieds <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in as.list.environment(environment()): object 'planting' not found
+~~~
+{: .error}
+
+
+
+~~~
 map_tgts <- map_points(planting, 'Tgt_Rate_k', "Target Seeding Rate")
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in as.list.environment(environment()): object 'planting' not found
+~~~
+{: .error}
+
+
+
+~~~
 tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-parex-1.png" title="plot of chunk parex" alt="plot of chunk parex" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1): object 'map_applieds' not found
+~~~
+{: .error}
 
 From the applied and target seeding rate maps, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
 
@@ -241,15 +352,40 @@ map_applieds
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-yield_appmap-1.png" title="plot of chunk yield_appmap" alt="plot of chunk yield_appmap" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'map_applieds' not found
+~~~
+{: .error}
+
+
 
 ~~~
 map_yield <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in as.list.environment(environment()): object 'yield' not found
+~~~
+{: .error}
+
+
+
+~~~
 tmap_arrange(map_yield, map_applieds, ncol = 2, nrow = 1)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-yield_appmap-2.png" title="plot of chunk yield_appmap" alt="plot of chunk yield_appmap" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in tmap_arrange(map_yield, map_applieds, ncol = 2, nrow = 1): object 'map_yield' not found
+~~~
+{: .error}
 
 From the map, it is difficult to see any sign of yield response. This highlights the importance of doing statistical rather than visual analysis of harvest data. 
 
@@ -258,13 +394,43 @@ Now we will look at the nitrogen application map. First, we will remove outliers
 
 ~~~
 nitrogen <- subset(nitrogen, nitrogen$Rate_Appli >= mean(nitrogen$Rate_Appli) - 3*sd(nitrogen$Rate_Appli) & nitrogen$Rate_Appli <= mean(nitrogen$Rate_Appli) + 3*sd(nitrogen$Rate_Appli))
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in subset(nitrogen, nitrogen$Rate_Appli >= mean(nitrogen$Rate_Appli) - : object 'nitrogen' not found
+~~~
+{: .error}
+
+
+
+~~~
 map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in as.list.environment(environment()): object 'nitrogen' not found
+~~~
+{: .error}
+
+
+
+~~~
 map_nitrogen
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-nitrogenmap-1.png" title="plot of chunk nitrogenmap" alt="plot of chunk nitrogenmap" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'map_nitrogen' not found
+~~~
+{: .error}
 
 
 

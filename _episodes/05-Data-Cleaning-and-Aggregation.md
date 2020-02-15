@@ -8,7 +8,6 @@ output: html_document
 ---
 
 
-
 #### Motivating Questions:
 - "Why is it important to clean the data before proceeding with analysis?"
 - "How can I quickly and efficiently identify problems with my data?"
@@ -221,6 +220,7 @@ st_write(trialutm, "trial.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ~~~
 Updating layer `trial' to data source `trial.gpkg' using driver `GPKG'
 options:        OVERWRITE=YES 
+Updating existing layer trial
 Writing 257 features with 10 fields and geometry type Polygon.
 ~~~
 {: .output}
@@ -374,7 +374,7 @@ all
 ~~~
 {: .error}
 
-<img src="../fig/rmd-vis subplots1-1.png" title="plot of chunk vis subplots1" alt="plot of chunk vis subplots1" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-vis subplots-1.png" title="plot of chunk vis subplots" alt="plot of chunk vis subplots" width="612" style="display: block; margin: auto;" />
 
 ~~~
 max(subplots$ID)
@@ -453,7 +453,7 @@ Error in plot.window(...): need finite 'xlim' values
 ~~~
 {: .error}
 
-<img src="../fig/rmd-visulize subplots1-1.png" title="plot of chunk visulize subplots1" alt="plot of chunk visulize subplots1" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-visulize subplots-1.png" title="plot of chunk visulize subplots" alt="plot of chunk visulize subplots" width="612" style="display: block; margin: auto;" />
 
 ~~~
 plot(boundary_utm$geom, add=TRUE)
@@ -484,7 +484,7 @@ hist(yield_utm$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-vis yield data1-1.png" title="plot of chunk vis yield data1" alt="plot of chunk vis yield data1" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-vis yield data-1.png" title="plot of chunk vis yield data" alt="plot of chunk vis yield data" width="612" style="display: block; margin: auto;" />
 
 As you can see, we have some extreme values that we will want to get rid of.
 
@@ -526,7 +526,7 @@ hist(yield_clean$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-view the distribution of yield data after taking out the yield points on the boader1-1.png" title="plot of chunk view the distribution of yield data after taking out the yield points on the boader1" alt="plot of chunk view the distribution of yield data after taking out the yield points on the boader1" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-view the distribution of yield data after taking out the yield points on the boader-1.png" title="plot of chunk view the distribution of yield data after taking out the yield points on the boader" alt="plot of chunk view the distribution of yield data after taking out the yield points on the boader" width="612" style="display: block; margin: auto;" />
 
 ## Removing outliers
 
@@ -566,7 +566,7 @@ hist(yield_clean$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-view the distribution of cleaned yield data1-1.png" title="plot of chunk view the distribution of cleaned yield data1" alt="plot of chunk view the distribution of cleaned yield data1" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-view the distribution of cleaned yield data-1.png" title="plot of chunk view the distribution of cleaned yield data" alt="plot of chunk view the distribution of cleaned yield data" width="612" style="display: block; margin: auto;" />
 
 The next line transforms the cleaned yield into UTM projection.
 
@@ -592,6 +592,7 @@ st_write(yield_clean, "yield_clean.gpkg", layer_options = 'OVERWRITE=YES', updat
 ~~~
 Updating layer `yield_clean' to data source `yield_clean.gpkg' using driver `GPKG'
 options:        OVERWRITE=YES 
+Updating existing layer yield_clean
 Writing 18596 features with 29 fields and geometry type Point.
 ~~~
 {: .output}
