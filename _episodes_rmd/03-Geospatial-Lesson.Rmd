@@ -1,10 +1,10 @@
 ---
 title: "Geospatial Data and SSURGO"
 output: html_document
+include_overview: true
 source: Rmd
 ---
 
-<!-- #knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/') -->
 
 ```{r setup, include=FALSE}
 #library(sf)
@@ -23,12 +23,12 @@ source: Rmd
 #library(FedData)
 #library(plyr)
 
-#library(knitr)
-#library(httr)
+# JPN: these 2 libraries need to be here before sourcing things I guess!
+library(knitr)
+library(httr)
 source("../bin/chunk-options.R")
 source("./functions.R")
 ```
-
 
 #### Motivating Questions:
 - What are the common file types in agricultural data?
@@ -115,7 +115,7 @@ Before we can look at a CRS in R, we need to have a geospatial file in the R env
 give the whole path, just the data subdirectory that the gpkg file is stored within.** 
 
 ```{r boundary}
-boundary <- read_sf("data/boundary_transformed.gpkg")
+boundary <- read_sf("data/boundary.gpkg")
 ```
 
 There are many functions for reading files into the
@@ -183,7 +183,7 @@ st_crs(boundaryutm)
 **Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
 
 **Exercise**
-1. Bring the file called "asplanted_transformed.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?**
+1. Bring the file called "asplanted.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?**
 in your environment. Name the object `planting`. This file contains the planting information for 2017.
 2. Identify the CRS of the object. 
 3. Look at the geometry features. What kind of geometric features are in this dataset?
@@ -192,7 +192,7 @@ in your environment. Name the object `planting`. This file contains the planting
 **Solution**
 
 ```{r transformplanting}
-planting <- read_sf("data/asplanted_transformed.gpkg")
+planting <- read_sf("data/asplanted.gpkg")
 
 st_crs(planting)
 
@@ -262,7 +262,7 @@ https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 
 ```{r ssurgo, echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
-boundarynew <- read_sf("data/asplanted_transformed.gpkg")
+boundarynew <- read_sf("data/asplanted.gpkg")
 boundary <- subset(boundary, Type == "Trial")
 boundary.sp <- as(boundary, "Spatial")
 
@@ -346,7 +346,7 @@ Use `map_poly()` to make a map where the polygon color is informed by the soil n
 *Exercise 5 Solution*
 
 
-```{r}
+```{r map_soil_spatial}
 map_soil <- map_poly(spatial, 'muname', "Soil Type")
 map_soil
 ```

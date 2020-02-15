@@ -5,10 +5,6 @@ date: "11/4/2019"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-#setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
-```
 
 #### Motivating Questions:
 - "Why is it important to clean the data before proceeding with analysis?"
@@ -24,6 +20,15 @@ knitr::opts_chunk$set(echo = TRUE)
 - "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
 - "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
 - "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+#setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
+library(knitr)
+library(httr)
+source("../bin/chunk-options.R")
+#source("./functions.R")
+```
 
 ## Setup
 
@@ -49,7 +54,7 @@ library(gridExtra)
 Next, we will define a few functions that we will be using.  Feel free to copy
 and paste this code into your script.
 
-```{r functions}
+```{r functions1}
 st_over <- function(x, y) {
   sapply(sf::st_intersects(x, y), function(z)
     if (length(z) == 0)
@@ -96,7 +101,7 @@ cases, the trial design shapefile is already in the correct form, and we are
 just checking the file in advance of creating the subplots of the trial design.
 
 ```{r}
-trial <- read_sf("hord_f98_trialdesign_2017.shp")
+trial <- read_sf("data/trial.gpkg")
 
 long2UTM <- function(long){
   utm <- (floor((long + 180)/6) %% 60) + 1
@@ -185,7 +190,7 @@ The following steps read in a boundary shapefile, and transform the projection
 of file to utm projection for later use.
 
 ```{r boundary}
-boundary <- read_sf("boundary.gpkg")
+boundary <- read_sf("data/boundary.gpkg")
 boundary_utm <- st_transform(boundary, projutm)
 ```
 
@@ -197,7 +202,7 @@ For now, we will import a shapefile that already has the subplot boundaries
 defined, and will convert the projection to UTM.
 
 ```{r read subplot}
-subplots <- read_sf("hord_f98_subplots_2017.shp")
+subplots <- read_sf("data/subplots.gpkg")
 subplots_utm <- st_transform(subplots,projutm)
 ```
 
@@ -207,6 +212,7 @@ check how many units of observation we are generating with this subplots shapefi
 
 ```{r vis subplots}
 plot(subplots)
+names(subplots)
 max(subplots$ID)
 ```
 
@@ -226,7 +232,7 @@ For example, we will import and clean the yield data.  To match our subplots,
 boundary, and trial design, we will also convert the yield data to UTM.
 
 ```{r yield}
-yield <- read_sf("hord_f98_trialyield_2017.shp")
+yield <- read_sf("data/yield.gpkg")
 yield_utm <- st_transform(yield, projutm)
 ```
 
@@ -424,6 +430,3 @@ have one value for each for each subplot**
 3. Code to generate Topography data.
 4. Code to process SSURGO data.
 5. Code to download weather data.
-
-
-
