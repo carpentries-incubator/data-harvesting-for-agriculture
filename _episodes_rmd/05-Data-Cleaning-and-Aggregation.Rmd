@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 title: "Ag Carpentry - Data Cleaning and Aggregation"
 author: "Aolin Gong"
@@ -6,10 +5,7 @@ date: "11/4/2019"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-#setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
-```
+
 
 #### Motivating Questions:
 - "Why is it important to clean the data before proceeding with analysis?"
@@ -25,6 +21,13 @@ knitr::opts_chunk$set(echo = TRUE)
 - "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
 - "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
 - "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+#setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
+source("../bin/chunk-options.R")
+#source("./functions.R")
+```
 
 ## Setup
 
@@ -50,7 +53,7 @@ library(gridExtra)
 Next, we will define a few functions that we will be using.  Feel free to copy
 and paste this code into your script.
 
-```{r functions}
+```{r functions1}
 st_over <- function(x, y) {
   sapply(sf::st_intersects(x, y), function(z)
     if (length(z) == 0)
@@ -185,7 +188,7 @@ we can begin examining the relationships between the variables.*
 The following steps read in a boundary shapefile, and transform the projection
 of file to utm projection for later use.
 
-```{r boundary}
+```{r boundary1}
 boundary <- read_sf("boundary.gpkg")
 boundary_utm <- st_transform(boundary, projutm)
 ```
@@ -197,7 +200,7 @@ somewhat complex, we have included it as a
 For now, we will import a shapefile that already has the subplot boundaries
 defined, and will convert the projection to UTM.
 
-```{r read subplot}
+```{r read subplot1}
 subplots <- read_sf("subplots.gpkg")
 subplots_utm <- st_transform(subplots,projutm)
 ```
@@ -206,7 +209,7 @@ Here, we graph the subplots that we generated. Note that color indicates the ID
 number of the subplots, which starts from 1, at the right upper corner. We can
 check how many units of observation we are generating with this subplots shapefile.
 
-```{r vis subplots}
+```{r vis subplots1}
 plot(subplots)
 max(subplots$ID)
 ```
@@ -214,7 +217,7 @@ max(subplots$ID)
 Then, we plot the geometry of subplots and boundary together, so that we get a
 better idea where the subplots are within the field.
 
-```{r visulize subplots}
+```{r visulize subplots1}
 plot(subplots_utm$geometry)
 plot(boundary_utm$geom, add=TRUE)
 ```
@@ -226,7 +229,7 @@ observation), we bring the data sets for different variable in for cleaning.
 For example, we will import and clean the yield data.  To match our subplots,
 boundary, and trial design, we will also convert the yield data to UTM.
 
-```{r yield}
+```{r yield1}
 yield <- read_sf("yield.gpkg")
 yield_utm <- st_transform(yield, projutm)
 ```
@@ -235,7 +238,7 @@ We check the distribution of the yield data as we clean them to monitor the
 change made by each cleaning step. First, view the distrubution of the original
 data.
 
-```{r vis yield data}
+```{r vis yield data1}
 hist(yield_utm$Yld_Vol_Dr)
 ```
 
@@ -261,7 +264,7 @@ Next, we determine which yield observations are inside the buffer as using the
 `st_over` function, and mark those observations as "out". Finally, we
 remove the yield observations that are not in the buffer zone.
 
-```{r observations on border}
+```{r observations on border1}
 ov <- st_over(yield_utm, st_geometry(buffer))
 yield$out <- is.na(ov) # demarcate the yield values removed
 yield_clean <- subset(yield, out == FALSE)
@@ -269,7 +272,7 @@ yield_clean <- subset(yield, out == FALSE)
 
 Here again, we check the distribution of cleaned yield.
 
-```{r view the distribution of yield data after taking out the yield points on the boader}
+```{r view the distribution of yield data after taking out the yield points on the boader1}
 hist(yield_clean$Yld_Vol_Dr)
 ```
 
@@ -291,7 +294,7 @@ In the next few steps, we use `sd` and `mean` to calculate the standard
 deviation and mean of the yield distribution, respectively. Then we remove the
 yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd. 
 
-```{r 3sd}
+```{r 3sd1}
 sd_yld <- sd(yield_clean$Yld_Vol_Dr)
 mean_yld <- mean(yield_clean$Yld_Vol_Dr)
 yield_clean <- subset(yield_clean,
@@ -303,13 +306,13 @@ Here again, we check the distribution of cleaned yield after taking out the
 yield observations that are outside the range of three standard deviations from
 the mean.
 
-```{r view the distribution of cleaned yield data}
+```{r view the distribution of cleaned yield data1}
 hist(yield_clean$Yld_Vol_Dr)
 ```
 
 The next line transforms the cleaned yield into UTM projection.
 
-```{r reprojection of yield data}
+```{r reprojection of yield data1}
 yield_clean <- st_transform(yield_clean, projutm)
 ```
 
@@ -318,7 +321,7 @@ been converted to UTM?**
 
 Finally, we save cleaned file into a geopackage.
 
-```{r save yield}
+```{r save yield1}
 st_write(yield_clean, "yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
@@ -350,7 +353,7 @@ way.
 **Question from Lindsay: Why do we need to covert class here?  Please provide an
 explanation.**
 
-```{r sf2sp}
+```{r sf2sp1}
 subplots_sp <- as(subplots_utm, "Spatial")
 yield_sp <- as(yield_clean, "Spatial")
 ```
@@ -358,7 +361,7 @@ yield_sp <- as(yield_clean, "Spatial")
 **Explain more of what is happening in this code below**
 **Why is one line commented out?**
 
-```{r aggregate yield data}
+```{r aggregate yield data1}
 #proj4string(yield_sp)<- CRS("+proj=longlat +datum=WGS84")
 merge <- sp::over(subplots_sp, yield_sp,fn = median)
 subplots_merge <- SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE)
@@ -428,35 +431,8 @@ have one value for each for each subplot**
 
 
 
-=======
----
-title: "Ag Carpentry - Data Cleaning and Aggregation"
-author: "Aolin Gong"
-date: "11/4/2019"
-output: html_document
-include_overview: true
----
+# MERGE ISSUE
 
-```{r setup, include=FALSE}
-source("../bin/chunk-options.R")
-#knitr::opts_chunk$set(echo = TRUE)
-#setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
-```
-
-#### Motivating Questions:
-- "Why is it important to clean the data before proceeding with analysis?"
-- "How can I quickly and efficiently identify problems with my data?"
-- "How can identify and remove incorrect values from my dataset?"
-#### Objectives:
-- "Confirm that data are formatted correctly"
-- "Enumerate common problems encountered with data formatting."
-- "Visualize the distribution of recorded values"
-- "Identify and remove outliers in a dataset using R and QGIS"
-- "Correct other issues specific to how data were collected"
-#### Keypoints:
-- "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
-- "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
-- "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
 
 ## Setup
 
@@ -859,5 +835,4 @@ have one value for each for each subplot**
 5. Code to download weather data.
 
 
-
->>>>>>> 46e6915c01fcc55f909be6bbe32eebdc89d59e1a
+   
