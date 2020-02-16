@@ -49,10 +49,10 @@ Read the yield, as-planted, and as-applied files and explore the variables.
 For each file, identify what variables might we be interested in and why?
 
 ```{r read}
-planting <- read_sf("data/asplanted_transformed.gpkg")
-nitrogen <- read_sf("data/asapplied_transformed.gpkg")
-yield <- read_sf("data/yield_transformed.gpkg")
-trial <- read_sf("data/trial_transformed.gpkg")
+planting <- read_sf("data/asplanted.gpkg")
+nitrogen <- read_sf("data/asapplied.gpkg")
+yield <- read_sf("data/yield.gpkg")
+trial <- read_sf("data/trial.gpkg")
 ```
 
 *Solutions and Discussion*
@@ -113,6 +113,9 @@ Looking at the map we can see there are many extreme values, making the map look
 
 ```{r cleaning }
 yield <- subset(yield, yield$Yld_Vol_Dr >= mean(yield$Yld_Vol_Dr) - 3*sd(yield$Yld_Vol_Dr) & yield$Yld_Vol_Dr <= mean(yield$Yld_Vol_Dr) + 3*sd(yield$Yld_Vol_Dr))
+
+clean_sd(yield, "Yld_Vol_Dr")
+get(paste0("yield", "$", "Yld_Vol_Dr"))
 ```
 
 ```{r cleanyield }
@@ -158,7 +161,6 @@ tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1)
 ```
 
 From the applied and target seeding rate maps, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
-
 
 
 ####Yield and Application Map

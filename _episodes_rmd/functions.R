@@ -174,6 +174,11 @@ c_s_s_soil <- function(ssurgo){
   return(spatial)
 }
 
+clean_sd <- function(data, var){
+  data <- subset(data, get(paste0(data, "$", var)) >= mean(get(paste0(data, "$", var))) - 3*sd(get(paste0(data, "$", var))) & get(paste0(data, "$", var)) <= mean(get(paste0(data,"$", var))) + 3*sd(get(paste0(data,"$", var))))
+  return(data)
+}
+
 make_abline <- function(LongA,LongB,LatA,LatB,projutm){
   ab_string <- rbind(c(LongA, LatA),c(LongB, LatB)) %>% 
     st_linestring()  
@@ -506,3 +511,4 @@ treat_assign <- function(trial_grid2_intrial,num_treats,seed_treat_rates,nitroge
   
   return(whole_plot)
 }
+
