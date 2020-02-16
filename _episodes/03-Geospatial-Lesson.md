@@ -7,7 +7,6 @@ include_overview: true
 source: Rmd
 ---
 
-<!-- #knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/') -->
 
 
 
@@ -80,7 +79,7 @@ give the whole path, just the data subdirectory that the gpkg file is stored wit
 
 
 ~~~
-boundary <- read_sf("data/boundary_transformed.gpkg")
+boundary <- read_sf("data/boundary.gpkg")
 ~~~
 {: .language-r}
 
@@ -199,7 +198,7 @@ Coordinate Reference System:
 **Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
 
 **Exercise**
-1. Bring the file called "asplanted_transformed.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?**
+1. Bring the file called "asplanted.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?**
 in your environment. Name the object `planting`. This file contains the planting information for 2017.
 2. Identify the CRS of the object. 
 3. Look at the geometry features. What kind of geometric features are in this dataset?
@@ -209,7 +208,7 @@ in your environment. Name the object `planting`. This file contains the planting
 
 
 ~~~
-planting <- read_sf("data/asplanted_transformed.gpkg")
+planting <- read_sf("data/asplanted.gpkg")
 
 st_crs(planting)
 ~~~
@@ -371,7 +370,7 @@ The next line brings the SSURGO data into the R environment with the name `ssurg
 
 
 ~~~
-boundarynew <- read_sf("data/asplanted_transformed.gpkg")
+boundarynew <- read_sf("data/asplanted.gpkg")
 boundary <- subset(boundary, Type == "Trial")
 boundary.sp <- as(boundary, "Spatial")
 
@@ -528,7 +527,7 @@ Some legend labels were too wide. These labels have been resized to 0.63, 0.63, 
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-map_soil_spatial-1.png" title="plot of chunk map_soil_spatial" alt="plot of chunk map_soil_spatial" width="612" style="display: block; margin: auto;" />
 
 
 The map shows that there are quite a few soil types on the field, and several show up
