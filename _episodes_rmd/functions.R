@@ -175,7 +175,7 @@ c_s_s_soil <- function(ssurgo){
 }
 
 clean_sd <- function(data, var){
-  data <- subset(data, get(paste0(data, "$", var)) >= mean(get(paste0(data, "$", var))) - 3*sd(get(paste0(data, "$", var))) & get(paste0(data, "$", var)) <= mean(get(paste0(data,"$", var))) + 3*sd(get(paste0(data,"$", var))))
+  data <- subset(data, var >= mean(var, na.rm = TRUE) - 3*sd(var, na.rm = TRUE) &  var <= mean(var, na.rm = TRUE) + 3*sd(var, na.rm = TRUE))
   return(data)
 }
 
