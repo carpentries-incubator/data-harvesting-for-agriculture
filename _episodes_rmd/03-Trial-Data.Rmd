@@ -1,9 +1,7 @@
 ---
-title: "Ag Carpentry - Trial Data"
-author: "Brittani"
-date: "2019-10-19"
-include_overview: true
+title: "Trial Data"
 source: Rmd
+include_overview: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -18,6 +16,7 @@ require(ggplot2)
 require(gridExtra)
 library(readr)
 library(measurements)
+library(dplyr)
 source("../bin/chunk-options.R")
 source("functions.R")
 ```
@@ -40,7 +39,7 @@ source("functions.R")
 
 In this lesson we will explore the files that are generated during a trial season. These data include yield, as-applied, as-planted, and sometimes electricalconductivity. While you are likely using your yield maps every year to asses productivity, you might not be looking at your application maps if you normally use uniform rates. But if you use variable rate applications or have completed an agricutlural trial, your application map contains information about how well the machine applied the target rates. 
 
-###Reading the Files
+##Reading the Files
 
 In the next exercise we will bring these data into the R environment. We've already looked at the asplanted data in the geospatial lesson. Now let's see what variables are contained in the other files. 
 
@@ -60,7 +59,7 @@ trial <- read_sf("data/trial.gpkg")
 names(nitrogen)
 ```
 
-####As-Applied File
+##As-Applied File
 
 The nitrogen file contains 22 variables. The nitrogen type of is reported in `Product`, and this field used NH3. We have columns with the applied rate in both gallons (`Rt_Ap_1`) and pounds (`Rt_Appl`). We typically use pounds in order to compare across different nitrogen types.
 
@@ -68,7 +67,7 @@ There is not a clear column with the target rate. This is not a problem as we wi
 
 We can also see the automatic-section control reacting when the applicator is off of the guidance line, with the swatch width changing in `Swth_W_`. 
 
-####Yield File
+##Yield File
 
 `yield` contains 32 variables. Many of the variables are similar to those we in the nitrogen data: time, date, elevation, and product. 
 
@@ -78,7 +77,7 @@ The main variables in the harvest files are `Yld_Vol_Dr` and `Yld_Mass_D`. We al
 names(yield)
 ```
 
-####As-Planted File
+##As-Planted File
 
 ```{r explorep}
 names(planting)
@@ -90,10 +89,10 @@ There are several other variables that could be useful. First, the hybrid is loc
 
 ####Visualizing the Trial Data
 
-In the next section, we will have exercises to visually explore the trial data. We will look at the importance of data cleaning visually with the yield maps. We will make application maps and compare the application to the target application rates and the yield.
+In the next section, we will have exercises to visually explore the trial data. We will look at the importance of data cleaning with a yield map visualization. We will compare the application rate to the target rates and the yield levels.
 
 **Exercise**
-Make a map of the yield from the `yield` file using `map_points()`. 
+Make a map of the yield in bushels per acre from the `yield` file using `map_points()`. 
 Do you notice anything about the yield map?
 
 **Solution**
@@ -101,92 +100,97 @@ Do you notice anything about the yield map?
 names(yield)
 ```
 
-#####Yield Map
+##Yield Map
 
 Now let's look at the yield map for this field. Using `tmap` we can graph the yield in bushels per acre.
 
-```{r yieldmap }
-map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+```{r}
+map_yieldog <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+map_yieldog
 ```
 
 Looking at the map we can see there are many extreme values, making the map look homogeneous. We will do an initial cleaning to remove these points. 
 
-```{r cleaning }
-yield <- subset(yield, yield$Yld_Vol_Dr >= mean(yield$Yld_Vol_Dr) - 3*sd(yield$Yld_Vol_Dr) & yield$Yld_Vol_Dr <= mean(yield$Yld_Vol_Dr) + 3*sd(yield$Yld_Vol_Dr))
-
-clean_sd(yield, "Yld_Vol_Dr")
-get(paste0("yield", "$", "Yld_Vol_Dr"))
+```{r}
+yield <- clean_sd(yield, yield$Yld_Vol_Dr)
 ```
 
-```{r cleanyield }
-map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+```{r}
+map_yieldcl <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+map_yieldcl
 ```
 
-####Side-by-Side Maps
+##Side-by-Side Maps
 
-Some kinds of maps you want to see close together. For example, perhaps we want to asses how well the as-applied rates lined up with the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects. We define `ncol` and `nrow`, and the command will arrange the objects given into the grid. In this case, we have two objects we want to see next to each other, so we have two columns and one row. 
+Some kinds of maps you want to see close together. For example, perhaps we want to asses how close the asapplied rates were to the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects, which we can see in the R environment that the results of `map_poly()` and `map_points()` are Large tmap objects. 
 
+To use `tmap_arrange()` we define `ncol` and `nrow`, and the command will arrange the objects given into the grid. Let's compare the yield map before and after cleaning. In this case, we want two columns and one row. 
 
-In `trialutm` there are 11 variables, but the variables we might want to map are
-`NRATE` and `SEEDRATE`. The following map is created with functions from a package 
-called `tmap`. We are using `tm_polygon()`
-fill the polygons with a color based on the variable `NRATE` inside the object
-`trialutm `. For a different kind of geospatial data such as points, we need to use
-`tm_dots()` or `tm_squares()`. `tmap` provides many options for displaying data, 
-including text markers on the map. Text labels might be good for making a map of 
-several land parcels with their names as the label. We use other arguments in the
-code below to choose the position of the map
-legend, title of the variable, size of text, and width of legend.
+```{r}
+map_yield_comp <- tmap_arrange(map_yieldog, map_yieldcl, ncol = 2, nrow = 1)
+map_yield_comp
+```
 
+The map shows that the data cleaning removed some very high data values at the headlands of the field. We can see the clean map is relatively homogeneous with some patches of lower or higher yield. 
 
-```{r map}
+##Exercise
+
+Look at the data `trial` and make a comparison of the nitrogen and seed designs in one map. 
+
+```{r}
 tgts <- map_poly(trial, 'SEEDRATE', 'Seed') 
 tgtn <- map_poly(trial, 'NRATE', 'Nitrogen')
-tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1)
-
+trial_map <- tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1)
+trial_map
 ```
 
-We see many names in the planting file. It appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons. Thus, we cannot use `tm_polygons()`; instead we use `tm_dots()` to map the points with a colored dot for the level of applied seed.  
+## Plantng files
+
+Now that we've seen the trial designs let's look at the application files. We will make a map of the applied seeing rate and compare it with the target rate. 
+
+Looking at the names in the planting file, there are quite a few columns that look similar. But it appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons, so we will use `map_points()`.  
 
 ```{r seedmap}
-map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
+planting <- clean_sd(planting,planting$Rt_Apd_Ct_)
+map_asplanted <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
+map_asplanted
 ```
-
 
 
 ```{r parex }
-map_applieds <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
-map_tgts <- map_points(planting, 'Tgt_Rate_k', "Target Seeding Rate")
-tmap_arrange(map_applieds, map_tgts, ncol = 2, nrow = 1)
+map_planting_comp <- tmap_arrange(map_asplanted, tgts, ncol = 2, nrow = 1)
+map_planting_comp
 ```
 
-From the applied and target seeding rate maps, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
+From the map, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
 
+##Nitrogen Application 
 
-####Yield and Application Map
+Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. Then we make a map called `map_nitrogen` with the application and compare it to the map we made earlier `tgtn`.
 
-Now that we know how to make side-by-side maps, we can do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the affect of the seed or nitrogen rates on yield. 
+```{r nitrogenmap }
+nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli)
+
+map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
+map_nitrogen
+
+map_nitrogen_comp <- tmap_arrange(map_nitrogen, tgtn, ncol = 2, nrow = 1)
+map_nitrogen_comp
+```
+
+We can see that the nitrogen application is not as precise as the planting, but this is expected due to the machinery capabilities. 
+
+##Yield and Application Map
+
+We can also do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the affect of the seed or nitrogen rates on yield. 
 
 *Exercise* 
 Make a map like in the previous example but with yield in bushels and the seeding rate. 
 Report what you see in the map?
 
-```{r yield_appmap }
-map_applieds
-map_yield <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
-tmap_arrange(map_yield, map_applieds, ncol = 2, nrow = 1)
+```{r}
+map_yield_asplanted <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+map_yield_asplanted
 ```
 
 From the map, it is difficult to see any sign of yield response. This highlights the importance of doing statistical rather than visual analysis of harvest data. 
-
-Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. We can see that the nitrogen application is not as precise as the planting; we commonly see this due to the technology used. 
-
-```{r nitrogenmap }
-nitrogen <- subset(nitrogen, nitrogen$Rate_Appli >= mean(nitrogen$Rate_Appli) - 3*sd(nitrogen$Rate_Appli) & nitrogen$Rate_Appli <= mean(nitrogen$Rate_Appli) + 3*sd(nitrogen$Rate_Appli))
-
-map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
-map_nitrogen
-```
-
-
-
