@@ -1,0 +1,60 @@
+I"�<style type="text/css" rel="stylesheet">
+* {.attribution{
+     position:absolute;
+     bottom:0;
+     right:0;
+     font-size:0.5em
+ }}
+</style>
+
+<font color="magenta"> This will eventually come before the 01-Intro-to-R lesson</font>
+<p><br /></p>
+<font color="magenta"> Do we need to link the terms to a glossary?</font>
+
+<h1 id="programming-concepts-and-language">Programming concepts and language</h1>
+
+<p>Programming doesn’t have to be scary, and we have some real-world examples to help you understand what’s going on with these words we’re typing in a window. The words in bold will come up in a programming context later on, but it might help to have a mental reference picture to associate with these words.</p>
+
+<p>Let’s imagine that instead of a program to work with numbers and letters, we’re creating a program that cooks breakfast instead.</p>
+
+<p>In order to make breakfast, you need:</p>
+<ul>
+  <li>A <strong>working directory</strong> (the place where you’re doing things, such as your kitchen countertop)</li>
+  <li>Available <strong>data</strong> (information about what you’re working with)
+    <ul>
+      <li>Data could be an inventory of your pantry, a grocery shopping list, a map of the store, a collection of prices at the store, and so forth.</li>
+    </ul>
+  </li>
+  <li><strong>Types</strong> of <strong>objects</strong> – a method of grouping what can be done to what types of things.
+    <ul>
+      <li>Food is one type of thing; people are another; pets are a third.</li>
+      <li>A specific food object can be an egg or a pancake; a particular pet object can be your cat or your dog.</li>
+    </ul>
+  </li>
+  <li>Some <strong>inputs</strong> that may be <strong>objects</strong> of appropriate <strong>types</strong> (breakfast food ingredients)
+    <ul>
+      <li>You create breakfast by performing actions on objects of food types, and then you feed it to things of the people and pet types.</li>
+    </ul>
+  </li>
+  <li>Some <strong>functions</strong> (recipes that work with the ingredients)
+    <ul>
+      <li>Inputs to functions are usually stored in <strong>variables</strong> – you don’t always want to make the same thing every day, so the instructions have placeholder names for things that are similar to each other but may vary. (A “todays_cheese” variable could hold Stilton for one day’s omelet and cheddar for the next.)</li>
+    </ul>
+  </li>
+  <li>You need to match your <strong>object</strong> types to your <strong>functions</strong>.
+    <ul>
+      <li>You shouldn’t use a pet-type object as an input to a breakfast-making function. (Nobody wants to eat the goldfish for breakfast.)</li>
+      <li>You might be able to use a dinner-type food object as an input to a breakfast-making function, but use caution.</li>
+    </ul>
+  </li>
+  <li>Some <strong>outputs</strong> (food ready to be consumed)</li>
+  <li>A <strong>destination</strong> (where to put the food that’s ready to be consumed)
+    <ul>
+      <li>You could put your outputs in your working directory (eat breakfast in your kitchen) or you could send it to another location (put leftovers in the refrigerator)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="../fig/1-breakfast.png" />
+<span class="attribution"><a href="https://www.flickr.com/photos/11849171@N00/8330968310">“Breakfast”</a> by <a href="https://www.flickr.com/photos/11849171@N00/8330968310">viviandnguyen_</a> is licensed under CC BY-SA 2.0</span></p>
+:ET
