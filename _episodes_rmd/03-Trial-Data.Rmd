@@ -21,16 +21,16 @@ source("../bin/chunk-options.R")
 source("functions.R")
 ```
 
-####Motivating Questions:
+#### Motivating Questions:
 - What are the common file types in agricultural data?
 
-####Objectives with Agricultural Data Types
+#### Objectives with Agricultural Data Types
 - Import agricultural datasets into R
 - Describe the contents of files generated during planting, fertilization, and harvest
 - Describe the contents of files used to control seeding and fertilization rate
 - Assess the accuracy of machinery in applying the target rates
 
-####Keypoints:
+#### Keypoints:
 - sf is prefereable for data analysis; it is easier to access the dataframe
 - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
 - Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
@@ -39,7 +39,7 @@ source("functions.R")
 
 In this lesson we will explore the files that are generated during a trial season. These data include yield, as-applied, as-planted, and sometimes electricalconductivity. While you are likely using your yield maps every year to asses productivity, you might not be looking at your application maps if you normally use uniform rates. But if you use variable rate applications or have completed an agricutlural trial, your application map contains information about how well the machine applied the target rates. 
 
-##Reading the Files
+## Reading the Files
 
 In the next exercise we will bring these data into the R environment. We've already looked at the asplanted data in the geospatial lesson. Now let's see what variables are contained in the other files. 
 
@@ -59,7 +59,7 @@ trial <- read_sf("data/trial.gpkg")
 names(nitrogen)
 ```
 
-##As-Applied File
+## As-Applied File
 
 The nitrogen file contains 22 variables. The nitrogen type of is reported in `Product`, and this field used NH3. We have columns with the applied rate in both gallons (`Rt_Ap_1`) and pounds (`Rt_Appl`). We typically use pounds in order to compare across different nitrogen types.
 
@@ -67,7 +67,7 @@ There is not a clear column with the target rate. This is not a problem as we wi
 
 We can also see the automatic-section control reacting when the applicator is off of the guidance line, with the swatch width changing in `Swth_W_`. 
 
-##Yield File
+## Yield File
 
 `yield` contains 32 variables. Many of the variables are similar to those we in the nitrogen data: time, date, elevation, and product. 
 
@@ -77,7 +77,8 @@ The main variables in the harvest files are `Yld_Vol_Dr` and `Yld_Mass_D`. We al
 names(yield)
 ```
 
-##As-Planted File
+
+## As-Planted File
 
 ```{r explorep}
 names(planting)
@@ -87,7 +88,7 @@ We see that the planting file has 33 variables, several of which appear to be id
 
 There are several other variables that could be useful. First, the hybrid is located in the `Product` column; we want to keep this in our records if we want to compare across years. We may also want to know things like the swath width (`Swth_W_`) or elevation (`Elevtn`), swath width for cleaning and aggregating which will be discussed later and elevation for considering its impact on yield.
 
-####Visualizing the Trial Data
+#### Visualizing the Trial Data
 
 In the next section, we will have exercises to visually explore the trial data. We will look at the importance of data cleaning with a yield map visualization. We will compare the application rate to the target rates and the yield levels.
 
@@ -100,7 +101,7 @@ Do you notice anything about the yield map?
 names(yield)
 ```
 
-##Yield Map
+## Yield Map
 
 Now let's look at the yield map for this field. Using `tmap` we can graph the yield in bushels per acre.
 
@@ -120,7 +121,7 @@ map_yieldcl <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
 map_yieldcl
 ```
 
-##Side-by-Side Maps
+## Side-by-Side Maps
 
 Some kinds of maps you want to see close together. For example, perhaps we want to asses how close the asapplied rates were to the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects, which we can see in the R environment that the results of `map_poly()` and `map_points()` are Large tmap objects. 
 
@@ -133,7 +134,7 @@ map_yield_comp
 
 The map shows that the data cleaning removed some very high data values at the headlands of the field. We can see the clean map is relatively homogeneous with some patches of lower or higher yield. 
 
-##Exercise
+## Exercise
 
 Look at the data `trial` and make a comparison of the nitrogen and seed designs in one map. 
 
@@ -144,7 +145,7 @@ trial_map <- tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1)
 trial_map
 ```
 
-## Plantng files
+## Planting files
 
 Now that we've seen the trial designs let's look at the application files. We will make a map of the applied seeing rate and compare it with the target rate. 
 
@@ -164,7 +165,7 @@ map_planting_comp
 
 From the map, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
 
-##Nitrogen Application 
+## Nitrogen Application 
 
 Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. Then we make a map called `map_nitrogen` with the application and compare it to the map we made earlier `tgtn`.
 
@@ -180,7 +181,7 @@ map_nitrogen_comp
 
 We can see that the nitrogen application is not as precise as the planting, but this is expected due to the machinery capabilities. 
 
-##Yield and Application Map
+## Yield and Application Map
 
 We can also do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the affect of the seed or nitrogen rates on yield. 
 
