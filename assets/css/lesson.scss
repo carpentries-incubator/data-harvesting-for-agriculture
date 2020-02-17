@@ -24,6 +24,9 @@ $color-prereq:      #9cd6dc !default;
 $color-solution:    #ded4b9 !default;
 $color-testimonial: #fc8dc1 !default;
 
+// JPN: for windows users
+$color-windowsUsers: #fc8dc1 !default;
+
 //----------------------------------------
 // Specialized code blocks.
 //----------------------------------------
@@ -120,8 +123,11 @@ $codeblock-padding: 5px !default;
 .objectives{ @include bkSetup($color-objectives, "\e085"); }
 .prereq{ @include bkSetup($color-prereq, "\e124"); }
 .solution{ @include bkSetup($color-solution, "\e105"); }
+// JPN
+.windowsUsers{ @include bkSetup($color-windowsUsers, "\e105"); }
 .testimonial{ @include bkSetup($color-testimonial, "\e143"); }
 
+// JPN added windowsUsers
 .callout h3,
 .challenge h3,
 .checklist h3,
@@ -130,6 +136,7 @@ $codeblock-padding: 5px !default;
 .objectives h3,
 .prereq h3,
 .solution h3,
+.windowsUsers h3, 
 .testimonial h3 {
 font-size: 18px;
 }
@@ -143,6 +150,8 @@ font-size: 18px;
 .objectives   { background-color: #daee8420; }
 .prereq       { background-color: #9cd6dc20; }
 .solution     { background-color: #ded4b94d; }
+// JPN
+.windowsUsers     { background-color: #ded4b94d; }
 .testimonial  { background-color: #fc8dc120; }
 
 blockquote p {
