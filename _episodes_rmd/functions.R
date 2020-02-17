@@ -512,3 +512,11 @@ treat_assign <- function(trial_grid2_intrial,num_treats,seed_treat_rates,nitroge
   return(whole_plot)
 }
 
+st_over <- function(x, y) {
+  sapply(sf::st_intersects(x, y), function(z)
+    if (length(z) == 0)
+      NA_integer_
+    else
+      z[1])
+}
+
