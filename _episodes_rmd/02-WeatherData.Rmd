@@ -23,7 +23,8 @@ library(readr)
 library(measurements)
 library(FedData)
 library(lubridate)
-knitr::opts_chunk$set(echo = TRUE, fig.path='../fig/')
+#knitr::opts_chunk$set(echo = TRUE, fig.path='../fig/')
+source("../bin/chunk-options.R")
 source("functions.R")
 ```
 

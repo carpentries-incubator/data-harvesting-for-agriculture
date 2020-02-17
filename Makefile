@@ -104,6 +104,7 @@ _episodes/%.md: _episodes_rmd/%.Rmd
 
 _extras/%.md: _extras_rmd/%.Rmd
 	@bin/knit_extras.sh $< $@
+# JPN: added this for install instructions
 
 ## lesson-check     : validate lesson Markdown.
 lesson-check : lesson-fixme

@@ -12,7 +12,6 @@ objectives:
 source: Rmd
 ---
 
-HERE
 
 <!-- JPN: updated fig path here manually for plots to show, it turns out this is unneccesary though-->
 
@@ -52,13 +51,17 @@ A window titled "R Console" should pop up:
 The `>` character is called the prompt and is the place where we enter commands for the program to interpret. For instance, if you type `25+5` followed by the return/enter key, you will see:
 
 
-```r
+~~~
 25+5
-```
+~~~
+{: .language-r}
 
-```
-## [1] 30
-```
+
+
+~~~
+[1] 30
+~~~
+{: .output}
 
 <img src="../fig/R_console_using.png" width="50%">
 
@@ -103,13 +106,17 @@ A window titled "RStudio" should pop up, looking something like this:
 2. Just as in R, the `>` character in the Console window is where we enter commands for the program to interpret.  You can try entering something there and then hitting the `Enter` key to see:
 
 
-```r
+~~~
 25+5
-```
+~~~
+{: .language-r}
 
-```
-## [1] 30
-```
+
+
+~~~
+[1] 30
+~~~
+{: .output}
 
 
 3. To exit RStudio, click "RStudio" in the menu bar, then click "Quit RStudio". Alternatively, use the `Cmd-Q` shortcut. If prompted to save the workspace, do not save it.

@@ -10,12 +10,14 @@ objectives:
 source: Rmd
 ---
 
-HERE
 
 <!-- JPN: updated fig path here manually for plots to show, it turns out this is unneccesary though-->
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
+#knitr::opts_chunk$set(echo = TRUE, fig.path='../figure/')
+library(knitr)
+library(httr)
+source("../bin/chunk-options.R")
 ```
 
 # Installing R and RStudio

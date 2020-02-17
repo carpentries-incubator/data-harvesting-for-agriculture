@@ -29,7 +29,8 @@ If you want to install on your own, Mac installation time should be much faster 
 
 ### Preferred Method: Internet-based Installation Instructions
 
-For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html).
+<!--For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html).-->
+For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](extra-Installing-R-on-Mac/index.html).
 
 ### Alternate: USB Installation Instructions
 
