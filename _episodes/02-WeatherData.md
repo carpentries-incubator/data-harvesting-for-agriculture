@@ -43,30 +43,12 @@ source: Rmd
 > weather data. The functions `cent_long()` and `cent_lat()` give the mean longitude and latitude points of the bounding box around the `sf` object that is supplied. This should be a point near the middle of the field. 
 > 
 > 
-> ```r
-> #boundary <- read_sf("data/boundary.gpkg") # JPN CHANGED TO SEE IF IT WORKS
-> boundary <- read_sf("data/boundary_transformed.gpkg")
-> ```
-> 
-> ```
-> ## Error: Cannot open "data/boundary_transformed.gpkg"; The file doesn't seem to exist.
-> ```
-> 
-> ```r
+> ~~~
+> boundary <- read_sf("data/boundary.gpkg")
 > lon <- cent_long(boundary)
-> ```
-> 
-> ```
-> ## Error in st_bbox(sfobject): object 'boundary' not found
-> ```
-> 
-> ```r
 > lat <- cent_lat(boundary)
-> ```
-> 
-> ```
-> ## Error in st_bbox(sfobject): object 'boundary' not found
-> ```
+> ~~~
+> {: .language-r}
 >
 > We also call the site `Field1`, but this can be the name of one of your fields if you use it in the future.
 > We can choose the start and end years. If the data is not available for the year you request, an 
@@ -75,25 +57,42 @@ source: Rmd
 > data is brought into the R environment rather than saved in your working directory. We may want to change the names and units of variables, so we will wait to save the data in the working directory.
 >
 >
->```r
+>~~~
 > weather <- download_daymet(site = "Field1", lat = lat, lon = lon, start = 2000, end = 2018, internal = TRUE)
->```
+>~~~
+>{: .language-r}
 >
->```
->## Error in download_daymet(site = "Field1", lat = lat, lon = lon, start = 2000, : object 'lat' not found
->```
+>
+>
+>~~~
+>Downloading DAYMET data for: Field1 at 40.8430279883331/-82.8757922217347 latitude/longitude !
+>~~~
+>{: .output}
+>
+>
+>
+>~~~
+>Error in download_daymet(site = "Field1", lat = lat, lon = lon, start = 2000, : Your requested data is outside DAYMET (temporal) coverage,
+>            or the server can't be reached. Check your the connection to the
+>            server or the coordinates and start/end years!
+>~~~
+>{: .error}
 {: .callout}
 
 > # Exploring the daymet data
 > We can use `str()` as we did in the last lesson to explore the new daymetr object `weather`
 > 
-> ```r
+> ~~~
 > str(weather)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in str(weather): object 'weather' not found
-> ```
+> 
+> 
+> ~~~
+> Error in str(weather): object 'weather' not found
+> ~~~
+> {: .error}
 > The object `weather` is a list of 7 objects, the last of which is the data. In the next excerise we will explore what variables are in this dataframe. 
 {: .callout}
 
@@ -109,21 +108,31 @@ source: Rmd
 > > ## Solution
 > > 
 > > 
-> > ```r
+> > ~~~
 > > weather_data <- weather$data
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in eval(expr, envir, enclos): object 'weather' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in eval(expr, envir, enclos): object 'weather' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > str(weather_data)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in str(weather_data): object 'weather_data' not found
-> > ```
+> > 
+> > 
+> > ~~~
+> > Error in str(weather_data): object 'weather_data' not found
+> > ~~~
+> > {: .error}
 > > The date is reported as the year and day of the year. 
 > > Other variables include day length, precipitation, solar radiation, snow water equivalent, maximum temperature, minimum temperature, and vapor pressure. 
 > > The units for the variables are given after the variable name. For example, day length is in seconds and solar radiation is in watts per square meter. While precipitation and temperature have intuitive names, vapor pressure and snow water equivalent are not so apparent. 
@@ -146,29 +155,45 @@ source: Rmd
 > for each year. This is accomplished in the function as.Date.daymetr(). To see this code and understand how > it works go to the [functions script](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/functions.R) in github. 
 > 
 > 
-> ```r
+> ~~~
 > weather_data$date <- as.Date.daymetr(weather_data)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in as.Date(daymetdata$yday, origin = paste0(daymetdata$year - 1, : object 'weather_data' not found
-> ```
 > 
-> ```r
+> 
+> ~~~
+> Error in as.Date(daymetdata$yday, origin = paste0(daymetdata$year - 1, : object 'weather_data' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
 > head(weather_data$date)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in head(weather_data$date): object 'weather_data' not found
-> ```
 > 
-> ```r
+> 
+> ~~~
+> Error in head(weather_data$date): object 'weather_data' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
 > class(weather_data$date)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in eval(expr, envir, enclos): object 'weather_data' not found
-> ```
+> 
+> 
+> ~~~
+> Error in eval(expr, envir, enclos): object 'weather_data' not found
+> ~~~
+> {: .error}
 {: .callout}
 
 > # Unit Conversions
@@ -184,13 +209,17 @@ source: Rmd
 > We have made simple functions for converting units using `conv_unit()` these are in `functions.R` and can be sourced within your code. For example, the function `mm_to_in()` can convert the daily precipitation from milimeters to inches. The following lines converts `prcp..mm.day.` to inches and creates a new column called `prec`.
 > 
 > 
-> ```r
+> ~~~
 > weather_data$prec <- mm_to_in(weather_data$prcp..mm.day.)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in conv_unit(varc, "mm", "inch"): object 'weather_data' not found
-> ```
+> 
+> 
+> ~~~
+> Error in conv_unit(varc, "mm", "inch"): object 'weather_data' not found
+> ~~~
+> {: .error}
 {: .callout}
 
 > ## Exercise 2: Unit Conversions
@@ -201,45 +230,73 @@ source: Rmd
 > > ## Exercise 2 Solutions
 > > 
 > > 
-> > ```r
+> > ~~~
 > > weather_data$tmax <- c_to_f(weather_data$tmax..deg.c.) 
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in conv_unit(varc, "C", "F"): object 'weather_data' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in conv_unit(varc, "C", "F"): object 'weather_data' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > weather_data$tmin <- c_to_f(weather_data$tmin..deg.c.)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in conv_unit(varc, "C", "F"): object 'weather_data' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in conv_unit(varc, "C", "F"): object 'weather_data' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > head(weather_data$tmax)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in head(weather_data$tmax): object 'weather_data' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in head(weather_data$tmax): object 'weather_data' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > max(weather_data$tmax)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in eval(expr, envir, enclos): object 'weather_data' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in eval(expr, envir, enclos): object 'weather_data' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > min(weather_data$tmin)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in eval(expr, envir, enclos): object 'weather_data' not found
-> > ```
+> > 
+> > 
+> > ~~~
+> > Error in eval(expr, envir, enclos): object 'weather_data' not found
+> > ~~~
+> > {: .error}
 > > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
 > {: .solution}
 {: .challenge}
@@ -261,32 +318,46 @@ source: Rmd
 > month name instead of a number. We use this option because the month name will look better on the graph than a number. 
 > 
 > 
-> ```r
+> ~~~
 > weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in lubridate::month(weather_data$date, label = TRUE): object 'weather_data' not found
-> ```
 > 
-> ```r
+> 
+> ~~~
+> Error in lubridate::month(weather_data$date, label = TRUE): object 'weather_data' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
 > head(weather_data$month)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in head(weather_data$month): object 'weather_data' not found
-> ```
+> 
+> 
+> ~~~
+> Error in head(weather_data$month): object 'weather_data' not found
+> ~~~
+> {: .error}
 > 
 > This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv).
 > 
 > 
-> ```r
+> ~~~
 > write.csv(weather_data, "weather_2000_2018.csv") 
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in is.data.frame(x): object 'weather_data' not found
-> ```
+> 
+> 
+> ~~~
+> Error in is.data.frame(x): object 'weather_data' not found
+> ~~~
+> {: .error}
 {: .callout}
 
 > # Taking sum or average by groups 
@@ -298,21 +369,31 @@ source: Rmd
 > 
 > First we use the command to calculate the total precipitation for each month in each year.
 > 
-> ```r
+> ~~~
 > by_month_year <- sumprec_by_monthyear(weather_data)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in eval(lhs, parent, parent): object 'weather_data' not found
-> ```
 > 
-> ```r
+> 
+> ~~~
+> Error in eval(lhs, parent, parent): object 'weather_data' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
 > head(by_month_year)
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in head(by_month_year): object 'by_month_year' not found
-> ```
+> 
+> 
+> ~~~
+> Error in head(by_month_year): object 'by_month_year' not found
+> ~~~
+> {: .error}
 >
 > Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January. 
 {: .callout}
@@ -323,13 +404,17 @@ source: Rmd
 > before we take the average monthly precipitation. Separating part of the dataframe is called subsetting. A subset is a set of observations that are all present in an existing dataframe; generally, the subset will have some characteristic in common such as year, month, etc. The function `subset()` requires two inputs, the dataframe to be subsetted and the characteristics to subset on in the form of logical expressions. We will take the subset of `by_month_year` that is in 2018.
 > 
 > 
-> ```r
+> ~~~
 > monthprec_2018 <- subset(by_month_year, year == 2018) 
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in subset(by_month_year, year == 2018): object 'by_month_year' not found
-> ```
+> 
+> 
+> ~~~
+> Error in subset(by_month_year, year == 2018): object 'by_month_year' not found
+> ~~~
+> {: .error}
 {: .callout}
 
 > ## Exercise 3: Subsetting
@@ -338,30 +423,44 @@ source: Rmd
 > 
 > > ## Exercise 3 Solution
 > > 
-> > ```r
+> > ~~~
 > > subset(by_month_year, year != 2018)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in subset(by_month_year, year != 2018): object 'by_month_year' not found
-> > ```
 > > 
-> > ```r
+> > 
+> > ~~~
+> > Error in subset(by_month_year, year != 2018): object 'by_month_year' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > subset(by_month_year, year == 2015)
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in subset(by_month_year, year == 2015): object 'by_month_year' not found
-> > ```
+> > 
+> > 
+> > ~~~
+> > Error in subset(by_month_year, year == 2015): object 'by_month_year' not found
+> > ~~~
+> > {: .error}
 > > We see that the monthly rainfall in June was 7.91 inches. We could also find this by taking a subset with the year and month.
 > > 
-> > ```r
+> > ~~~
 > > subset(by_month_year, year == 2015 & month == "Jun")
-> > ```
+> > ~~~
+> > {: .language-r}
 > > 
-> > ```
-> > ## Error in subset(by_month_year, year == 2015 & month == "Jun"): object 'by_month_year' not found
-> > ```
+> > 
+> > 
+> > ~~~
+> > Error in subset(by_month_year, year == 2015 & month == "Jun"): object 'by_month_year' not found
+> > ~~~
+> > {: .error}
 > >
 > {: .solution}
 {: .challenge}
@@ -369,13 +468,17 @@ source: Rmd
 > # Take the average of monthly rainfall
 >
 > 
-> ```r
+> ~~~
 > monthprec_hist <- avgprec_by_month(subset(by_month_year, year != 2018))
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in subset(by_month_year, year != 2018): object 'by_month_year' not found
-> ```
+> 
+> 
+> ~~~
+> Error in subset(by_month_year, year != 2018): object 'by_month_year' not found
+> ~~~
+> {: .error}
 {: .callout}
 
 > # Merging
@@ -388,13 +491,17 @@ source: Rmd
 > function.
 >
 > 
-> ```r
+> ~~~
 > prec_plot <- merge(monthprec_hist, monthprec_2018, by = "month")
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in merge(monthprec_hist, monthprec_2018, by = "month"): object 'monthprec_hist' not found
-> ```
+> 
+> 
+> ~~~
+> Error in merge(monthprec_hist, monthprec_2018, by = "month"): object 'monthprec_hist' not found
+> ~~~
+> {: .error}
 {: .callout}
 
 > # Making the graph
@@ -408,22 +515,32 @@ source: Rmd
 > of a bar chart. 
 >
 > 
-> ```r
+> ~~~
 > monthly_prec <- ggplot(prec_plot) + 
 >   geom_bar(aes(x = month, y = prec_month), stat = 'identity') 
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in ggplot(prec_plot): object 'prec_plot' not found
-> ```
 > 
-> ```r
+> 
+> ~~~
+> Error in ggplot(prec_plot): object 'prec_plot' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
 > monthly_prec + geom_point(aes(month, prec_avg), show.legend = TRUE) + ggtitle("2018 Monthly Precipitation Compared to Average")
-> ```
+> ~~~
+> {: .language-r}
 > 
-> ```
-> ## Error in eval(expr, envir, enclos): object 'monthly_prec' not found
-> ```
+> 
+> 
+> ~~~
+> Error in eval(expr, envir, enclos): object 'monthly_prec' not found
+> ~~~
+> {: .error}
 >
 > The most notable feature of the weather graph is the below average rainfall in July, the most 
 critical growing period for corn. To understand whether this affected yield on the field, we

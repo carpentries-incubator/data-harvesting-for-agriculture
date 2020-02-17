@@ -51,6 +51,7 @@ clean-rmd :
 	@rm -rf ${RMD_DST}
 	@rm -rf fig/rmd-*
 	@rm -rf _episodes/*.md
+# JPN: added the last line for us
 
 ## ----------------------------------------
 ## Commands specific to workshop websites.
@@ -69,6 +70,9 @@ workshop-check :
 # RMarkdown files
 RMD_SRC = $(wildcard _episodes_rmd/??-*.Rmd)
 RMD_DST = $(patsubst _episodes_rmd/%.Rmd,_episodes/%.md,$(RMD_SRC))
+# JPN R markdown extras
+RMD_SRC_EXTRAS = $(wildcard _extras_rmd/extra-*.Rmd)
+RMD_DST_EXTRAS = $(patsubst _extras_rmd/%.Rmd,_extras/%.md,$(RMD_SRC_EXTRAS))
 
 # Lesson source files in the order they appear in the navigation menu.
 MARKDOWN_SRC = \
@@ -91,10 +95,16 @@ HTML_DST = \
   ${DST}/license/index.html
 
 ## lesson-md        : convert Rmarkdown files to markdown
-lesson-md : ${RMD_DST}
+lesson-md : ${RMD_DST} ${RMD_DST_EXTRAS}
+
+##lesson-md-extras : ${RMD_DST_EXTRAS}
 
 _episodes/%.md: _episodes_rmd/%.Rmd
 	@bin/knit_lessons.sh $< $@
+
+_extras/%.md: _extras_rmd/%.Rmd
+	@bin/knit_extras.sh $< $@
+# JPN: added this for install instructions
 
 ## lesson-check     : validate lesson Markdown.
 lesson-check : lesson-fixme
