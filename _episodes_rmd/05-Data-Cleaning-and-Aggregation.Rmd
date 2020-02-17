@@ -22,20 +22,6 @@ output: html_document
 - "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
 
 ```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = TRUE)
-#setwd("~/Downloads/data carpentry - data cleaning") # ultimately delete this line
-library(knitr)
-library(httr)
-source("../bin/chunk-options.R")
-#source("./functions.R")
-```
-
-## Setup
-
-First we will load the packages needed for this episode.  You should already
-have these installed from the last episode.
-
-```{r}
 library(sf)
 library(fasterize)
 library(gstat)
@@ -49,47 +35,10 @@ library(knitr)
 library(tmap)
 library(ggplot2)
 library(gridExtra)
-```
-
-Next, we will define a few functions that we will be using.  Feel free to copy
-and paste this code into your script.
-
-```{r functions1}
-st_over <- function(x, y) {
-  sapply(sf::st_intersects(x, y), function(z)
-    if (length(z) == 0)
-      NA_integer_
-    else
-      z[1])
-}
-
-st_interpolate <- function(obj, v, rst, type = "idw") {
-  obj_sp <- as(obj, "Spatial")
-  
-  fml <- as.formula(paste0(v, " ~ 1"))
-  if (!(type %in% c("idw", "nng"))) {
-    stop(paste0(
-      "Type not implemented! ",
-      "Choose between idw (inverse distance weighted), ",
-      "and nng (nearest neighbor)."
-    ))
-  }
-  
-  if (type == "idw") {
-    # Setting nmax to 5 and idp to 1 is an
-    #  inverse weighted interpolation:
-    gs <- gstat::gstat(formula = fml, locations = obj_sp,
-                       nmax = 5, set = list(idp = 1))
-  } else {
-    # Setting nmax to 1 and idp to 0 is equivalent to
-    #  nearest neighbor interpolation:
-    gs <- gstat::gstat(formula = fml, locations = obj_sp,
-                       nmax = 1, set = list(idp = 0))
-  }
-  
-  x <- raster::interpolate(rst, gs)
-  return(x)
-}
+library(knitr)
+library(httr)
+source("../bin/chunk-options.R")
+source("./functions.R")
 ```
 
 In the last episode, we also imported our trial design.  We will include the

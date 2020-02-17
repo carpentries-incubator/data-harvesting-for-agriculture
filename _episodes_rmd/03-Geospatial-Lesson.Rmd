@@ -7,23 +7,21 @@ source: Rmd
 
 
 ```{r setup, include=FALSE}
-#library(sf)
-#library(fasterize)
-#library(gstat)
-#library(raster)
-#library(rjson)
-#library(httr)
-#library(rgdal)
-#library(rgeos)
-#library(maptools)
-#library(tmap)
-#library(ggplot2)
-#library(gridExtra)
-#library(grid)
-#library(FedData)
-#library(plyr)
-
-# JPN: these 2 libraries need to be here before sourcing things I guess!
+library(sf)
+library(fasterize)
+library(gstat)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+library(tmap)
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(FedData)
+library(plyr)
 library(knitr)
 library(httr)
 source("../bin/chunk-options.R")
@@ -52,28 +50,6 @@ source("./functions.R")
 you perform (e.g. making trial grids and splitting plots into subplot data)
 - Different data formats that you are likely to encounter include gpkg, shp
 (cpg, dbf, prj, sbn, sbx), geojson, and tif **Dena: We don't discuss most of these in the lesson - tweak description or add overview?**
-
-<!-- Setup -->
-```{r, message=FALSE, warning=FALSE, include=FALSE}
-library(sf)
-library(fasterize)
-library(gstat)
-library(raster)
-library(rjson)
-library(httr)
-library(rgdal)
-library(rgeos)
-library(maptools)
-library(knitr)
-library(tmap)
-library(ggplot2)
-library(gridExtra)
-library(grid)
-library(FedData)
-library(plyr)
-```
-
-
 
 ### Introducing Spatial Data with SSURGO data
 
