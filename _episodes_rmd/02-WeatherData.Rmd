@@ -62,8 +62,7 @@ source("functions.R")
 > weather data. The functions `cent_long()` and `cent_lat()` give the mean longitude and latitude points of the bounding box around the `sf` object that is supplied. This should be a point near the middle of the field. 
 > 
 > ```{r location}
-> #boundary <- read_sf("data/boundary.gpkg") # JPN CHANGED TO SEE IF IT WORKS
-> boundary <- read_sf("data/boundary_transformed.gpkg")
+> boundary <- read_sf("data/boundary.gpkg")
 > lon <- cent_long(boundary)
 > lat <- cent_lat(boundary)
 > ```
