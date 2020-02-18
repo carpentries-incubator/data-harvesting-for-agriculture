@@ -466,23 +466,18 @@ Note here that `str` is the function name that we _called_ with the _input param
 
 The `str` function prints out the first few entries of each row, the `...` just means that it has truncated its output for the sake of clarity.
 
-We see that the `str` function is also telling us something about how our data is formatted:
- * There are 5 columns (variables) in our dataset - `Year`, `Crop`, `Nitrogen` <font color="magenta">(something? units?)</font>, `Phosphate`, and `Potash`.
+Like with the function `head`, we see that the `str` function is also telling us something about how our data is formatted:
+ * There are 5 columns in our dataset - `Year`, `Crop`, `Nitrogen`, `Phosphate`, and `Potash`.
  * There are 265 `observations`, or rows, in our dataset
  * The `Year`, `Nitrogen`, `Phosphate`, and `Potash` columns are `int` types, meaning they are comprised of whole numbers (numbers without decimals)
- * The `Crop` column is being interpreted in R as something called a `factor`.  This is a way to represent data that is comprised of categories, in this case we are told there are 5 `levels` which just means there are only 5 categories of crop in this dataset.  The trailing 1's are just R's way of tagging which row entry in this column is in what category - a 1 means an entry that is tagged as "Corn".  <font color="magenta">(I am not 100% on this, I *think* this is what R is doing but I am not sure)</font>
+ * The `Crop` column is a *factor* with 5 `levels`.  The trailing 1's are just R's way of tagging which row entry in this column is in what category - a 1 means a row that is tagged as "Corn", a 2 would be a row that is taked as "Cotton".  
 
 The `str` function also tells us that our variable `fert_use` is a _dataframe_ by printing `'data.frame'` at the top of its output.
 
 
 ## Doing stuff with your data in R
 
-<!--
-### <font color="magenta">Outline for this section</font>
- 1. <font color="magenta">We can manipulate columns with functions</font>
-    * <font color="magenta">example: min function (or something)</font>
-    * <font color="magenta">How to learn about functions you might want to use? -> We already learned a bit about the helping "?" function, but we can also look at how to google things.</font>
---> 
+<!-- JPN: could not think of a better name, so it sticks :) -->
 
 Now that we have read in some data and have some idea of what our dataset contains, let's actually think about manipulating our dataset!  One thing we might want to know is find out the time span overwhich this data was taken.  We can find out the minimum time in our dataset by applying the the `min` function on our `Year` column:
 
