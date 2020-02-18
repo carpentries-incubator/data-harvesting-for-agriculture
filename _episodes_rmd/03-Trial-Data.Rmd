@@ -110,7 +110,7 @@ source("functions.R")
 > ## Exercise: Yield Map
 Make a map of the yield in bushels per acre from the `yield` file using `map_points()`. Do you notice anything about the yield map?
 > 
-> > ##Solution
+> > ## Solution
 > > ```{r seedvars}
 > > names(yield)
 map_yieldog <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
