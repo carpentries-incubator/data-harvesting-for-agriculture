@@ -1,5 +1,5 @@
 ---
-title: "Introduction Programming with R and RStudio"
+title: "Introduction to Programming with R and RStudio"
 include_overview: true
 questions:
  - What is a program?
@@ -87,6 +87,7 @@ We launch RStudio by double clicking on its icon, as we would with other softwar
 > <img src="../fig/1-Win-Rstudio-choosewhich.PNG" width="70%">
 > In the image below, the 64 bit version has been chosen and you can now press OK.
 > <img src="../fig/1-Win-Rstudio-pickedfolder.PNG" width="70%">
+> You'll be prompted to restart R Studio; double click the launch icon again.
 > At this point, R Studio should open next.
 >
 {: .windowsUsers}
@@ -181,9 +182,12 @@ Instead of using the “library” command, though, we’ll use the “source”
 
 <font color="magenta"> Could also do source() here, maybe add if we have time </font>
 
-### Locating data ingredients - <font color="red">LOOP BACK HERE</font>
+### Locating data ingredients 
 
-<font color="red">This section needs fleshing out once we know whether we’ll have the data done and verified complete in time to feed them onto the USBs or not? Skipping to next section</font>
+The instructions from here on out assume that you've set your working directory to be a folder named "WorkingDir" and that you have a folder inside it called "data" which contains several files of information. 
+
+* If you copied your software from the USB stick, you'll find WorkingDir just inside the DataHarvestingWin or DataHarvestingMac folder. 
+* If you set up from scratch, you'll want to make WorkingDir and data folders and copy the information either from a nearby USB or from [this folder](https://github.com/data-carpentry-for-agriculture/trial-lesson/tree/gh-pages/_episodes_rmd/data).
 
 ## The stuff in your “kitchen”: Getting oriented with R Studio
 
@@ -259,7 +263,7 @@ From now on, whenever we use `todays_cheese`, R will substitute the value we ass
 In R, variable names:
   * can include letters, digits, and underscores
   * cannot start with a digit
-  * are case sensitive. <font color="magenta">There is no glossary link here</font>
+  * are case sensitive, meaning that "ABC" is considered different than "abc".
   
 This means that, for example:
   * `cheese1` is a valid variable name, whereas `1cheese` is not
@@ -303,11 +307,15 @@ The list of items it’s asking for includes the things that are likely to chang
 
 The thing that you pass in to a function or assign to a variable can also be a data set. Let’s take a look at how to do that next. 
 
+## Working with some real data
+
 As an example of a dataset in spreadsheet form that we can use to demonstrate the R language, we are using the <a href="https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx">USDA - Economic Research Service’s fertilizer use and price dataset</a>. Of the various tables of data on this website, will be looking at Table 2 called “Estimated U.S. plant nutrient use by selected crops” which shows 1,000 nutrient short tons of nitrogen, phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the US from 1964-2016.
 
-This table has been reformatted into a CSV file for ease of import into R. You can download the CSV from: [https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv).
+This table has been reformatted into a CSV file for ease of import into R. 
+* If you copied your data folder from the USB drive, it's available in the data folder as fertilizer_use.csv.
+* If not, you can download the CSV from: [https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv).
 
-<font color="green">Dena has some comments to self here - is it in data folder?</font>
+
 
 > ## What’s a CSV file and why are they helpful?
 > CSV stands for “comma separated values.” What’s stored in a CSV file is spreadsheet-type data, and it can be opened in Microsoft Excel (among many other things). 
@@ -328,7 +336,7 @@ write.table(tmp, quote = FALSE, sep = ",", row.names = FALSE, col.names = FALSE)
 rm(tmp)
 ```
 
-It can be opened in Excel if you want to get a quick look at it that way, or we can dive straight into looking at it in R. Save it into your `data` folder in your RStudio project for this lesson.
+It can be opened in Excel if you want to get a quick look at it that way, or we can dive straight into looking at it in R. 
 
 Next, we’ll use the function called `read.csv` to import data from a CSV (comma-separated value) file. (In this case the .csv is part of the name of the function, not the name of a separate file. Sorry about that -- we didn’t name it!)
 
@@ -421,8 +429,6 @@ We'll note we got a bit of extra information when we are looking at the `Crop` c
 
 
 ### Using `str` to get column types
-
-<font color="magenta">I think we should do this after head and discussing different types of data. </font><font color="green">DENA: Can we ditch this entirely? Do we need str if we've given them the head example already? </font><font color="purple">BRITTANI: I would say that we need both str and head. str contains information that head does not, such as the class of the object and variables.)</font>
 
 Like with the function `head`, the `str` function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:
 
