@@ -323,11 +323,13 @@ asapplied <- st_read("data/asapplied.gpkg")
 asapplied_utm <- st_transform_utm(asapplied)
 
 conv_unit((24/2)*0.8, 'm', 'ft')
-asapplied_clean <- clean_buffer(trialutm, 30, asapplied_utm)
+asapplied_clean <- clean_buffer(trialutm, 5, asapplied_utm)
 map_points(asapplied_utm, "Rate_Appli", "Nitrogen")
+map_points(asapplied_clean, "Rate_Appli", "Nitrogen")
 
-merge <- sp::over(grid_sp, as(asapplied_clean, "Spatial"), fn = median)
-subplots_merge@data <- cbind(merge, subplots_merge@data)
+merge <- sp::over(grid_sp, as(asapplied_clean[,"Rate_Appli"], "Spatial"), fn = median)
+
+grid_sp@data <- cbind(merge, grid_sp@data)
 head(subplots@data)
 ```
 
