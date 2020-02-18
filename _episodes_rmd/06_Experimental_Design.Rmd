@@ -87,8 +87,9 @@ LongB <- -82.87329
 LatB <- 40.83987
 
 
-bothfields <- boundary.utm
-bbox_field <- st_bbox(bothfields)+c(100,100,50,50)
+bothfields <- subset(boundary.utm, Type == "Trial")
+bbox_field <- st_bbox(bothfields)
+# +c(100,100,50,50)
 xmin <- bbox_field[1]
 ymin <- bbox_field[2]
 xmax <- bbox_field[3]
@@ -124,13 +125,13 @@ st_crs(ab_line)
 #st_crs(starting_point) <- st_crs(bothfields)
 
 ```{r design the checker-board plot}
-design_grids_utm <- make_grids(bothfields, ab_line, long_in, short_in, starting_point)
+design_grids_utm <- make_grids(bothfields, abline_utm, long_in, short_in, length_ft = 30, width_ft = 30)
 
 st_crs(design_grids_utm) <- st_crs(bothfields)
 
 trial_grid1_utm <- st_intersection(bothfields, design_grids_utm)
 
-tm_shape(trial_grid1_utm) + tm_borders(col='blue') + tm_text('plotid', size = 0.5)
+tm_shape(trial_grid1_utm) + tm_borders(col='blue')
 
 ```
 
