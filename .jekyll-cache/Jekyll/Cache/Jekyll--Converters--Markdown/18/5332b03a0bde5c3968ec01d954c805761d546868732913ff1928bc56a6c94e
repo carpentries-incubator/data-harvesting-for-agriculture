@@ -1,0 +1,287 @@
+I"PN<!-- JPN: updated fig path here manually for plots to show -->
+
+<!-- JPN: attribution formatting -->
+<style type="text/css" rel="stylesheet">
+* {.attribution{
+     position:absolute;
+     bottom:0;
+     right:0;
+     font-size:0.5em
+ }}
+</style>
+
+<h2 id="to-add"><font color="magenta">TO-ADD</font></h2>
+
+<ul>
+  <li>vigenettes - what is it, where can you find it in R studio interface &amp; online</li>
+  <li>how to use “help” <em>and</em> how to google for help</li>
+  <li>”::” &lt;- what does this mean, multiple packages with the same name</li>
+  <li>how to set working directory, get working directory, how to point and click =&gt; session =&gt; working directory
+    <ul>
+      <li>throw this on top of all your scripts</li>
+    </ul>
+  </li>
+  <li>windows vs. mac directories =&gt; mention this, but with the point and click this should not be an issue</li>
+  <li>
+    <font color="magenta">ADD: stuff about '/workdir/' which is where '/data' will live</font>
+  </li>
+  <li>
+    <font color="magenta">Add in all set workdirectory and the, and sourcing the functions file, everytime</font>
+  </li>
+</ul>
+
+<font color="magenta"> Do we need to link the terms to a glossary?</font>
+
+<h1 id="programming-concepts-and-language">Programming concepts and language</h1>
+
+<p>Programming doesn’t have to be scary, and we have some real-world examples to help you understand what’s going on with these words we’re typing in a window. The words in bold will come up in a programming context later on, but it might help to have a mental reference picture to associate with these words.</p>
+
+<p>Let’s imagine that instead of a program to work with numbers and letters, we’re creating a program that cooks breakfast instead.</p>
+
+<p>In order to make breakfast, you need:</p>
+<ul>
+  <li>A <strong>working directory</strong> (the place where you’re doing things, such as your kitchen countertop)</li>
+  <li>Available <strong>data</strong> (information about what you’re working with)
+    <ul>
+      <li>Data could be an inventory of your pantry, a grocery shopping list, a map of the store, a collection of prices at the store, and so forth.</li>
+    </ul>
+  </li>
+  <li><strong>Types</strong> of <strong>objects</strong> – a method of grouping what can be done to what types of things.
+    <ul>
+      <li>Food is one type of thing; people are another; pets are a third.</li>
+      <li>A specific food object can be an egg or a pancake; a particular pet object can be your cat or your dog.</li>
+    </ul>
+  </li>
+  <li>Some <strong>inputs</strong> that may be <strong>objects</strong> of appropriate <strong>types</strong> (breakfast food ingredients)
+    <ul>
+      <li>You create breakfast by performing actions on objects of food types, and then you feed it to things of the people and pet types.</li>
+    </ul>
+  </li>
+  <li>Some <strong>functions</strong> (recipes that work with the ingredients)
+    <ul>
+      <li>Inputs to functions are usually stored in <strong>variables</strong> – you don’t always want to make the same thing every day, so the instructions have placeholder names for things that are similar to each other but may vary. (A “todays_cheese” variable could hold Stilton for one day’s omelet and cheddar for the next.)</li>
+    </ul>
+  </li>
+  <li>You need to match your <strong>object</strong> types to your <strong>functions</strong>.
+    <ul>
+      <li>You shouldn’t use a pet-type object as an input to a breakfast-making function. (Nobody wants to eat the goldfish for breakfast.)</li>
+      <li>You might be able to use a dinner-type food object as an input to a breakfast-making function, but use caution.</li>
+    </ul>
+  </li>
+  <li>Some <strong>outputs</strong> (food ready to be consumed)</li>
+  <li>A <strong>destination</strong> (where to put the food that’s ready to be consumed)
+    <ul>
+      <li>You could put your outputs in your working directory (eat breakfast in your kitchen) or you could send it to another location (put leftovers in the refrigerator)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="../fig/1-breakfast.png" width="70%" />
+<span class="attribution"><a href="https://www.flickr.com/photos/11849171@N00/8330968310">“Breakfast”</a> by <a href="https://www.flickr.com/photos/11849171@N00/8330968310">viviandnguyen_</a> is licensed under <a href="https://www.flickr.com/photos/11849171@N00/8330968310">CC BY-SA 2.0</a></span></p>
+
+<h2 id="intro-to-r-and-rstudio">Intro to R and RStudio</h2>
+
+<p>In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.</p>
+
+<p>If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel).</p>
+
+<p>In this lesson, we will be making use of another software called “RStudio” as a way to interact with the programming language R. RStudio makes writing our programs more user-friendly. Using RStudio instead of R is a little like having a toaster. You can make toast over a fire, but having a toaster makes the job easier and less scorch-prone.</p>
+
+<p>We launch RStudio by double clicking on its icon, as we would with other software on our computers.</p>
+
+<blockquote class="windowsUsers">
+  <h2 id="windows-users-click-here-for-more-details">Windows Users: Click Here for more details</h2>
+  <p>If you’re running R Studio from a copy made from the USB stick, then the first time you launch R Studio, you’ll be asked where your installation of R is located.</p>
+  <ol>
+    <li>Choose the “Choose a specific version of R” item next to the large text box.
+<img src="../fig/1-Win-Rstudio-firstlaunch.png" width="70%" /></li>
+    <li>Use the <strong>Browse</strong> button to navigate to:
+      <ul>
+        <li><strong>DataHarvestingWin/ProgramFiles/R/R-3.6.2/bin/</strong></li>
+        <li>and choose <strong>Select Folder</strong>.
+<img src="../fig/1-Win-Rstudio-folderpick.PNG" width="70%" />
+Next, you’ll be prompted which version you want to use. You could choose either 32 bit or 64 bit; either should work, but 64 bit is likely to be what your computer is capable of.
+<img src="../fig/1-Win-Rstudio-choosewhich.PNG" width="70%" />
+In the image below, the 64 bit version has been chosen and you can now press OK.
+<img src="../fig/1-Win-Rstudio-pickedfolder.PNG" width="70%" />
+At this point, R Studio should open next.</li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<!--In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.
+
+If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel). 
+
+In this lesson, we will be making use of another software called "RStudio" as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  **Some sort of analogy here would be grand (Jill) -- Dena's analogy: It's a little like having a toaster. You can make toast over a fire, but having a toaster makes the job easier and less scorch-prone.**
+
+We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below: -->
+
+<p><img src="../fig/Rstudio_blank.png" alt="starting R studio" /></p>
+
+<!--
+<font color="magenta"> **Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? </font><font color="green">Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
+-->
+
+<h2 id="getting-your-rstudio-workspace-ready-for-the-workshop">Getting your RStudio workspace ready for the workshop</h2>
+
+<p>Let’s get our “countertop” ready to “cook breakfast” by:</p>
+<ol>
+  <li>Setting up our working directory</li>
+  <li>Loading libraries and sourcing functions in order to make the tools we’ll use available to RStudio</li>
+  <li>Locating our data ingredients</li>
+</ol>
+
+<h3 id="setting-your-working-directory">Setting your working directory</h3>
+
+<p>Under the <strong>Session</strong> menu, choose <strong>Set Working Directory</strong>, then <strong>Choose Directory</strong>.</p>
+
+<p><img src="../fig/2-RStudio-setworkingdir1.PNG" width="70%" /></p>
+
+<p>In each software collection on the USB drive (both Windows and Mac), we’ve made subdirectories called <strong>WorkingDir</strong> with another subdirectory called <strong>data</strong>. (Even if you’ve installed from scratch rather than copying from the USB drive, the instructions will be easier to follow if you have a folder called <strong>WorkingDir</strong> that contains another one called <strong>data</strong>.)</p>
+
+<p>So if you’re using our file collection after copying it to your local hard drive on Windows, choosing your working directory will look like this:</p>
+
+<p><img src="../fig/2-RStudio-setworkingdir2.PNG" width="70%" />
+(If you’re running from the USB drive, the drive letter there will likely say D instead of C, but the rest will be the same.)</p>
+
+<font color="magenta"> JPN: needs to put in how this looks for Mac </font>
+
+<p>After you click the Open button, you’ll see a new command has been added to your console, which is the text-based way of saying your home directory has been set:</p>
+
+<blockquote class="callout">
+  <h3 id="windows">Windows</h3>
+  <p>(console)</p>
+
+  <p>setwd(“C:/DataHarvestingWin/WorkingDir”)</p>
+
+  <h3 id="mac">Mac</h3>
+  <font color="magenta"> JPN: put in for mac </font>
+</blockquote>
+
+<p>Now we’ve identified where we want to work and can start loading libraries and data.</p>
+
+<h3 id="loading-libraries">Loading libraries</h3>
+
+<p>R and RStudio are used in many different fields, including biology, genomics, and geospatial data. If we loaded everything that R was capable of handing at once, though, it would take even more space than it already does!</p>
+
+<p>So with this set of instructions, we’re telling R that we want a set of published tools that are appropriate for working with geospatial data and public data sources, and also some custom-written scripts specifically for this workshop.</p>
+
+<ol>
+  <li>Right-click to open  the code for the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R">package_load_and_test.R script</a> in a new web browser window. This file will tell R which published tools should be loaded into its memory and make sure they’re all working.</li>
+  <li>Create a new R script file for yourself in R Studio by clicking on <strong>File -&gt; New File -&gt; R Script</strong>.</li>
+  <li>Copy and paste the test script from the browser window into your new script file.</li>
+  <li>Save the file as <strong>package_load_and_test.R</strong> in your working directory so that you’ll be able to use it again.</li>
+  <li>Run each line by selecting it and clicking the <strong>Run</strong> key. Each test should let you know whether an error was encountered in the loading process.</li>
+</ol>
+
+<p><img src="../fig/wininstall6-rstudiolibraryload.png" width="70%" /></p>
+
+<p>After you’ve finished with the library loading part of the script, the testing part of the script should make sure each library component is working.</p>
+
+<p>Just as above, select what you want to run and click the Run button. (Tip: Select everything between pairs of green # lines to run one test at a time and see its output.)</p>
+
+<p><img src="../fig/wininstall7-rstudiotmaptest.png" width="70%" /></p>
+
+<h3 id="sourcing-functions-for-this-workshop">Sourcing functions for this workshop</h3>
+
+<p>The library loading process above uses formally published and reviewed software packages that are available to everyone in the world. However, we’ve also written some custom functions to make this workshop easier, and you can add them to your R environment in a similar method.</p>
+
+<p>Instead of using the “library” command, though, we’ll use the “source” button instead. (You can also do this with functions you write for yourself, if you wish to make more functions.)</p>
+
+<ol>
+  <li>Open the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R">functions.R script</a> in a new browser window.</li>
+  <li>As above, create a new R script file in R Studio by clicking on <strong>File -&gt; New File -&gt; R Script</strong>.</li>
+  <li>Copy and paste the functions script from the browser window into your new script file.</li>
+  <li>Save it as <strong>functions.R</strong> in your working directory.</li>
+  <li>Click the <strong>Source</strong> button near the top right of your script window to load these functions as well.</li>
+</ol>
+
+<p><img src="../fig/3-Rstudio-source.png" width="70%" /></p>
+
+<p><strong>Tip:</strong> You’ll want to re-run the library loading script and re-source the functions script whenever you restart R Studio, so remember to re-open them tomorrow morning!</p>
+
+<font color="magenta"> Could also do source() here, maybe add if we have time </font>
+
+<h3 id="locating-data-ingredients---loop-back-here">Locating data ingredients - <font color="red">LOOP BACK HERE</font></h3>
+
+<font color="red">This section needs fleshing out once we know whether we’ll have the data done and verified complete in time to feed them onto the USBs or not? Skipping to next section</font>
+
+<h2 id="the-stuff-in-your-kitchen-getting-oriented-with-r-studio">The stuff in your “kitchen”: Getting oriented with R Studio</h2>
+
+<p>So far, we’ve seen some things happen in the four quadrants of R Studio:</p>
+<ul>
+  <li><strong>New R script files</strong> are made in the top left quadrant, and if you have more than one of them open at a time, you’ll see more than one tab with the file names on them.
+    <ul>
+      <li><strong>Tip:</strong> If you want to save the commands you’re working on, this is where you’ll put your work. There’s no real downside to keeping your notes in a script file; you can easily come back to your work later.</li>
+    </ul>
+  </li>
+  <li><strong>The console</strong> is in the lower left quadrant, and that’s where the “action items” happen. When you clicked through the test script elements, text-based responses came up in the console whether or not a graphic was rendered with that test.
+    <ul>
+      <li><strong>Tip:</strong> In R Studio, it’s helpful to get in the habit of typing your work in a script window, selecting your section, and hitting Run instead of typing directly in the console. You can’t easily get back what you typed in the console in a previous session. (Script files are like recipe cards that you save; entries on the console are like scribbling on the back of a napkin.)</li>
+    </ul>
+  </li>
+  <li>Information about your <strong>environment</strong> is in the top right quadrant. This includes libraries that are loaded, variables that have had information put into them, and so forth. Several of the tests caused changes in this area.</li>
+  <li>The lower right quadrant holds several tabs, but the two you’ll use most often are the <strong>Plots</strong> tab and the <strong>Packages</strong> tab.
+    <ul>
+      <li>The map-drawing tests produced images in the Plots tab.</li>
+      <li>When you ran the library-loading lines, checkmarks appeared by those libraries’ names in the Packages tab.</li>
+      <li>(Tip: That’s a handy way to know what your current environment includes. If you’ve just reopened RStudio after a time away, and you’re not sure what RStudio remembers from your last session, look at the Packages tab to see if your libraries are loaded or not. In our case, <strong>dplyr</strong> is an easy one to find near the start of the alphabet; if it’s not checked when you open RStudio, you’ll want to re-run the package_load_and_test.R script.)</li>
+      <li>Check it out: Click from tab to tab to see what’s in each of them.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="lets-crack-some-eggs-getting-started-with-functions-and-variables">Let’s crack some eggs: Getting started with functions and variables</h2>
+
+<p>From our cooking-breakfast example earlier, here are some of the programming terms and analogies for what they mean.</p>
+
+<h3 id="what-is-a-function">What is a function?</h3>
+<p>A <strong>function</strong> is a bit of code that we want to be able to reuse again and again. For example, let’s say you want to make omelets every morning, wouldn’t it be great if you had some sort of machine that would do it for you?</p>
+
+<p>Let’s imagine an omelet-making scenario. You start with some eggs, some cheese, and some other ingredients, use utensils and heat, and end up with something cooked and edible on a plate – or more than one plate, if several people want omelets that morning.</p>
+
+<p>The number of eggs and amount of cheese you use can vary depending on how many you want, so we call the bit of space that stores that information a <strong>variable</strong>.</p>
+
+<p>Sometimes the recipe you received is dependent on other things that you want to leave yourself notes about as well. Just like scribbling on a recipe card, you can leave <strong>comments</strong> in your code by beginning a commented section with a # character.</p>
+
+<p>Here’s what that omelet process might look like in terms a step closer to programming:</p>
+
+<pre>function make_omelet(how_many, todays_cheese, cheese_quantity, other_ingredients) {
+
+# Multiply number of omelets wanted by 2 eggs each
+   eggs &lt;- how_many * 2 
+
+# Multiply cheese per omelet by number of omelets to decide how much cheese is needed
+   total_cheese &lt;- how_many * cheese_quantity 
+
+# Mix ingredients
+   for each bowl
+       crack eggs
+       discard shells
+	add total_cheese
+       if other_ingredients
+           bowl &lt;- bowl + other_ingredients
+       else
+           ready to cook
+
+# When ready to cook
+  pour bowl into hot pan 
+	# if more than 3 eggs, get more hot pans
+  cook
+  serve
+  wash_dishes
+}
+</pre>
+
+<p>In this example, we’re telling the system these things:</p>
+<ul>
+  <li>A function (repeatable sequence of commands) named make_omelet takes several inputs (the ingredients list in parentheses)</li>
+  <li>The part in the curly braces {} tells the function what to do with the inputs (also called arguments or parameters – you can think of this as an ingredients list if it helps)</li>
+</ul>
+
+<p>To use a function we have to <em>call</em> it in a specific way. Let’s try with an R function called <code class="highlighter-rouge">print</code> which will just echo back what we give it as an input parameter:</p>
+
+:ET

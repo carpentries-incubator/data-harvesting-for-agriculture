@@ -77,7 +77,18 @@ In this lesson, we will be making use of another software called “RStudio” a
 We launch RStudio by double clicking on its icon, as we would with other software on our computers. 
 
 > ## Windows Users: Click Here for more details
-> Stuff
+> If you’re running R Studio from a copy made from the USB stick, then the first time you launch R Studio, you’ll be asked where your installation of R is located.
+> 1. Choose the “Choose a specific version of R” item next to the large text box.
+> <img src="../fig/1-Win-Rstudio-firstlaunch.png" width="70%">
+> 2. Use the **Browse** button to navigate to:
+>    * **DataHarvestingWin/ProgramFiles/R/R-3.6.2/bin/**
+>    * and choose **Select Folder**.
+> <img src="../fig/1-Win-Rstudio-folderpick.PNG" width="70%">
+> Next, you’ll be prompted which version you want to use. You could choose either 32 bit or 64 bit; either should work, but 64 bit is likely to be what your computer is capable of.
+> <img src="../fig/1-Win-Rstudio-choosewhich.PNG" width="70%">
+> In the image below, the 64 bit version has been chosen and you can now press OK.
+> <img src="../fig/1-Win-Rstudio-pickedfolder.PNG" width="70%">
+> At this point, R Studio should open next.
 >
 {: .windowsUsers}
 
@@ -92,7 +103,212 @@ We launch RStudio by double clicking on its icon, as we would with other softwar
 
 ![starting R studio](../fig/Rstudio_blank.png)
 
+<!--
 <font color="magenta"> **Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? </font><font color="green">Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
+-->
+
+## Getting your RStudio workspace ready for the workshop
+
+Let’s get our “countertop” ready to “cook breakfast” by: 
+  1. Setting up our working directory
+  1. Loading libraries and sourcing functions in order to make the tools we’ll use available to RStudio
+  1. Locating our data ingredients
+
+### Setting your working directory
+
+Under the **Session** menu, choose **Set Working Directory**, then **Choose Directory**.
+
+<img src="../fig/2-RStudio-setworkingdir1.PNG" width="70%">
+
+In each software collection on the USB drive (both Windows and Mac), we’ve made subdirectories called **WorkingDir** with another subdirectory called **data**. (Even if you’ve installed from scratch rather than copying from the USB drive, the instructions will be easier to follow if you have a folder called **WorkingDir** that contains another one called **data**.)
+
+So if you’re using our file collection after copying it to your local hard drive on Windows, choosing your working directory will look like this:
+
+<img src="../fig/2-RStudio-setworkingdir2.PNG" width="70%">
+(If you’re running from the USB drive, the drive letter there will likely say D instead of C, but the rest will be the same.)
+
+<font color="magenta"> JPN: needs to put in how this looks for Mac </font>
+
+After you click the Open button, you’ll see a new command has been added to your console, which is the text-based way of saying your home directory has been set:
+
+> ## Windows
+> (console)
+>
+> setwd("C:/DataHarvestingWin/WorkingDir")
+>
+{: .callout}
+
+> ## Mac
+> <font color="magenta"> JPN: put in for mac </font>
+{: .callout}
+
+Now we’ve identified where we want to work and can start loading libraries and data.
+
+### Loading libraries
+
+R and RStudio are used in many different fields, including biology, genomics, and geospatial data. If we loaded everything that R was capable of handing at once, though, it would take even more space than it already does! 
+
+So with this set of instructions, we’re telling R that we want a set of published tools that are appropriate for working with geospatial data and public data sources, and also some custom-written scripts specifically for this workshop.
+
+ 1. Right-click to open  the code for the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R">package_load_and_test.R script</a> in a new web browser window. This file will tell R which published tools should be loaded into its memory and make sure they’re all working.
+ 1. Create a new R script file for yourself in R Studio by clicking on **File -> New File -> R Script**.
+ 1. Copy and paste the test script from the browser window into your new script file.
+ 1. Save the file as **package_load_and_test.R** in your working directory so that you’ll be able to use it again. 
+ 1. Run each line by selecting it and clicking the **Run** key. Each test should let you know whether an error was encountered in the loading process.
+
+<img src="../fig/wininstall6-rstudiolibraryload.png" width="70%">
+
+After you’ve finished with the library loading part of the script, the testing part of the script should make sure each library component is working. 
+
+Just as above, select what you want to run and click the Run button. (Tip: Select everything between pairs of green # lines to run one test at a time and see its output.)
+
+<img src="../fig/wininstall7-rstudiotmaptest.png" width="70%">
+
+### Sourcing functions for this workshop
+
+The library loading process above uses formally published and reviewed software packages that are available to everyone in the world. However, we’ve also written some custom functions to make this workshop easier, and you can add them to your R environment in a similar method. 
+
+Instead of using the “library” command, though, we’ll use the “source” button instead. (You can also do this with functions you write for yourself, if you wish to make more functions.)
+
+ 1. Open the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R">functions.R script</a> in a new browser window.
+ 1. As above, create a new R script file in R Studio by clicking on **File -> New File -> R Script**.
+ 1. Copy and paste the functions script from the browser window into your new script file.
+ 1. Save it as **functions.R** in your working directory.
+ 1. Click the **Source** button near the top right of your script window to load these functions as well.
+
+<img src="../fig/3-Rstudio-source.png" width="70%">
+
+**Tip:** You’ll want to re-run the library loading script and re-source the functions script whenever you restart R Studio, so remember to re-open them tomorrow morning!
+
+<font color="magenta"> Could also do source() here, maybe add if we have time </font>
+
+### Locating data ingredients - <font color="red">LOOP BACK HERE</font>
+
+<font color="red">This section needs fleshing out once we know whether we’ll have the data done and verified complete in time to feed them onto the USBs or not? Skipping to next section</font>
+
+## The stuff in your “kitchen”: Getting oriented with R Studio
+
+So far, we’ve seen some things happen in the four quadrants of R Studio:
+ * **New R script files** are made in the top left quadrant, and if you have more than one of them open at a time, you’ll see more than one tab with the file names on them.
+   * **Tip:** If you want to save the commands you’re working on, this is where you’ll put your work. There’s no real downside to keeping your notes in a script file; you can easily come back to your work later.
+ * **The console** is in the lower left quadrant, and that’s where the “action items” happen. When you clicked through the test script elements, text-based responses came up in the console whether or not a graphic was rendered with that test.
+   * **Tip:** In R Studio, it’s helpful to get in the habit of typing your work in a script window, selecting your section, and hitting Run instead of typing directly in the console. You can’t easily get back what you typed in the console in a previous session. (Script files are like recipe cards that you save; entries on the console are like scribbling on the back of a napkin.)
+ * Information about your **environment** is in the top right quadrant. This includes libraries that are loaded, variables that have had information put into them, and so forth. Several of the tests caused changes in this area.
+ * The lower right quadrant holds several tabs, but the two you’ll use most often are the **Plots** tab and the **Packages** tab. 
+    * The map-drawing tests produced images in the Plots tab.
+    * When you ran the library-loading lines, checkmarks appeared by those libraries’ names in the Packages tab. 
+    * (Tip: That’s a handy way to know what your current environment includes. If you’ve just reopened RStudio after a time away, and you’re not sure what RStudio remembers from your last session, look at the Packages tab to see if your libraries are loaded or not. In our case, **dplyr** is an easy one to find near the start of the alphabet; if it’s not checked when you open RStudio, you’ll want to re-run the package_load_and_test.R script.)
+    * Check it out: Click from tab to tab to see what’s in each of them.
+
+
+## Let’s crack some eggs: Getting started with functions and variables
+
+From our cooking-breakfast example earlier, here are some of the programming terms and analogies for what they mean.
+
+### What is a function?
+A **function** is a bit of code that we want to be able to reuse again and again. For example, let’s say you want to make omelets every morning, wouldn’t it be great if you had some sort of machine that would do it for you?
+
+Let’s imagine an omelet-making scenario. You start with some eggs, some cheese, and some other ingredients, use utensils and heat, and end up with something cooked and edible on a plate -- or more than one plate, if several people want omelets that morning.
+
+The number of eggs and amount of cheese you use can vary depending on how many you want, so we call the bit of space that stores that information a **variable**.
+
+Sometimes the recipe you received is dependent on other things that you want to leave yourself notes about as well. Just like scribbling on a recipe card, you can leave **comments** in your code by beginning a commented section with a # character.
+
+Here’s what that omelet process might look like in terms a step closer to programming:
+
+<pre>function make_omelet(how_many, todays_cheese, cheese_quantity, other_ingredients) {
+
+# Multiply number of omelets wanted by 2 eggs each
+   eggs <- how_many * 2 
+
+# Multiply cheese per omelet by number of omelets to decide how much cheese is needed
+   total_cheese <- how_many * cheese_quantity 
+
+# Mix ingredients
+   for each bowl
+       crack eggs
+       discard shells
+	add total_cheese
+       if other_ingredients
+           bowl <- bowl + other_ingredients
+       else
+           ready to cook
+
+# When ready to cook
+  pour bowl into hot pan 
+	# if more than 3 eggs, get more hot pans
+  cook
+  serve
+  wash_dishes
+}
+</pre>
+
+In this example, we’re telling the system these things:
+  * A function (repeatable sequence of commands) named make_omelet takes several inputs (the ingredients list in parentheses)
+  * The part in the curly braces {} tells the function what to do with the inputs (also called arguments or parameters – you can think of this as an ingredients list if it helps)
+
+To use a function we have to *call* it in a specific way. Let’s try with an R function called `print` which will just echo back what we give it as an input parameter:
+
+
+~~~
+todays_cheese <- "Stilton" # assign the value of Stilton to a variable called "todays_cheese" -- we don’t want to use apostrophes in variable names, so today’s_cheese wouldn’t work.
+
+print(todays_cheese) # print out the value of the variable to the screen
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Stilton"
+~~~
+{: .output}
+
+From now on, whenever we use `todays_cheese`, R will substitute the value we assigned to it. In layman’s terms, **a variable is a placeholder name for something that can be changed regularly**.
+
+In R, variable names:
+  * can include letters, digits, and underscores
+  * cannot start with a digit
+  * are case sensitive. <font color="magenta">There is no glossary link here</font>
+  
+This means that, for example:
+  * `cheese1` is a valid variable name, whereas `1cheese` is not
+  * `eggs` and `Eggs` are different variables
+
+> ## Variable Naming Conventions
+> Historically, R programmers have used a variety of conventions for naming variables. The `.` character in R can be a valid part of a variable name; thus the above assignment could have easily been `todays.cheese <- "Stilton"`.
+>
+> This is often confusing to R newcomers who have programmed in languages where `.` has a more significant meaning, or to people who are used to file names like `resume.doc` where the component after `.` identifies the type of a file. 
+>
+> Today, most R programmers prefer these standards:
+>   * Start variable names with lower case letters
+>   * Separate words in variable names with underscores
+>   * Use only lowercase letters, underscores, and numbers in variable names. (The book R Packages includes a chapter on this and other style considerations.)
+>
+{: .callout}
+ 
+
+## Variables and data types
+
+Something that it’s important to keep track of is what type of data you’ve stored in a particular variable. Words are treated differently than numbers, and numbers with decimals are treated differently than numbers without decimals. So, for example:
+
+  * `cheese_variety` could be "Stilton" or "cheddar", but you probably don’t want a number here. This variable type is called a text string.
+
+
+cheese_amount could be “a quarter cup”, but numbers are much easier to calculate with than words, so we might represent that as “0.25”. This variable type is called a floating point number.
+
+
+eggs could possibly be 2.5, but it’s much easier to use either 2 whole eggs or 3 whole eggs. When you want to make sure you’re working with whole units, this variable type is called an integer.
+
+
+Tip: The first time you use a number-type variable, if you want it to always be an integer, don’t include a decimal point when you assign it (eggs <- 2). On the other hand, if you do want to have the ability to have decimal points in that variable in the future, make sure to include the decimal point even if it’s .0 (cheese_quantity <- 2.0)
+
+
+Another variable type we’ll be introducing in a few minutes is a dataframe, which lets you hold a whole spreadsheet’s worth of information in one variable. This will be very useful for working with things more complicated than omelets, such as agricultural data!
+
+
+
+# OTHER STUFF FROM BEFORE
 
 This has a prompt where commands can be entered.
 
@@ -118,7 +334,7 @@ plot(c(1,2,3), c(4,5,6))
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
 -->
 
 

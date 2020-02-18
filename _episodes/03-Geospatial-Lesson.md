@@ -33,11 +33,6 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 - Different data formats that you are likely to encounter include gpkg, shp
 (cpg, dbf, prj, sbn, sbx), geojson, and tif **Dena: We don't discuss most of these in the lesson - tweak description or add overview?**
 
-<!-- Setup -->
-
-
-
-
 ### Introducing Spatial Data with SSURGO data
 
 **Dena: This would be a good point for an "We're starting with a bunch of miscellanous files and by the end of this lesson here's
@@ -341,7 +336,7 @@ plot(boundary$geom)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="612" style="display: block; margin: auto;" />
 
 We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide the function `map_poly()` in the functions.R script for making a simple map with polygon features colored based on a given variable. The function requires a spatial object and a variable name in ''.
 
@@ -351,7 +346,7 @@ map_poly(boundary, 'Type', 'Part of Field')
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
 
 **Dena: Is this their first detailed picture? Maybe pause to discuss what types of boundaries they might find useful and
 the theory of how to do them?**
