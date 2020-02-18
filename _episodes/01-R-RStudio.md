@@ -29,11 +29,6 @@ objectives:
  * vigenettes - what is it, where can you find it in R studio interface & online
  * how to use "help" *and* how to google for help
  * "::" <- what does this mean, multiple packages with the same name
- * how to set working directory, get working directory, how to point and click => session => working directory
-    * throw this on top of all your scripts
- * windows vs. mac directories => mention this, but with the point and click this should not be an issue
- * <font color="magenta">ADD: stuff about '/workdir/' which is where '/data' will live</font>
- * <font color="magenta">Add in all set workdirectory and the, and sourcing the functions file, everytime</font>
 
 
 <font color="magenta"> Do we need to link the terms to a glossary?</font>
@@ -328,431 +323,7 @@ This table has been reformatted into a CSV file for ease of import into R. You c
 
 
 
-
-
-
-
-
-<!--
-# OTHER STUFF FROM BEFORE
-
-This has a prompt where commands can be entered.
-
-
-~~~
-5 + 7
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 12
-~~~
-{: .output}
-
-<!-- JPN: here is a test plot you can uncomment if you wanna try it
-I'm gonna trya thing
-
-
-~~~
-plot(c(1,2,3), c(4,5,6))
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
--->
-
-
-<!-- JPN: this is just a test to see if I get what is going on here
-
-~~~
-data = read.csv('data/fertilizer_use.csv')
-print(head(data))
-~~~
-{: .language-r}
-
-
-
-~~~
-  Year Crop Nitrogen Phosphate Potash
-1 1964 Corn     1623      1053    829
-2 1965 Corn     2151      1336   1204
-3 1966 Corn     2596      1626   1513
-4 1967 Corn     3044      1857   1750
-5 1968 Corn     3116      1855   1778
-6 1969 Corn     3287      1789   1765
-~~~
-{: .output}
--->
-
-After you hit enter, you will see the result of the command.  Let's try a few others:
-
-
-~~~
-# Performing arithmetic
-6 + 2
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 8
-~~~
-{: .output}
-
-Whoa!  What did I do just there with this `#`?  This is called "leaving a comment in your code" and everything following the `#`
-symbol is called a *comment*. A
-comment is a line, or part of a line, that is ignored by R.  This means you can
-use comments to explain what is happening in the code or why you did something
-a certain way.  Comments start with the `#` character, and can take up the
-whole line or just the end of a line.  As we go through this workshop, I
-encourage you to put lots of comments in your code. Think of them as a way to
-take notes!  Here is an example of a comment at the end of a line while we are doing some arithematic:
-
-
-~~~
-2 ^ 3 # this raises two to the third power
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 8
-~~~
-{: .output}
-
-
-
-## Variables in R
-
-### <font color="magenta">Outline of this Section</font>
-
- 1. <font color="magenta">what is a variable? Vocab: *variable*</font>
- 1. <font color="magenta">how do we assign a variable? Vocab: *assign*</font>
- 1. <font color="magenta">What can we do with this variable? -> Generic manipulations (addition, multiplication, etc)</font>
-     * <font color="magenta">for this, use a "real world" thing that farmers might be into... something something nitrogen levels?</font>
- 1. <font color="magenta">Talk about how this variable now shows up in the data area and have a screen shot of where that is</font>
-
-
-<font color="magenta">I stole this bit from the Python Fundementals Episode, not sure if that is groovy or not.  I *think* its ok if we follow the rules of their license but we should double check. I also stole a few things from the R-fundementals workshop and so we need to credit them as well.</font>
-
-<font color="magenta">Also I've left in the links to glossary references that may or may not be there - for example if you click on the "assign" link, it goes nowhere right now.</font>
-
-<font color="magenta">Also, we should change this whole `weight_kg` thing into something that is more agri-centric?  I think?</font>
-
-This is great but not very interesting.
-To do anything useful with data, we need to assign its value to a _variable_.
-In R, we can [assign]({{ page.root }}/reference/#assign) a value to a
-[variable]({{ page.root }}/reference/#variable), by typing a little left arrow sign `<-`.
-For example, to assign value `60` to a variable `weight_kg`, we would execute:
-
-
-~~~
-weight_kg <- 60
-~~~
-{: .language-r}
-
-From now on, whenever we use `weight_kg`, R will substitute the value we assigned to
-it. In layman's terms, **a variable is a placeholder name for something that can be updated regularly**. (In calendar terms, "today" is a variable name that represents a date that changes every 24 hours. Being able to refer to something as "today" is a lot simpler than updating that number every day at midnight.)
-
-In R, variable names:
-
- - can include letters, digits, and underscores
- - cannot start with a digit
- - are [case sensitive]({{ page.root }}/reference/#case-sensitive).
-
-This means that, for example:
- - `weight0` is a valid variable name, whereas `0weight` is not
- - `weight` and `Weight` are different variables
-
-<font color="magenta">Also from the R-programming workshop, possibly said another way:</font>
-
-> ## Variable Naming Conventions
->
-> Historically, R programmers have used a variety of conventions for naming variables. The `.` character
-> in R can be a valid part of a variable name; thus the above assignment could have easily been `weight.kg <- 57.5`.
-> This is often confusing to R newcomers who have programmed in languages where `.` has a more significant meaning **, or to people 
-who are used to file names like resume.doc where the component after . identifies the type of a file. --Dena**.
-> Today, most R programmers 1) start variable names with lower case letters, 2) separate words in variable names with
-> underscores, and 3) use only lowercase letters, underscores, and numbers in variable names. The book *R Packages* includes
-> a [chapter](http://r-pkgs.had.co.nz/style.html) on this and other style considerations.
-{: .callout}
-
-### Types of data
-
-<font color="magenta">Do we need to get into datatypes here?  Or can we just skip it and get into it when we look at an actual dataset that has columns of different datatypes?</font><font color="green">DENA: Introduce each concept right when we need to know it and right when we're going to use it. That way it's directly relevant to what's in front of them next.)</font>
-
-R knows various types of data. The ones you are likely to come across are:
-
-* integer numbers (whole numbers)
-* floating point numbers (numbers with decimals), and
-* names or words that sort data into "categories" <font color="magenta">(maybe something better here?)  Save types of data until we get into the columns stuff?</font>**Dena: This isn't a helpful example to me; I honestly don't know what data type this is trying to describe.**
-
-In the example above, variable `weight_kg` has an integer value of `60`.
-To create a variable with a floating point value, we can execute:
-
-
-~~~
-weight_kg <- 60.0
-~~~
-{: .language-r}
-
-<font color="magenta">Here I don't know if we should get into the print function right now like they do in the Python lesson or not</font>
-
-<font color="magenta">I also don't know if we want to use "<-" all the time or the "=" sign.  I *feel* like "=" is more intiuative but I'm not 100% sure on that one, could be my Python bias showing :)</font> **Dena: "<-" saves all kinds of confusion about "=" vs "==" and so forth, and it's something that won't lead to confusion about whether it's the mathematical use case or not? I've never seen it before since I'm not an R person, but I like it.**
-
-We can do arithematic with variables like we did with numbers before:
-
-
-~~~
-# Performing arithmetic with our variable: multiply it by a factor of 2.2
-weight_kg * 2.2
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 132
-~~~
-{: .output}
-<!-- weight in lbs = 2.2 x weight in kg -->
-
-
-The above command, however, did not change the value of `weight_kg`:
-
-
-~~~
-weight_kg
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 60
-~~~
-{: .output}
-
-To change the value of the `weight_kg` variable, we have to
-**assign** `weight_kg` a new value using the equals `<-` sign:
-
-
-~~~
-weight_kg <- 60.0 * 2.2
-weight_kg
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 132
-~~~
-{: .output}
-
-
-> ## Variables as Sticky Notes
->
-> A variable is analogous to a sticky note with a name written on it:
-> assigning a value to a variable is like putting that sticky note on a particular value.
->
-> ![Variables as Sticky Notes](../fig/python-sticky-note-variables-01.svg)
->
-> This means that assigning a value to one variable does **not** change
-> values of other variables.
-> For example, let's store the subject's weight in pounds in its own variable:
->
-> 
-> ~~~
-> # There are 2.2 pounds per kilogram
-> weight_lb <- 2.2 * weight_kg
-> weight_kg
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] 132
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> weight_lb
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] 290.4
-> ~~~
-> {: .output}
->
->
-> ![Creating Another Variable](../fig/python-sticky-note-variables-02.svg)
->
-> Let's now change `weight_kg`:
->
-> 
-> ~~~
-> weight_kg <- 100.0
-> weight_kg
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] 100
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> weight_lb
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] 290.4
-> ~~~
-> {: .output}
-> We can see that even though we updated `weight_kg`, the variable `weight_lb` was not changed.
->
-> ![Updating a Variable](../fig/python-sticky-note-variables-03.svg)
->
-> Since `weight_lb` doesn't "remember" where its value comes from,
-> it is not updated when we change `weight_kg`.
-{: .callout}
-
-
-<font color="magenta">Note: there is another way of explaining this in the R lesson:</font> [http://swcarpentry.github.io/r-novice-inflammation/01-starting-with-data/index.html](http://swcarpentry.github.io/r-novice-inflammation/01-starting-with-data/index.html)
-
-<font color="magenta">Do we want to have this example for them too or just get right into scripts and whatnot?</font>
-
-> ## Assigning Values to Variables
->
-> Draw diagrams showing what variables refer to what values after each statement in the following program:
->
-> ~~~
-> mass <- 47.5
-> age <- 122
-> mass <- mass * 2.0
-> age <- age - 20
-> ~~~
-> {: .language-r}
->
-> > ## Solution
-> >
-> > ~~~
-> > mass <- 47.5
-> > age <- 122
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/mass-age-assign-1.svg" alt="Assigning Variables" />
-> >
-> > ~~~
-> > mass <- mass * 2.0
-> > age <- age - 20
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/mass-age-assign-2.svg" alt="Assigning Variables" />
-> > 
-> {: .solution}
-{: .challenge}
-
-
-## Writing and Saving R Scripts 
-
-<font color="magenta"> NOTE: I'm wondering if we want to push this section to later -- i.e. if we want to just go right to "getting your data into R" and do some examples just using the console and then start worrying about saving files later in the day once they have some cool plots that they made with R that they might want to reproduce.</font> <font color="green">DENA: Yes, move it later -- we're after early gratification with minimal fear and dread.) ETA after a second read: It makes a reasonable amount of sense here, but the outline I'm less sure of what we're doing with it?</font>
-
-
-### <font color="magenta">Outline of this section</font>
- 1. <font color="magenta">Analogy - scripting is like writing a set of instructions, a letter, something. Vocab: *scripts/scripting* </font>
- 1. <font color="magenta">Where do we write scripts in RStudio - screen shot of window, a screen shot of what to do if there is only the console and no script - how do you open a script interface </font>
- 1. <font color="magenta">Redo stuff with variable in script (nitrogen levels calculation), but call it something different</font>
- 1. <font color="magenta">How to run a script - Run vs. Source -> they are in the same place!  Screenshot of this. Vocab: *running a script*</font>
- 1. <font color="magenta">Point out that it shows up in the data-listing place</font>
- 1. ~~<font color="magenta">How do we find out the value of our new variable that we wrote in a script?</font>~~
-    1. ~~<font color="magenta">Using the console like before - because in RStudio the console and scripting interface are linked! (this is not true in other things like PyCharm... this is slightly an aside though so use an aside thing)</font>~~
-    1. ~~<font color="magenta">Using a print statement - emphasize that you *have* to use print in the script to see the variable!</font>~~
- 1. <font color="magenta">How to save our script -> where does it save to?</font>
- 1. <font color="magenta">Closing and re-opening a script to re-run.</font>
-
-
-Now that we have some idea of what kinds of calculations we want to do in R, we might want to know how to save our work.  We do this in something called a _script_ which is essentially a list of instructions that will tell R what to do, in the order we give them.
-
-We can open up a _script file_ where we will type in all our instructions by going to the little green plus at the top left of RStudio and selecting "R Script" from the dropdown menu <font color="magenta">(this was for a Mac, not sure if its different for windows)</font>:
-
-<img src="../fig/opening_script_in_Rstudio.png" alt="Opening a script in Rstudio">
-
-In our new scripting window, we can type the commands that we had worked through before into this script and then tell R to do the calculation by putting our cursor on the last line (end of line 3) and pressing the "Run" button in the upper right corner of the scripting window:
-
-<img src="../fig/output_script_save-02.png" alt="Run a script">
-
-<font color="magenta">Do we want to teach them about Source vs. Run at this point? </font>
-
-You can see that these variable names have now popped up in the _Global Environment_ window at the upper left -- this is a way we can keep track of our variables as we run our scripts.
-
-Finally, we want to be able to save all of our hard work!  We can do this like we would save any file on our computer, but make sure you put it in a place were you'll remember on your computer. <font color="magenta">(do we need screen shots?  I assume everybody knows how to save a file and how to choose where to save it but maybe this isn't 100% correct?)</font>
-
-You'll note now that the little upper tab on the left of the scripting window has the file name I chose, but with the extension `.R`.  This is the extension of an R-script and it means that its in a format that R can execute.
-
-<img src="../fig/output_script_save-03.png" alt="save a script">
-
-If you close this file and want to re-open it, you can use `File -> Open File...` to open it up in R. <font color="magenta">(This could be different on a Windows, also not sure how much detail we want here and if we want a screen shot or not)</font>
-
--->
-
-
-<!--## OPTIONAL: What is a function?
-
-<font color="magenta">Not 100% sure we want to go into this much detail, but we could do a thing here where we put everything we just did with our variable into a function.  I think this might be too much at this point, and maybe if we get them into writing their own functions we can circle back around to this. </font> **Dena: Yeah, right here is not where I'd do functions -- either earlier or in the next file, but saving the file is generally the "end" of a sequence, you do a thing and then you save it and then you're done?**
-
--->
-
-## Getting your data into R
-
-### <font color="magenta">Outline of this Section</font>
- 1. <font color="magenta">Let's talk about the dataset we are going to use here -- facts about this dataset</font>
- 1. <font color="magenta">This is what this dataset looks like (show snapshot of csv)</font>
- 1. <font color="magenta">To get this data into R where we can do math to it like we did with our variable above we have to do something called "reading in our data".  To do this, we'll use something called a *function* to assign a variable the value of this table -- i.e. we want a variable that will store all the rows and columns of our dataset</font>
-     * <font color="magenta">Talk a bit about what a function is here -- omelets? Vocab: *function*</font>
-     * <font color="magenta">we also have to talk about the fact that we give the file name as a parameter to this function. Vocab: *function parameter*</font>
-
-As an example of a dataset in spreadsheet form that we can use to demonstrate
-the R language, we are using the [USDA - Economic Research Service's fertilizer
-use and price dataset](https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx).
-Of the various tables of data on this website, will be looking at Table 2 called "Estimated U.S. plant nutrient use by selected crops"
-which shows 1,000 nutrient short tons of nitrogen,
-phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the
-US from 1964-2016.
-
-This table has been reformatted into a CSV file for ease of import into
-R.  You can download the CSV from: <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv" download>https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv</a>. <font color="magenta">NOTE: I had to *explicitly* save this as a .csv file, it default downloaded as a txt file.  And I had to right-click on the link to save it at all, eventhough I had the download tag in the HTML.  Not sure how to fix this at the moment.</font> **Dena: That's most likely a mime type problem on the web server end?**
-
-**Dena: Problem with reading this in -- how do you ask R what directory it's currently considering you to be "in" for relative path types of things? I knew data/filename.csv wasn't going to work for me because that's not a path I've got set up in the demo folder,
-but I can't figure out how to ask R where its "current directory" equivalent is in order to figure out how to either change directories
-or make ./ or ../ paths work to navigate to where the file is living.**
-
-**Dena: Sequence needed here:
-1) Where is your working directory actually now? (Mine was C:\Users\Dena\Documents, which is totally disconnected from where our stuff will be.)
-2) Change it to C:\ or D:\ DataHarvesting(YourOS)\SampleData (I think)
-2b) In the process if you're on Windows all those \ marks need to become / marks - Brittani says there's a point and click option
-3) Download the file.csv into the SampleData folder unless we've already put it there for them
-4) Then read in the file**
+## Getting your data into RStudio
 
 The top few lines of this file look like:
 
@@ -766,64 +337,12 @@ Year,Crop,Nitrogen,Phosphate,Potash
 ~~~
 {: .output}
 
-It can be opened in Excel if you want to get a quick look at it that way, or we can
-dive straight into looking at it in R.  Save it into your `data` folder in
-your RStudio project for this lesson.
+It can be opened in Excel if you want to get a quick look at it that way, or we can dive straight into looking at it in R. Save it into your `data` folder in your RStudio project for this lesson.
 
-<font color="magenta"> **NOTE: this assumes they have already created the `data` folder -> I assume this will be somewhere in the setup directions?? </font><font color="green">DENA: It should be both in the setup directions and on the USB key.)</font>
+Next, we’ll use the function called `read.csv` to import data from a CSV (comma-separated value) file. (In this case the .csv is part of the name of the function, not the name of a separate file. Sorry about that -- we didn’t name it!)
 
-In R, we can use a *function* called `read.csv` to import data from a CSV
-(comma-separated value) file.
+To do this, put this line in your script area (upper left hand quadrant) and click Run.
 
-> ### What is a function?
->
-> A function is a bit of code that we want to be able to reuse again and again.  For example, let's say you want to make yourself an omelet every morning, wouldn't it be great if you had some sort of machine that would do it for you?
-> 
-> Let's imagine an omelet-making scenario. You start with some eggs, some cheese, and some other ingredients, use utensils and heat, and end up with something cooked and edible on a plate.
->
-> Here's what that process might look like in terms a step closer to programming:
-><pre><code>
-> function make_omelet(eggs, cheese, chives) {
->    for each bowl
->        crack eggs
->        discard shells
->        if the ingredients list is longer than eggs
->            add other ingredients to bowl as well
->        else
->            ready to cook
->   pour bowl into hot pan
->   cook
->   serve
->   done
-> }
->
-></code></pre>
->
->In this example, we're telling the system these things:
-> * A function (repeatable sequence of commands) named `make_omelet` takes several inputs (the ingredients list in parentheses)
-> * The part in the curly braces `{}` tells the function what to do with the inputs (also called arguments or parameters -- you can think of this as an ingredients list if it helps)
->
->
-> To use a function we have to _call_ it in a specific way.  Let's try with an R function called `print` which will just echo back what we give it as an _input parameter_:
-> 
-> ~~~
-> weight_kg <- 100.0 # assign the value of 100.0 to a variable called "weight_kg"
-> print(weight_kg) # print out the value of the variable to the screen
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] 100
-> ~~~
-> {: .output}
-> In this example, we _called_ the function by using the function name, `print` followed by parenthisis in which we put our _input parameter_ in this case the variable `weight_kg`, the value of which we wanted to print to the screen.
-> This was a bit of a silly example since we've been able to show the value of variables without this function before, but it is a nice example of a function being used. <font color="magenta">(wording has got to be better here)</font> **Dena: maybe move the whole stack up to where we're introducing variables?**
->
-{: .callout}
-
-Let's use a function called `read.csv`<font color="purple">(BRITTANI: The way this is written now, we have already seen read.csv. We need to decide where we want to put the function omlet example in relation to reading the csv.)</font>. that will import our table of data into R so we can use it:
 
 
 ~~~
@@ -831,23 +350,12 @@ fert_use <- read.csv("data/fertilizer_use.csv")
 ~~~
 {: .language-r}
 
-Note here that the name of the function is `read.csv`, the _input parameter_ is the name of the file we want to read in, including the `data` folder we created earlier.  The `/` after `data` just indicates to R that it should look inside this folder for the file named `fertilizer_use.csv`.  <font color="magenta">(Again here, I'm assuming we already went over how to make the data folder, how to save stuff inside the data folder, and whatnot)</font>.  We _assigned_ the value of this table -- all of its row and column data -- into a variable called `fert_use`.
+Note here that the name of the function is `read.csv`, the *input parameter* is the name of the file we want to read in, including the data folder we created earlier. The `/` after `data` just indicates to R that it should look inside this folder for the file named `fertilizer_use.csv`.
 
-Just like with our `weight_kg` and `weight_lb` variables before, it now shows up in the _Global Environment_ window at the upper left of RStudio.
+We assigned the value of this table – all of its row and column data – into a variable called `fert_use`. It now shows up in the *Global Environment* window at the upper left of RStudio.
 
 
 ## Explore your data in R 
-
-#### <font color="magenta">Outline for this section</font>
- 1. <font color="magenta">Explore your data with the "head" function </font>
-      *  <font color="magenta">Your data is stored as a special thing called a dataframe - explain what this is. Vocab: *dataframe*</font>
- 1. <font color="magenta">Using the str function</font>
- 1. <font color="magenta">NOT IN HERE YET: Also show how to look at your data in R (like "View(data)")? Maybe?  Or you can click on it?</font>
- 1. <font color="magenta">We can access the columns of your tabular dataset with a $ thing</font>
- 1. <font color="magenta">We can access the rows of your tabular dataset with ... (not sure we wanna do this)</font>
-
-
-<font color="magenta">I am starting of with the "head" function because I think its more intuative than the "str" function and allows for a more gentle walk through of what a dataframe is, but I think this can definitely be open for debate and might just be my own biases of the order in which I learned things!</font>
 
 Now that you have your data imported into R, it would be nice to take a look at it!  One quick way to do this is using the `head` function like so:
 
@@ -891,13 +399,22 @@ head(fert_use, n=4)
 ~~~
 {: .output}
 
-Note that we can call the `head` function without this parameter and it will run just fine with some default value.  If we want to specify the number of rows, we include this as `parameter name = parameter value`.  In this case, our `parameter name` for the `head` function is `n` and the `parameter value` is `4`.  Different functions will have different parameter names and we can find out more information about these parameters by appending a `?` to the front of our function call which will print out a bit of info about these optional parameters:
+Note that we can call the `head` function without this parameter and it will run just fine with some default value.  If we want to specify the number of rows, we include this as `parameter name = parameter value`.  In this case, our `parameter name` for the `head` function is `n` and the `parameter value` is `4`.
+
+> ## Getting help: How do you know what parameters a function wants?
+>
+> Different functions will have different parameter names. For most professionally published software, you can get more information by appending a ? to the front of our function call:
+>
+> 
+> ~~~
+> ?head
+> ~~~
+> {: .language-r}
+> <font color="magenta">JPN: put in a link to how to google for functions</font>
+>
+{: .callout}
 
 
-~~~
-?head
-~~~
-{: .language-r}
 
 <!-- JPN: this looks not great
 > ### Finding Help for a Function
