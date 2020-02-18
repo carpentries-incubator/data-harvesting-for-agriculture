@@ -205,18 +205,13 @@ We set the buffer inside the trial plots to be 4 meters to the edges, and any
 yield observations that are within a 4-meter distance to the edge of the plots
 are considered on the border.
 
-```{r}
-buffer <- st_buffer(trialutm, -4) # plots are 24 m wide and 2 yield passes
-```
-
 Next, we determine which yield observations are inside the buffer as using the
 `st_over` function, and mark those observations as "out". Finally, we
 remove the yield observations that are not in the buffer zone.
 
 ```{r observations on border}
-ov <- st_over(yield_utm, st_geometry(buffer))
-yield$out <- is.na(ov) # demarcate the yield values removed
-yield_clean <- subset(yield, out == FALSE)
+yield_clean <- clean_buffer(trialutm, 15, yield_utm)
+map_points(yield_clean, "Yld_Vol_Dr", "Yield")
 ```
 
 Here again, we check the distribution of cleaned yield.
@@ -267,7 +262,7 @@ been converted to UTM?**
 Finally, we save cleaned file into a geopackage.
 
 ```{r save yield}
-st_write(yield_clean, "yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(yield_clean, "data/yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
 ### Discussion
