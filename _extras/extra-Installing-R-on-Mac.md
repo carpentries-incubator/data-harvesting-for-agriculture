@@ -129,7 +129,7 @@ contents of [this installation script file](https://github.com/data-carpentry-fo
 
 Here's where to make a new script:
 
-<img src="../fig/mac_open_new_script.png">
+<img src="../fig/mac_open_new_script.png" width="50%">
 
 * Run each line in this script by selecting it and clicking Run. 
 * Watch for any error messages along the way.
@@ -139,7 +139,7 @@ Here's where to make a new script:
 that were already taken care of on the USB sticks. If you can wait for the USB sticks, you'll have
 a faster way to get up and running.)
 
-<img src="../fig/wininstall5-rstudioinstallscript2.png">
+<img src="../fig/wininstall5-rstudioinstallscript2.png" width="50%">
 
 
 ### Checking that the packages installed correctly
@@ -148,11 +148,11 @@ a faster way to get up and running.)
 contents of [the package load and test file](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R). 
 * Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
 
-<img src="../fig/wininstall6-rstudiolibraryload.png">
+<img src="../fig/wininstall6-rstudiolibraryload.png" width="50%">
 
 An example of one of the tests' output:
 
-<img src="../fig/wininstall7-rstudiotmaptest.png">
+<img src="../fig/wininstall7-rstudiotmaptest.png" width="75%">
 
 
 
@@ -165,11 +165,11 @@ Note: This is a ~1Gb file, so it's likely to take some time to download.
 
 You should see a new icon in your Applications folder:
 
-<img src="../fig/qgis_macInstall_applications.png">
+<img src="../fig/qgis_macInstall_applications.png" width="50%">
 
 When you double click QGIS should open up:
 
-<img src="../fig/qgis_macInstall_opened.png">
+<img src="../fig/qgis_macInstall_opened.png" width="75%">
 
 
 
