@@ -562,8 +562,8 @@ download_ssurgo <- function(name_of_field, boundary_sp_in, redo=FALSE){
 clean_buffer <- function(buffer_object, buffer_ft, data){
   buffer_m <- conv_unit(buffer_ft, "ft", "m")
   buffer <- st_buffer(buffer_object, -buffer_m) # plots are 24 m wide and 2 yield passes
-  ov <- st_over(yield_utm, st_geometry(buffer))
-  yield$out <- is.na(ov) # demarcate the yield values removed
-  yield_clean <- subset(yield, out == FALSE)
+  ov <- st_over(data, st_geometry(buffer))
+  data$out <- is.na(ov) # demarcate the yield values removed
+  clean <- subset(data, out == FALSE)
   return(yield_clean)
 }
