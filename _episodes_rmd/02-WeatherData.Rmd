@@ -239,6 +239,7 @@ source("functions.R")
 > {: .solution}
 {: .challenge}
 
+**Dena: This one could use some human translation?**
 > # Take the average of monthly rainfall
 >
 > ```{r}
@@ -250,7 +251,7 @@ source("functions.R")
 > 
 > We now have two separate dataframes `by_month_2018` and `by_month`
 > with the rainfall for each
-> month. We can use the common variable `month` to merge them into
+> month. **Dena: I missed where those came from? I'm not spotting code that creates those?** We can use the common variable `month` to merge them into
 > one dataframe with the average
 > monthly rainfall and the 2018 monthly rainfall using the `merge()`
 > function.
