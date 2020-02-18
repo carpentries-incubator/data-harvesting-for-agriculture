@@ -8,6 +8,8 @@ layout: base
   {% include episode_overview.html %}
   {% endif %}
 {{content}}
+{% if page.include_overview %}
 {% include episode_keypoints.html %}
+{% endif %}
 </article>
 {% include episode_navbar.html episode_navbar_title=false %}
