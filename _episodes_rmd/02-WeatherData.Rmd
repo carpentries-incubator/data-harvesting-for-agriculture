@@ -145,6 +145,8 @@ source("functions.R")
 > ```
 {: .callout}
 
+**Dena: This would be a great point to explain ".." and what it means and what it's doing here, in order to help them understand how to get from the exercise 2 instructions to the exercise 2 commands?**
+
 > ## Exercise 2: Unit Conversions
 >
 > 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()` with the names `tmax` and `tmin`. 
