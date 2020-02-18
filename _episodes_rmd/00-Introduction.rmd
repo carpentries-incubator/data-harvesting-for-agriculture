@@ -45,7 +45,7 @@ Here's what to bring to this workshop:
 The IllinoisNet_Guest network allows University visitors to access the wireless network.
 
 1. Connect to the IllinoisNet_Guest network.
-2. Visit http://illinois.edu and you'll be redirected to the guest network portal.
+2. Visit [http://illinois.edu](http://illinois.edu) and you'll be redirected to the guest network portal.
 3. Don't use the NetID login section; that's for University employees. Instead, click the guest link at the bottom of the page.
 4. Follow the "Click Here for Wi-Fi Access" prompt.
 5. Follow the prompts to provide the information to create a guest account.
