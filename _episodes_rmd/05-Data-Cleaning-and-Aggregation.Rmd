@@ -303,8 +303,11 @@ yield_sp <- as(yield_clean[,"Yld_Vol_Dr"], "Spatial")
 
 ```{r aggregate yield data}
 merge <- sp::over(grid_sp, yield_sp, fn = median)
-subplots_merge <- SpatialPolygonsDataFrame(grid_sp, merge, match.ID = FALSE)
-subplots_data <- st_as_sf(subplots_merge) 
+grid_sp@data <- cbind(merge, grid_sp@data)
+
+subplots_data <- st_as_sf(grid_sp) 
+plot(subplots_data$Yld_Vol_Dr)
+tm_shape(subplots_data) + tm_polygons("Yld_Vol_Dr")
 map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 ```
 
@@ -319,12 +322,12 @@ sub-plot.
 asapplied <- st_read("data/asapplied.gpkg")
 asapplied_utm <- st_transform_utm(asapplied)
 
-ov <- st_over(asapplied_utm, st_geometry(buffer))
-asapplied$out <- is.na(ov) # demarcate the yield values removed
-yield_clean <- subset(yield, out == FALSE)
+conv_unit((24/2)*0.8, 'm', 'ft')
+asapplied_clean <- clean_buffer(trialutm, 30, asapplied_utm)
+map_points(asapplied_utm, "Rate_Appli", "Nitrogen")
 
-merge5 <- sp::over(subplots, asapplied, fn = mean)
-subplots@data <- cbind(merge5,subplots@data)
+merge <- sp::over(grid_sp, as(asapplied_clean, "Spatial"), fn = median)
+subplots_merge@data <- cbind(merge, subplots_merge@data)
 head(subplots@data)
 ```
 
