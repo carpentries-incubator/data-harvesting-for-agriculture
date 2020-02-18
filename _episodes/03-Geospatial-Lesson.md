@@ -33,7 +33,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 - Different data formats that you are likely to encounter include gpkg, shp
 (cpg, dbf, prj, sbn, sbx), geojson, and tif **Dena: We don't discuss most of these in the lesson - tweak description or add overview?**
 
-> ### Introducing Spatial Data with SSURGO data
+> ## Introducing Spatial Data with SSURGO data
 >
 > **Dena: This would be a good point for an "We're starting with a bunch of miscellanous files and by the end of this lesson here's the things you'll be able to do with them" overview? Rough notes below, they just aren't pre-bolded...**
 > 
@@ -48,7 +48,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 > 
 {: .callout}
 
-> #### What is a CRS?
+> ## What is a CRS?
 > 
 > Geospatial data has a coordinate reference system (CRS) that reports how the map is projected and what point is used as a reference. A projection is a way of making the earth's curved surface fit into something you can represent on a flat computer screen. The point used for reference during projection is called a datum.
 >
@@ -61,7 +61,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 > 
 {: .callout}
 
-> #### Reading in the Boundary File
+> ## Reading in the Boundary File
 > 
 > Before we can look at a CRS in R, we need to have a geospatial file in the R environment. We will bring in the field boundary. Use the function `read_sf()` to bring the dataset into your R environment. Because we have already set the working directory for this file, we don't need to give the whole path, just the folder data that the gpkg file is stored within. 
 > 
@@ -75,7 +75,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 > 
 {: .callout}
 
-> #### Check the coordinate reference system
+> ## Check the coordinate reference system
 > 
 > The function for retreiving the CRS of a simple feature is `st_crs().` Generally it is good practice to know the CRS of your files, but before combining files and performing operations on geospatial data, it is particularly important. Some commands will not work if the data is in the wrong CRS or if two dataframes are in different CRSs.
 > 
@@ -98,7 +98,7 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 > 
 {: .callout}
 
-> # Lost .prj files
+> ## Lost .prj files
 > Sometimes when looking at a shapefile, the .prj file can be lost. Then `st_crs()` will return empty, but `sf` objects contain a geometry column. We can see the geometric points for the vertices of each polygon or the points in the data.
 >
 > 
@@ -132,8 +132,8 @@ you perform (e.g. making trial grids and splitting plots into subplot data)
 > MULTIPOLYGON (((-82.87803 40.83981, -82.87805 4...
 > ~~~
 > {: .output}
-
-The trial design is in lat/long using WGS84. 
+> 
+{: .callout}
 
 > ## UTM Zones
 > 
@@ -172,6 +172,8 @@ type to ask them to look at them and identify which is which and describe what t
 >   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 > ~~~
 > {: .output}
+> 
+{: .callout}
 **Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
 
 > **Exercise**
@@ -292,13 +294,13 @@ type to ask them to look at them and identify which is which and describe what t
 > 
 {: .callout} 
 
-> .gpkg vs. .shp files
+> ## .gpkg vs. .shp files
 > You can save the file as a .gpkg or .shp file. The advantage of a .gpkg file is that you only save one file rather than four files in a shapefile. Because shapefiles contain multiple files, they can be corrupted if one piece is missing. One example is a .prj file. In this case, the shapefile will have no CRS, and you will need to determine the CRS of the object. You will often need to transform a file from UTM to lat/long and save the new file during trial design, so this is an important step.
 > One common problem with these files is that when you try to open a .gpkg file for the first time in R, it might not work if you haven't opened it in QGIS before. **Dena: Is this something to mention here, or should it go in the section where we're opening things with QGIS?**
 > 
 {: .callout} 
 
-> #### Visualizing the data
+> ## Visualizing the data
 > 
 > There are several ways to visualize spatial data. First, we can use `plot()` to look at the basic shape of the data. 
 > 
@@ -325,14 +327,14 @@ type to ask them to look at them and identify which is which and describe what t
 **Dena: Is this their first detailed picture? Maybe pause to discuss what types of boundaries they might find useful and
 the theory of how to do them?**
 
-> # SSURGO Soil Data
+> ## SSURGO Soil Data
 > 
 > The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil description of your field on the Web Soil Survey website below. The SSURGO dataset has been developed over a century of surveying land and analyzing soil samples across the United States. While the website is one way to access the soil data, R also has a package called `FedData` that has a function `get_ssurgo()` for accessing the soil data in the R environment. https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 > 
 > 
 {: .callout} 
 
-> # SSURGO Download
+> ## SSURGO Download
 > The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 > 
 > 
@@ -362,7 +364,7 @@ the theory of how to do them?**
 
 <font color="magenta">JPN: just a heads up that it looks like there can be errors in downloads for this data sometimes.  I'm wondering if its on the server-side, like too many requests or something.  Also, I had to delete the "EXTRACTIONS/samplefield" and re-run things which I'm wondering if this is because there are some file paths missing or something? We should test this on other folks computers.  If this is indeed the problem, we might want the code to force-delete these files before running. </font>
 
-> # SSURGO Data
+> ## SSURGO Data
 > 
 > The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` object contains the polygons of soil types for the field, and  `tabular` contains many dataframes with attributes collected for the soil and soil horizons. Note that these dataframes and their relationships with one another ar very complex. To use these data, you must carefully read the SSURGO documentation. Merging the dataframes to have one value of the attributes for each soil polygon requires reducing the dimension of the data, often by weighting the attributesby horizon depth.
 > 
@@ -378,7 +380,7 @@ the theory of how to do them?**
 >
 {: .callout}
 
-> # Exercise 4: 
+> ## Exercise 4: 
 > What are the soil types present on the field as seen in `names`? Are the soil defined by anything other than the soil type?
 > > Exercise 4 Solution
 > > 
@@ -419,7 +421,7 @@ the theory of how to do them?**
 > {: .solution}
 {: .challenge}
 
-> # Merging Dataframes
+> ## Merging Dataframes
 > 
 > We need one dataframe with both the soil name and spatial data. We will merge the soil data and the spatial data by the `musym`. Note that in one of the dataframes the variable is capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.
 > 
