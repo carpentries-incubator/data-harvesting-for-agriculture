@@ -160,6 +160,7 @@ source("functions.R")
 > > min(weather_data$tmin)
 > > ```
 > > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
+> > **DENA: What's displaying from the rendered version of that math for me isn't 94 and -13, it's 97.7 and -16.6 - which is desired?**
 > {: .solution}
 {: .challenge}
 
