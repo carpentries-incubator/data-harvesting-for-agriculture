@@ -332,7 +332,7 @@ write.table(tmp, quote = FALSE, sep = ",", row.names = FALSE, col.names = FALSE)
 rm(tmp)
 ```
 
-It can be opened in Excel if you want to get a quick look at it that way, or we can dive straight into looking at it in R. Save it into your `data` folder in your RStudio project for this lesson.
+It can be opened in Excel if you want to get a quick look at it that way, or we can dive straight into looking at it in R. 
 
 Next, we’ll use the function called `read.csv` to import data from a CSV (comma-separated value) file. (In this case the .csv is part of the name of the function, not the name of a separate file. Sorry about that -- we didn’t name it!)
 
@@ -425,8 +425,6 @@ We'll note we got a bit of extra information when we are looking at the `Crop` c
 
 
 ### Using `str` to get column types
-
-<font color="magenta">I think we should do this after head and discussing different types of data. </font><font color="green">DENA: Can we ditch this entirely? Do we need str if we've given them the head example already? </font><font color="purple">BRITTANI: I would say that we need both str and head. str contains information that head does not, such as the class of the object and variables.)</font>
 
 Like with the function `head`, the `str` function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:
 
