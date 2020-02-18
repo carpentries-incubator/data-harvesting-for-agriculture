@@ -110,7 +110,6 @@ source("functions.R")
 {: .challenge}
 
 > # Dates in Dataframes 
-> **DENA: What's the goal here? What are we going to be doing with the dates once we have them? A sentence or two about that would help with contextualizing it rather than jumping into the fact that R has it without telling us how we'll use it.**
 > There are many operations we might do with dates, such as eliminating the dates outside of the growing season, but there is a class within R for dates. Once a column is of the `date` class, we can perform actions
 > like ordering the data by time, finding the data in a certain time period, or calculating the days between two dates. 
 > The function `as.Date()` converts a column to a date, but here if we try 
@@ -161,6 +160,7 @@ source("functions.R")
 > > min(weather_data$tmin)
 > > ```
 > > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
+> > **DENA: What's displaying from the rendered version of that math for me isn't 94 and -13, it's 97.7 and -16.6 - which is desired?**
 > {: .solution}
 {: .challenge}
 
