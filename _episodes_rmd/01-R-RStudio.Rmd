@@ -15,7 +15,6 @@ keypoints:
 source: Rmd
 ---
 
-<!-- JPN: updated fig path here manually for plots to show -->
 
 ```{r setup, include=FALSE}
 source("../bin/chunk-options.R")
@@ -30,12 +29,6 @@ source("../bin/chunk-options.R")
  }}
 </style>
 
-## <font color="magenta">TO-ADD</font>
-
- * <font color="magenta">"::" <- what does this mean, multiple packages with the same name -- put this in a next lesson where it is actually used</font>
-
-
-<font color="magenta"> Do we need to link the terms to a glossary?</font>
 
 # Programming concepts and language
 
@@ -44,15 +37,15 @@ Programming doesn’t have to be scary, and we have some real-world examples to 
 Let’s imagine that instead of a program to work with numbers and letters, we’re creating a program that cooks breakfast instead.
 
 In order to make breakfast, you need:
- * A [working directory]({{ page.root }}/reference.html#working-directory) (the place where you’re doing things, such as your kitchen countertop)
- * Available [data]({{ page.root }}/reference.html#data) (information about what you’re working with)
+ * A **[working directory]({{ page.root }}/reference.html#working-directory)** (the place where you’re doing things, such as your kitchen countertop)
+ * Available **[data]({{ page.root }}/reference.html#data)** (information about what you’re working with)
      * Data could be an inventory of your pantry, a grocery shopping list, a map of the store, a collection of prices at the store, and so forth.
- * [Types]({{ page.root }}/reference.html#data-type) of **objects** -- a method of grouping what can be done to what types of things.
+ * **[Types]({{ page.root }}/reference.html#data-type)** of **objects** -- a method of grouping what can be done to what types of things.
      * Food is one type of thing; people are another; pets are a third.
      * A specific food object can be an egg or a pancake; a particular pet object can be your cat or your dog.
  * Some **inputs** that may be **objects** of appropriate **types** (breakfast food ingredients)
      * You create breakfast by performing actions on objects of food types, and then you feed it to things of the people and pet types.
- * Some [functions]({{ page.root }}/reference.html#function) (recipes that work with the ingredients)
+ * Some **[functions]({{ page.root }}/reference.html#function)** (recipes that work with the ingredients)
      * Inputs to functions are usually stored in **variables** -- you don’t always want to make the same thing every day, so the instructions have placeholder names for things that are similar to each other but may vary. (A “todays_cheese” variable could hold Stilton for one day’s omelet and cheddar for the next.)
  * You need to match your **object** types to your **functions**.
      * You shouldn’t use a pet-type object as an input to a breakfast-making function. (Nobody wants to eat the goldfish for breakfast.)
@@ -101,7 +94,8 @@ In this lesson, we will be making use of another software called "RStudio" as a 
 We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below: -->
 
 
-![starting R studio](../fig/Rstudio_blank.png)
+<!-- ![starting R studio](../fig/Rstudio_blank.png) -->
+<img src="../fig/Rstudio_blank.png" width="80%">
 
 <!--
 <font color="magenta"> **Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? </font><font color="green">Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
@@ -118,18 +112,30 @@ Let’s get our “countertop” ready to “cook breakfast” by:
 
 Under the **Session** menu, choose **Set Working Directory**, then **Choose Directory**.
 
-<img src="../fig/2-RStudio-setworkingdir1.PNG" width="70%">
+> ## Windows Users: Click Here for more details
+> <img src="../fig/2-RStudio-setworkingdir1.PNG" width="70%">
+> In each software collection on the USB drive, we’ve made subdirectories called **WorkingDir** with another subdirectory called **data**. (Even if you’ve installed from scratch rather than copying from the USB drive, the instructions will be easier to follow if you have a folder called **WorkingDir** that contains another one called **data**.)
+> 
+> So if you’re using our file collection after copying it to your local hard drive on Windows, choosing your working directory will look like this:
+> <img src="../fig/2-RStudio-setworkingdir2.PNG" width="70%">
+>
+> (If you’re running from the USB drive, the drive letter there will likely say D instead of C, but the rest will be the same.)
+>
+{: .windowsUsers}
 
-In each software collection on the USB drive (both Windows and Mac), we’ve made subdirectories called **WorkingDir** with another subdirectory called **data**. (Even if you’ve installed from scratch rather than copying from the USB drive, the instructions will be easier to follow if you have a folder called **WorkingDir** that contains another one called **data**.)
 
-So if you’re using our file collection after copying it to your local hard drive on Windows, choosing your working directory will look like this:
+<!-- JPN: use this if workingDir is not created yet THEY WILL HAVE TO PUT DATA IN BY HAND
+<img src="../fig/set_wd_mac_workingDir.png" width="70%">
+<img src="../fig/set_wd_mac_open.png" width="70%">
+-->
 
-<img src="../fig/2-RStudio-setworkingdir2.PNG" width="70%">
-(If you’re running from the USB drive, the drive letter there will likely say D instead of C, but the rest will be the same.)
+> ## Mac Users: Click Here for more details
+> <img src="../fig/set_wd_mac.png" width="70%">
+> <img src="../fig/set_wd_mac_final.png" width="70%">
+>
+>
+{: .windowsUsers}
 
-<font color="magenta"> JPN: needs to put in how this looks for Mac </font>
-
-After you click the Open button, you’ll see a new command has been added to your console, which is the text-based way of saying your home directory has been set:
 
 > ## Windows
 > (console)

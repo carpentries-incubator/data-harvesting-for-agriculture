@@ -1,0 +1,726 @@
+I"��<!-- JPN: attribution formatting -->
+<style type="text/css" rel="stylesheet">
+* {.attribution{
+     position:absolute;
+     bottom:0;
+     right:0;
+     font-size:0.5em
+ }}
+</style>
+
+<h1 id="programming-concepts-and-language">Programming concepts and language</h1>
+
+<p>Programming doesn’t have to be scary, and we have some real-world examples to help you understand what’s going on with these words we’re typing in a window. The words in bold will come up in a programming context later on, but it might help to have a mental reference picture to associate with these words.</p>
+
+<p>Let’s imagine that instead of a program to work with numbers and letters, we’re creating a program that cooks breakfast instead.</p>
+
+<p>In order to make breakfast, you need:</p>
+<ul>
+  <li>A <strong><a href="../reference.html#working-directory">working directory</a></strong> (the place where you’re doing things, such as your kitchen countertop)</li>
+  <li>Available <strong><a href="../reference.html#data">data</a></strong> (information about what you’re working with)
+    <ul>
+      <li>Data could be an inventory of your pantry, a grocery shopping list, a map of the store, a collection of prices at the store, and so forth.</li>
+    </ul>
+  </li>
+  <li><strong><a href="../reference.html#data-type">Types</a></strong> of <strong>objects</strong> – a method of grouping what can be done to what types of things.
+    <ul>
+      <li>Food is one type of thing; people are another; pets are a third.</li>
+      <li>A specific food object can be an egg or a pancake; a particular pet object can be your cat or your dog.</li>
+    </ul>
+  </li>
+  <li>Some <strong>inputs</strong> that may be <strong>objects</strong> of appropriate <strong>types</strong> (breakfast food ingredients)
+    <ul>
+      <li>You create breakfast by performing actions on objects of food types, and then you feed it to things of the people and pet types.</li>
+    </ul>
+  </li>
+  <li>Some <strong><a href="../reference.html#function">functions</a></strong> (recipes that work with the ingredients)
+    <ul>
+      <li>Inputs to functions are usually stored in <strong>variables</strong> – you don’t always want to make the same thing every day, so the instructions have placeholder names for things that are similar to each other but may vary. (A “todays_cheese” variable could hold Stilton for one day’s omelet and cheddar for the next.)</li>
+    </ul>
+  </li>
+  <li>You need to match your <strong>object</strong> types to your <strong>functions</strong>.
+    <ul>
+      <li>You shouldn’t use a pet-type object as an input to a breakfast-making function. (Nobody wants to eat the goldfish for breakfast.)</li>
+      <li>You might be able to use a dinner-type food object as an input to a breakfast-making function, but use caution.</li>
+    </ul>
+  </li>
+  <li>Some <strong>outputs</strong> (food ready to be consumed)</li>
+  <li>A <strong>destination</strong> (where to put the food that’s ready to be consumed)
+    <ul>
+      <li>You could put your outputs in your working directory (eat breakfast in your kitchen) or you could send it to another location (put leftovers in the refrigerator)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="../fig/1-breakfast.png" width="70%" />
+<span class="attribution"><a href="https://www.flickr.com/photos/11849171@N00/8330968310">“Breakfast”</a> by <a href="https://www.flickr.com/photos/11849171@N00/8330968310">viviandnguyen_</a> is licensed under <a href="https://www.flickr.com/photos/11849171@N00/8330968310">CC BY-SA 2.0</a></span></p>
+
+<h2 id="intro-to-r-and-rstudio">Intro to R and RStudio</h2>
+
+<p>In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.</p>
+
+<p>If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel).</p>
+
+<p>In this lesson, we will be making use of another software called “RStudio” as a way to interact with the programming language R. RStudio makes writing our programs more user-friendly. Using RStudio instead of R is a little like having a toaster. You can make toast over a fire, but having a toaster makes the job easier and less scorch-prone.</p>
+
+<p>We launch RStudio by double clicking on its icon, as we would with other software on our computers.</p>
+
+<blockquote class="windowsUsers">
+  <h2 id="windows-users-click-here-for-more-details">Windows Users: Click Here for more details</h2>
+  <p>If you’re running R Studio from a copy made from the USB stick, then the first time you launch R Studio, you’ll be asked where your installation of R is located.</p>
+  <ol>
+    <li>Choose the “Choose a specific version of R” item next to the large text box.
+<img src="../fig/1-Win-Rstudio-firstlaunch.png" width="70%" /></li>
+    <li>Use the <strong>Browse</strong> button to navigate to:
+      <ul>
+        <li><strong>DataHarvestingWin/ProgramFiles/R/R-3.6.2/bin/</strong></li>
+        <li>and choose <strong>Select Folder</strong>.
+<img src="../fig/1-Win-Rstudio-folderpick.PNG" width="70%" />
+Next, you’ll be prompted which version you want to use. You could choose either 32 bit or 64 bit; either should work, but 64 bit is likely to be what your computer is capable of.
+<img src="../fig/1-Win-Rstudio-choosewhich.PNG" width="70%" />
+In the image below, the 64 bit version has been chosen and you can now press OK.
+<img src="../fig/1-Win-Rstudio-pickedfolder.PNG" width="70%" />
+You’ll be prompted to restart R Studio; double click the launch icon again.
+At this point, R Studio should open next.</li>
+      </ul>
+    </li>
+  </ol>
+
+</blockquote>
+
+<!--In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.
+
+If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel). 
+
+In this lesson, we will be making use of another software called "RStudio" as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  **Some sort of analogy here would be grand (Jill) -- Dena's analogy: It's a little like having a toaster. You can make toast over a fire, but having a toaster makes the job easier and less scorch-prone.**
+
+We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below: -->
+
+<!-- ![starting R studio](../fig/Rstudio_blank.png) -->
+<p><img src="../fig/Rstudio_blank.png" width="80%" /></p>
+
+<!--
+<font color="magenta"> **Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? </font><font color="green">Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
+-->
+
+<h2 id="getting-your-rstudio-workspace-ready-for-the-workshop">Getting your RStudio workspace ready for the workshop</h2>
+
+<p>Let’s get our “countertop” ready to “cook breakfast” by:</p>
+<ol>
+  <li>Setting up our working directory</li>
+  <li>Loading libraries and sourcing functions in order to make the tools we’ll use available to RStudio</li>
+  <li>Locating our data ingredients</li>
+</ol>
+
+<h3 id="setting-your-working-directory">Setting your working directory</h3>
+
+<p>Under the <strong>Session</strong> menu, choose <strong>Set Working Directory</strong>, then <strong>Choose Directory</strong>.</p>
+
+<blockquote class="windowsUsers">
+  <h2 id="windows-users-click-here-for-more-details-1">Windows Users: Click Here for more details</h2>
+  <p><img src="../fig/2-RStudio-setworkingdir1.PNG" width="70%" />
+In each software collection on the USB drive, we’ve made subdirectories called <strong>WorkingDir</strong> with another subdirectory called <strong>data</strong>. (Even if you’ve installed from scratch rather than copying from the USB drive, the instructions will be easier to follow if you have a folder called <strong>WorkingDir</strong> that contains another one called <strong>data</strong>.)</p>
+
+  <p>So if you’re using our file collection after copying it to your local hard drive on Windows, choosing your working directory will look like this:
+<img src="../fig/2-RStudio-setworkingdir2.PNG" width="70%" /></p>
+
+  <p>(If you’re running from the USB drive, the drive letter there will likely say D instead of C, but the rest will be the same.)</p>
+
+</blockquote>
+
+<blockquote class="windowsUsers">
+  <h2 id="mac-users-click-here-for-more-details">Mac Users: Click Here for more details</h2>
+  <p><img src="../fig/2-RStudio-setworkingdir1.PNG" width="70%" />
+In each software collection on the USB drive, we’ve made subdirectories called <strong>WorkingDir</strong> with another subdirectory called <strong>data</strong>. (Even if you’ve installed from scratch rather than copying from the USB drive, the instructions will be easier to follow if you have a folder called <strong>WorkingDir</strong> that contains another one called <strong>data</strong>.)</p>
+
+  <p>So if you’re using our file collection after copying it to your local hard drive on Windows, choosing your working directory will look like this:
+<img src="../fig/2-RStudio-setworkingdir2.PNG" width="70%" /></p>
+
+  <p>(If you’re running from the USB drive, the drive letter there will likely say D instead of C, but the rest will be the same.)</p>
+
+</blockquote>
+
+<blockquote class="callout">
+  <h2 id="windows">Windows</h2>
+  <p>(console)</p>
+
+  <p>setwd(“C:/DataHarvestingWin/WorkingDir”)</p>
+
+</blockquote>
+
+<blockquote class="callout">
+  <h2 id="mac">Mac</h2>
+  <font color="magenta"> JPN: put in for mac </font>
+</blockquote>
+
+<p>Now we’ve identified where we want to work and can start loading libraries and data.</p>
+
+<h3 id="loading-libraries">Loading libraries</h3>
+
+<p>R and RStudio are used in many different fields, including biology, genomics, and geospatial data. If we loaded everything that R was capable of handing at once, though, it would take even more space than it already does!</p>
+
+<p>So with this set of instructions, we’re telling R that we want a set of published tools that are appropriate for working with geospatial data and public data sources, and also some custom-written scripts specifically for this workshop.</p>
+
+<ol>
+  <li>Right-click to open  the code for the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R">package_load_and_test.R script</a> in a new web browser window. This file will tell R which published tools should be loaded into its memory and make sure they’re all working.</li>
+  <li>Create a new R script file for yourself in R Studio by clicking on <strong>File -&gt; New File -&gt; R Script</strong>.</li>
+  <li>Copy and paste the test script from the browser window into your new script file.</li>
+  <li>Save the file as <strong>package_load_and_test.R</strong> in your working directory so that you’ll be able to use it again.</li>
+  <li>Run each line by selecting it and clicking the <strong>Run</strong> key. Each test should let you know whether an error was encountered in the loading process.</li>
+</ol>
+
+<p><img src="../fig/wininstall6-rstudiolibraryload.png" width="70%" /></p>
+
+<p>After you’ve finished with the library loading part of the script, the testing part of the script should make sure each library component is working.</p>
+
+<p>Just as above, select what you want to run and click the Run button. (Tip: Select everything between pairs of green # lines to run one test at a time and see its output.)</p>
+
+<p><img src="../fig/wininstall7-rstudiotmaptest.png" width="70%" /></p>
+
+<h3 id="sourcing-functions-for-this-workshop">Sourcing functions for this workshop</h3>
+
+<p>The library loading process above uses formally published and reviewed software packages that are available to everyone in the world. However, we’ve also written some custom functions to make this workshop easier, and you can add them to your R environment in a similar method.</p>
+
+<p>Instead of using the “library” command, though, we’ll use the “source” button instead. (You can also do this with functions you write for yourself, if you wish to make more functions.)</p>
+
+<ol>
+  <li>Open the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R">functions.R script</a> in a new browser window.</li>
+  <li>As above, create a new R script file in R Studio by clicking on <strong>File -&gt; New File -&gt; R Script</strong>.</li>
+  <li>Copy and paste the functions script from the browser window into your new script file.</li>
+  <li>Save it as <strong>functions.R</strong> in your working directory.</li>
+  <li>Click the <strong>Source</strong> button near the top right of your script window to load these functions as well.</li>
+</ol>
+
+<p><img src="../fig/3-Rstudio-source.png" width="70%" /></p>
+
+<p><strong>Tip:</strong> You’ll want to re-run the library loading script and re-source the functions script whenever you restart R Studio, so remember to re-open them tomorrow morning!</p>
+
+<font color="magenta"> Could also do source() here, maybe add if we have time </font>
+
+<h3 id="locating-data-ingredients">Locating data ingredients</h3>
+
+<p>The instructions from here on out assume that you’ve set your working directory to be a folder named “WorkingDir” and that you have a folder inside it called “data” which contains several files of information.</p>
+
+<ul>
+  <li>If you copied your software from the USB stick, you’ll find WorkingDir just inside the DataHarvestingWin or DataHarvestingMac folder.</li>
+  <li>If you set up from scratch, you’ll want to make WorkingDir and data folders and copy the information either from a nearby USB or from <a href="https://github.com/data-carpentry-for-agriculture/trial-lesson/tree/gh-pages/_episodes_rmd/data">this folder</a>.</li>
+</ul>
+
+<h2 id="the-stuff-in-your-kitchen-getting-oriented-with-r-studio">The stuff in your “kitchen”: Getting oriented with R Studio</h2>
+
+<p>So far, we’ve seen some things happen in the four quadrants of R Studio:</p>
+<ul>
+  <li><strong>New R script files</strong> are made in the top left quadrant, and if you have more than one of them open at a time, you’ll see more than one tab with the file names on them.
+    <ul>
+      <li><strong>Tip:</strong> If you want to save the commands you’re working on, this is where you’ll put your work. There’s no real downside to keeping your notes in a script file; you can easily come back to your work later.</li>
+    </ul>
+  </li>
+  <li><strong>The console</strong> is in the lower left quadrant, and that’s where the “action items” happen. When you clicked through the test script elements, text-based responses came up in the console whether or not a graphic was rendered with that test.
+    <ul>
+      <li><strong>Tip:</strong> In R Studio, it’s helpful to get in the habit of typing your work in a script window, selecting your section, and hitting Run instead of typing directly in the console. You can’t easily get back what you typed in the console in a previous session. (Script files are like recipe cards that you save; entries on the console are like scribbling on the back of a napkin.)</li>
+    </ul>
+  </li>
+  <li>Information about your <strong>environment</strong> is in the top right quadrant. This includes libraries that are loaded, variables that have had information put into them, and so forth. Several of the tests caused changes in this area.</li>
+  <li>The lower right quadrant holds several tabs, but the two you’ll use most often are the <strong>Plots</strong> tab and the <strong>Packages</strong> tab.
+    <ul>
+      <li>The map-drawing tests produced images in the Plots tab.</li>
+      <li>When you ran the library-loading lines, checkmarks appeared by those libraries’ names in the Packages tab.</li>
+      <li>(Tip: That’s a handy way to know what your current environment includes. If you’ve just reopened RStudio after a time away, and you’re not sure what RStudio remembers from your last session, look at the Packages tab to see if your libraries are loaded or not. In our case, <strong>dplyr</strong> is an easy one to find near the start of the alphabet; if it’s not checked when you open RStudio, you’ll want to re-run the package_load_and_test.R script.)</li>
+      <li>Check it out: Click from tab to tab to see what’s in each of them.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="lets-crack-some-eggs-getting-started-with-functions-and-variables">Let’s crack some eggs: Getting started with functions and variables</h2>
+
+<p>From our cooking-breakfast example earlier, here are some of the programming terms and analogies for what they mean.</p>
+
+<h3 id="what-is-a-function">What is a function?</h3>
+<p>A <a href="../reference.html#function">function</a> is a bit of code that we want to be able to reuse again and again. For example, let’s say you want to make omelets every morning, wouldn’t it be great if you had some sort of machine that would do it for you?</p>
+
+<p>Let’s imagine an omelet-making scenario. You start with some eggs, some cheese, and some other ingredients, use utensils and heat, and end up with something cooked and edible on a plate – or more than one plate, if several people want omelets that morning.</p>
+
+<p>The number of eggs and amount of cheese you use can vary depending on how many you want, so we call the bit of space that stores that information a <a href="../reference.html#variable">variable</a>.</p>
+
+<p>Sometimes the recipe you received is dependent on other things that you want to leave yourself notes about as well. Just like scribbling on a recipe card, you can leave <a href="../reference.html#comment">comments</a> in your code by beginning a commented section with a # character.</p>
+
+<p>Here’s what that omelet process might look like in terms a step closer to programming:</p>
+
+<pre>function make_omelet(how_many, todays_cheese, cheese_quantity, other_ingredients) {
+
+# Multiply number of omelets wanted by 2 eggs each
+   eggs &lt;- how_many * 2 
+
+# Multiply cheese per omelet by number of omelets to decide how much cheese is needed
+   total_cheese &lt;- how_many * cheese_quantity 
+
+# Mix ingredients
+   for each bowl
+       crack eggs
+       discard shells
+	add total_cheese
+       if other_ingredients
+           bowl &lt;- bowl + other_ingredients
+       else
+           ready to cook
+
+# When ready to cook
+  pour bowl into hot pan 
+	# if more than 3 eggs, get more hot pans
+  cook
+  serve
+  wash_dishes
+}
+</pre>
+
+<p>In this example, we’re telling the system these things:</p>
+<ul>
+  <li>A function (repeatable sequence of commands) named make_omelet takes several inputs (the ingredients list in parentheses)</li>
+  <li>The part in the curly braces {} tells the function what to do with the inputs (also called arguments or parameters – you can think of this as an ingredients list if it helps)</li>
+</ul>
+
+<p>To use a function we have to <em>call</em> it in a specific way. Let’s try with an R function called <code class="highlighter-rouge">print</code> which will just echo back what we give it as an input parameter:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">todays_cheese</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Stilton"</span><span class="w"> </span><span class="c1"># assign the value of Stilton to a variable called "todays_cheese" -- we don’t want to use apostrophes in variable names, so today’s_cheese wouldn’t work.</span><span class="w">
+
+</span><span class="n">print</span><span class="p">(</span><span class="n">todays_cheese</span><span class="p">)</span><span class="w"> </span><span class="c1"># print out the value of the variable to the screen</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Stilton"
+</code></pre></div></div>
+
+<p>From now on, whenever we use <code class="highlighter-rouge">todays_cheese</code>, R will substitute the value we assigned to it. In layman’s terms, <strong>a variable is a placeholder name for something that can be changed regularly</strong>.</p>
+
+<p>In R, variable names:</p>
+<ul>
+  <li>can include letters, digits, and underscores</li>
+  <li>cannot start with a digit</li>
+  <li>are case sensitive, meaning that “ABC” is considered different than “abc”.</li>
+</ul>
+
+<p>This means that, for example:</p>
+<ul>
+  <li><code class="highlighter-rouge">cheese1</code> is a valid variable name, whereas <code class="highlighter-rouge">1cheese</code> is not</li>
+  <li><code class="highlighter-rouge">eggs</code> and <code class="highlighter-rouge">Eggs</code> are different variables</li>
+</ul>
+
+<blockquote class="callout">
+  <h2 id="variable-naming-conventions">Variable Naming Conventions</h2>
+  <p>Historically, R programmers have used a variety of conventions for naming variables. The <code class="highlighter-rouge">.</code> character in R can be a valid part of a variable name; thus the above assignment could have easily been <code class="highlighter-rouge">todays.cheese &lt;- "Stilton"</code>.</p>
+
+  <p>This is often confusing to R newcomers who have programmed in languages where <code class="highlighter-rouge">.</code> has a more significant meaning, or to people who are used to file names like <code class="highlighter-rouge">resume.doc</code> where the component after <code class="highlighter-rouge">.</code> identifies the type of a file.</p>
+
+  <p>Today, most R programmers prefer these standards:</p>
+  <ul>
+    <li>Start variable names with lower case letters</li>
+    <li>Separate words in variable names with underscores</li>
+    <li>Use only lowercase letters, underscores, and numbers in variable names. (The book R Packages includes a chapter on this and other style considerations.)</li>
+  </ul>
+
+</blockquote>
+
+<h2 id="variables-and-data-types">Variables and data types</h2>
+
+<font color="magenta">I think a lot of these variable names here should be put in R so that students can see how it looks when it compiles</font>
+
+<p>Something that it’s important to keep track of is what type of data you’ve stored in a particular variable. Words are treated differently than numbers, and numbers with decimals are treated differently than numbers without decimals. So, for example:</p>
+<ul>
+  <li><code class="highlighter-rouge">cheese_variety</code> could be “Stilton” or “cheddar”, but you probably don’t want a number here. This variable type is called a <strong>text string</strong>.</li>
+  <li><code class="highlighter-rouge">cheese_amount</code> could be “a quarter cup”, but numbers are much easier to calculate with than words, so we might represent that as “0.25”. This variable type is called a <strong>floating point number</strong>.</li>
+  <li><code class="highlighter-rouge">eggs</code> <em>could possibly</em> be 2.5, but it’s much easier to use either 2 whole eggs or 3 whole eggs. When you want to make sure you’re working with whole units, this variable type is called an <strong>integer</strong>.
+    <ul>
+      <li><strong>Tip:</strong> The first time you use a number-type variable, if you want it to always be an integer, don’t include a decimal point when you assign it (<strong>eggs &lt;- 2</strong>). On the other hand, if you do want to have the ability to have decimal points in that variable in the future, make sure to include the decimal point even if it’s .0 (<strong>cheese_quantity &lt;- 2.0</strong>)</li>
+    </ul>
+  </li>
+  <li>Another variable type we’ll be introducing in a few minutes is a <strong>dataframe</strong>, which lets you hold a whole spreadsheet’s worth of information in one variable. This will be very useful for working with things more complicated than omelets, such as agricultural data!</li>
+</ul>
+
+<p>Notice that they can all be named in similar ways; you don’t have to tell the system what type of variable you’ve just created, but it might be handy to leave <code class="highlighter-rouge">#comments</code> for yourself.</p>
+
+<h3 id="how-many-eggs-passing-variables-and-data-to-functions">How many eggs? Passing variables and data to functions</h3>
+
+<p>Your breakfast function <code class="highlighter-rouge">make_omelet()</code> may default to “make omelets for two people,” but maybe one day you’re the only person who wants an omelet and another day you’re having a party. Being able to tell the function how many omelets you want to make without rewriting your code saves a bunch of time.</p>
+
+<p>So when you look at the arguments list requested in <code class="highlighter-rouge">make_omelet()</code>:</p>
+
+<pre>function make_omelet(how_many, todays_cheese, cheese_quantity, other_ingredients)</pre>
+
+<p>The list of items it’s asking for includes the things that are likely to change based on the day, and then the mathematical transformations from “how many omelets” to “how many eggs and how much cheese is needed” are handled inside the function.</p>
+
+<p>The thing that you pass in to a function or assign to a variable can also be a data set. Let’s take a look at how to do that next.</p>
+
+<h2 id="working-with-some-real-data">Working with some real data</h2>
+
+<p>As an example of a dataset in spreadsheet form that we can use to demonstrate the R language, we are using the <a href="https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx">USDA - Economic Research Service’s fertilizer use and price dataset</a>. Of the various tables of data on this website, will be looking at Table 2 called “Estimated U.S. plant nutrient use by selected crops” which shows 1,000 nutrient short tons of nitrogen, phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the US from 1964-2016.</p>
+
+<p>This table has been reformatted into a CSV file for ease of import into R.</p>
+<ul>
+  <li>If you copied your data folder from the USB drive, it’s available in the data folder as fertilizer_use.csv.</li>
+  <li>If not, you can download the CSV from: <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv">https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv</a>.</li>
+</ul>
+
+<blockquote class="callout">
+  <h2 id="whats-a-csv-file-and-why-are-they-helpful">What’s a CSV file and why are they helpful?</h2>
+  <p>CSV stands for “comma separated values.” What’s stored in a CSV file is spreadsheet-type data, and it can be opened in Microsoft Excel (among many other things).</p>
+
+  <p>You might be used to seeing spreadsheet-type files saved with a .xls or .xlsx format type. But while the Excel format is complicated to take apart, a CSV is really easy for many programs to read, including text viewers and R Studio.</p>
+
+</blockquote>
+
+<h2 id="getting-your-data-into-rstudio">Getting your data into RStudio</h2>
+
+<p>The top few lines of this file look like:</p>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Year,Crop,Nitrogen,Phosphate,Potash
+1964,Corn,1623,1053,829
+1965,Corn,2151,1336,1204
+1966,Corn,2596,1626,1513
+1967,Corn,3044,1857,1750
+</code></pre></div></div>
+
+<p>It can be opened in Excel if you want to get a quick look at it that way, or we can dive straight into looking at it in R.</p>
+
+<p>Next, we’ll use the function called <code class="highlighter-rouge">read.csv</code> to import data from a CSV (comma-separated value) file. (In this case the .csv is part of the name of the function, not the name of a separate file. Sorry about that – we didn’t name it!)</p>
+
+<p>To do this, put this line in your script area (upper left hand quadrant) and click Run.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fert_use</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/fertilizer_use.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Note here that the name of the function is <code class="highlighter-rouge">read.csv</code>, the <em>input parameter</em> is the name of the file we want to read in, including the data folder we created earlier. The <code class="highlighter-rouge">/</code> after <code class="highlighter-rouge">data</code> just indicates to R that it should look inside this folder for the file named <code class="highlighter-rouge">fertilizer_use.csv</code>.</p>
+
+<p>We assigned the value of this table – all of its row and column data – into a variable called <code class="highlighter-rouge">fert_use</code>. It now shows up in the <em>Global Environment</em> window at the upper left of RStudio.</p>
+
+<h2 id="explore-your-data-in-r">Explore your data in R</h2>
+
+<p>Now that you have your data imported into R, it would be nice to take a look at it!  One quick way to do this is using the <code class="highlighter-rouge">head</code> function like so:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Year Crop Nitrogen Phosphate Potash
+1 1964 Corn     1623      1053    829
+2 1965 Corn     2151      1336   1204
+3 1966 Corn     2596      1626   1513
+4 1967 Corn     3044      1857   1750
+5 1968 Corn     3116      1855   1778
+6 1969 Corn     3287      1789   1765
+</code></pre></div></div>
+
+<p>This lets us look at our table of data, but it formats things in a nice way, with the name of each column at the top and the row numbered on the left side.</p>
+
+<p>We can also control how many rows print out by including an <em>optional parameter</em> in our function call:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Year Crop Nitrogen Phosphate Potash
+1 1964 Corn     1623      1053    829
+2 1965 Corn     2151      1336   1204
+3 1966 Corn     2596      1626   1513
+4 1967 Corn     3044      1857   1750
+</code></pre></div></div>
+
+<p>Note that we can call the <code class="highlighter-rouge">head</code> function without this parameter and it will run just fine with some default value.  If we want to specify the number of rows, we include this as <code class="highlighter-rouge">parameter name = parameter value</code>.  In this case, our <code class="highlighter-rouge">parameter name</code> for the <code class="highlighter-rouge">head</code> function is <code class="highlighter-rouge">n</code> and the <code class="highlighter-rouge">parameter value</code> is <code class="highlighter-rouge">4</code>.</p>
+
+<blockquote class="callout">
+  <h2 id="getting-help-how-do-you-know-what-parameters-a-function-wants">Getting help: How do you know what parameters a function wants?</h2>
+
+  <p>Different functions will have different parameter names. For most professionally published software, you can get more information by appending a ? to the front of our function call:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">head</span><span class="w">
+</span></code></pre></div>  </div>
+  <font color="magenta">JPN: put in a link to how to google for functions</font>
+  <p><br /></p>
+  <font color="magenta">JPN: put in vignettes link here too</font>
+
+</blockquote>
+
+<!-- JPN: this looks not great
+> ### Finding Help for a Function
+>
+> 
+> ~~~
+> ?head
+> ~~~
+> {: .language-r}
+>
+> Will output:
+> 
+> 
+> <table width="100%" summary="page for head {utils}"><tr><td>head {utils}</td><td style="text-align: right;">R Documentation</td></tr></table>
+> 
+> <h2>
+> Return the First or Last Part of an Object
+> </h2>
+> 
+> <h3>Description</h3>
+> 
+> <p>Returns the first or last parts of a vector, matrix, table, data frame
+> or function.  Since <code>head()</code> and <code>tail()</code> are generic
+> functions, they may also have been extended to other classes.
+> </p>
+> 
+> 
+> <h3>Usage</h3>
+> 
+> <pre>
+> head(x, ...)
+> ## Default S3 method:
+> head(x, n = 6L, ...)
+> ## S3 method for class 'data.frame'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'matrix'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'ftable'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'table'
+> head(x, n = 6L, ...)
+> ## S3 method for class 'function'
+> head(x, n = 6L, ...)
+> 
+> tail(x, ...)
+> ## Default S3 method:
+> tail(x, n = 6L, ...)
+> ## S3 method for class 'data.frame'
+> tail(x, n = 6L, ...)
+> ## S3 method for class 'matrix'
+> tail(x, n = 6L, addrownums = TRUE, ...)
+> ## S3 method for class 'ftable'
+> tail(x, n = 6L, addrownums = FALSE, ...)
+> ## S3 method for class 'table'
+> tail(x, n = 6L, addrownums = TRUE, ...)
+> ## S3 method for class 'function'
+> tail(x, n = 6L, ...)
+> </pre>
+> 
+> 
+> <h3>Arguments</h3>
+> 
+> <table summary="R argblock">
+> <tr valign="top"><td><code>x</code></td>
+> <td>
+> <p>an object</p>
+> </td></tr>
+> <tr valign="top"><td><code>n</code></td>
+> <td>
+> <p>a single integer.  If positive or zero, size for the resulting
+> object: number of elements for a vector (including lists), rows for
+> a matrix or data frame or lines for a function.  If negative, all but
+> the <code>n</code> last/first number of elements of <code>x</code>.</p>
+> </td></tr>
+> <tr valign="top"><td><code>addrownums</code></td>
+> <td>
+> <p>if there are no row names, create them from the row
+> numbers.</p>
+> </td></tr>
+> <tr valign="top"><td><code>...</code></td>
+> <td>
+> <p>arguments to be passed to or from other methods.</p>
+> </td></tr>
+> </table>
+> 
+> 
+> <h3>Details</h3>
+> 
+> <p>For matrices, 2-dim tables and data frames, <code>head()</code> (<code>tail()</code>) returns
+> the first (last) <code>n</code> rows when <code>n &gt;= 0</code> or all but the
+> last (first) <code>n</code> rows when <code>n &lt; 0</code>.  <code>head.matrix()</code> and
+> <code>tail.matrix()</code> are exported.  For functions, the
+> lines of the deparsed function are returned as character strings.
+> </p>
+> <p>If a matrix has no row names, then <code>tail()</code> will add row names of
+> the form <code>"[n,]"</code> to the result, so that it looks similar to the
+> last lines of <code>x</code> when printed.  Setting
+> <code>addrownums = FALSE</code> suppresses this behaviour.
+> </p>
+> 
+> 
+> <h3>Value</h3>
+> 
+> <p>An object (usually) like <code>x</code> but generally smaller.  For
+> <code><a href="../../stats/html/ftable.html">ftable</a></code> objects <code>x</code>, a transformed <code>format(x)</code>.
+> </p>
+> 
+> 
+> <h3>Author(s)</h3>
+> 
+> <p>Patrick Burns, improved and corrected by R-Core. Negative argument
+> added by Vincent Goulet.
+> </p>
+> 
+> 
+> <h3>Examples</h3>
+> 
+> <pre>
+> head(letters)
+> head(letters, n = -6L)
+> 
+> head(freeny.x, n = 10L)
+> head(freeny.y)
+> 
+> tail(letters)
+> tail(letters, n = -6L)
+> 
+> tail(freeny.x)
+> tail(freeny.y)
+> 
+> tail(library)
+> 
+> head(stats::ftable(Titanic))
+> </pre>
+> 
+> <hr /><div style="text-align: center;">[Package <em>utils</em> version 3.6.2 <a href="00Index.html">Index</a>]</div>
+{: .callout}
+-->
+
+<p>Now let’s say we want to look at only the first few entries of the <code class="highlighter-rouge">Years</code> column of our dataset?  We can do this by making use of the fact that our variable <code class="highlighter-rouge">fert_use</code> is a special type of variable called a <em>dataframe</em> which allows us to use special notation to print out individual columns by saying <code class="highlighter-rouge">dataframe name $ dataframe column</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Year</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1964 1965 1966 1967
+</code></pre></div></div>
+
+<p>Here the label of the column, <code class="highlighter-rouge">Year</code> is used to access this column alone and print out its first 4 entries.  Let’s try another one:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Crop</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] Corn Corn Corn Corn
+Levels: Corn Cotton Other Soybeans Wheat
+</code></pre></div></div>
+
+<p>We’ll note we got a bit of extra information when we are looking at the <code class="highlighter-rouge">Crop</code> column.  With the column <code class="highlighter-rouge">Years</code>, R stored the data as pure numbers (integer, or “whole” numbers without decimal places in this case).  With <code class="highlighter-rouge">Crop</code>, R has stored this column as something called a <em>factor</em> which is a way to store information that is best sorted into different categories instead of numbers – this is often called a <em>categorical variable</em> while <code class="highlighter-rouge">Years</code> is called a <em>numerical variable</em>.  R also tells us how many <em>levels</em> this categorical column has, which is just R’s way of counting up the number of categories that <code class="highlighter-rouge">Crop</code> can be.  In this case, we see there are 5 categories of crops in this dataset, <code class="highlighter-rouge">Corn</code>, <code class="highlighter-rouge">Cotton</code>, <code class="highlighter-rouge">Other</code>, <code class="highlighter-rouge">Soybeans</code> and <code class="highlighter-rouge">Wheat</code>.  Note that by default R is ordering them alphetetically.</p>
+
+<h3 id="using-str-to-get-column-types">Using <code class="highlighter-rouge">str</code> to get column types</h3>
+
+<p>Like with the function <code class="highlighter-rouge">head</code>, the <code class="highlighter-rouge">str</code> function is helpful for getting a quick look at your data and summarizing what kinds of columns you have:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">fert_use</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	265 obs. of  5 variables:
+ $ Year     : int  1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 ...
+ $ Crop     : Factor w/ 5 levels "Corn","Cotton",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ Nitrogen : int  1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 ...
+ $ Phosphate: int  1053 1336 1626 1857 1855 1789 2136 2024 1994 1988 ...
+ $ Potash   : int  829 1204 1513 1750 1778 1765 2046 1946 1992 2052 ...
+</code></pre></div></div>
+
+<p>Note here that <code class="highlighter-rouge">str</code> is the function name that we <em>called</em> with the <em>input parameter</em> of <code class="highlighter-rouge">fert_use</code> which is the variable that is storing our table of data.</p>
+
+<p>The <code class="highlighter-rouge">str</code> function prints out the first few entries of each row, the <code class="highlighter-rouge">...</code> just means that it has truncated its output for the sake of clarity.</p>
+
+<p>We see that the <code class="highlighter-rouge">str</code> function is also telling us something about how our data is formatted:</p>
+<ul>
+  <li>There are 5 columns (variables) in our dataset - <code class="highlighter-rouge">Year</code>, <code class="highlighter-rouge">Crop</code>, <code class="highlighter-rouge">Nitrogen</code> <font color="magenta">(something? units?)</font>, <code class="highlighter-rouge">Phosphate</code>, and <code class="highlighter-rouge">Potash</code>.</li>
+  <li>There are 265 <code class="highlighter-rouge">observations</code>, or rows, in our dataset</li>
+  <li>The <code class="highlighter-rouge">Year</code>, <code class="highlighter-rouge">Nitrogen</code>, <code class="highlighter-rouge">Phosphate</code>, and <code class="highlighter-rouge">Potash</code> columns are <code class="highlighter-rouge">int</code> types, meaning they are comprised of whole numbers (numbers without decimals)</li>
+  <li>The <code class="highlighter-rouge">Crop</code> column is being interpreted in R as something called a <code class="highlighter-rouge">factor</code>.  This is a way to represent data that is comprised of categories, in this case we are told there are 5 <code class="highlighter-rouge">levels</code> which just means there are only 5 categories of crop in this dataset.  The trailing 1’s are just R’s way of tagging which row entry in this column is in what category - a 1 means an entry that is tagged as “Corn”.  <font color="magenta">(I am not 100% on this, I *think* this is what R is doing but I am not sure)</font></li>
+</ul>
+
+<p>The <code class="highlighter-rouge">str</code> function also tells us that our variable <code class="highlighter-rouge">fert_use</code> is a <em>dataframe</em> by printing <code class="highlighter-rouge">'data.frame'</code> at the top of its output.</p>
+
+<h2 id="doing-stuff-with-your-data-in-r">Doing stuff with your data in R</h2>
+
+<!--
+### <font color="magenta">Outline for this section</font>
+ 1. <font color="magenta">We can manipulate columns with functions</font>
+    * <font color="magenta">example: min function (or something)</font>
+    * <font color="magenta">How to learn about functions you might want to use? -> We already learned a bit about the helping "?" function, but we can also look at how to google things.</font>
+-->
+
+<p>Now that we have read in some data and have some idea of what our dataset contains, let’s actually think about manipulating our dataset!  One thing we might want to know is find out the time span overwhich this data was taken.  We can find out the minimum time in our dataset by applying the the <code class="highlighter-rouge">min</code> function on our <code class="highlighter-rouge">Year</code> column:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">min</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Year</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1964
+</code></pre></div></div>
+
+<p>And we can find the maximum year in our dataset in a similar fashion:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">max</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Year</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2016
+</code></pre></div></div>
+
+<p>Now we know our dataset is taken from 1964-2016!  This is of course something we could have known by reading the description of this table, so let’s try something more interesting: the minimum measurement of Nitrogen:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">min</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Nitrogen</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NA
+</code></pre></div></div>
+
+<p>Whoa!  What just happened?  In R, <code class="highlighter-rouge">NA</code> means missing data.  Let’s take a look at a the first 50 entries of our <code class="highlighter-rouge">Nitrogen</code> column:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Nitrogen</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">50</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] 1623 2151 2596 3044 3116 3287 3520 3730 3705 3830 3773 3885 5210 5181 4888
+[16] 5274 5244 5588 5360 3960 5391 5666 4807 4194 4499 4601 4748 4715 4887 4369
+[31] 4603 4158 4829 4792 4846 4650 4909 4249 4720 4710 4792 5023 4690 5714 5224
+[46] 4875 5610   NA   NA   NA
+</code></pre></div></div>
+
+<p>You can see from these first 50 entries, that we have a lot of <code class="highlighter-rouge">NA</code>
+values.  By default, if I apply the <code class="highlighter-rouge">min</code> function and it encounters any <code class="highlighter-rouge">NA</code> values, it returns <code class="highlighter-rouge">NA</code>.  To
+figure out what to do, let’s look at the help page.  To find the help page for any
+function, type a question mark and then the name of the function.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">min</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Ah, there is an <em>optional parameter</em> called <code class="highlighter-rouge">na.rm</code>, and the description of it says that it
+controls whether or not <code class="highlighter-rouge">NA</code> values are stripped out before calculating the mean.
+We can make R take out <code class="highlighter-rouge">NA</code>’s before calculating the minimum by setting the optional parameter to <code class="highlighter-rouge">TRUE</code>.
+(In R, <code class="highlighter-rouge">TRUE</code> and <code class="highlighter-rouge">FALSE</code> should always be in all caps.)</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">min</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Nitrogen</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 16
+</code></pre></div></div>
+
+<p>Hey it worked!  Let’s try a few more examples.</p>
+
+<blockquote class="challenge">
+  <h2 id="finding-the-maximum-nitrogen-measurement">Finding the Maximum Nitrogen Measurement</h2>
+
+  <p>Use the <code class="highlighter-rouge">max</code> function to calculate the maximum nitrogen measurement in your dataset.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">max</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Nitrogen</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 6317
+</code></pre></div>    </div>
+
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="maximum-crop">Maximum Crop</h2>
+
+  <p>What happens when you try to apply the max function to the <code class="highlighter-rouge">Crop</code> column?  Why do you think that is?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">max</span><span class="p">(</span><span class="n">fert_use</span><span class="o">$</span><span class="n">Crop</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in Summary.factor(structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, : 'max' not meaningful for factors
+</code></pre></div>    </div>
+
+    <p>The <code class="highlighter-rouge">max</code> function only is meaningful for numerical data, in this case you are trying to apply it to a column that is made up of categories and R got confused and printing out an error message.</p>
+
+  </blockquote>
+</blockquote>
+
+:ET
