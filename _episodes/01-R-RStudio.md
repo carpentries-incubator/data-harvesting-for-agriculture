@@ -290,24 +290,50 @@ This means that, for example:
 
 ## Variables and data types
 
+<font color="magenta">I think a lot of these variable names here should be put in R so that students can see how it looks when it compiles</font>
+
 Something that it’s important to keep track of is what type of data you’ve stored in a particular variable. Words are treated differently than numbers, and numbers with decimals are treated differently than numbers without decimals. So, for example:
+  * `cheese_variety` could be "Stilton" or "cheddar", but you probably don’t want a number here. This variable type is called a **text string**.
+  * `cheese_amount` could be “a quarter cup”, but numbers are much easier to calculate with than words, so we might represent that as “0.25”. This variable type is called a **floating point number**.
+  * `eggs` *could possibly* be 2.5, but it’s much easier to use either 2 whole eggs or 3 whole eggs. When you want to make sure you’re working with whole units, this variable type is called an **integer**.
+     * **Tip:** The first time you use a number-type variable, if you want it to always be an integer, don’t include a decimal point when you assign it (**eggs <- 2**). On the other hand, if you do want to have the ability to have decimal points in that variable in the future, make sure to include the decimal point even if it’s .0 (**cheese_quantity <- 2.0**)
+  * Another variable type we’ll be introducing in a few minutes is a **dataframe**, which lets you hold a whole spreadsheet’s worth of information in one variable. This will be very useful for working with things more complicated than omelets, such as agricultural data!
 
-  * `cheese_variety` could be "Stilton" or "cheddar", but you probably don’t want a number here. This variable type is called a text string.
+Notice that they can all be named in similar ways; you don’t have to tell the system what type of variable you’ve just created, but it might be handy to leave `#comments` for yourself.
+
+### How many eggs? Passing variables and data to functions
+
+Your breakfast function `make_omelet()` may default to “make omelets for two people,” but maybe one day you’re the only person who wants an omelet and another day you’re having a party. Being able to tell the function how many omelets you want to make without rewriting your code saves a bunch of time. 
+
+So when you look at the arguments list requested in `make_omelet()`:
+
+<pre>function make_omelet(how_many, todays_cheese, cheese_quantity, other_ingredients)</pre>
+
+The list of items it’s asking for includes the things that are likely to change based on the day, and then the mathematical transformations from “how many omelets” to “how many eggs and how much cheese is needed” are handled inside the function.
+
+The thing that you pass in to a function or assign to a variable can also be a data set. Let’s take a look at how to do that next. 
+
+As an example of a dataset in spreadsheet form that we can use to demonstrate the R language, we are using the <a href="https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx">USDA - Economic Research Service’s fertilizer use and price dataset</a>. Of the various tables of data on this website, will be looking at Table 2 called “Estimated U.S. plant nutrient use by selected crops” which shows 1,000 nutrient short tons of nitrogen, phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the US from 1964-2016.
+
+This table has been reformatted into a CSV file for ease of import into R. You can download the CSV from: [https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv).
+
+<font color="green">Dena has some comments to self here - is it in data folder?</font>
+
+> ## What’s a CSV file and why are they helpful?
+> CSV stands for “comma separated values.” What’s stored in a CSV file is spreadsheet-type data, and it can be opened in Microsoft Excel (among many other things). 
+> 
+> You might be used to seeing spreadsheet-type files saved with a .xls or .xlsx format type. But while the Excel format is complicated to take apart, a CSV is really easy for many programs to read, including text viewers and R Studio.
+>
+{: .callout}
 
 
-cheese_amount could be “a quarter cup”, but numbers are much easier to calculate with than words, so we might represent that as “0.25”. This variable type is called a floating point number.
-
-
-eggs could possibly be 2.5, but it’s much easier to use either 2 whole eggs or 3 whole eggs. When you want to make sure you’re working with whole units, this variable type is called an integer.
-
-
-Tip: The first time you use a number-type variable, if you want it to always be an integer, don’t include a decimal point when you assign it (eggs <- 2). On the other hand, if you do want to have the ability to have decimal points in that variable in the future, make sure to include the decimal point even if it’s .0 (cheese_quantity <- 2.0)
-
-
-Another variable type we’ll be introducing in a few minutes is a dataframe, which lets you hold a whole spreadsheet’s worth of information in one variable. This will be very useful for working with things more complicated than omelets, such as agricultural data!
 
 
 
+
+
+
+<!--
 # OTHER STUFF FROM BEFORE
 
 This has a prompt where commands can be entered.
@@ -687,6 +713,8 @@ You'll note now that the little upper tab on the left of the scripting window ha
 <img src="../fig/output_script_save-03.png" alt="save a script">
 
 If you close this file and want to re-open it, you can use `File -> Open File...` to open it up in R. <font color="magenta">(This could be different on a Windows, also not sure how much detail we want here and if we want a screen shot or not)</font>
+
+-->
 
 
 <!--## OPTIONAL: What is a function?
