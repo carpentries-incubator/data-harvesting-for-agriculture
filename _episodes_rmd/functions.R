@@ -565,5 +565,5 @@ clean_buffer <- function(buffer_object, buffer_ft, data){
   ov <- st_over(data, st_geometry(buffer))
   data$out <- is.na(ov) # demarcate the yield values removed
   clean <- subset(data, out == FALSE)
-  return(yield_clean)
+  return(clean)
 }
