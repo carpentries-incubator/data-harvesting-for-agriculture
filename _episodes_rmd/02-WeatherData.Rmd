@@ -186,7 +186,8 @@ source("functions.R")
 > weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 > head(weather_data$month)
 > ```
-> 
+> Hey what is this `::` we just used?  Its just to explicitly say that the function `month` comes from the library `lubridate`.  This can be important because different libraries may have the same function names.
+>
 > This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv).
 > 
 > ```{r}
