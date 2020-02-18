@@ -161,8 +161,7 @@ source("functions.R")
 > > max(weather_data$tmax)
 > > min(weather_data$tmin)
 > > ```
-> > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
-> > **DENA: What's displaying from the rendered version of that math for me isn't 94 and -13, it's 97.7 and -16.6 - which is desired?**
+> > The maximum temperature during this time period was 97.7 degrees, and the minimum temperature was -16.6 degrees.
 > {: .solution}
 {: .challenge}
 
@@ -209,6 +208,15 @@ source("functions.R")
 > ```
 >
 > Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January. 
+{: .callout}
+
+> ## More information about `dplyr`
+> One great way to get more information about professionally published packages is through `vignette`: a function that will give you extensive documentation in R.  You can use this with:
+> 
+> ```{r eval=FALSE}
+> vignette("dplyr")
+> ```
+> 
 {: .callout}
 
 > # Subsetting the data

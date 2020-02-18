@@ -343,6 +343,17 @@ source: Rmd
 > Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January. 
 {: .callout}
 
+> ## More information about `dplyr`
+> One great way to get more information about professionally published packages is through `vignette`: a function that will give you extensive documentation in R.  You can use this with:
+> 
+> 
+> ~~~
+> vignette("dplyr")
+> ~~~
+> {: .language-r}
+> 
+{: .callout}
+
 > # Subsetting the data
 >
 > Now we want to separate the 2018 data from the rest of the years 
@@ -437,6 +448,7 @@ source: Rmd
 > {: .solution}
 {: .challenge}
 
+**Dena: This one could use some human translation?**
 > # Take the average of monthly rainfall
 >
 > 
@@ -450,7 +462,7 @@ source: Rmd
 > 
 > We now have two separate dataframes `by_month_2018` and `by_month`
 > with the rainfall for each
-> month. We can use the common variable `month` to merge them into
+> month. **Dena: I missed where those came from? I'm not spotting code that creates those?** We can use the common variable `month` to merge them into
 > one dataframe with the average
 > monthly rainfall and the 2018 monthly rainfall using the `merge()`
 > function.
