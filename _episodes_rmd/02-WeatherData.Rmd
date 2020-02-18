@@ -211,6 +211,15 @@ source("functions.R")
 > Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January. 
 {: .callout}
 
+> ## More information about `dplyr`
+> One great way to get more information about professionally published packages is through `vignette`: a function that will give you extensive documentation in R.  You can use this with:
+> 
+> ```{r eval=FALSE}
+> vignette("dplyr")
+> ```
+> 
+{: .callout}
+
 > # Subsetting the data
 >
 > Now we want to separate the 2018 data from the rest of the years 

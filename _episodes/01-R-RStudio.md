@@ -131,6 +131,9 @@ Under the **Session** menu, choose **Set Working Directory**, then **Choose Dire
 
 > ## Mac Users: Click Here for more details
 > <img src="../fig/set_wd_mac.png" width="70%">
+> Selecting the **WorkingDir** file where we've copied the scripts and **data** directory.
+> <img src="../fig/set_wd_mac_wdIsthere.png" width="70%">
+> Once selected, click **Open**.  Once you have your directory set you should see a `setwd` command show up in the console of RStudio:
 > <img src="../fig/set_wd_mac_final.png" width="70%">
 >
 >
@@ -145,7 +148,10 @@ Under the **Session** menu, choose **Set Working Directory**, then **Choose Dire
 {: .callout}
 
 > ## Mac
-> <font color="magenta"> JPN: put in for mac </font>
+> (console)
+> 
+> setwd("~/WorkingDir")
+>
 {: .callout}
 
 Now we’ve identified where we want to work and can start loading libraries and data.
@@ -186,7 +192,16 @@ Instead of using the “library” command, though, we’ll use the “source”
 
 **Tip:** You’ll want to re-run the library loading script and re-source the functions script whenever you restart R Studio, so remember to re-open them tomorrow morning!
 
-<font color="magenta"> Could also do source() here, maybe add if we have time </font>
+> ## Running with the Source command
+> Alternatively in the console at the start of each session you can add:
+> 
+> ### Windows
+> source("C:/DataHarvestingWin/WorkingDir/functions.R")
+> 
+> ### Mac
+> source("~/WorkingDir/functions.R")
+>
+{: .callout}
 
 ### Locating data ingredients 
 
@@ -299,13 +314,22 @@ This means that, for example:
 
 ## Variables and data types
 
-<font color="magenta">I think a lot of these variable names here should be put in R so that students can see how it looks when it compiles</font>
-
 Something that it’s important to keep track of is what type of data you’ve stored in a particular variable. Words are treated differently than numbers, and numbers with decimals are treated differently than numbers without decimals. So, for example:
-  * `cheese_variety` could be "Stilton" or "cheddar", but you probably don’t want a number here. This variable type is called a **text string**.
-  * `cheese_amount` could be “a quarter cup”, but numbers are much easier to calculate with than words, so we might represent that as “0.25”. This variable type is called a **floating point number**.
+  * `cheese_variety` could be "Stilton" or "cheddar", but you probably don’t want a number here. This variable type is called a **text string**. 
+  * `cheese_amount` could be “a quarter cup”, but numbers are much easier to calculate with than words, so we might represent that as “0.25”. This variable type is called a **floating point number** and would be assigned similarly to the `cheese_variety` variable:
+
+~~~
+cheese_amount <- 0.25 # in cups
+~~~
+{: .language-r}
   * `eggs` *could possibly* be 2.5, but it’s much easier to use either 2 whole eggs or 3 whole eggs. When you want to make sure you’re working with whole units, this variable type is called an **integer**.
-     * **Tip:** The first time you use a number-type variable, if you want it to always be an integer, don’t include a decimal point when you assign it (**eggs <- 2**). On the other hand, if you do want to have the ability to have decimal points in that variable in the future, make sure to include the decimal point even if it’s .0 (**cheese_quantity <- 2.0**)
+     * **Tip:** The first time you use a number-type variable, if you want it to always be an integer, don’t include a decimal point when you assign it (**eggs <- 2**). On the other hand, if you do want to have the ability to have decimal points in that variable in the future, make sure to include the decimal point even if it’s .0 (**cheese_quantity <- 2.0**):
+
+~~~
+eggs <- 2 # this will be stored as an integer
+cheese_quantity <- 2.0 # this will be stored as a float
+~~~
+{: .language-r}
   * Another variable type we’ll be introducing in a few minutes is a **dataframe**, which lets you hold a whole spreadsheet’s worth of information in one variable. This will be very useful for working with things more complicated than omelets, such as agricultural data!
 
 Notice that they can all be named in similar ways; you don’t have to tell the system what type of variable you’ve just created, but it might be handy to leave `#comments` for yourself.
@@ -428,9 +452,9 @@ Note that we can call the `head` function without this parameter and it will run
 > ?head
 > ~~~
 > {: .language-r}
-> <font color="magenta">JPN: put in a link to how to google for functions</font>
-> <br>
-> <font color="magenta">JPN: put in vignettes link here too</font>
+> #### Other ways to get help
+> Often times google provides a good resource for learning about R functions.  Googling "head function r" will return many pages about the `head` function, including the R-documentation pages.
+> 
 >
 {: .callout}
 
