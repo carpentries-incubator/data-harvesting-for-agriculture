@@ -44,15 +44,15 @@ Programming doesn’t have to be scary, and we have some real-world examples to 
 Let’s imagine that instead of a program to work with numbers and letters, we’re creating a program that cooks breakfast instead.
 
 In order to make breakfast, you need:
- * A **working directory** (the place where you’re doing things, such as your kitchen countertop)
- * Available **data** (information about what you’re working with)
+ * A [working directory]({{ page.root }}/reference.html#working-directory) (the place where you’re doing things, such as your kitchen countertop)
+ * Available [data]({{ page.root }}/reference.html#data) (information about what you’re working with)
      * Data could be an inventory of your pantry, a grocery shopping list, a map of the store, a collection of prices at the store, and so forth.
- * **Types** of **objects** -- a method of grouping what can be done to what types of things.
+ * [Types]({{ page.root }}/reference.html#data-type) of **objects** -- a method of grouping what can be done to what types of things.
      * Food is one type of thing; people are another; pets are a third.
      * A specific food object can be an egg or a pancake; a particular pet object can be your cat or your dog.
  * Some **inputs** that may be **objects** of appropriate **types** (breakfast food ingredients)
      * You create breakfast by performing actions on objects of food types, and then you feed it to things of the people and pet types.
- * Some **functions** (recipes that work with the ingredients)
+ * Some [functions]({{ page.root }}/reference.html#function) (recipes that work with the ingredients)
      * Inputs to functions are usually stored in **variables** -- you don’t always want to make the same thing every day, so the instructions have placeholder names for things that are similar to each other but may vary. (A “todays_cheese” variable could hold Stilton for one day’s omelet and cheddar for the next.)
  * You need to match your **object** types to your **functions**.
      * You shouldn’t use a pet-type object as an input to a breakfast-making function. (Nobody wants to eat the goldfish for breakfast.)
@@ -209,13 +209,13 @@ So far, we’ve seen some things happen in the four quadrants of R Studio:
 From our cooking-breakfast example earlier, here are some of the programming terms and analogies for what they mean.
 
 ### What is a function?
-A **function** is a bit of code that we want to be able to reuse again and again. For example, let’s say you want to make omelets every morning, wouldn’t it be great if you had some sort of machine that would do it for you?
+A [function]({{ page.root }}/reference.html#function) is a bit of code that we want to be able to reuse again and again. For example, let’s say you want to make omelets every morning, wouldn’t it be great if you had some sort of machine that would do it for you?
 
 Let’s imagine an omelet-making scenario. You start with some eggs, some cheese, and some other ingredients, use utensils and heat, and end up with something cooked and edible on a plate -- or more than one plate, if several people want omelets that morning.
 
-The number of eggs and amount of cheese you use can vary depending on how many you want, so we call the bit of space that stores that information a **variable**.
+The number of eggs and amount of cheese you use can vary depending on how many you want, so we call the bit of space that stores that information a [variable]({{ page.root }}/reference.html#variable).
 
-Sometimes the recipe you received is dependent on other things that you want to leave yourself notes about as well. Just like scribbling on a recipe card, you can leave **comments** in your code by beginning a commented section with a # character.
+Sometimes the recipe you received is dependent on other things that you want to leave yourself notes about as well. Just like scribbling on a recipe card, you can leave [comments]({{ page.root }}/reference.html#comment) in your code by beginning a commented section with a # character.
 
 Here’s what that omelet process might look like in terms a step closer to programming:
 
