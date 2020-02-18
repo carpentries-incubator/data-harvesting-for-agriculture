@@ -1,0 +1,189 @@
+---
+title: "Ag Carpentry - Experimental Design"
+author: "Aolin Gong"
+date: "1/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r setup, include=FALSE}
+library(knitr)
+library(sf)
+library(fasterize)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+library(knitr)
+require(tmap)
+require(ggplot2)
+require(gridExtra)
+library(daymetr)
+library(readr)
+library(measurements)
+library(FedData)
+library(lubridate)
+library(data.table)
+library(dplyr)
+library(tidyverse)
+library(tidyr)
+library(broom)
+# source("function.R")
+```
+#### Motivating Questions:
+- What kind of on-farm experiments do we do?
+- How do we design these experiments efficiently?
+
+#### Objectives:
+- Know different types of common on-farm experiments
+- Import boundary file and AB line file
+- Create AB line file with code
+- utilize the functions to create simple trial designs
+
+#### Keypoints:
+- Most of the code in this part would be using the functions, therefore understanding what different functions can be quite important
+- In designing the trials, the most important thing is to know how to design the experimental rates,and the tech part can be done by someone else
+
+The only files we need for the trial design are the boundary file, and ab line. In addition, as long as we know the actual direction the machines
+will be driven on the field, we can create our own AB line with a function.
+boundary.sfdf <- st_read("boundary_transformed.gpkg")
+```{r read_files}
+boundary.sfdf <- st_read("data/boundary.gpkg")
+
+boundary.utm <- st_transform_utm(boundary.sfdf)
+
+```
+
+#####Field Management Info Above
+We need decide on the experiment design before we get into any of the code, relative parameters we need for the trial design includes: plot dimension, number of treatments, types of treatments, and treatment range. In the following code, we are simply going to assign values to all
+the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not
+to worry about the consistency for the whole code.
+```{r parameter_setting}
+num_treats <- 5  #number of treatments
+#--- direction ---#
+# pick one of c('SN','NS','WE','EW')
+# the direction in which the applicator moves first
+# SN means the applicator goes from south to north 
+long_in <- 'NS' 
+short_in <- 'EW'  
+#--- grid parameters in feet ---#
+plot_length_ft <- 30
+plot_width_ft <- 30 #usually this is determined by width of the equipments
+#--- meter to feet ---#
+feetinameter <- 3.28084
+#--- grid parameters in meter ---#
+plot_length_meter <- plot_length_ft/feetinameter
+plot_width_meter <- plot_width_ft/feetinameter
+
+LongA <- -82.87339
+LatA <- 40.84575
+
+LongB <- -82.87329
+LatB <- 40.83987
+
+
+bothfields <- boundary.utm
+bbox_field <- st_bbox(bothfields)+c(100,100,50,50)
+xmin <- bbox_field[1]
+ymin <- bbox_field[2]
+xmax <- bbox_field[3]
+ymax <- bbox_field[4]
+
+#--- identify the starting point ---#
+starting_point <- c(xmax,ymax) 
+ 
+  
+seed_treat_rates <- c(24000, 27000, 31000, 34000, 37000, 40000)
+nitrogen_treat_rates <- c(130,160,200,225,250,275) 
+seed_quo <- seed_treat_rates[3]
+nitrogen_quo <- nitrogen_treat_rates[3]
+num_treats <- 25
+```
+
+
+###make our own AB line if you do not already have one
+```{r create an AB line}
+ab_line <- make_abline(LongA, LongB, LatA, LatB, as.numeric(paste0("326", "17"))
+)
+```
+
+eg: read your own ab line file
+
+eg create plot to see the boundary and abline
+tm_shape(bothfields) + tm_borders(col='green') + tm_compass() + tm_grid() +
+  tm_shape(ab_line) + tm_lines(col='red', scale=3)
+
+
+st_crs(bothfields)
+st_crs(ab_line)
+#st_crs(starting_point) <- st_crs(bothfields)
+
+```{r design the checker-board plot}
+design_grids_utm <- make_grids(bothfields, ab_line, long_in, short_in, starting_point)
+
+st_crs(design_grids_utm) <- st_crs(bothfields)
+
+trial_grid1_utm <- st_intersection(bothfields, design_grids_utm)
+
+tm_shape(trial_grid1_utm) + tm_borders(col='blue') + tm_text('plotid', size = 0.5)
+
+```
+
+eg 
+tm_shape(bothfields) + tm_borders(col='blue') + 
+  tm_shape(design_grids_utm) + tm_borders(col='pink')+ tm_text('plotid', size = 0.5)
+
+st_crs(design_grids_utm)<-st_crs(bothfields)
+
+tm_shape(trial_grid1_utm) + tm_borders(col='blue') + tm_text('plotid', size = 0.5)
+
+```{r clean up plots}
+max_area <- as.numeric(mean(st_area(trial_grid1_utm)))
+
+trial_grid2 <- trial_grid1_utm %>%
+  mutate(area=as.numeric(st_area(.))) %>%
+  mutate(drop=ifelse(area<(max_area), 1, 0) )
+
+trial_grid2_intrial <- subset(trial_grid2,drop==0) #the plots that are in the trial--not too small,
+#and not in the buffer zone.
+```
+
+
+eg make plots to show the grid
+tm_shape(bothfields) + tm_borders(col='blue') + 
+  tm_shape(ab_line) + tm_lines(col='red', scale = 4) +
+  tm_shape(trial_grid2) + tm_polygons('drop') + tm_text('plotid', size = 0.5)
+
+
+### determine treatment types
+Now that we have the trial design plots, we need to assign different treatments to each plot.
+```{r assigning treatment rates}
+whole_plot <- treat_assign(trial_grid2_intrial,num_treats,seed_treat_rates,nitrogen_treat_rates,seed_quo,nitrogen_quo)
+```
+plot(newfield$geom)
+
+```{r cleanup}
+infield <- st_buffer(boundary.utm,-plot_width_meter)
+outfield <- st_difference(boundary.utm,infield)
+
+infield$dummy <- 1
+outfield$dummy <- 0
+bothfields <- rbind(infield, outfield)
+newfield <- subset(bothfields, dummy == 1)
+
+
+
+```
+
+
+###eg plot
+  
+ggplot(data = whole_plot, aes(x=long,y=lat,group=group)) +
+  geom_polygon(aes(fill=factor(NRATE))) +
+  scale_fill_brewer(palette = 'Greens') 
+
