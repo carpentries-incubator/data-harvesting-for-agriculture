@@ -24,7 +24,7 @@ objectives:
  }}
 </style>
 
-## TO-ADD
+## <font color="magenta">TO-ADD</font>
 
  * vigenettes - what is it, where can you find it in R studio interface & online
  * how to use "help" *and* how to google for help
@@ -62,27 +62,32 @@ In order to make breakfast, you need:
  * A **destination** (where to put the food that’s ready to be consumed)
      * You could put your outputs in your working directory (eat breakfast in your kitchen) or you could send it to another location (put leftovers in the refrigerator)
 
-<img src='../fig/1-breakfast.png'>
+<img src='../fig/1-breakfast.png' width="70%">
 <span class="attribution"><a href="https://www.flickr.com/photos/11849171@N00/8330968310">"Breakfast"</a> by <a href="https://www.flickr.com/photos/11849171@N00/8330968310">viviandnguyen_</a> is licensed under <a href="https://www.flickr.com/photos/11849171@N00/8330968310">CC BY-SA 2.0</a></span>
 
 
-## Getting to know R and RStudio
-
-<font color="magenta">A good bit of this might be more suitable to the Setup section as it's got a lot about the setup and running of Rstudio.</font>
-
-### <font color="magenta">Outline for this section</font>
- 1. <font color="magenta">Let's open RStudio </font>
- 1. <font color="magenta">Where is the console? (screen shot) Vocab: *console*</font>
- 1. <font color="magenta">Let's use RStudio as a calculator by putting numbers into the console</font>
-
+## Intro to R and RStudio
 
 In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.
+
+If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel).
+
+In this lesson, we will be making use of another software called “RStudio” as a way to interact with the programming language R. RStudio makes writing our programs more user-friendly. Using RStudio instead of R is a little like having a toaster. You can make toast over a fire, but having a toaster makes the job easier and less scorch-prone.
+
+We launch RStudio by double clicking on its icon, as we would with other software on our computers. 
+
+> ## Windows Users: Click Here for more details
+> Stuff
+>
+{: .windowsUsers}
+
+<!--In this episode we’ll cover the basics of using R, which is a programming language for statistics, data analysis, and data visualization. In the past decade or so, R has become very popular in both science and business, largely because (1) it is free, and (2) thousands of people have written new code extending its functionality, and that code is also free. If you perform an analysis in R, you can share that analysis so that anyone in the world can reproduce it without having to purchase proprietary software.
 
 If you’re already proficient with Excel, you will probably already know how to accomplish a lot of what we are doing in this episode using Excel instead of R. One reason why we are teaching you this material, however, is to get you comfortable with R since we will be using R for geospatial analysis (which is not so easy in Excel). 
 
 In this lesson, we will be making use of another software called "RStudio" as a way to interact with the programming language R.  RStudio makes writing our programs more user-friendly.  **Some sort of analogy here would be grand (Jill) -- Dena's analogy: It's a little like having a toaster. You can make toast over a fire, but having a toaster makes the job easier and less scorch-prone.**
 
-We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below:
+We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below: -->
 
 
 ![starting R studio](../fig/Rstudio_blank.png)
