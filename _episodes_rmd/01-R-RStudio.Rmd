@@ -303,11 +303,15 @@ The list of items it’s asking for includes the things that are likely to chang
 
 The thing that you pass in to a function or assign to a variable can also be a data set. Let’s take a look at how to do that next. 
 
+## Working with some real data
+
 As an example of a dataset in spreadsheet form that we can use to demonstrate the R language, we are using the <a href="https://www.ers.usda.gov/data-products/fertilizer-use-and-price.aspx">USDA - Economic Research Service’s fertilizer use and price dataset</a>. Of the various tables of data on this website, will be looking at Table 2 called “Estimated U.S. plant nutrient use by selected crops” which shows 1,000 nutrient short tons of nitrogen, phosphorus, and potash used on corn, soy, cotton, wheat, and other crops in the US from 1964-2016.
 
-This table has been reformatted into a CSV file for ease of import into R. You can download the CSV from: [https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv).
+This table has been reformatted into a CSV file for ease of import into R. 
+* If you copied your data folder from the USB drive, it's available in the data folder as fertilizer_use.csv.
+* If not, you can download the CSV from: [https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv).
 
-<font color="green">Dena has some comments to self here - is it in data folder?</font>
+
 
 > ## What’s a CSV file and why are they helpful?
 > CSV stands for “comma separated values.” What’s stored in a CSV file is spreadsheet-type data, and it can be opened in Microsoft Excel (among many other things). 
