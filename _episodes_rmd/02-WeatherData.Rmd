@@ -223,6 +223,7 @@ source("functions.R")
 > ## Exercise 3: Subsetting
 >
 > Name the subset of `by_month_year` that is not in 2018  monthprec_hist, find the total precipitation in June of 2015.
+> **Dena: This doesn't make sense to me as written? Seems like two different things?** 
 > 
 > > ## Exercise 3 Solution
 > > ```{r}
