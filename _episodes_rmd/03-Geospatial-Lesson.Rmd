@@ -138,12 +138,13 @@ type to ask them to look at them and identify which is which and describe what t
 {: .callout}
 **Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
 
-> # Exercise
+> ## Exercise
 > 1. Bring the file called "asplanted.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?** in your environment. Name the object `planting`. This file contains the planting information for 2017.
 > 2. Identify the CRS of the object. 
 > 3. Look at the geometry features. What kind of geometric features are in this dataset?
 > 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
-> > **Solution**
+> 
+> > ## Solution 
 > > 
 > > ```{r transformplanting}
 > > planting <- read_sf("data/asplanted.gpkg")
@@ -230,7 +231,8 @@ the theory of how to do them?**
 
 > ## Exercise 4: 
 > What are the soil types present on the field as seen in `names`? Are the soil defined by anything other than the soil type?
-> > Exercise 4 Solution
+> 
+> > ## Solution
 > > ```{r soilnames}
 > > names
 > > ```
@@ -253,11 +255,12 @@ the theory of how to do them?**
 > 
 {: .callout}
 
-> # Exercise 5: Create the Soil Map
+> ## Exercise 5: Create the Soil Map
 > 
 > Use `map_poly()` to make a map where the polygon color is informed by the soil names in
-`muname`. 
-> > Solution
+`muname`.
+> 
+> > ## Solution
 > > ```{r map_soil_spatial}
 > > map_soil <- map_poly(spatial, 'muname', "Soil Type")
 > > map_soil

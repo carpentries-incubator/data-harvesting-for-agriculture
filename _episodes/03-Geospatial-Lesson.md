@@ -47,7 +47,7 @@ source: Rmd
 > ## What is a CRS?
 > 
 > Geospatial data has a coordinate reference system (CRS) that reports how the map is projected and what point is used as a reference. A projection is a way of making the earth's curved surface fit into something you can represent on a flat computer screen. The point used for reference during projection is called a datum.
->
+> 
 {: .callout}
 
 > ## Importance of Projections
@@ -172,12 +172,13 @@ type to ask them to look at them and identify which is which and describe what t
 {: .callout}
 **Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
 
-> **Exercise**
+> ## Exercise
 > 1. Bring the file called "asplanted.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?** in your environment. Name the object `planting`. This file contains the planting information for 2017.
 > 2. Identify the CRS of the object. 
 > 3. Look at the geometry features. What kind of geometric features are in this dataset?
 > 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
-> > **Solution**
+> 
+> > ## Solution 
 > > 
 > > 
 > > ~~~
@@ -263,8 +264,8 @@ type to ask them to look at them and identify which is which and describe what t
 > > 
 > > The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are 6382 points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
 > > 
-> {: .solution}
-{: .challenge}
+> {: .solution} 
+{: .challenge} 
 
 > #### Save the file 
 > 
@@ -327,7 +328,6 @@ the theory of how to do them?**
 > 
 > The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil description of your field on the Web Soil Survey website below. The SSURGO dataset has been developed over a century of surveying land and analyzing soil samples across the United States. While the website is one way to access the soil data, R also has a package called `FedData` that has a function `get_ssurgo()` for accessing the soil data in the R environment. https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx
 > 
-> 
 {: .callout} 
 
 > ## SSURGO Download
@@ -355,7 +355,7 @@ the theory of how to do them?**
 > All done!  Woohoo!
 > ~~~
 > {: .output}
->
+> 
 {: .callout}
 
 <font color="magenta">JPN: just a heads up that it looks like there can be errors in downloads for this data sometimes.  I'm wondering if its on the server-side, like too many requests or something.  Also, I had to delete the "EXTRACTIONS/samplefield" and re-run things which I'm wondering if this is because there are some file paths missing or something? We should test this on other folks computers.  If this is indeed the problem, we might want the code to force-delete these files before running. </font>
@@ -373,12 +373,12 @@ the theory of how to do them?**
 > ~~~
 > {: .language-r}
 > 
->
 {: .callout}
 
 > ## Exercise 4: 
 > What are the soil types present on the field as seen in `names`? Are the soil defined by anything other than the soil type?
-> > Exercise 4 Solution
+> 
+> > ## Solution
 > > 
 > > ~~~
 > > names
@@ -441,14 +441,15 @@ the theory of how to do them?**
 > [6] "Condit-Bennington silt loams"               
 > ~~~
 > {: .output}
->
+> 
 {: .callout}
 
-> # Exercise 5: Create the Soil Map
+> ## Exercise 5: Create the Soil Map
 > 
 > Use `map_poly()` to make a map where the polygon color is informed by the soil names in
-`muname`. 
-> > Solution
+`muname`.
+> 
+> > ## Solution
 > > 
 > > ~~~
 > > map_soil <- map_poly(spatial, 'muname', "Soil Type")
@@ -466,8 +467,8 @@ the theory of how to do them?**
 > > <img src="../fig/rmd-map_soil_spatial-1.png" title="plot of chunk map_soil_spatial" alt="plot of chunk map_soil_spatial" width="612" style="display: block; margin: auto;" />
 > > 
 > > The map shows that there are quite a few soil types on the field, and several show up in different sections of the field. However, most of the soils are silt loam. It might be difficult to understand the different soils without more information about soil weathering and texture. This is also provided within SSURGO and is likely something you know about in your own field. 
-> > 
-> {: .solution}
+> >  
+> {: .solution} 
 {: .challenge}
 
 > # Example with your own field
@@ -586,5 +587,5 @@ the theory of how to do them?**
 > 9 2996690      OH033         10 Crd1C2 29.92200 45.94210 24.13590      23.14610
 > ~~~
 > {: .output}
->
+> 
 {: .callout}
