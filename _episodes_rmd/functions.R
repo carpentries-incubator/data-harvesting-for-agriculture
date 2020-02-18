@@ -191,7 +191,20 @@ make_abline <- function(LongA,LongB,LatA,LatB,projutm){
   return(ab_line)
 }
 
-make_grids <- function(bothfields, ab_line, long_in, short_in, starting_point, plot_length_meter, plot_width_meter){
+make_grids <- function(bothfields, ab_line, long_in, short_in, length_ft, width_ft){
+  
+  bbox_field <- st_bbox(bothfields)
+  # +c(100,100,50,50)
+  xmin <- bbox_field[1]
+  ymin <- bbox_field[2]
+  xmax <- bbox_field[3]
+  ymax <- bbox_field[4]
+  
+  #--- identify the starting point ---#
+  starting_point <- c(xmax,ymax) 
+  
+  plot_length_meter <- conv_unit(length_ft, 'ft', 'm')
+  plot_width_meter <- conv_unit(width_ft, 'ft', 'm')
   
   #===================================
   # Define the long and short vectors
