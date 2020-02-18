@@ -67,6 +67,10 @@ kg_to_lb <- function(varc){
   conv_unit(varc, "kg", "lb") 
 }
 
+m_to_ft <- function(varc){
+  conv_unit(varc, "m", "ft") 
+}
+
 map_poly <- function(sfobject, variable, name){
   tm_shape(sfobject) + tm_polygons(variable, title = name) +
     tm_layout(legend.outside = TRUE, frame = FALSE) 
