@@ -172,7 +172,7 @@ type to ask them to look at them and identify which is which and describe what t
 {: .callout}
 **Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
 
-> ## Exercise
+> ## Exercise: Exploring Geospatial Files
 > 1. Bring the file called "asplanted.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?** in your environment. Name the object `planting`. This file contains the planting information for 2017.
 > 2. Identify the CRS of the object. 
 > 3. Look at the geometry features. What kind of geometric features are in this dataset?
@@ -262,12 +262,16 @@ type to ask them to look at them and identify which is which and describe what t
 > > ~~~
 > > {: .output}
 > > 
-> > The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are 6382 points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
-> > 
 > {: .solution} 
 {: .challenge} 
 
-> #### Save the file 
+> ## Exercise Disucssion
+
+> The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are 6382 points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
+> 
+{: .callout} 
+
+> ## Save the file 
 > 
 > Use `st_write()` to save an sf object. If you do not specify a directory, the working directory will be used. We include the object we are saving `boundaryutm` and the name we would like to give the saved file `"boundary_utm.gpkg"`. Additionally, we specify the `layer_options` and `update` values to enable overwriting an existing file with the same name. 
 > 
@@ -375,7 +379,7 @@ the theory of how to do them?**
 > 
 {: .callout}
 
-> ## Exercise 4: 
+> ## Exercise: Soil Names
 > What are the soil types present on the field as seen in `names`? Are the soil defined by anything other than the soil type?
 > 
 > > ## Solution
@@ -411,11 +415,14 @@ the theory of how to do them?**
 > > #   hydclprs <dbl>, awmmfpwwta <dbl>, mukey <dbl>
 > > ~~~
 > > {: .output}
-> >
-> > Looking at `names` we can see there are eight types of soil on the field, and the dataframe reports areas with different slopes with different names. We often know the slope of the field, and so we may want to combine areas of the field with the same soil type and different slopes.
 > > 
 > {: .solution}
 {: .challenge}
+
+> ## Exercise Discussion 
+>  Looking at `names` we can see there are eight types of soil on the field, and the dataframe reports areas with different slopes with different names. We often know the slope of the field, and so we may want to combine areas of the field with the same soil type and different slopes.
+> 
+{: .callout}
 
 > ## Merging Dataframes
 > 
@@ -465,11 +472,14 @@ the theory of how to do them?**
 > > {: .output}
 > > 
 > > <img src="../fig/rmd-map_soil_spatial-1.png" title="plot of chunk map_soil_spatial" alt="plot of chunk map_soil_spatial" width="612" style="display: block; margin: auto;" />
-> > 
-> > The map shows that there are quite a few soil types on the field, and several show up in different sections of the field. However, most of the soils are silt loam. It might be difficult to understand the different soils without more information about soil weathering and texture. This is also provided within SSURGO and is likely something you know about in your own field. 
 > >  
 > {: .solution} 
 {: .challenge}
+
+> ## Exercise Discussion
+> The map shows that there are quite a few soil types on the field, and several show up in different sections of the field. However, most of the soils are silt loam. It might be difficult to understand the different soils without more information about soil weathering and texture. This is also provided within SSURGO and is likely something you know about in your own field. 
+> 
+{: .callout}
 
 > # Example with your own field
 > 

@@ -24,7 +24,7 @@ instructions instead of the USB instructions. (All the steps below have been tak
 
 Check that you have about 5 Gb of free space on your computer's hard drive. On Windows 10, you can open File Manager and click This PC for a look at your drive space.
 
-<img src="../fig/wininstall-1-file-mgr.PNG">
+<img src="../fig/wininstall-1-file-mgr.PNG" width="50%">
 
 ### R and R Studio
 
@@ -37,7 +37,7 @@ You'll need to install R before R Studio, and after you've installed R Studio yo
 * In the command line window that launches, you should see some R descriptive text and a ">" symbol. 
 * You can do some simple math on the command line (such as 5+12) to make sure it's fully loaded and responding.
 
-<img src="../fig/wininstall2-r.png">
+<img src="../fig/wininstall2-r.png" width="50%">
 
 Next:
 
@@ -48,7 +48,7 @@ Next:
 * Once it's installed, open RStudio to make sure it works and you don't get any
   error messages.
 
-<img src="../fig/wininstall3-rstudio.png">
+<img src="../fig/wininstall3-rstudio.png" width="70%">
 
 
 ### Installing the geospatial and federal data packages
@@ -58,7 +58,7 @@ contents of [this installation script file](https://github.com/data-carpentry-fo
 
 Here's where to make a new script:
 
-<img src="../fig/wininstall4-rstudioinstallscript1.png">
+<img src="../fig/wininstall4-rstudioinstallscript1.png" width="70%">
 
  * Run each line in this script by selecting it and clicking Run. 
  * Watch for any error messages along the way.
@@ -69,7 +69,7 @@ Here's where to make a new script:
 that were already taken care of on the USB sticks. If you can wait for the USB sticks, you'll have
 a faster way to get up and running.)
 
-<img src="../fig/wininstall5-rstudioinstallscript2.png">
+<img src="../fig/wininstall5-rstudioinstallscript2.png" width="50%">
 
 
 ### Checking that the packages installed correctly
@@ -78,11 +78,11 @@ a faster way to get up and running.)
 contents of [the package load and test file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_load_and_test.R). 
 * Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
 
-<img src="../fig/wininstall6-rstudiolibraryload.png">
+<img src="../fig/wininstall6-rstudiolibraryload.png" width="50%">
 
 An example of one of the tests' output:
 
-<img src="../fig/wininstall7-rstudiotmaptest.png">
+<img src="../fig/wininstall7-rstudiotmaptest.png" width="75%">
 
 ## QGIS
 
@@ -94,9 +94,9 @@ Double-click the installation file once it's downloaded and follow the prompts.
 
 Once you've completed the process, you'll have a new Start Menu folder with several icons in it:
 
-<img src="../fig/wininstall8-qgis-menuopts.png">
+<img src="../fig/wininstall8-qgis-menuopts.png" width="40%">
 
 Most of the time you'll want the regular Desktop version.
 
-<img src="../fig/wininstall9-qgis-launch.png">
+<img src="../fig/wininstall9-qgis-launch.png" width="75%">
 
