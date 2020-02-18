@@ -152,7 +152,6 @@ source: Rmd
 {: .challenge}
 
 > # Dates in Dataframes 
-> **DENA: What's the goal here? What are we going to be doing with the dates once we have them? A sentence or two about that would help with contextualizing it rather than jumping into the fact that R has it without telling us how we'll use it.**
 > There are many operations we might do with dates, such as eliminating the dates outside of the growing season, but there is a class within R for dates. Once a column is of the `date` class, we can perform actions
 > like ordering the data by time, finding the data in a certain time period, or calculating the days between two dates. 
 > The function `as.Date()` converts a column to a date, but here if we try 
@@ -213,6 +212,8 @@ source: Rmd
 > {: .language-r}
 {: .callout}
 
+**Dena: This would be a great point to explain ".." and what it means and what it's doing here, in order to help them understand how to get from the exercise 2 instructions to the exercise 2 commands?**
+
 > ## Exercise 2: Unit Conversions
 >
 > 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()` with the names `tmax` and `tmin`. 
@@ -263,6 +264,7 @@ source: Rmd
 > > ~~~
 > > {: .output}
 > > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
+> > **DENA: What's displaying from the rendered version of that math for me isn't 94 and -13, it's 97.7 and -16.6 - which is desired?**
 > {: .solution}
 {: .challenge}
 
@@ -296,7 +298,8 @@ source: Rmd
 > 12 Levels: Jan < Feb < Mar < Apr < May < Jun < Jul < Aug < Sep < ... < Dec
 > ~~~
 > {: .output}
-> 
+> Hey what is this `::` we just used?  Its just to explicitly say that the function `month` comes from the library `lubridate`.  This can be important because different libraries may have the same function names.
+>
 > This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv).
 > 
 > 
@@ -355,6 +358,7 @@ source: Rmd
 > ## Exercise 3: Subsetting
 >
 > Name the subset of `by_month_year` that is not in 2018  monthprec_hist, find the total precipitation in June of 2015.
+> **Dena: This doesn't make sense to me as written? Seems like two different things?** 
 > 
 > > ## Exercise 3 Solution
 > > 

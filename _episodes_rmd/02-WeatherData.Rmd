@@ -110,7 +110,6 @@ source("functions.R")
 {: .challenge}
 
 > # Dates in Dataframes 
-> **DENA: What's the goal here? What are we going to be doing with the dates once we have them? A sentence or two about that would help with contextualizing it rather than jumping into the fact that R has it without telling us how we'll use it.**
 > There are many operations we might do with dates, such as eliminating the dates outside of the growing season, but there is a class within R for dates. Once a column is of the `date` class, we can perform actions
 > like ordering the data by time, finding the data in a certain time period, or calculating the days between two dates. 
 > The function `as.Date()` converts a column to a date, but here if we try 
@@ -146,6 +145,8 @@ source("functions.R")
 > ```
 {: .callout}
 
+**Dena: This would be a great point to explain ".." and what it means and what it's doing here, in order to help them understand how to get from the exercise 2 instructions to the exercise 2 commands?**
+
 > ## Exercise 2: Unit Conversions
 >
 > 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()` with the names `tmax` and `tmin`. 
@@ -161,6 +162,7 @@ source("functions.R")
 > > min(weather_data$tmin)
 > > ```
 > > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
+> > **DENA: What's displaying from the rendered version of that math for me isn't 94 and -13, it's 97.7 and -16.6 - which is desired?**
 > {: .solution}
 {: .challenge}
 
@@ -184,7 +186,8 @@ source("functions.R")
 > weather_data$month <- lubridate::month(weather_data$date, label = TRUE)
 > head(weather_data$month)
 > ```
-> 
+> Hey what is this `::` we just used?  Its just to explicitly say that the function `month` comes from the library `lubridate`.  This can be important because different libraries may have the same function names.
+>
 > This is a good time to save the dataframe in a file in your working directory. The function `write.csv()` writes a dataframe (`weather_data`) to the working directory with a name you supply (weather_2000_2018.csv).
 > 
 > ```{r}
@@ -221,6 +224,7 @@ source("functions.R")
 > ## Exercise 3: Subsetting
 >
 > Name the subset of `by_month_year` that is not in 2018  monthprec_hist, find the total precipitation in June of 2015.
+> **Dena: This doesn't make sense to me as written? Seems like two different things?** 
 > 
 > > ## Exercise 3 Solution
 > > ```{r}
@@ -235,6 +239,7 @@ source("functions.R")
 > {: .solution}
 {: .challenge}
 
+**Dena: This one could use some human translation?**
 > # Take the average of monthly rainfall
 >
 > ```{r}
@@ -246,7 +251,7 @@ source("functions.R")
 > 
 > We now have two separate dataframes `by_month_2018` and `by_month`
 > with the rainfall for each
-> month. We can use the common variable `month` to merge them into
+> month. **Dena: I missed where those came from? I'm not spotting code that creates those?** We can use the common variable `month` to merge them into
 > one dataframe with the average
 > monthly rainfall and the 2018 monthly rainfall using the `merge()`
 > function.
