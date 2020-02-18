@@ -259,7 +259,7 @@ From now on, whenever we use `todays_cheese`, R will substitute the value we ass
 In R, variable names:
   * can include letters, digits, and underscores
   * cannot start with a digit
-  * are case sensitive. <font color="magenta">There is no glossary link here</font>
+  * are case sensitive, meaning that "ABC" is considered different than "abc".
   
 This means that, for example:
   * `cheese1` is a valid variable name, whereas `1cheese` is not
