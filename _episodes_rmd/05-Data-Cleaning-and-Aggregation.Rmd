@@ -147,7 +147,7 @@ defined, and will convert the projection to UTM.
 boundary_grid_utm <- subset(boundary_utm, Type == "Trial")
 plot(boundary_grid_utm$geom)
 
-ab_line <- st_read("abline.gpkg")
+ab_line <- st_read("data/abline.gpkg")
 abline_utm <- st_transform_utm(ab_line)
 
 # 24 m wide trial plots 
