@@ -191,7 +191,7 @@ make_abline <- function(LongA,LongB,LatA,LatB,projutm){
   return(ab_line)
 }
 
-make_grids <- function(bothfields,ab_line,long_in,short_in,starting_point){
+make_grids <- function(bothfields, ab_line, long_in, short_in, starting_point, plot_length_meter, plot_width_meter){
   
   #===================================
   # Define the long and short vectors
@@ -269,7 +269,7 @@ make_grids <- function(bothfields,ab_line,long_in,short_in,starting_point){
   # Find the long and short vectors
   #--------------------------
   #--- long vector ---#
-  long_vec <- end_point-origin 
+  long_vec <- end_point - origin 
   
   #--- short vector ---#
   short_vec <- rotate_mat %*% long_vec
@@ -430,6 +430,8 @@ make_grids <- function(bothfields,ab_line,long_in,short_in,starting_point){
   
   return(all_grids)
 }
+
+
 make_subplots <- function(boundary.utm,ab_line,long_in,short_in,starting_point){
   
   design_grids_utm <- make_grids(boundary.utm,ab_line,long_in,short_in,starting_point)
