@@ -150,7 +150,9 @@ plot(boundary_grid_utm$geom)
 ab_line <- st_read("abline.gpkg")
 abline_utm <- st_transform_utm(ab_line)
 
-design_grids_utm <- make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = 30, width_ft = 30)
+# 24 m wide trial plots 
+width <- m_to_ft(24)
+design_grids_utm <- make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = width, width_ft = width)
 st_crs(design_grids_utm) <- st_crs(boundary_grid_utm)
 
 tm_shape(design_grids_utm) + tm_borders(col='blue')
@@ -306,7 +308,6 @@ merge <- sp::over(grid_sp, yield_sp, fn = median)
 grid_sp@data <- cbind(merge, grid_sp@data)
 
 subplots_data <- st_as_sf(grid_sp) 
-plot(subplots_data$Yld_Vol_Dr)
 tm_shape(subplots_data) + tm_polygons("Yld_Vol_Dr")
 map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 ```
@@ -323,35 +324,36 @@ asapplied <- st_read("data/asapplied.gpkg")
 asapplied_utm <- st_transform_utm(asapplied)
 
 conv_unit((24/2)*0.8, 'm', 'ft')
-asapplied_clean <- clean_buffer(trialutm, 5, asapplied_utm)
-map_points(asapplied_utm, "Rate_Appli", "Nitrogen")
-map_points(asapplied_clean, "Rate_Appli", "Nitrogen")
+asapplied_clean <- clean_sd(asapplied_utm, asapplied_utm$Rate_Appli)
 
 merge <- sp::over(grid_sp, as(asapplied_clean[,"Rate_Appli"], "Spatial"), fn = median)
 
 grid_sp@data <- cbind(merge, grid_sp@data)
-head(subplots@data)
+head(grid_sp@data)
 ```
 
 Processing the other variables:
 
 ```{r}
-#ec
-merge2<-sp::over(subplots,ec,fn=median)
-subplots@data<-cbind(merge2,subplots@data)
-
 #asplanted and elevation
-proj4string(asplanted)<- CRS("+proj=longlat +datum=WGS84")
-merge3<-sp::over(subplots,asplanted,fn=median)
-subplots@data<-cbind(merge3,subplots@data)
-head(merge3)
+asplanted <- st_read("data/asplanted.gpkg")
+asplanted_utm <- st_transform_utm(asplanted)
 
-#topography
-topo <- spTransform(topography, CRS("+proj=longlat +datum=WGS84"))
-slopemerge <- sp::over(subplots,topo,fn=median)
-subplots@data <-cbind(slopemerge,subplots@data)
+conv_unit((24/2)*0.8, 'm', 'ft')
+asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
 
-head(subplots@data)
+asplanted_clean <- clean_buffer(trialutm, 15, asplanted_clean)
+
+map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
+
+merge <- sp::over(grid_sp, as(asplanted_clean[,c("Rt_Apd_Ct_", "Elevation_")], "Spatial"), fn = median)
+
+grid_sp@data <- cbind(merge, grid_sp@data)
+head(grid_sp@data)
+
+subplots_data <- st_as_sf(grid_sp) 
+map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
+
 ```
 
 ## Conclusion
