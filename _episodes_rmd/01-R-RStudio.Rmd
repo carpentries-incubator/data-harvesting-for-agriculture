@@ -83,6 +83,7 @@ We launch RStudio by double clicking on its icon, as we would with other softwar
 > <img src="../fig/1-Win-Rstudio-choosewhich.PNG" width="70%">
 > In the image below, the 64 bit version has been chosen and you can now press OK.
 > <img src="../fig/1-Win-Rstudio-pickedfolder.PNG" width="70%">
+> You'll be prompted to restart R Studio; double click the launch icon again.
 > At this point, R Studio should open next.
 >
 {: .windowsUsers}
@@ -177,9 +178,12 @@ Instead of using the “library” command, though, we’ll use the “source”
 
 <font color="magenta"> Could also do source() here, maybe add if we have time </font>
 
-### Locating data ingredients - <font color="red">LOOP BACK HERE</font>
+### Locating data ingredients 
 
-<font color="red">This section needs fleshing out once we know whether we’ll have the data done and verified complete in time to feed them onto the USBs or not? Skipping to next section</font>
+The instructions from here on out assume that you've set your working directory to be a folder named "WorkingDir" and that you have a folder inside it called "data" which contains several files of information. 
+
+* If you copied your software from the USB stick, you'll find WorkingDir just inside the DataHarvestingWin or DataHarvestingMac folder. 
+* If you set up from scratch, you'll want to make WorkingDir and data folders and copy the information either from a nearby USB or from [this folder](https://github.com/data-carpentry-for-agriculture/trial-lesson/tree/gh-pages/_episodes_rmd/data).
 
 ## The stuff in your “kitchen”: Getting oriented with R Studio
 
