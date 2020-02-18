@@ -3,12 +3,14 @@
 # Instead, please edit 01-R-RStudio.md in _episodes_rmd/
 title: "Introduction Programming with R and RStudio"
 include_overview: true
-source: Rmd
 questions:
  - What is a program?
  - Why would do we want to use a program?
+ - What is R and RStudio and how can we use them to read in data?
 objectives:
  - Learn programming concepts and terms
+ - Learn how to open up RStudio and read in our data
+source: Rmd
 ---
 
 <!-- JPN: updated fig path here manually for plots to show -->
@@ -626,12 +628,14 @@ We see that the `str` function is also telling us something about how our data i
 The `str` function also tells us that our variable `fert_use` is a _dataframe_ by printing `'data.frame'` at the top of its output.
 
 
-## Doing stuff with data in R (better name obvs)
+## Doing stuff with your data in R
 
+<!--
 ### <font color="magenta">Outline for this section</font>
  1. <font color="magenta">We can manipulate columns with functions</font>
     * <font color="magenta">example: min function (or something)</font>
-    * <font color="magenta">How to learn about functions you might want to use? --> We already learned a bit about the helping "?" function, but we can also look at how to google things.</font>
+    * <font color="magenta">How to learn about functions you might want to use? -> We already learned a bit about the helping "?" function, but we can also look at how to google things.</font>
+--> 
 
 Now that we have read in some data and have some idea of what our dataset contains, let's actually think about manipulating our dataset!  One thing we might want to know is find out the time span overwhich this data was taken.  We can find out the minimum time in our dataset by applying the the `min` function on our `Year` column:
 

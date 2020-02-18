@@ -4,34 +4,30 @@
 title: "Geospatial Data and SSURGO"
 output: html_document
 include_overview: true
+questions:
+ - What are the common file types in agricultural data?
+ - What applications do I need to open these files?
+ - How can I make maps of my yield or application?
+objectives:
+ - Determine whether data are stored in vector or raster format
+ - Identify the coordinate system for a dataset
+ - Talk about when data don't have a projection defined (missing .prj file)
+ - Determine UTM zone of a dataset
+ - Reproject the dataset into UTM
+ - Import geospatial files into your R environment
+ - Visualize geospatial data with R
+ - Create geospatial files from lat/long coordinates
+ - Create an ab-line
+keypoints:
+ - sf is prefereable for data analysis; it is easier to access the dataframe
+ - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
+ - Different data formats that you are likely to encounter include gpkg, shp (cpg, dbf, prj, sbn, sbx), geojson, and tif **Dena: We don't discuss most of these in the lesson - tweak description or add overview?**
 source: Rmd
 ---
 
 
 
 
-#### Motivating Questions:
-- What are the common file types in agricultural data?
-- What applications do I need to open these files?
-- How can I make maps of my yield or application?
-
-#### Objectives with Spatial Data:
-- Determine whether data are stored in vector or raster format
-- Identify the coordinate system for a dataset
-- Talk about when data don't have a projection defined (missing .prj file)
-- Determine UTM zone of a dataset
-- Reproject the dataset into UTM
-- Import geospatial files into your R environment
-- Visualize geospatial data with R
-- Create geospatial files from lat/long coordinates
-- Create an ab-line
-
-#### Keypoints:
-- sf is prefereable for data analysis; it is easier to access the dataframe
-- Projecting your data in utm is necessary for many of the geometric operations
-you perform (e.g. making trial grids and splitting plots into subplot data)
-- Different data formats that you are likely to encounter include gpkg, shp
-(cpg, dbf, prj, sbn, sbx), geojson, and tif **Dena: We don't discuss most of these in the lesson - tweak description or add overview?**
 
 > ## Introducing Spatial Data with SSURGO data
 >

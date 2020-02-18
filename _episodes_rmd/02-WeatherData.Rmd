@@ -1,6 +1,18 @@
 ---
 title: "Weather Data"
 include_overview: true
+questions:
+ - What are the common file types in agricultural data?
+ - What publicly available datasets exist for my field?
+objectives:
+ - Describe the format of public weather and soil datasets
+ - Import weather data from the internet, eg. daymetr
+ - Access to elevation and ssurgo data with higher resolution
+ - Derive topography data from elevation data
+keypoints:
+ - sf is preferable for data analysis; it is easier to access the dataframe
+ - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
+ - Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
 source: Rmd
 ---
 
@@ -28,21 +40,8 @@ source("../bin/chunk-options.R")
 source("functions.R")
 ```
 
-#### Motivating Questions:
-- What are the common file types in agricultural data?
-- What publicly available datasets exist for my field?
 
-#### Objectives with Agricultural Data Types
-- Describe the format of public weather and soil datasets
-- Import weather data from the internet, eg. daymetr
-- Access to elevation and ssurgo data with higher resolution
-- Derive topography data from elevation data
 
-#### Keypoints:
-- sf is preferable for data analysis; it is easier to access the dataframe
-- Projecting your data in utm is necessary for many of the geometric operations you perform
-(e.g. making trial grids and splitting plots into subplot data)
-- Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
 
 > # Daymet Weather Data
 > 

@@ -5,23 +5,23 @@ title: "Ag Carpentry - Data Cleaning and Aggregation"
 author: "Aolin Gong"
 date: "11/4/2019"
 output: html_document
+questions:
+ - Why is it important to clean the data before proceeding with analysis?
+ - How can I quickly and efficiently identify problems with my data?
+ - How can identify and remove incorrect values from my dataset?
+objectives:
+ - Confirm that data are formatted correctly
+ - Enumerate common problems encountered with data formatting.
+ - Visualize the distribution of recorded values
+ - Identify and remove outliers in a dataset using R and QGIS
+ - Correct other issues specific to how data were collected
+keypoints:
+ - Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values.
+ - All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders
+ - The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns.
+include_overview: true
+source: Rmd
 ---
-
-
-#### Motivating Questions:
-- "Why is it important to clean the data before proceeding with analysis?"
-- "How can I quickly and efficiently identify problems with my data?"
-- "How can identify and remove incorrect values from my dataset?"
-#### Objectives:
-- "Confirm that data are formatted correctly"
-- "Enumerate common problems encountered with data formatting."
-- "Visualize the distribution of recorded values"
-- "Identify and remove outliers in a dataset using R and QGIS"
-- "Correct other issues specific to how data were collected"
-#### Keypoints:
-- "Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values."
-- "All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders"
-- "The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns."
 
 
 
