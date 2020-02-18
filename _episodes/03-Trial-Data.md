@@ -59,7 +59,7 @@ source: Rmd
 > {: .solution}
 {: .challenge}
 
-# # Exercise Discussion
+> ## Exercise Discussion
 > 
 > ~~~
 > names(nitrogen)
@@ -150,7 +150,7 @@ source: Rmd
 > ## Exercise: Yield Map
 Make a map of the yield in bushels per acre from the `yield` file using `map_points()`. Do you notice anything about the yield map?
 > 
-> > ##Solution
+> > ## Solution
 > > 
 > > ~~~
 > > names(yield)
@@ -182,7 +182,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > {: .solution} 
 {: .challenge}
 
-> ## Outliers
+> ## Exercise Discussion and Outliers
 > Looking at the map we can see there are many extreme values, making the map look homogeneous. We will do an initial cleaning to remove these points. There is a function in `functions.R` called `clean_sd()` that deletes observations in the dataset that are beyond three standard deviations from the mean value. The inputs are the dataset and the column for cleaning.
 > 
 > 

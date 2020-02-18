@@ -28,9 +28,7 @@ source: Rmd
 
 ## <font color="magenta">TO-ADD</font>
 
- * vigenettes - what is it, where can you find it in R studio interface & online
- * how to use "help" *and* how to google for help
- * "::" <- what does this mean, multiple packages with the same name
+ * <font color="magenta">"::" <- what does this mean, multiple packages with the same name -- put this in a next lesson where it is actually used</font>
 
 
 <font color="magenta"> Do we need to link the terms to a glossary?</font>
@@ -413,6 +411,8 @@ Note that we can call the `head` function without this parameter and it will run
 > ~~~
 > {: .language-r}
 > <font color="magenta">JPN: put in a link to how to google for functions</font>
+> <br>
+> <font color="magenta">JPN: put in vignettes link here too</font>
 >
 {: .callout}
 
@@ -762,9 +762,16 @@ Hey it worked!  Let's try a few more examples.
 > >
 > > 
 > > ~~~
-> > #max(fert_use$Crop, na.rm=TRUE)
+> > max(fert_use$Crop, na.rm=TRUE)
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in Summary.factor(structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, : 'max' not meaningful for factors
+> > ~~~
+> > {: .error}
 > >
 > > The `max` function only is meaningful for numerical data, in this case you are trying to apply it to a column that is made up of categories and R got confused and printing out an error message.
 > > 
