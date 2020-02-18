@@ -8,6 +8,10 @@ questions:
 objectives:
  - Learn programming concepts and terms
  - Learn how to open up RStudio and read in our data
+keypoints:
+ - "In programming there is certain terminology we need to learn: variables, variable types, functions"
+ - "Use `variable <- value` to assign a value to a variable in order to record it in memory."
+ - "Use `read.csv` to read data in to R"
 source: Rmd
 ---
 
