@@ -31,29 +31,54 @@ source: Rmd
 > snow water equivalent, temperature, day length, solar radians, and vapor pressure. 
 > 
 >There is a package in r `daymetr` that downloads the daymet weather data within the R environment.
-> For a single point, you can use the command `download_daymet()`. If you want to download the data 
-> for a set of points, there is also the command `download_daymet_batch()` which takes an argument 
-> a .csv of the points in lat/long. If you want to use this approach, we can give you an example. 
+> For a single point, you can use the command `download_daymet()`.
+> (If you want to download the data for a set of points, there is also the command `download_daymet_batch()` which takes an argument a .csv of the points in lat/long. If you want to use this approach, we can give you an example.) 
 > 
 {: .callout}
 
 > # Using daymetr to download weather
-> We will use the mean latitude and longitude values from the bounding box as our point for the 
-> weather data. The functions `cent_long()` and `cent_lat()` give the mean longitude and latitude points of the bounding box around the `sf` object that is supplied. This should be a point near the middle of the field. 
-> 
+> Let's first start by using the function `read_sf` to load in the boundary file for our plot of land. The function `read_sf` is like the `read.csv` function we used previously to lead data, but it is designed for shape-files (hence the `sf` in its name):
 > 
 > ~~~
 > boundary <- read_sf("data/boundary.gpkg")
-> lon <- cent_long(boundary)
-> lat <- cent_lat(boundary)
 > ~~~
 > {: .language-r}
+> To use `daymetr` to find weather data for a point, we have to give it a latitude and longitude.  We'll use the `cent_long()` and `cent_lat()` functions (from `functions.R`) to calculate the centers of a box that bounds our shape file.
+> 
+> This should be a point near the middle of the field. 
+> 
+> 
+> ~~~
+> lon <- cent_long(boundary)
+> lat <- cent_lat(boundary)
+> lat
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] 40.84303
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> lon
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] -82.87579
+> ~~~
+> {: .output}
 >
-> We also call the site `Field1`, but this can be the name of one of your fields if you use it in the future.
-> We can choose the start and end years. If the data is not available for the year you request, an 
-> error will be reported. We choose 2000 to 2018 for this example; later we will use the
-> historical data for comparison. The final option `internal = TRUE` means that the daymet 
-> data is brought into the R environment rather than saved in your working directory. We may want to change the names and units of variables, so we will wait to save the data in the working directory.
+> Now we'll use the function `download_daymet` to grab the weather from our central latitude and longitude values that we just calculated.  In addition to taking in parameters of `lat` and `lon`, we need to give this function a `start` and `end` date so that we can specify the range of years over which we want weather data.  If the data is not available for the year you request, an error will be reported. We choose 2000 to 2018 for this example; later we will use the historical data for comparison.
+> We also specify a name for this site - we will call the site `Field1`, but this can be the name of one of your fields if you use it in the future.
+> The final option `internal = TRUE` means that the daymet data is brought into the R environment rather than saved in your working directory. We may want to change the names and units of variables, so we will wait to save the data in the working directory.
 >
 >
 >~~~
@@ -107,16 +132,18 @@ source: Rmd
 >  - attr(*, "class")= chr "daymetr"
 > ~~~
 > {: .output}
-> The object `weather` is a list of 7 objects, the last of which is the data. In the next excerise we will explore what variables are in this dataframe. 
+> The object `weather` is a list of 7 objects, the last of which is the data. In the next excerise we will explore what variables are in this dataframe.
+> 
+> **What are all those ".." in the names under `data`?** These just denote spaces in the original column labels. While it can be a little confusing to look at at first, they are just the default formatting R gives to these columns.
 {: .callout}
 
 > ## Exercise 1: Explore the weather data
 >
->  1. Save the dataframe in `weather` with the name `weather_data`.
+>  1. Assign the column `data` in `weather` to a variable with the name `weather_data`. (Recall how we access a column with `$` and how variables are assigned with a `<-`).
 >  2. How is the date reported? 
 >  3. What other variables exist?
 >  4. What are the units for the different variables?
->  *Remember: Sometimes you need to use a search engine or help("functionname") to understand what objects
+>  **Remember:** Sometimes you need to use a search engine or help("functionname") to understand what objects
 >  are created from a specific R function.
 > 
 > > ## Solution
@@ -146,22 +173,19 @@ source: Rmd
 > > The date is reported as the year and day of the year. 
 > > Other variables include day length, precipitation, solar radiation, snow water equivalent, maximum temperature, minimum temperature, and vapor pressure. 
 > > The units for the variables are given after the variable name. For example, day length is in seconds and solar radiation is in watts per square meter. While precipitation and temperature have intuitive names, vapor pressure and snow water equivalent are not so apparent. 
-> > Use the `daymetr` [vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html) to understand the meaning of these variables. 
+> > You can look at the `daymetr` [vignette](https://cran.r-project.org/web/packages/daymetr/vignettes/daymetr-vignette.html) to understand the meaning of these variables. 
 > > 
 > {: .solution}
 {: .challenge}
 
 > # Dates in Dataframes 
-> There are many operations we might do with dates, such as eliminating the dates outside of the growing season, but there is a class within R for dates. Once a column is of the `date` class, we can perform actions
-> like ordering the data by time, finding the data in a certain time period, or calculating the days between two dates. 
-> The function `as.Date()` converts a column to a date, but here if we try 
-> the command `weather_data$date <- as.Date(weather_data$yday)`, we will receive an error 
-> saying an origin must be supplied. 
->
-> The function can see that the date is in days after some starting time or origin. The name
-> `yday` means this is the day of the year, so the origin should be the last day of the 
-> previous year. There are multiple years in our dataframe, so the origin should change 
-> for each year. This is accomplished in the function as.Date.daymetr(). To see this code and understand how > it works go to the [functions script](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/functions.R) in github. 
+> There are many operations we might do with dates, such as eliminating the dates outside of the growing season, but we need some way to deal with their unique formatting.
+> You can think of "dates" as another variable type, like the integers and floats that we discussed in the previous episode.
+> 
+> Once a column is of the `date` data type, we can perform actions
+> like ordering the data by time, finding the data in a certain time period, or calculating the days between two dates.
+> 
+> R has a built-in function `as.Date()` which converts a column to a date.  However, our data has dates in different formats -- `year` is in years and `yday` is days the day of the year in question, starting on January 1st.  We will use one of our functions in `functions.R` to take this into account called `as.Date.daymetr()`:
 > 
 > 
 > ~~~
@@ -191,52 +215,130 @@ source: Rmd
 > [1] "Date"
 > ~~~
 > {: .output}
+>  To see this code and understand how it works go to the [functions script](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/functions.R) in github.
 {: .callout}
+
+<!-- JPN: significant mods
+, but here if we try 
+the command `weather_data$date <- as.Date(weather_data$yday)`, we will receive an error 
+saying an origin must be supplied. 
+
+The function can see that the date is in days after some starting time or origin. The name
+`yday` means this is the day of the year, so the origin should be the last day of the 
+previous year. There are multiple years in our dataframe, so the origin should change 
+for each year. This is accomplished in the function as.Date.daymetr(). To see this code and understand how > it works go to the [functions script](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/functions.R) in github.
+-->
 
 > # Unit Conversions
 >
->Publicly available data are usually given in metric units as we saw in the weather data 
->above. We may want to have these data in imperial units as these are the units we are using
+>Publicly available data are usually given in metric units as we see in the weather data 
+>above, for example, the precipitation data is in millimeters:
+> 
+> ~~~
+> head(weather_data$prcp..mm.day., n=20) # print 20 entries of precipitation column in mm
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+>  [1]  0  0  8 27  0  0  0  0  0  2  2  0  2  1  0  0  0  2  0  6
+> ~~~
+> {: .output}
+> We may want to have these data in imperial units as these are the units we are using
 >to think about yield and other values in the United States. You may know the value of crop requirements and threshholds in imperial units rather than metric units. For example, a goal of 18 inches of rain during the corn season.
 >
->The package `measurements` is used for converting different types of measurements from one unit to another. The 
+>The R package `measurements` is used for converting different types of measurements from one unit to another. The 
 > command `conv_unit()` converts the column from one stated unit to another unit.
 > Another useful function in the package is `conv_unit_options` which gives the possible units for a specific kind of measure (e.g. length, area, weight, etc.). 
 > 
-> We have made simple functions for converting units using `conv_unit()` these are in `functions.R` and can be sourced within your code. For example, the function `mm_to_in()` can convert the daily precipitation from milimeters to inches. The following lines converts `prcp..mm.day.` to inches and creates a new column called `prec`.
+> We have made simple functions for converting units using `conv_unit()` and these are in `functions.R`. For example, the function `mm_to_in()` can convert the daily precipitation from milimeters to inches. The following lines converts `prcp..mm.day.` to inches and creates a new column called `prec`.
 > 
 > 
 > ~~~
-> weather_data$prec <- mm_to_in(weather_data$prcp..mm.day.)
+> weather_data$prec <- mm_to_in(weather_data$prcp..mm.day.) # recall: ".." is treated just like any other letter or number in R!
+> head(weather_data$prec, n=20) # print 20 entries of precipitation column in inches
 > ~~~
 > {: .language-r}
+> 
+> 
+> 
+> ~~~
+>  [1] 0.00000000 0.00000000 0.31496063 1.06299213 0.00000000 0.00000000
+>  [7] 0.00000000 0.00000000 0.00000000 0.07874016 0.07874016 0.00000000
+> [13] 0.07874016 0.03937008 0.00000000 0.00000000 0.00000000 0.07874016
+> [19] 0.00000000 0.23622047
+> ~~~
+> {: .output}
 {: .callout}
 
-**Dena: This would be a great point to explain ".." and what it means and what it's doing here, in order to help them understand how to get from the exercise 2 instructions to the exercise 2 commands?**
 
 > ## Exercise 2: Unit Conversions
 >
-> 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()` with the names `tmax` and `tmin`. 
-> 2. What is the maximum and minimum temperature recorded?
+> There are two temperature columns in our dataset: `tmax..deg.c.` and `tmin..deg.c.` which give the minimum and maximum temperature measured on a particular day.
+> 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()`. The function `c_to_f()` is like the `mm_to_in` column but instead of taking in a precipitation column it takes in a temperature column. 
+> 2. What is the maximum and minimum temperature recorded? (Hint: recall the `min` and `max` functions from the previous episodes)
 >
 > > ## Exercise 2 Solutions
-> > 
+> >
+> > Let's start by looking at our original columns:
 > > 
 > > ~~~
-> > weather_data$tmax <- c_to_f(weather_data$tmax..deg.c.) 
-> > weather_data$tmin <- c_to_f(weather_data$tmin..deg.c.)
-> > head(weather_data$tmax)
+> > head(weather_data$tmax..deg.c., n=10) # maximum daily temp in C
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] 47.3 57.2 58.1 53.6 38.3 34.7
+> >  [1]  8.5 14.0 14.5 12.0  3.5  1.5  4.0  3.5  6.5  9.0
 > > ~~~
 > > {: .output}
 > > 
+> > ~~~
+> > head(weather_data$tmin..deg.c., n=10) # minimum daily temp in C
+> > ~~~
+> > {: .language-r}
 > > 
+> > 
+> > 
+> > ~~~
+> >  [1] -4.5  3.0  4.5  0.5 -4.5 -4.5 -4.0 -5.5 -1.5  3.0
+> > ~~~
+> > {: .output}
+> > Now let's convert them from C to F using the `c_to_f` function:
+> > 
+> > ~~~
+> > weather_data$tmax <- c_to_f(weather_data$tmax..deg.c.) 
+> > weather_data$tmin <- c_to_f(weather_data$tmin..deg.c.)
+> > ~~~
+> > {: .language-r}
+> > And let's look at our transformed data set:
+> > 
+> > ~~~
+> > head(weather_data$tmax, n=10) # maximum daily temp in F
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >  [1] 47.3 57.2 58.1 53.6 38.3 34.7 39.2 38.3 43.7 48.2
+> > ~~~
+> > {: .output}
+> > 
+> > ~~~
+> > head(weather_data$tmin, n=10) # minimum daily temp in F
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >  [1] 23.9 37.4 40.1 32.9 23.9 23.9 24.8 22.1 29.3 37.4
+> > ~~~
+> > {: .output}
+> > Finally, let's figure out what the maximum and minimum recorded temperatures are.  The overall maximum temperature will be the maximum of the `tmax` column, and likewise with the minimum.  Remembering back to when we used the `max` function before we can calculate the overall maximum temperature with:
 > > 
 > > ~~~
 > > max(weather_data$tmax)
@@ -249,8 +351,7 @@ source: Rmd
 > > [1] 97.7
 > > ~~~
 > > {: .output}
-> > 
-> > 
+> > Similarly for the min temperature:
 > > 
 > > ~~~
 > > min(weather_data$tmin)
@@ -263,8 +364,7 @@ source: Rmd
 > > [1] -16.6
 > > ~~~
 > > {: .output}
-> > The maximum temperature during this time period was 94 degrees, and the minimum temperature was -13 degrees.
-> > **DENA: What's displaying from the rendered version of that math for me isn't 94 and -13, it's 97.7 and -16.6 - which is desired?**
+> > The maximum temperature during this time period was 97.7 degrees, and the minimum temperature was -16.6 degrees.
 > {: .solution}
 {: .challenge}
 
@@ -313,35 +413,58 @@ source: Rmd
 >
 > Now, we need to sum the daily precipitation for each year and month combination. There is a 
 > package called `dplyr` that helps with many kinds of data manipulation. A popular task is to 
-> perform an action over a group, like taking the sum of something. To specify the grouping variables, you use `group_by()` then add the additional
-> command `summarise()` which defines the action. For this exercise we wrote functions that use `dplyr` to make the task simpler for you. The functions `sumprec_by_monthyear()` and `avgprec_by_month()` are in `functions.R`. You can read these functions to make similar functions on your own. 
+> perform an action over a group, like taking the sum of something. The functions `sumprec_by_monthyear()` and `avgprec_by_month()` are in `functions.R` and use the `dplyr` package to calculate total and average precipitation by month. 
 > 
 > First we use the command to calculate the total precipitation for each month in each year.
 > 
 > ~~~
 > by_month_year <- sumprec_by_monthyear(weather_data)
-> head(by_month_year)
+> head(by_month_year, n=100)
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> # A tibble: 6 x 3
-> # Groups:   month [1]
->   month  year prec_month
->   <ord> <dbl>      <dbl>
-> 1 Jan    2000      2.44 
-> 2 Jan    2001      0.984
-> 3 Jan    2002      1.69 
-> 4 Jan    2003      1.65 
-> 5 Jan    2004      3.31 
-> 6 Jan    2005      7.68 
+> # A tibble: 100 x 3
+> # Groups:   month [6]
+>    month  year prec_month
+>    <ord> <dbl>      <dbl>
+>  1 Jan    2000      2.44 
+>  2 Jan    2001      0.984
+>  3 Jan    2002      1.69 
+>  4 Jan    2003      1.65 
+>  5 Jan    2004      3.31 
+>  6 Jan    2005      7.68 
+>  7 Jan    2006      3.07 
+>  8 Jan    2007      5.87 
+>  9 Jan    2008      2.64 
+> 10 Jan    2009      1.85 
+> # … with 90 more rows
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> head(by_month_year$month)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] Jan Jan Jan Jan Jan Jan
+> 12 Levels: Jan < Feb < Mar < Apr < May < Jun < Jul < Aug < Sep < ... < Dec
 > ~~~
 > {: .output}
 >
-> Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January. 
+> Now we have a dataframe with the rainfall for each month of each year, where the first rows of the dataframe are for January.  
 {: .callout}
+
+<!-- JPN: moved things around
+ To specify the grouping variables, you use `group_by()` then add the additional command `summarise()` which defines the action. For this exercise we wrote functions that use `dplyr` to make the task simpler for you.
+-->
 
 > ## More information about `dplyr`
 > One great way to get more information about professionally published packages is through `vignette`: a function that will give you extensive documentation in R.  You can use this with:
