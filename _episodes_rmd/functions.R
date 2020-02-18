@@ -520,3 +520,27 @@ st_over <- function(x, y) {
       z[1])
 }
 
+download_ssurgo <- function(name_of_field, boundary_sp_in, redo=FALSE){
+  tryCatch(
+    expr = {
+      ssurgo <- get_ssurgo(boundary_sp_in, name_of_field, force.redo=redo)
+      #message(log(x))
+      message("Successfully downloaded SSURGO.")
+      return(ssurgo)
+    },
+    error = function(e){
+      message('Caught an error!  Lets try again after waiting 5 seconds...')
+      print(e)
+      Sys.sleep(5.0)
+      download_ssurgo(name_of_field, boundary_sp_in)
+    },
+    warning = function(w){
+      message('Caught a warning!')
+      print(w)
+    },
+    finally = {
+      message('All done!  Woohoo!')
+    }
+  )    
+}
+
