@@ -1,5 +1,5 @@
 ---
-title: "Introduction Programming with R and RStudio"
+title: "Introduction to Programming with R and RStudio"
 include_overview: true
 questions:
  - What is a program?
