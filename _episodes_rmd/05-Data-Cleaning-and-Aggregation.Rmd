@@ -52,11 +52,8 @@ just checking the file in advance of creating the subplots of the trial design.
 ```{r}
 trial <- read_sf("data/trial.gpkg")
 st_crs(trial)
-st_crs(yield)
 
-trialutm <- st_transform_utm(trial)
-
-st_write(trialutm, "trial_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+trialutm <- trial
 ```
 
 
@@ -134,7 +131,9 @@ of file to utm projection for later use.
 
 ```{r boundary}
 boundary <- read_sf("data/boundary.gpkg")
-boundary_utm <- st_transform(boundary, projutm)
+st_crs(boundary)
+
+boundary_utm <- st_transform_utm(boundary)
 ```
 
 After we read in the trial design file, we use a function to generate the
@@ -144,20 +143,25 @@ somewhat complex, we have included it as a
 For now, we will import a shapefile that already has the subplot boundaries
 defined, and will convert the projection to UTM.
 
-```{r read subplot}
-subplots <- read_sf("data/subplots.gpkg")
-subplots_utm <- st_transform(subplots,projutm)
+```{r }
+boundary_grid_utm <- subset(boundary_utm, Type == "Trial")
+plot(boundary_grid_utm$geom)
+
+ab_line <- st_read("abline.gpkg")
+abline_utm <- st_transform_utm(ab_line)
+
+design_grids_utm <- make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = 30, width_ft = 30)
+st_crs(design_grids_utm) <- st_crs(boundary_grid_utm)
+
+tm_shape(design_grids_utm) + tm_borders(col='blue')
+
+trial_grid_utm <- st_intersection(boundary_grid_utm, design_grids_utm)
+tm_shape(trial_grid_utm) + tm_borders(col='blue')
 ```
 
 Here, we graph the subplots that we generated. Note that color indicates the ID
 number of the subplots, which starts from 1, at the right upper corner. We can
 check how many units of observation we are generating with this subplots shapefile.
-
-```{r vis subplots}
-plot(subplots)
-names(subplots)
-max(subplots$ID)
-```
 
 Then, we plot the geometry of subplots and boundary together, so that we get a
 better idea where the subplots are within the field.
@@ -176,7 +180,7 @@ boundary, and trial design, we will also convert the yield data to UTM.
 
 ```{r yield}
 yield <- read_sf("data/yield.gpkg")
-yield_utm <- st_transform(yield, projutm)
+yield_utm <- st_transform_utm(yield)
 ```
 
 We check the distribution of the yield data as we clean them to monitor the
@@ -240,11 +244,7 @@ deviation and mean of the yield distribution, respectively. Then we remove the
 yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd. 
 
 ```{r 3sd}
-sd_yld <- sd(yield_clean$Yld_Vol_Dr)
-mean_yld <- mean(yield_clean$Yld_Vol_Dr)
-yield_clean <- subset(yield_clean,
-                      yield_clean$Yld_Vol_Dr > mean_yld - 3 * sd_yld &
-                        yield_clean$Yld_Vol_Dr <mean_yld + 3 * sd_yld)
+yield_clean <- clean_sd(yield_clean, yield_clean$Yld_Vol_Dr)
 ```
 
 Here again, we check the distribution of cleaned yield after taking out the
@@ -258,7 +258,7 @@ hist(yield_clean$Yld_Vol_Dr)
 The next line transforms the cleaned yield into UTM projection.
 
 ```{r reprojection of yield data}
-yield_clean <- st_transform(yield_clean, projutm)
+yield_clean <- st_transform_utm(yield_clean)
 ```
 
 **Question from Lindsay: Why didn't we just clean the data that had already
@@ -299,17 +299,18 @@ way.
 explanation.**
 
 ```{r sf2sp}
-subplots_sp <- as(subplots_utm, "Spatial")
-yield_sp <- as(yield_clean, "Spatial")
+grid_sp <- as(trial_grid_utm, "Spatial")
+yield_sp <- as(yield_clean[,"Yld_Vol_Dr"], "Spatial")
 ```
 
 **Explain more of what is happening in this code below**
 **Why is one line commented out?**
 
 ```{r aggregate yield data}
-#proj4string(yield_sp)<- CRS("+proj=longlat +datum=WGS84")
-merge <- sp::over(subplots_sp, yield_sp,fn = median)
-subplots_merge <- SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE)
+merge <- sp::over(grid_sp, yield_sp, fn = median)
+subplots_merge <- SpatialPolygonsDataFrame(grid_sp, merge, match.ID = FALSE)
+subplots_data <- st_as_sf(subplots_merge) 
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 ```
 
 ### Exercise
@@ -320,9 +321,14 @@ sub-plot.
 **Solution**:
 
 ```{r}
-#asapplied
-proj4string(asapplied) <- CRS("+proj=longlat +datum=WGS84")
-merge5 <- sp::over(subplots,asapplied,fn=mean)
+asapplied <- st_read("data/asapplied.gpkg")
+asapplied_utm <- st_transform_utm(asapplied)
+
+ov <- st_over(asapplied_utm, st_geometry(buffer))
+asapplied$out <- is.na(ov) # demarcate the yield values removed
+yield_clean <- subset(yield, out == FALSE)
+
+merge5 <- sp::over(subplots, asapplied, fn = mean)
 subplots@data <- cbind(merge5,subplots@data)
 head(subplots@data)
 ```
@@ -331,7 +337,6 @@ Processing the other variables:
 
 ```{r}
 #ec
-proj4string(ec)<- CRS("+proj=longlat +datum=WGS84")
 merge2<-sp::over(subplots,ec,fn=median)
 subplots@data<-cbind(merge2,subplots@data)
 
