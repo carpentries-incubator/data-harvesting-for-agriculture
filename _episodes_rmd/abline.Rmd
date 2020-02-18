@@ -41,11 +41,11 @@ in R. First, we define the latitude and longitude of the two points. We will cal
 these point A and point B.
 
 ```{r points }
-LongA <- -82.87339
-LatA <- 40.84575
+LongA <- -82.873337
+LatA <- 40.846111
 
-LongB <- -82.87329
-LatB <- 40.83987
+LongB <- -82.873222
+LatB <- 40.843014
 ```
 
 `st_linestring()` creates an object of class sf from a matrix.
@@ -71,7 +71,7 @@ the first method, so that the instructions they see lead them to do the right th
 boundary <- read_sf("data/boundary.gpkg")
 st_crs(ab_line) <- st_crs(boundary)
 st_crs(ab_line)
-st_write(ab_line,"abline.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(ab_line,"data/abline.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 
 Plot the resulting AB-line with the generic plotting function for `sf` objects.
