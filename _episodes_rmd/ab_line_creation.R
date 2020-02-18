@@ -14,11 +14,11 @@ in R. First, we define the latitude and longitude of the two points. We will cal
 these point A and point B.
 
 ```{r points }
-LongA <- -82.97452
-LatA <- 40.73862
+LongA <- -82.87339
+LatA <- 40.84575
 
-LongB <- -82.97452
-LatB <- 40.74480
+LongB <- -82.87329
+LatB <- 40.83987
 ```
 
 `st_linestring()` creates an object of class sf from a matrix.
