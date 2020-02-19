@@ -148,14 +148,23 @@ original trial design, and then aggregate the cleaned datasets for different
 variables onto the subplots.  Once we have one value per variable per subplot,
 we can begin examining the relationships between the variables.*
 
+
 ## Importing and visualizing boundaries and subplots
 
-The following steps read in a boundary shapefile, and transform the projection
-of file to utm projection for later use.
+Let's apply this data-cleaning thinking to measurements of yields.  First, we will aggregate our yields into a grid overlayed on top of our boundary shapefile and look for measurements on this grid that seem too low or to high, and flag these as "outliers" of our dataset in our data-cleaning process.
+
+### Reading and transforming the boundary, trial and abline files
+
+The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
 
 
 ~~~
 boundary <- read_sf("data/boundary.gpkg")
+~~~
+{: .language-r}
+What is the current coordinate reference system of this object?
+
+~~~
 st_crs(boundary)
 ~~~
 {: .language-r}
@@ -168,17 +177,97 @@ Coordinate Reference System:
   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
 ~~~
 {: .output}
-
-
+Let's transform it to the UTM projection & check out its new coordinate reference system:
 
 ~~~
 boundary_utm <- st_transform_utm(boundary)
+st_crs(boundary_utm)
 ~~~
 {: .language-r}
 
-In the last episode, we also imported our trial design.  We will include the
-code again here, in case you are just joining us.
 
+
+~~~
+Coordinate Reference System:
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+~~~
+{: .output}
+Now we can see that the `+proj=longlat` has changed to `+proj=utm` and gives us that we are in UTM zone #17.
+
+In the last episode, we also imported our trial design, which we will do again here:
+
+~~~
+trial <- read_sf("data/trial.gpkg")
+~~~
+{: .language-r}
+
+Let's look at the coordinate reference system here as well:
+
+~~~
+st_crs(trial)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+~~~
+{: .output}
+<font color="magenta">Do we have a figure showing lat/long to UTM coversion somewhere?  I can add this</font>
+
+Our file is already in the UTM projection, but if we have one that is not we can convert this as well with:
+
+~~~
+trial_utm <- st_transform_utm(trial)
+~~~
+{: .language-r}
+
+Finally, let's transform our abline file.  We read in the file:
+
+~~~
+abline = st_read("data/abline.gpkg")
+~~~
+{: .language-r}
+
+
+
+~~~
+Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
+Simple feature collection with 1 feature and 1 field
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+~~~
+{: .output}
+Check out its current coordinate reference system:
+
+~~~
+st_crs(abline)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+~~~
+{: .output}
+And transform it to UTM:
+
+~~~
+abline_utm = st_transform_utm(abline)
+~~~
+{: .language-r}
+
+<!-- JPN taking out a lot
 The following steps read in a trial design shapefile, transform the projection
 of file to utm projection, and then save the file in a geopackage. In many
 cases, the trial design shapefile is already in the correct form, and we are
@@ -186,7 +275,7 @@ just checking the file in advance of creating the subplots of the trial design.
 
 
 ~~~
-trial <- read_sf("data/trial.gpkg")
+trial = read_sf("data/trial.gpkg")
 st_crs(trial)
 ~~~
 {: .language-r}
@@ -203,7 +292,7 @@ Coordinate Reference System:
 
 
 ~~~
-trialutm <- trial
+trialutm = trial
 ~~~
 {: .language-r}
 
@@ -216,15 +305,15 @@ defined, and will convert the projection to UTM.
 
 
 ~~~
-boundary_grid_utm <- subset(boundary_utm, Type == "Trial")
+boundary_grid_utm = subset(boundary_utm, Type == "Trial")
 plot(boundary_grid_utm$geom)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
 
 ~~~
-abline <- st_read("data/abline.gpkg")
+abline = st_read("data/abline.gpkg")
 ~~~
 {: .language-r}
 
@@ -260,21 +349,21 @@ Coordinate Reference System:
 
 
 ~~~
-abline_utm <- st_transform_utm(abline)
+abline_utm = st_transform_utm(abline)
 
 # 24 m wide trial plots 
-width <- m_to_ft(24)
-design_grids_utm <- make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = width, width_ft = width)
-st_crs(design_grids_utm) <- st_crs(boundary_grid_utm)
+width = m_to_ft(24)
+design_grids_utm = make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = width, width_ft = width)
+st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
 
 tm_shape(design_grids_utm) + tm_borders(col='blue')
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-2.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-12-2.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
 
 ~~~
-trial_grid_utm <- st_intersection(boundary_grid_utm, design_grids_utm)
+trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
 ~~~
 {: .language-r}
 
@@ -293,7 +382,17 @@ tm_shape(trial_grid_utm) + tm_borders(col='blue')
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-3.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-12-3.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+-->
+
+### Plotting our transformed shapefiles
+
+After we read in the trial design files, we use a function to generate the
+subplots for this trial. Because the code for generating the subplots is
+somewhat complex, we have included it as a
+[supplementary file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/making%20subplots.R).
+For now, we will import a shapefile that already has the subplot boundaries
+defined, and will convert the projection to UTM.
 
 Here, we graph the subplots that we generated. Note that color indicates the ID
 number of the subplots, which starts from 1, at the right upper corner. We can
@@ -591,7 +690,7 @@ map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
 
 ~~~
 merge <- sp::over(grid_sp, as(asplanted_clean[,c("Rt_Apd_Ct_", "Elevation_")], "Spatial"), fn = median)
@@ -640,28 +739,28 @@ map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-8-2.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-14-2.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
 
 ~~~
 plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-8-3.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-14-3.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
 
 ~~~
 plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-8-4.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-14-4.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
 
 ~~~
 plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-8-5.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-14-5.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
 
 ~~~
 model <- lm(Yld_Vol_Dr ~ Rt_Apd_Ct_ +  Rate_Appli + Elevation_, data = subplots_data)
