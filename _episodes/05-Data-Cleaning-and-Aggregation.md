@@ -78,20 +78,26 @@ mean(error_data)
 Therefore, we want to check for values like this before we do anything else.  If
 the values were manually entered and the intended value is obvious, they can be
 manually corrected.  For larger scale datasets, however, it is often most
-practical to discard problematic data.  Below, we draw a plot to see the rough
-distribution of values.  Then we identify a cutoff, and convert anything above
-the cutoff to missing data.
+practical to discard problematic data.
+
+For example, we can plot our `error_data` and look for values that may look off:
 
 
 ~~~
-plot(error_data)
+plot(error_data) # use plot function on error rate
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+By eye we can see the 2nd measurement (at `index = 2`) looks a little fishy.  In this case
+we might want to apply a cut-off in our data so that we ignore all measurements above a
+certain threshold when we do calculations like taking the mean of our data.
+
+One way to do this is by setting any "weird" values to `NA`:
+
 
 ~~~
-error_data[error_data > 2000] <- NA
+error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
 error_data
 ~~~
 {: .language-r}
@@ -103,6 +109,21 @@ error_data
 ~~~
 {: .output}
 
+Now we can take a mean, with removing `NA`'s as we do it and recover a mean that is closer to the correct value:
+
+~~~
+mean(error_data, na.rm=TRUE)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 473.3333
+~~~
+{: .output}
+
+
 Data cleaning is a major reason why there needs to be good communication between
 data scientists and end users, in agriculture or any other discipline.  As the person
 who generates the data, you know best where the likely sources of error might be.
@@ -111,7 +132,7 @@ all day would never think of.  You also know best what values are reasonable,
 and what values are suspiciously high or low.
 
 For different types of data, we have different ways to clean them. Here are the
-main concerns of the original data for the major varaibles:
+main concerns of the original data for the major variables:
 
 Yield, as-planted, and as-applied data:
 
@@ -119,6 +140,8 @@ Yield, as-planted, and as-applied data:
 * We remove observations on the edges of the plot.
 * We remove observations that are below or above three standard deviations from the mean.
 * We then aggregate them onto our units of observation.
+
+<font color="magenta">This comes up in the 03 or 04 but we need to define what a standard devation is</font>
  
 *For aggregation, we need to generate subplots (units of observation) of the
 original trial design, and then aggregate the cleaned datasets for different
@@ -198,7 +221,7 @@ plot(boundary_grid_utm$geom)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
 
 ~~~
 abline <- st_read("data/abline.gpkg")
@@ -248,7 +271,7 @@ tm_shape(design_grids_utm) + tm_borders(col='blue')
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-4-2.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-6-2.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
 
 ~~~
 trial_grid_utm <- st_intersection(boundary_grid_utm, design_grids_utm)
@@ -270,7 +293,7 @@ tm_shape(trial_grid_utm) + tm_borders(col='blue')
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-4-3.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-6-3.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
 
 Here, we graph the subplots that we generated. Note that color indicates the ID
 number of the subplots, which starts from 1, at the right upper corner. We can
@@ -468,36 +491,21 @@ asapplied <- st_read("data/asapplied.gpkg")
 
 
 ~~~
-Warning in CPL_read_ogr(dsn, layer, query, as.character(options), quiet, : GDAL
-Error 1: unable to open database file: this file is a WAL-enabled database. It
-cannot be opened because it is presumably read-only or in a read-only directory.
+Reading layer `asapplied' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asapplied.gpkg' using driver `GPKG'
+Simple feature collection with 9913 features and 19 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -82.87852 ymin: 40.83947 xmax: -82.87304 ymax: 40.84649
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ~~~
-{: .error}
-
-
-
-~~~
-Error: Cannot open "/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asapplied.gpkg"; The source could be corrupt or not supported. See `st_drivers()` for a list of supported formats.
-~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 asapplied_utm <- st_transform_utm(asapplied)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in st_bbox(sfobject): object 'asapplied' not found
-~~~
-{: .error}
-
-
-
-~~~
 conv_unit((24/2)*0.8, 'm', 'ft')
 ~~~
 {: .language-r}
@@ -513,33 +521,9 @@ conv_unit((24/2)*0.8, 'm', 'ft')
 
 ~~~
 asapplied_clean <- clean_sd(asapplied_utm, asapplied_utm$Rate_Appli)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in subset(data, var >= mean(var, na.rm = TRUE) - 3 * sd(var, na.rm = TRUE) & : object 'asapplied_utm' not found
-~~~
-{: .error}
-
-
-
-~~~
 merge <- sp::over(grid_sp, as(asapplied_clean[,"Rate_Appli"], "Spatial"), fn = median)
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in .class1(object): object 'asapplied_clean' not found
-~~~
-{: .error}
-
-
-
-~~~
 grid_sp@data <- cbind(merge, grid_sp@data)
 head(grid_sp@data)
 ~~~
@@ -548,13 +532,13 @@ head(grid_sp@data)
 
 
 ~~~
-  Yld_Vol_Dr Yld_Vol_Dr  Type plotid GRIDY GRIDX
-1   159.7329   159.7329 Trial      3     3     1
-2   233.4012   233.4012 Trial      4     4     1
-3   185.4852   185.4852 Trial      5     5     1
-4   186.8338   186.8338 Trial      6     6     1
-5   254.4135   254.4135 Trial      7     7     1
-6   227.0434   227.0434 Trial      8     8     1
+  Rate_Appli Yld_Vol_Dr  Type plotid GRIDY GRIDX
+1   154.6358   159.7329 Trial      3     3     1
+2   155.3956   233.4012 Trial      4     4     1
+3   152.9890   185.4852 Trial      5     5     1
+4   138.7605   186.8338 Trial      6     6     1
+5   140.0642   254.4135 Trial      7     7     1
+6   146.8981   227.0434 Trial      8     8     1
 ~~~
 {: .output}
 
@@ -607,7 +591,7 @@ map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 
 ~~~
 merge <- sp::over(grid_sp, as(asplanted_clean[,c("Rt_Apd_Ct_", "Elevation_")], "Spatial"), fn = median)
@@ -620,13 +604,13 @@ head(grid_sp@data)
 
 
 ~~~
-  Rt_Apd_Ct_ Elevation_ Yld_Vol_Dr Yld_Vol_Dr  Type plotid GRIDY GRIDX
-1   35726.80   1018.483   159.7329   159.7329 Trial      3     3     1
-2   35764.24   1019.708   233.4012   233.4012 Trial      4     4     1
-3   35974.67   1021.429   185.4852   185.4852 Trial      5     5     1
-4   35983.17   1021.667   186.8338   186.8338 Trial      6     6     1
-5   35998.15   1021.967   254.4135   254.4135 Trial      7     7     1
-6   32882.86   1021.893   227.0434   227.0434 Trial      8     8     1
+  Rt_Apd_Ct_ Elevation_ Rate_Appli Yld_Vol_Dr  Type plotid GRIDY GRIDX
+1   35726.80   1018.483   154.6358   159.7329 Trial      3     3     1
+2   35764.24   1019.708   155.3956   233.4012 Trial      4     4     1
+3   35974.67   1021.429   152.9890   185.4852 Trial      5     5     1
+4   35983.17   1021.667   138.7605   186.8338 Trial      6     6     1
+5   35998.15   1021.967   140.0642   254.4135 Trial      7     7     1
+6   32882.86   1021.893   146.8981   227.0434 Trial      8     8     1
 ~~~
 {: .output}
 
@@ -646,16 +630,8 @@ Updating layer `data' to data source `data/data.gpkg' using driver `GPKG'
 options:        OVERWRITE=YES 
 Updating existing layer data
 Writing 489 features with 8 fields and geometry type Polygon.
-Unknown field name `Yld_Vol_Dr.1': updating a layer with improper field name(s)?
 ~~~
 {: .output}
-
-
-
-~~~
-Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : Write error
-~~~
-{: .error}
 
 
 
@@ -664,51 +640,31 @@ map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-2.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-8-2.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 
 ~~~
 plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-3.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-8-3.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 
 ~~~
 plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-4.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-8-4.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 
 ~~~
 plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in xy.coords(x, y, xlabel, ylabel, log): 'x' and 'y' lengths differ
-~~~
-{: .error}
-
-
+<img src="../fig/rmd-unnamed-chunk-8-5.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 
 ~~~
 model <- lm(Yld_Vol_Dr ~ Rt_Apd_Ct_ +  Rate_Appli + Elevation_, data = subplots_data)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(predvars, data, env): object 'Rate_Appli' not found
-~~~
-{: .error}
-
-
-
-~~~
 summary(model)
 ~~~
 {: .language-r}
@@ -716,9 +672,30 @@ summary(model)
 
 
 ~~~
-Error in summary(model): object 'model' not found
+
+Call:
+lm(formula = Yld_Vol_Dr ~ Rt_Apd_Ct_ + Rate_Appli + Elevation_, 
+    data = subplots_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-72.967  -6.095   1.150   8.300  54.346 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)  
+(Intercept)  4.493e+02  2.039e+02   2.204   0.0281 *
+Rt_Apd_Ct_   5.650e-04  3.078e-04   1.836   0.0671 .
+Rate_Appli   4.914e-02  5.442e-02   0.903   0.3671  
+Elevation_  -2.399e-01  1.980e-01  -1.212   0.2262  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.72 on 446 degrees of freedom
+  (39 observations deleted due to missingness)
+Multiple R-squared:  0.01416,	Adjusted R-squared:  0.007532 
+F-statistic: 2.136 on 3 and 446 DF,  p-value: 0.09497
 ~~~
-{: .error}
+{: .output}
 
 ## Conclusion
 
