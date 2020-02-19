@@ -71,7 +71,7 @@ the first method, so that the instructions they see lead them to do the right th
 boundary <- read_sf("data/boundary.gpkg")
 st_crs(ab_line) <- st_crs(boundary)
 st_crs(ab_line)
-st_write(ab_line,"data/abline.gpkg", layer_options = 'OVERWRITE=YES')
+st_write(ab_line, "data/abline.gpkg", layer_options = 'OVERWRITE=YES')
 ```
 
 Plot the resulting AB-line with the generic plotting function for `sf` objects.
