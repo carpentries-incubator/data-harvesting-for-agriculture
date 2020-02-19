@@ -419,32 +419,26 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 > 
 > ~~~
 > by_month_year <- sumprec_by_monthyear(weather_data)
-> head(by_month_year, n=100)
+> head(by_month_year)
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> # A tibble: 100 x 3
-> # Groups:   month [6]
->    month  year prec_month
->    <ord> <dbl>      <dbl>
->  1 Jan    2000      2.44 
->  2 Jan    2001      0.984
->  3 Jan    2002      1.69 
->  4 Jan    2003      1.65 
->  5 Jan    2004      3.31 
->  6 Jan    2005      7.68 
->  7 Jan    2006      3.07 
->  8 Jan    2007      5.87 
->  9 Jan    2008      2.64 
-> 10 Jan    2009      1.85 
-> # … with 90 more rows
+> # A tibble: 6 x 3
+> # Groups:   month [1]
+>   month  year prec_month
+>   <ord> <dbl>      <dbl>
+> 1 Jan    2000      2.44 
+> 2 Jan    2001      0.984
+> 3 Jan    2002      1.69 
+> 4 Jan    2003      1.65 
+> 5 Jan    2004      3.31 
+> 6 Jan    2005      7.68 
 > ~~~
 > {: .output}
-> 
-> 
+> Why only the month of January?  Because this dataframe is ordered by months.  We can see all the months are in our dataset if we look at the `Levels` of this column:
 > 
 > ~~~
 > head(by_month_year$month)
@@ -489,110 +483,126 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 > {: .language-r}
 {: .callout}
 
+> ## Why the double `==`?
+> You'll note in our `subset()` call, we used a `==` instead of a `=`.  In a function (and in R in general), the `=` sign is reserved for a special action - setting a parameter in that function.  Here we want to *look for* places in the `year` column in our `monthprec_2018` dataframe that have the value of `2018`, so we need to call this function a little differently.
+>
+> We can also ask the "opposite" question and look for years that *are not* 2018 with the `!=` symbol instead of the `==` symbol in the `subset()` function call.  Let's practice this now:
+>
+{: .callout}
+
 > ## Exercise 3: Subsetting
 >
-> Name the subset of `by_month_year` that is not in 2018  monthprec_hist, find the total precipitation in June of 2015.
-> **Dena: This doesn't make sense to me as written? Seems like two different things?** 
+> 1. Find the total precipitation in 2015.
+> 2. Create a subset of `by_month_year` that contain all the years *except* 2018.
 > 
 > > ## Exercise 3 Solution
 > > 
 > > ~~~
-> > subset(by_month_year, year != 2018)
+> > monthprec_2015 <- subset(by_month_year, year == 2015)
+> > head(monthprec_2015)
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > # A tibble: 216 x 3
-> > # Groups:   month [12]
-> >    month  year prec_month
-> >    <ord> <dbl>      <dbl>
-> >  1 Jan    2000      2.44 
-> >  2 Jan    2001      0.984
-> >  3 Jan    2002      1.69 
-> >  4 Jan    2003      1.65 
-> >  5 Jan    2004      3.31 
-> >  6 Jan    2005      7.68 
-> >  7 Jan    2006      3.07 
-> >  8 Jan    2007      5.87 
-> >  9 Jan    2008      2.64 
-> > 10 Jan    2009      1.85 
-> > # … with 206 more rows
+> > # A tibble: 6 x 3
+> > # Groups:   month [6]
+> >   month  year prec_month
+> >   <ord> <dbl>      <dbl>
+> > 1 Jan    2015       2.28
+> > 2 Feb    2015       1.57
+> > 3 Mar    2015       2.52
+> > 4 Apr    2015       3.74
+> > 5 May    2015       3.58
+> > 6 Jun    2015       7.24
 > > ~~~
 > > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > subset(by_month_year, year == 2015)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
+> > and:
 > > 
 > > ~~~
-> > # A tibble: 12 x 3
-> > # Groups:   month [12]
-> >    month  year prec_month
-> >    <ord> <dbl>      <dbl>
-> >  1 Jan    2015       2.28
-> >  2 Feb    2015       1.57
-> >  3 Mar    2015       2.52
-> >  4 Apr    2015       3.74
-> >  5 May    2015       3.58
-> >  6 Jun    2015       7.24
-> >  7 Jul    2015       3.70
-> >  8 Aug    2015       4.25
-> >  9 Sep    2015       2.13
-> > 10 Oct    2015       2.83
-> > 11 Nov    2015       2.36
-> > 12 Dec    2015       3.86
-> > ~~~
-> > {: .output}
-> > We see that the monthly rainfall in June was 7.91 inches. We could also find this by taking a subset with the year and month.
-> > 
-> > ~~~
-> > subset(by_month_year, year == 2015 & month == "Jun")
+> > monthprec_not_2018 <- subset(by_month_year, year != 2018)
+> > head(monthprec_not_2018)
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > # A tibble: 1 x 3
+> > # A tibble: 6 x 3
 > > # Groups:   month [1]
 > >   month  year prec_month
 > >   <ord> <dbl>      <dbl>
-> > 1 Jun    2015       7.24
+> > 1 Jan    2000      2.44 
+> > 2 Jan    2001      0.984
+> > 3 Jan    2002      1.69 
+> > 4 Jan    2003      1.65 
+> > 5 Jan    2004      3.31 
+> > 6 Jan    2005      7.68 
 > > ~~~
 > > {: .output}
 > >
 > {: .solution}
 {: .challenge}
 
-**Dena: This one could use some human translation?**
-> # Take the average of monthly rainfall
->
+<font color="magenta">JPN: Do we need this subsetting here?  Do we ever use `&` again?  We haven't introduced boolean operations at all until right now so we should be sure we actually need it</font>
+
+> We see that the monthly rainfall in June was 7.91 inches. We could also find this by taking a subset with the year and month.
 > 
 > ~~~
-> monthprec_hist <- avgprec_by_month(subset(by_month_year, year != 2018))
+> subset(by_month_year, year == 2015 & month == "Jun")
 > ~~~
 > {: .language-r}
+> 
+> 
+> 
+> ~~~
+> # A tibble: 1 x 3
+> # Groups:   month [1]
+>   month  year prec_month
+>   <ord> <dbl>      <dbl>
+> 1 Jun    2015       7.24
+> ~~~
+> {: .output}
+{: .callout}
+
+> # Take the average of monthly rainfall
+>
+> Instead of taking the sum let's generate the *average* precipitation per month over all years that were *not* the year 2018:
+> 
+> ~~~
+> monthprec_avg_not_2018 <- avgprec_by_month(subset(by_month_year, year != 2018))
+> head(monthprec_avg_not_2018)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> # A tibble: 6 x 2
+>   month prec_avg
+>   <ord>    <dbl>
+> 1 Jan       2.86
+> 2 Feb       2.31
+> 3 Mar       2.89
+> 4 Apr       3.69
+> 5 May       4.61
+> 6 Jun       4.74
+> ~~~
+> {: .output}
 {: .callout}
 
 > # Merging
 > 
-> We now have two separate dataframes `by_month_2018` and `by_month`
-> with the rainfall for each
-> month. **Dena: I missed where those came from? I'm not spotting code that creates those?** We can use the common variable `month` to merge them into
-> one dataframe with the average
-> monthly rainfall and the 2018 monthly rainfall using the `merge()`
+> We now have two separate dataframes `monthprec_2018` which gives the monthly precipitation by month in the year 2018 and `monthprec_avg_not_2018` 
+> with the average rainfall for each
+> month in all the years prior to 2018.  We can use the common variable `month` to merge them into
+> one dataframe using the `merge()`
 > function.
 >
 > 
 > ~~~
-> prec_plot <- merge(monthprec_hist, monthprec_2018, by = "month")
+> prec_merged <- merge(monthprec_2018, monthprec_avg_not_2018, by = "month")
 > ~~~
 > {: .language-r}
 {: .callout}
@@ -609,7 +619,7 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 >
 > 
 > ~~~
-> monthly_prec <- ggplot(prec_plot) + 
+> monthly_prec <- ggplot(prec_merged) + 
 >   geom_bar(aes(x = month, y = prec_month), stat = 'identity') 
 > monthly_prec + geom_point(aes(month, prec_avg), show.legend = TRUE) + ggtitle("2018 Monthly Precipitation Compared to Average")
 > ~~~
@@ -625,4 +635,6 @@ a growing season.
 > 
 > There are many possible uses for this weather data. You can calculate cumulative rainfall when it rains for consecutive days or calculate the accumulated GDD. These are more complex operations, but we can help you with the code if you are interested.
 {: .callout}
+
+<font color="magenta">JPN: Here we have to explain ggplot in more detail or we have to make this into a function that just takes in this dataframe and makes this plot.  My vote is to functionize it. Also, there are no legends on this plot. </font>
 

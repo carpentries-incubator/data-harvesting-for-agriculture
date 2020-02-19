@@ -52,35 +52,9 @@ Coordinate Reference System:
 
 
 ~~~
-st_crs(yield)
+trialutm <- trial
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in st_crs(yield): object 'yield' not found
-~~~
-{: .error}
-
-
-
-~~~
-trialutm <- st_transform_utm(trial)
-
-st_write(trialutm, "trial_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
-~~~
-{: .language-r}
-
-
-
-~~~
-Updating layer `trial_utm' to data source `trial_utm.gpkg' using driver `GPKG'
-options:        OVERWRITE=YES 
-Updating existing layer trial_utm
-Writing 257 features with 10 fields and geometry type Polygon.
-~~~
-{: .output}
 
 
 ## Introduction to data cleaning
@@ -195,16 +169,25 @@ of file to utm projection for later use.
 
 ~~~
 boundary <- read_sf("data/boundary.gpkg")
-boundary_utm <- st_transform(boundary, projutm)
+st_crs(boundary)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in make_crs(crs): object 'projutm' not found
+Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+boundary_utm <- st_transform_utm(boundary)
+~~~
+{: .language-r}
 
 After we read in the trial design file, we use a function to generate the
 subplots for this trial. Because the code for generating the subplots is
@@ -215,109 +198,88 @@ defined, and will convert the projection to UTM.
 
 
 ~~~
-subplots <- read_sf("data/subplots.gpkg")
-subplots_utm <- st_transform(subplots,projutm)
+boundary_grid_utm <- subset(boundary_utm, Type == "Trial")
+plot(boundary_grid_utm$geom)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+
+~~~
+abline <- st_read("data/abline.gpkg")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in make_crs(crs): object 'projutm' not found
+Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
+Simple feature collection with 1 feature and 1 field
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+~~~
+{: .output}
+
+
+
+~~~
+st_crs(abline)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+~~~
+{: .output}
+
+
+
+~~~
+abline_utm <- st_transform_utm(abline)
+
+# 24 m wide trial plots 
+width <- m_to_ft(24)
+design_grids_utm <- make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = width, width_ft = width)
+st_crs(design_grids_utm) <- st_crs(boundary_grid_utm)
+
+tm_shape(design_grids_utm) + tm_borders(col='blue')
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-4-2.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+
+~~~
+trial_grid_utm <- st_intersection(boundary_grid_utm, design_grids_utm)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: attribute variables are assumed to be spatially constant throughout all
+geometries
 ~~~
 {: .error}
+
+
+
+~~~
+tm_shape(trial_grid_utm) + tm_borders(col='blue')
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-4-3.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 
 Here, we graph the subplots that we generated. Note that color indicates the ID
 number of the subplots, which starts from 1, at the right upper corner. We can
 check how many units of observation we are generating with this subplots shapefile.
-
-
-~~~
-plot(subplots)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: plotting the first 9 out of 13 attributes; use max.plot = 13 to plot
-all
-~~~
-{: .error}
-
-<img src="../fig/rmd-vis subplots-1.png" title="plot of chunk vis subplots" alt="plot of chunk vis subplots" width="612" style="display: block; margin: auto;" />
-
-~~~
-names(subplots)
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "GRIDID"     "GRIDX"      "GRIDY"      "DISTANCE"   "TREATMENT" 
- [6] "BLOCK"      "RANDNBR"    "treat_type" "NRATE"      "SEEDRATE"  
-[11] "SubID"      "Area"       "Headland"   "geom"      
-~~~
-{: .output}
-
-
-
-~~~
-max(subplots$ID)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Unknown or uninitialised column: 'ID'.
-~~~
-{: .error}
-
-
-
-~~~
-Warning in max(subplots$ID): no non-missing arguments to max; returning -Inf
-~~~
-{: .error}
-
-
-
-~~~
-[1] -Inf
-~~~
-{: .output}
-
-Then, we plot the geometry of subplots and boundary together, so that we get a
-better idea where the subplots are within the field.
-
-
-~~~
-plot(subplots_utm$geometry)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in plot(subplots_utm$geometry): object 'subplots_utm' not found
-~~~
-{: .error}
-
-
-
-~~~
-plot(boundary_utm$geom, add=TRUE)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in plot(boundary_utm$geom, add = TRUE): object 'boundary_utm' not found
-~~~
-{: .error}
 
 ## Importing the yield data and removing border observations
 
@@ -329,16 +291,9 @@ boundary, and trial design, we will also convert the yield data to UTM.
 
 ~~~
 yield <- read_sf("data/yield.gpkg")
-yield_utm <- st_transform(yield, projutm)
+yield_utm <- st_transform_utm(yield)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in make_crs(crs): object 'projutm' not found
-~~~
-{: .error}
 
 We check the distribution of the yield data as we clean them to monitor the
 change made by each cleaning step. First, view the distrubution of the original
@@ -350,12 +305,7 @@ hist(yield_utm$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in hist(yield_utm$Yld_Vol_Dr): object 'yield_utm' not found
-~~~
-{: .error}
+<img src="../fig/rmd-vis yield data-1.png" title="plot of chunk vis yield data" alt="plot of chunk vis yield data" width="612" style="display: block; margin: auto;" />
 
 As you can see, we have some extreme values that we will want to get rid of.
 
@@ -371,56 +321,18 @@ We set the buffer inside the trial plots to be 4 meters to the edges, and any
 yield observations that are within a 4-meter distance to the edge of the plots
 are considered on the border.
 
-
-~~~
-buffer <- st_buffer(trialutm, -4) # plots are 24 m wide and 2 yield passes
-~~~
-{: .language-r}
-
 Next, we determine which yield observations are inside the buffer as using the
 `st_over` function, and mark those observations as "out". Finally, we
 remove the yield observations that are not in the buffer zone.
 
 
 ~~~
-ov <- st_over(yield_utm, st_geometry(buffer))
+yield_clean <- clean_buffer(trialutm, 15, yield_utm)
+map_points(yield_clean, "Yld_Vol_Dr", "Yield")
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sf::st_intersects(x, y): object 'yield_utm' not found
-~~~
-{: .error}
-
-
-
-~~~
-yield$out <- is.na(ov) # demarcate the yield values removed
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'ov' not found
-~~~
-{: .error}
-
-
-
-~~~
-yield_clean <- subset(yield, out == FALSE)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(e, x, parent.frame()): object 'out' not found
-~~~
-{: .error}
+<img src="../fig/rmd-observations on border-1.png" title="plot of chunk observations on border" alt="plot of chunk observations on border" width="612" style="display: block; margin: auto;" />
 
 Here again, we check the distribution of cleaned yield.
 
@@ -430,12 +342,7 @@ hist(yield_clean$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in hist(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
-~~~
-{: .error}
+<img src="../fig/rmd-view the distribution of yield data after taking out the yield points on the boader-1.png" title="plot of chunk view the distribution of yield data after taking out the yield points on the boader" alt="plot of chunk view the distribution of yield data after taking out the yield points on the boader" width="612" style="display: block; margin: auto;" />
 
 ## Removing outliers
 
@@ -457,46 +364,9 @@ yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd.
 
 
 ~~~
-sd_yld <- sd(yield_clean$Yld_Vol_Dr)
+yield_clean <- clean_sd(yield_clean, yield_clean$Yld_Vol_Dr)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in is.data.frame(x): object 'yield_clean' not found
-~~~
-{: .error}
-
-
-
-~~~
-mean_yld <- mean(yield_clean$Yld_Vol_Dr)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
-~~~
-{: .error}
-
-
-
-~~~
-yield_clean <- subset(yield_clean,
-                      yield_clean$Yld_Vol_Dr > mean_yld - 3 * sd_yld &
-                        yield_clean$Yld_Vol_Dr <mean_yld + 3 * sd_yld)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in subset(yield_clean, yield_clean$Yld_Vol_Dr > mean_yld - 3 * sd_yld & : object 'yield_clean' not found
-~~~
-{: .error}
 
 Here again, we check the distribution of cleaned yield after taking out the
 yield observations that are outside the range of three standard deviations from
@@ -508,45 +378,24 @@ hist(yield_clean$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in hist(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
-~~~
-{: .error}
-
-The next line transforms the cleaned yield into UTM projection.
-
-
-~~~
-yield_clean <- st_transform(yield_clean, projutm)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in st_transform(yield_clean, projutm): object 'yield_clean' not found
-~~~
-{: .error}
-
-**Question from Lindsay: Why didn't we just clean the data that had already
-been converted to UTM?**
+<img src="../fig/rmd-view the distribution of cleaned yield data-1.png" title="plot of chunk view the distribution of cleaned yield data" alt="plot of chunk view the distribution of cleaned yield data" width="612" style="display: block; margin: auto;" />
 
 Finally, we save cleaned file into a geopackage.
 
 
 ~~~
-st_write(yield_clean, "yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(yield_clean, "data/yield_clean.gpkg", layer_options = 'OVERWRITE=YES')
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in st_write(yield_clean, "yield_clean.gpkg", layer_options = "OVERWRITE=YES", : object 'yield_clean' not found
+Updating layer `yield_clean' to data source `data/yield_clean.gpkg' using driver `GPKG'
+options:        OVERWRITE=YES 
+Writing 8578 features with 29 fields and geometry type Point.
 ~~~
-{: .error}
+{: .output}
 
 ### Discussion
 
@@ -578,61 +427,34 @@ explanation.**
 
 
 ~~~
-subplots_sp <- as(subplots_utm, "Spatial")
+grid_sp <- as(trial_grid_utm, "Spatial")
+crs(grid_sp)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in .class1(object): object 'subplots_utm' not found
+CRS arguments:
+ +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs +ellps=WGS84
++towgs84=0,0,0 
 ~~~
-{: .error}
-
-
-
-~~~
-yield_sp <- as(yield_clean, "Spatial")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in .class1(object): object 'yield_clean' not found
-~~~
-{: .error}
+{: .output}
 
 **Explain more of what is happening in this code below**
 **Why is one line commented out?**
 
 
 ~~~
-#proj4string(yield_sp)<- CRS("+proj=longlat +datum=WGS84")
-merge <- sp::over(subplots_sp, yield_sp,fn = median)
+merge <- sp::over(grid_sp, as(yield_clean[,"Yld_Vol_Dr"], "Spatial"), fn = median)
+grid_sp@data <- cbind(merge, grid_sp@data)
+
+subplots_data <- st_as_sf(grid_sp) 
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sp::over(subplots_sp, yield_sp, fn = median): object 'subplots_sp' not found
-~~~
-{: .error}
-
-
-
-~~~
-subplots_merge <- SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in SpatialPolygonsDataFrame(subplots_sp, merge, match.ID = FALSE): object 'subplots_sp' not found
-~~~
-{: .error}
+<img src="../fig/rmd-aggregate yield data-1.png" title="plot of chunk aggregate yield data" alt="plot of chunk aggregate yield data" width="612" style="display: block; margin: auto;" />
 
 ### Exercise
 
@@ -643,215 +465,262 @@ sub-plot.
 
 
 ~~~
-#asapplied
-proj4string(asapplied) <- CRS("+proj=longlat +datum=WGS84")
+asapplied <- st_read("data/asapplied.gpkg")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in proj4string(asapplied) <- CRS("+proj=longlat +datum=WGS84"): object 'asapplied' not found
+Warning in CPL_read_ogr(dsn, layer, query, as.character(options), quiet, : GDAL
+Error 1: unable to open database file: this file is a WAL-enabled database. It
+cannot be opened because it is presumably read-only or in a read-only directory.
 ~~~
 {: .error}
 
 
 
 ~~~
-merge5 <- sp::over(subplots,asapplied,fn=mean)
+Error: Cannot open "/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asapplied.gpkg"; The source could be corrupt or not supported. See `st_drivers()` for a list of supported formats.
+~~~
+{: .error}
+
+
+
+~~~
+asapplied_utm <- st_transform_utm(asapplied)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in sp::over(subplots, asapplied, fn = mean): object 'asapplied' not found
+Error in st_bbox(sfobject): object 'asapplied' not found
 ~~~
 {: .error}
 
 
 
 ~~~
-subplots@data <- cbind(merge5,subplots@data)
+conv_unit((24/2)*0.8, 'm', 'ft')
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in cbind(merge5, subplots@data): object 'merge5' not found
+[1] 31.49606
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-head(subplots@data)
+asapplied_clean <- clean_sd(asapplied_utm, asapplied_utm$Rate_Appli)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in head(subplots@data): trying to get slot "data" from an object (class "sf") that is not an S4 object 
+Error in subset(data, var >= mean(var, na.rm = TRUE) - 3 * sd(var, na.rm = TRUE) & : object 'asapplied_utm' not found
 ~~~
 {: .error}
+
+
+
+~~~
+merge <- sp::over(grid_sp, as(asapplied_clean[,"Rate_Appli"], "Spatial"), fn = median)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in .class1(object): object 'asapplied_clean' not found
+~~~
+{: .error}
+
+
+
+~~~
+grid_sp@data <- cbind(merge, grid_sp@data)
+head(grid_sp@data)
+~~~
+{: .language-r}
+
+
+
+~~~
+  Yld_Vol_Dr Yld_Vol_Dr  Type plotid GRIDY GRIDX
+1   159.7329   159.7329 Trial      3     3     1
+2   233.4012   233.4012 Trial      4     4     1
+3   185.4852   185.4852 Trial      5     5     1
+4   186.8338   186.8338 Trial      6     6     1
+5   254.4135   254.4135 Trial      7     7     1
+6   227.0434   227.0434 Trial      8     8     1
+~~~
+{: .output}
 
 Processing the other variables:
 
 
 ~~~
-#ec
-proj4string(ec)<- CRS("+proj=longlat +datum=WGS84")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in proj4string(ec) <- CRS("+proj=longlat +datum=WGS84"): object 'ec' not found
-~~~
-{: .error}
-
-
-
-~~~
-merge2<-sp::over(subplots,ec,fn=median)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in sp::over(subplots, ec, fn = median): object 'ec' not found
-~~~
-{: .error}
-
-
-
-~~~
-subplots@data<-cbind(merge2,subplots@data)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in cbind(merge2, subplots@data): object 'merge2' not found
-~~~
-{: .error}
-
-
-
-~~~
 #asplanted and elevation
-proj4string(asplanted)<- CRS("+proj=longlat +datum=WGS84")
+asplanted <- st_read("data/asplanted.gpkg")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in proj4string(asplanted) <- CRS("+proj=longlat +datum=WGS84"): object 'asplanted' not found
+Reading layer `asplanted' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted.gpkg' using driver `GPKG'
+Simple feature collection with 6382 features and 30 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -82.87843 ymin: 40.83952 xmax: -82.87315 ymax: 40.84653
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+~~~
+{: .output}
+
+
+
+~~~
+asplanted_utm <- st_transform_utm(asplanted)
+
+conv_unit((24/2)*0.8, 'm', 'ft')
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 31.49606
+~~~
+{: .output}
+
+
+
+~~~
+asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
+
+asplanted_clean <- clean_buffer(trialutm, 15, asplanted_clean)
+
+map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+merge <- sp::over(grid_sp, as(asplanted_clean[,c("Rt_Apd_Ct_", "Elevation_")], "Spatial"), fn = median)
+
+grid_sp@data <- cbind(merge, grid_sp@data)
+head(grid_sp@data)
+~~~
+{: .language-r}
+
+
+
+~~~
+  Rt_Apd_Ct_ Elevation_ Yld_Vol_Dr Yld_Vol_Dr  Type plotid GRIDY GRIDX
+1   35726.80   1018.483   159.7329   159.7329 Trial      3     3     1
+2   35764.24   1019.708   233.4012   233.4012 Trial      4     4     1
+3   35974.67   1021.429   185.4852   185.4852 Trial      5     5     1
+4   35983.17   1021.667   186.8338   186.8338 Trial      6     6     1
+5   35998.15   1021.967   254.4135   254.4135 Trial      7     7     1
+6   32882.86   1021.893   227.0434   227.0434 Trial      8     8     1
+~~~
+{: .output}
+
+
+
+~~~
+subplots_data <- st_as_sf(grid_sp) 
+
+st_write(subplots_data, "data/data.gpkg", layer_options = 'OVERWRITE=YES')
+~~~
+{: .language-r}
+
+
+
+~~~
+Updating layer `data' to data source `data/data.gpkg' using driver `GPKG'
+options:        OVERWRITE=YES 
+Updating existing layer data
+Writing 489 features with 8 fields and geometry type Polygon.
+Unknown field name `Yld_Vol_Dr.1': updating a layer with improper field name(s)?
+~~~
+{: .output}
+
+
+
+~~~
+Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : Write error
 ~~~
 {: .error}
 
 
 
 ~~~
-merge3<-sp::over(subplots,asplanted,fn=median)
+map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-6-2.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-6-3.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-6-4.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+
+~~~
+plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in sp::over(subplots, asplanted, fn = median): object 'asplanted' not found
+Error in xy.coords(x, y, xlabel, ylabel, log): 'x' and 'y' lengths differ
 ~~~
 {: .error}
 
 
 
 ~~~
-subplots@data<-cbind(merge3,subplots@data)
+model <- lm(Yld_Vol_Dr ~ Rt_Apd_Ct_ +  Rate_Appli + Elevation_, data = subplots_data)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in cbind(merge3, subplots@data): object 'merge3' not found
+Error in eval(predvars, data, env): object 'Rate_Appli' not found
 ~~~
 {: .error}
 
 
 
 ~~~
-head(merge3)
+summary(model)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in head(merge3): object 'merge3' not found
-~~~
-{: .error}
-
-
-
-~~~
-#topography
-topo <- spTransform(topography, CRS("+proj=longlat +datum=WGS84"))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in spTransform(topography, CRS("+proj=longlat +datum=WGS84")): object 'topography' not found
-~~~
-{: .error}
-
-
-
-~~~
-slopemerge <- sp::over(subplots,topo,fn=median)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in sp::over(subplots, topo, fn = median): object 'topo' not found
-~~~
-{: .error}
-
-
-
-~~~
-subplots@data <-cbind(slopemerge,subplots@data)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in cbind(slopemerge, subplots@data): object 'slopemerge' not found
-~~~
-{: .error}
-
-
-
-~~~
-head(subplots@data)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in head(subplots@data): trying to get slot "data" from an object (class "sf") that is not an S4 object 
+Error in summary(model): object 'model' not found
 ~~~
 {: .error}
 
