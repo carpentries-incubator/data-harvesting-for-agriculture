@@ -454,7 +454,9 @@ Note that we can call the `head` function without this parameter and it will run
 > {: .language-r}
 > #### Other ways to get help
 > Often times google provides a good resource for learning about R functions.  Googling "head function r" will return many pages about the `head` function, including the R-documentation pages.
-> 
+>
+>
+> **DENA: Note to JILL: Loop back here for help(head) example?**
 >
 {: .callout}
 
