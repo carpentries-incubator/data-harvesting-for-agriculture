@@ -6,10 +6,6 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r setup, include=FALSE}
 library(knitr)
 library(sf)
 library(fasterize)
@@ -33,6 +29,7 @@ library(dplyr)
 library(tidyverse)
 library(tidyr)
 library(broom)
+source("../bin/chunk-options.R")
 # source("function.R")
 ```
 #### Motivating Questions:
@@ -58,6 +55,8 @@ boundary.sfdf <- st_read("data/boundary.gpkg")
 boundary.utm <- st_transform_utm(boundary.sfdf)
 
 ```
+
+
 
 #####Field Management Info Above
 We need decide on the experiment design before we get into any of the code, relative parameters we need for the trial design includes: plot dimension, number of treatments, types of treatments, and treatment range. In the following code, we are simply going to assign values to all
