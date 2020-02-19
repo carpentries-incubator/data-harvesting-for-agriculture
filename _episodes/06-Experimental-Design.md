@@ -3,28 +3,29 @@
 # Instead, please edit 06-Experimental-Design.md in _episodes_rmd/
 title: "Ag Carpentry - Experimental Design"
 author: "Aolin Gong"
-date: "1/26/2020"
+include_overview: true
 output: html_document
+questions:
+ - What kind of on-farm experiments do we do?
+ - How do we design these experiments efficiently?
+objectives:
+ - Know different types of common on-farm experiments
+ - Import boundary file and AB line file
+ - Create AB line file with code
+ - utilize the functions to create simple trial designs
+keypoints:
+ - Most of the code in this part would be using the functions, therefore understanding what different functions can be quite important
+ - In designing the trials, the most important thing is to know how to design the experimental rates,and the tech part can be done by someone else
+source: Rmd
 ---
 
 
-#### Motivating Questions:
-- What kind of on-farm experiments do we do?
-- How do we design these experiments efficiently?
 
-#### Objectives:
-- Know different types of common on-farm experiments
-- Import boundary file and AB line file
-- Create AB line file with code
-- utilize the functions to create simple trial designs
-
-#### Keypoints:
-- Most of the code in this part would be using the functions, therefore understanding what different functions can be quite important
-- In designing the trials, the most important thing is to know how to design the experimental rates,and the tech part can be done by someone else
+<font color="magenta">Words about what we are actually doing go here</font>
 
 The only files we need for the trial design are the boundary file, and ab line. In addition, as long as we know the actual direction the machines
 will be driven on the field, we can create our own AB line with a function.
-boundary.sfdf <- st_read("boundary_transformed.gpkg")
+
 
 ~~~
 boundary.sfdf <- st_read("data/boundary.gpkg")

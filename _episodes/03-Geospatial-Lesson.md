@@ -28,7 +28,6 @@ source: Rmd
 
 
 
-
 > ## Introducing Spatial Data with SSURGO data
 >
 > **Dena: This would be a good point for an "We're starting with a bunch of miscellanous files and by the end of this lesson here's the things you'll be able to do with them" overview? Rough notes below, they just aren't pre-bolded...**

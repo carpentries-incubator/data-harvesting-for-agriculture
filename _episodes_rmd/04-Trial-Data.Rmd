@@ -32,6 +32,12 @@ source("../bin/chunk-options.R")
 source("functions.R")
 ```
 
+<!-- JPN: testing
+```{r}
+stuff = read_sf("data/asplanted.gpkg")
+head(stuff)
+```
+-->
 
 > ## Lesson Overview 
 > 
@@ -49,7 +55,7 @@ source("functions.R")
 > Read the yield, as-planted, and as-applied files and explore the variables. For each file, identify what variables might we be interested in and why?
 > 
 > > ## Solution
-> > ```{r read}
+> > ```{r}
 > > planting <- read_sf("data/asplanted.gpkg")
 > > nitrogen <- read_sf("data/asapplied.gpkg")
 > > yield <- read_sf("data/yield.gpkg")
@@ -153,6 +159,12 @@ map_yieldog
 > 
 {: .callout}
 
+<!-- JPN: testng
+```{r}
+head(trial)
+```
+-->
+
 > ## Exercise: Trial Design Map
 > 
 > Look at the data `trial` and make a comparison of the nitrogen and seed designs in one map. 
@@ -166,6 +178,8 @@ map_yieldog
 > >  
 > {: .solution} 
 {: .challenge}
+
+<font color="magenta">JPN: there aren't any plots showing up for the Solution plot and i get a legends too wide error.  In subsequent plots it looks like tgts and tgtn don't show up as well.  I had the same problem in RStudio as well.</font>
 
 > ## Planting files
 > 
