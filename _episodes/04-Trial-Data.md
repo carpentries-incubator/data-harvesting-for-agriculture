@@ -19,6 +19,42 @@ source: Rmd
 
 
 
+<!-- JPN: testing
+
+~~~
+stuff = read_sf("data/asplanted.gpkg")
+head(stuff)
+~~~
+{: .language-r}
+
+
+
+~~~
+Simple feature collection with 6 features and 30 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -82.87829 ymin: 40.83953 xmax: -82.87824 ymax: 40.83953
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+# A tibble: 6 x 31
+  Product Obj__Id Distance_f Track_deg_ Duration_s Elevation_ Time  Area_Count
+  <chr>     <dbl>      <dbl>      <dbl>      <dbl>      <dbl> <chr> <chr>     
+1 DKC61-…       1      0.834       96.1          1      1016. 2017… On        
+2 DKC61-…       2      0.670       96.3          1      1016. 2017… On        
+3 DKC61-…       3      1.56        96.5          1      1016. 2017… On        
+4 DKC61-…       4      3.29        97.3          1      1016. 2017… On        
+5 DKC61-…       5      3.85        96.9          1      1016. 2017… On        
+6 DKC61-…       6      4.64        96.7          1      1016. 2017… On        
+# … with 23 more variables: Swth_Wdth_ <dbl>, Seed_Cnt__ <dbl>,
+#   Plant_Pop_ <dbl>, Rt_Apd_Ct_ <dbl>, SeedFlow_k <dbl>, Tgt_Rate_k <dbl>,
+#   Y_Offset_f <dbl>, DF_Margin_ <dbl>, Humidity__ <dbl>, Air_Temp__ <dbl>,
+#   Wind_Speed <dbl>, Soil_Temp_ <dbl>, Pass_Num <dbl>, Speed_mph_ <dbl>,
+#   Prod_ac_h_ <dbl>, Prdt_Amt <dbl>, Date <chr>, Population <dbl>,
+#   Rate__Coun <dbl>, Target_Rat <dbl>, Population.1 <dbl>, Date___Tim <chr>,
+#   geom <POINT [°]>
+~~~
+{: .output}
+-->
 
 > ## Lesson Overview 
 > 
@@ -202,7 +238,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 > 
 {: .callout}
 
@@ -219,11 +255,39 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
 > 
 > The map shows that the data cleaning removed some very high data values at the headlands of the field. We can see the clean map is relatively homogeneous with some patches of lower or higher yield. 
 > 
 {: .callout}
+
+
+~~~
+head(trial)
+~~~
+{: .language-r}
+
+
+
+~~~
+Simple feature collection with 6 features and 10 fields
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 341634.4 ymin: 4523368 xmax: 341734 ymax: 4523425
+epsg (SRID):    32617
+proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
+# A tibble: 6 x 11
+  GRIDID GRIDX GRIDY DISTANCE TREATMENT BLOCK RANDNBR treat_type NRATE SEEDRATE
+   <dbl> <dbl> <dbl>    <dbl> <chr>     <dbl>   <dbl>      <dbl> <dbl>    <dbl>
+1      2     2    11      282 <NA>          0       0         26   190    36000
+2      3     3    11      282 <NA>          0       0         26   190    36000
+3      4     4    11      282 <NA>          0       0         26   190    36000
+4      5     5    11      282 <NA>          0       0         26   190    36000
+5      6     6    11      282 <NA>          0       0         26   190    36000
+6      7     7    11      282 <NA>          0       0         26   190    36000
+# … with 1 more variable: geom <POLYGON [m]>
+~~~
+{: .output}
 
 > ## Exercise: Trial Design Map
 > 
@@ -238,7 +302,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
 > >  
 > {: .solution} 
 {: .challenge}
@@ -309,7 +373,7 @@ Report what you see in the map?
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 > >  
 > {: .solution} 
 {: .challenge}
