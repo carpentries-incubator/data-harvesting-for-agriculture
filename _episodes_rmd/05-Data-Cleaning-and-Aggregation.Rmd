@@ -112,7 +112,7 @@ Yield, as-planted, and as-applied data:
 * We remove observations where the harvester/planter/applicator is moving too slow or too fast.
 * We remove observations on the edges of the plot.
 * We remove observations that are below or above three standard deviations from the mean.
-* We then aggregate them onto our units of observation.
+* We then aggregate them onto our units of observation. <font color="magenta">Do they know what these units are? I don't have a frame of refrence for this terminology</font>
 
 <font color="magenta">This comes up in the 03 or 04 but we need to define what a standard devation is</font>
  
