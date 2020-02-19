@@ -1,6 +1,5 @@
 ---
-title: "Ag Carpentry - Experimental Design"
-author: "Aolin Gong"
+title: "Experimental Design"
 include_overview: true
 output: html_document
 questions:
