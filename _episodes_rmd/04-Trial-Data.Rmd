@@ -227,7 +227,7 @@ map_planting_comp
 > Make a map like in the previous example but with yield in bushels and the seeding rate. 
 Report what you see in the map?
 > > ## Solution
-> > ```{r}
+> > ```{r sol map as pl1}
 > > map_yield_asplanted <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
 > > map_yield_asplanted
 > > ```

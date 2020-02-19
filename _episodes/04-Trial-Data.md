@@ -378,7 +378,7 @@ Report what you see in the map?
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-sol map as pl1-1.png" title="plot of chunk sol map as pl1" alt="plot of chunk sol map as pl1" width="612" style="display: block; margin: auto;" />
 > >  
 > {: .solution} 
 {: .challenge}
