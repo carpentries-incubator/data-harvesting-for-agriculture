@@ -147,8 +147,9 @@ defined, and will convert the projection to UTM.
 boundary_grid_utm <- subset(boundary_utm, Type == "Trial")
 plot(boundary_grid_utm$geom)
 
-ab_line <- st_read("data/abline.gpkg")
-abline_utm <- st_transform_utm(ab_line)
+abline <- st_read("data/abline.gpkg")
+st_crs(abline)
+abline_utm <- st_transform_utm(abline)
 
 # 24 m wide trial plots 
 width <- m_to_ft(24)
@@ -164,14 +165,6 @@ tm_shape(trial_grid_utm) + tm_borders(col='blue')
 Here, we graph the subplots that we generated. Note that color indicates the ID
 number of the subplots, which starts from 1, at the right upper corner. We can
 check how many units of observation we are generating with this subplots shapefile.
-
-Then, we plot the geometry of subplots and boundary together, so that we get a
-better idea where the subplots are within the field.
-
-```{r visulize subplots}
-plot(subplots_utm$geometry)
-plot(boundary_utm$geom, add=TRUE)
-```
 
 ## Importing the yield data and removing border observations
 
@@ -252,19 +245,10 @@ the mean.
 hist(yield_clean$Yld_Vol_Dr)
 ```
 
-The next line transforms the cleaned yield into UTM projection.
-
-```{r reprojection of yield data}
-yield_clean <- st_transform_utm(yield_clean)
-```
-
-**Question from Lindsay: Why didn't we just clean the data that had already
-been converted to UTM?**
-
 Finally, we save cleaned file into a geopackage.
 
 ```{r save yield}
-st_write(yield_clean, "data/yield_clean.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(yield_clean, "data/yield_clean.gpkg", layer_options = 'OVERWRITE=YES')
 ```
 
 ### Discussion
@@ -297,18 +281,17 @@ explanation.**
 
 ```{r sf2sp}
 grid_sp <- as(trial_grid_utm, "Spatial")
-yield_sp <- as(yield_clean[,"Yld_Vol_Dr"], "Spatial")
+crs(grid_sp)
 ```
 
 **Explain more of what is happening in this code below**
 **Why is one line commented out?**
 
 ```{r aggregate yield data}
-merge <- sp::over(grid_sp, yield_sp, fn = median)
+merge <- sp::over(grid_sp, as(yield_clean[,"Yld_Vol_Dr"], "Spatial"), fn = median)
 grid_sp@data <- cbind(merge, grid_sp@data)
 
 subplots_data <- st_as_sf(grid_sp) 
-tm_shape(subplots_data) + tm_polygons("Yld_Vol_Dr")
 map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 ```
 
@@ -352,8 +335,16 @@ grid_sp@data <- cbind(merge, grid_sp@data)
 head(grid_sp@data)
 
 subplots_data <- st_as_sf(grid_sp) 
+
+st_write(subplots_data, "data/data.gpkg", layer_options = 'OVERWRITE=YES')
 map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
 
+plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)
+plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr)
+plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)
+
+model <- lm(Yld_Vol_Dr ~ Rt_Apd_Ct_ +  Rate_Appli + Elevation_, data = subplots_data)
+summary(model)
 ```
 
 ## Conclusion
