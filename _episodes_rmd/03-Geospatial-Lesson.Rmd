@@ -23,7 +23,6 @@ keypoints:
 source: Rmd
 ---
 
-
 ```{r setup, include=FALSE}
 library(sf)
 library(fasterize)

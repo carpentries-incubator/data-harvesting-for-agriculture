@@ -25,37 +25,17 @@ source: Rmd
 
 
 
-In the last episode, we also imported our trial design.  We will include the
-code again here, in case you are just joining us.
+## Data cleaning and aggregation in the DIFM project
 
-The following steps read in a trial design shapefile, transform the projection
-of file to utm projection, and then save the file in a geopackage. In many
-cases, the trial design shapefile is already in the correct form, and we are
-just checking the file in advance of creating the subplots of the trial design.
-
-
-~~~
-trial <- read_sf("data/trial.gpkg")
-st_crs(trial)
-~~~
-{: .language-r}
-
-
-
-~~~
-Coordinate Reference System:
-  EPSG: 32617 
-  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
-~~~
-{: .output}
-
-
-
-~~~
-trialutm <- trial
-~~~
-{: .language-r}
-
+After harvesting, we collect all the data needed for analysis, and in advance of
+running analysis, we clean and organize the data in order to remove machinary
+error and such. The common data that we collect for analysis includes yield
+(dry), seeding rate as-planted, nitrogen rate as-applied, electronic
+conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
+clean yield data, as-planted data, as-applied data, and sometimes EC data. For
+public data, we simply import them into our aggregated data set
+without cleaning, since they have already been cleaned before being released to
+the public.
 
 ## Introduction to data cleaning
 
@@ -108,7 +88,7 @@ plot(error_data)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
 
 ~~~
 error_data[error_data > 2000] <- NA
@@ -130,18 +110,6 @@ Those sources of error might be something that someone who sits behind a compute
 all day would never think of.  You also know best what values are reasonable,
 and what values are suspiciously high or low.
 
-## Data cleaning and aggregation in the DIFM project
-
-After harvesting, we collect all the data needed for analysis, and in advance of
-running analysis, we clean and organize the data in order to remove machinary
-error and such. The common data that we collect for analysis includes yield
-(dry), seeding rate as-planted, nitrogen rate as-applied, electronic
-conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
-clean yield data, as-planted data, as-applied data, and sometimes EC data. For
-public data, we simply import them into our aggregated data set
-without cleaning, since they have already been cleaned before being released to
-the public.
-
 For different types of data, we have different ways to clean them. Here are the
 main concerns of the original data for the major varaibles:
 
@@ -151,10 +119,6 @@ Yield, as-planted, and as-applied data:
 * We remove observations on the edges of the plot.
 * We remove observations that are below or above three standard deviations from the mean.
 * We then aggregate them onto our units of observation.
-
-EC (Electrical conductivity) data:
-
-* We remove EC observations that are below or above three [standard deviations](https://en.wikipedia.org/wiki/Standard_deviation) from the mean.
  
 *For aggregation, we need to generate subplots (units of observation) of the
 original trial design, and then aggregate the cleaned datasets for different
@@ -186,6 +150,37 @@ Coordinate Reference System:
 
 ~~~
 boundary_utm <- st_transform_utm(boundary)
+~~~
+{: .language-r}
+
+In the last episode, we also imported our trial design.  We will include the
+code again here, in case you are just joining us.
+
+The following steps read in a trial design shapefile, transform the projection
+of file to utm projection, and then save the file in a geopackage. In many
+cases, the trial design shapefile is already in the correct form, and we are
+just checking the file in advance of creating the subplots of the trial design.
+
+
+~~~
+trial <- read_sf("data/trial.gpkg")
+st_crs(trial)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+~~~
+{: .output}
+
+
+
+~~~
+trialutm <- trial
 ~~~
 {: .language-r}
 
@@ -393,6 +388,7 @@ st_write(yield_clean, "data/yield_clean.gpkg", layer_options = 'OVERWRITE=YES')
 ~~~
 Updating layer `yield_clean' to data source `data/yield_clean.gpkg' using driver `GPKG'
 options:        OVERWRITE=YES 
+Updating existing layer yield_clean
 Writing 8578 features with 29 fields and geometry type Point.
 ~~~
 {: .output}
