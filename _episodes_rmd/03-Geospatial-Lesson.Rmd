@@ -209,15 +209,12 @@ the theory of how to do them?**
 > The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 > 
 > ```{r ssurgo, echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
-> boundarynew <- read_sf("data/asplanted.gpkg")
 > boundary <- subset(boundary, Type == "Trial")
 > boundary.sp <- as(boundary, "Spatial")
 > ssurgo <- download_ssurgo("samplefield", boundary.sp)
 > ```
 > 
 {: .callout}
-
-<font color="magenta">JPN: just a heads up that it looks like there can be errors in downloads for this data sometimes.  I'm wondering if its on the server-side, like too many requests or something.  Also, I had to delete the "EXTRACTIONS/samplefield" and re-run things which I'm wondering if this is because there are some file paths missing or something? We should test this on other folks computers.  If this is indeed the problem, we might want the code to force-delete these files before running. </font>
 
 > ## SSURGO Data
 > 
