@@ -42,88 +42,19 @@ source("../bin/chunk-options.R")
 source("./functions.R")
 ```
 
-<font color="magenta"> NOTE: `clean_sd` gets called in the previous lecture so we should talk about data cleaning then or move it to here</font>
-
 ## Data cleaning and aggregation in the DIFM project
 
-After harvesting, we collect all the data needed for analysis, and in advance of
-running analysis, we clean and organize the data in order to remove machinary
-error and such. The common data that we collect for analysis includes yield
-(dry), seeding rate as-planted, nitrogen rate as-applied, electronic
-conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
-clean yield data, as-planted data, as-applied data, and sometimes EC data. For
-public data, we simply import them into our aggregated data set
-without cleaning, since they have already been cleaned before being released to
-the public.
+We saw in the last episode that we can make graphs of our trial data, but right now they are all points that cannot easily be combined. For example, we do not know what the yield was at a specific nitrogen or seeding point on the field. But that is important if we are going to talk about the results of the trial. We need to know what the yield was when a certain seeding and nitrogen rate combination was applied. To do this, we first clean the trial points and then create a grid over the field. Inside that grid, we aggregate the points from each data type and report the median of the points that fall into each polygon of the grid. These will form a new dataset where we can directly relate a yield value to a given seed and nitrogen treatment. In the context of trials, the polygons of the grid are typically called the *units of observation.* 
 
-## Introduction to data cleaning
+## Data Cleaning Details 
 
-Data cleaning is the process of removing or correcting errors in a dataset, and
-is very important to do before any sort of analysis.  For example, say you were
-manually entering yield values into a spreadsheet, and then wanted to take the
-average of all values entered.  If you accidentally typed an extra zero into
-some of the cells, the average that you calculate is going to be much higher
-than the true average.
+After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinery error and such. In particular, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For public data, we simply import them into our aggregated data set without cleaning, as they have already been cleaned before being released to the public.
 
-```{r}
-real_data <- c(900, 450, 200, 320)
-error_data <- c(900, 4500, 200, 320)
-mean(real_data)
-mean(error_data)
-```
+Here are the main concerns for yield, as-planted, and as-applied data:
 
-Therefore, we want to check for values like this before we do anything else.  If
-the values were manually entered and the intended value is obvious, they can be
-manually corrected.  For larger scale datasets, however, it is often most
-practical to discard problematic data.
-
-For example, we can plot our `error_data` and look for values that may look off:
-
-```{r}
-plot(error_data) # use plot function on error rate
-```
-By eye we can see the 2nd measurement (at `index = 2`) looks a little fishy.  In this case
-we might want to apply a cut-off in our data so that we ignore all measurements above a
-certain threshold when we do calculations like taking the mean of our data.
-
-One way to do this is by setting any "weird" values to `NA`:
-
-```{r}
-error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
-error_data
-```
-
-Now we can take a mean, with removing `NA`'s as we do it and recover a mean that is closer to the correct value:
-```{r}
-mean(error_data, na.rm=TRUE)
-```
-
-
-Data cleaning is a major reason why there needs to be good communication between
-data scientists and end users, in agriculture or any other discipline.  As the person
-who generates the data, you know best where the likely sources of error might be.
-Those sources of error might be something that someone who sits behind a computer
-all day would never think of.  You also know best what values are reasonable,
-and what values are suspiciously high or low.
-
-For different types of data, we have different ways to clean them. Here are the
-main concerns of the original data for the major variables:
-
-Yield, as-planted, and as-applied data:
-
-* We remove observations where the harvester/planter/applicator is moving too slow or too fast.
-* We remove observations on the edges of the plot.
-* We remove observations that are below or above three standard deviations from the mean.
-* We then aggregate them onto our units of observation. <font color="magenta">Do they know what these units are? I don't have a frame of refrence for this terminology</font>
-
-<font color="magenta">This comes up in the 03 or 04 but we need to define what a standard devation is</font>
- 
-*For aggregation, we need to generate subplots (units of observation) of the
-original trial design, and then aggregate the cleaned datasets for different
-variables onto the subplots.  Once we have one value per variable per subplot,
-we can begin examining the relationships between the variables.*
-
-<font color="magenta">Have steps listed somewhere before we start</font>
+* Observations where the harvester/planter/applicator is moving too slow or too fast
+* Observations on the edges of the plot
+* Observations that are below or above three standard deviations from the mean
 
 ## Step 1: Importing and transforming our shapefile datasets
 
@@ -154,7 +85,6 @@ Let's look at the coordinate reference system here as well:
 ```{r}
 st_crs(trial)
 ```
-<font color="magenta">Do we have a figure showing lat/long to UTM coversion somewhere?  I can add this</font>
 
 Our file is already in the UTM projection, but if we have one that is not we can convert this as well with `trial_utm <- st_transform_utm(trial)`.  For the sake of naming, we'll rename it as `trial_utm`:
 ```{r}
@@ -181,8 +111,6 @@ trial_utm <- trial
 > {: .solution}
 {: .challenge}
 
-
-
 Finally, let's transform our abline file.  We read in the file:
 ```{r}
 abline = st_read("data/abline.gpkg")
@@ -198,7 +126,7 @@ abline_utm = st_transform_utm(abline)
 
 ## Step 2: Clean the yield data
 
-Now that we have our shapefiles in the same UTM coordinate system reference frame, we will apply some of our knowledget of data cleaning to take out weird observations. We know we have "weird" measurements by looking at a histogram of our yield data:
+Now that we have our shapefiles in the same UTM coordinate system reference frame, we will apply some of our knowledge of data cleaning to take out weird observations. We know we have "weird" measurements by looking at a histogram of our yield data:
 
 ```{r}
 hist(yield_utm$Yld_Vol_Dr)
