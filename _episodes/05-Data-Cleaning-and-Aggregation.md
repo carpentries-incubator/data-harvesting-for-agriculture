@@ -332,7 +332,7 @@ and also at the end of the plots.  The reason for this is that along the edge
 of a plot, the harvester is likely to measure a mixture of two plots,
 and therefore the data won't be accurate for either plot.  Additionally,
 plants growing at the edge of the field are likely to suffer from wind and other
-effects, lowering their yields.
+effects, lowering their yields.  We will use the `trial_utm` shapefile to help us clean.
 
 We add a 15 <font color="magenta">meter??</font> boarder.
 
@@ -530,4 +530,202 @@ the mean.
 > {: .solution}
 {: .challenge}
 
-nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli)
+# Designing Trials: Generating Grids and Aggregating
+
+Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm.  This happens in a few steps.
+
+## Step 1: Creating the subplots
+
+After we read in the trial design file, we use a function to generate the
+subplots for this trial. Because the code for generating the subplots is
+somewhat complex, we have included it as the `make_grids` function in `functions.R`.
+
+To start, we only want to look at data in the `Trial` portion of our plot, so we take a subset of this:
+
+
+~~~
+boundary_grid_utm = subset(boundary_utm, Type == "Trial")
+plot(boundary_grid_utm$geom)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+Now we will make subplots that are 24 meters wide:
+
+
+~~~
+width = m_to_ft(24) # convert from meters to feet
+~~~
+{: .language-r}
+
+Now we use `make_grids` to calculate subplots for our shapefile <font color="magenta">more words are needed here about these parameters</font>
+
+~~~
+design_grids_utm = make_grids(boundary_grid_utm,
+                              abline_utm, long_in = 'NS', short_in = 'EW',
+			      length_ft = width, width_ft = width)
+~~~
+{: .language-r}
+
+We need to make sure the coordinate system for both our grids and our original boundary file match up:
+
+~~~
+st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
+~~~
+{: .language-r}
+
+Let's plot what these grids will look like <font color="magenta"> we need to talk about what tm_shape is here or before</font>
+
+~~~
+tm_shape(design_grids_utm) + tm_borders(col='blue')
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+
+Now the last step is that we want to make sure this grid overlaps *only* with our boundary file, so we take the intersection of this rectangular grid with our boundary file's Trial data outline:
+
+~~~
+trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: attribute variables are assumed to be spatially constant throughout all
+geometries
+~~~
+{: .error}
+
+
+
+~~~
+tm_shape(trial_grid_utm) + tm_borders(col='blue')
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+<font color="magenta"> there is an error here that we should fix or mention</font>
+
+## Step 2: Interpolation/Aggregation on our subplots
+
+We will now aggregate our yield data over our subplots.
+
+Interpolation is the estimation of a value at a point that we didn't measure
+that is between two or more points that we did measure.  Aggregation is the
+combining of multiple data points into a single data point.  What we'll do here
+is a combination of interpolation and aggregation, where we will use multiple
+measurements across each subplot to generate one value for the subplot. In this
+case we will take the median value within each subplot.  Typically when the data
+are not normally-distributed or when there are errors, the median is more
+representative of the data than the mean is.  Here we will interpolate and
+aggregate yield as an example.  The other variables can be processed in the same
+way.
+
+**Question from Lindsay: Why do we need to covert class here?  Please provide an
+explanation.** <font color="magenta">not sure what "covert" means here, leaving this question for others</font>
+
+<!-- JPN: no work
+
+~~~
+grid_sp = trial_grid_utm
+merge <- sp::over(trial_grid_utm, yield_clean[,"Yld_Vol_Dr"], fn = median)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'over' for signature '"sf", "sf"'
+~~~
+{: .error}
+
+
+
+~~~
+grid_sp@data <- cbind(merge, grid_sp@data)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in cbind(merge, grid_sp@data): trying to get slot "data" from an object (class "sf") that is not an S4 object 
+~~~
+{: .error}
+
+
+
+~~~
+subplots_data <- st_as_sf(grid_sp) 
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
+~~~
+{: .language-r}
+
+
+
+~~~
+Error: Fill argument neither colors nor valid variable name(s)
+~~~
+{: .error}
+-->
+
+One final step we have to do before aggregating is to explicitly tell R that our data is "Spatial" data.  This is a little quirk of R that we have to think about for both our trial grid and yield data:
+
+<font color="magenta">I would personally vote for function-izing the spatial conversion stuff since its new and also then we have to explain the [,] stuff since before we've only called columns with $</font>
+
+
+~~~
+trial_grid_spatial <- as(trial_grid_utm, "Spatial")
+yield_clean_spatial <- as(yield_clean[,"Yld_Vol_Dr"], "Spatial")
+~~~
+{: .language-r}
+Let's deposit on our grid using a function `deposit_on_grid` from `functions.R`:
+
+~~~
+subplots_data <- deposit_on_grid(trial_grid_spatial, yield_clean_spatial, fn=median)
+~~~
+{: .language-r}
+And let's finally take a look!
+
+~~~
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-37-1.png" title="plot of chunk unnamed-chunk-37" alt="plot of chunk unnamed-chunk-37" width="612" style="display: block; margin: auto;" />
+
+<!-- JPN: took out a lot
+
+
+~~~
+grid_sp <- as(trial_grid_utm, "Spatial")
+crs(grid_sp)
+~~~
+{: .language-r}
+
+
+
+~~~
+CRS arguments:
+ +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs +ellps=WGS84
++towgs84=0,0,0 
+~~~
+{: .output}
+
+**Explain more of what is happening in this code below**
+**Why is one line commented out?**
+
+
+~~~
+merge <- sp::over(grid_sp, as(yield_clean[,"Yld_Vol_Dr"], "Spatial"), fn = median)
+grid_sp@data <- cbind(merge, grid_sp@data)
+
+subplots_data <- st_as_sf(grid_sp) 
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-aggregate yield data-1.png" title="plot of chunk aggregate yield data" alt="plot of chunk aggregate yield data" width="612" style="display: block; margin: auto;" />
+-->
