@@ -309,6 +309,9 @@ This means that, for example:
 
 Something that it’s important to keep track of is what type of data you’ve stored in a particular variable. Words are treated differently than numbers, and numbers with decimals are treated differently than numbers without decimals. So, for example:
   * `cheese_variety` could be "Stilton" or "cheddar", but you probably don’t want a number here. This variable type is called a **text string**. 
+```{r}
+cheese_variety <- "Stilton" # quotes help your text variables get assigned correctly, especially if it's a multi-word unit like "Double Gloucester cheese"
+```
   * `cheese_amount` could be “a quarter cup”, but numbers are much easier to calculate with than words, so we might represent that as “0.25”. This variable type is called a **floating point number** and would be assigned similarly to the `cheese_variety` variable:
 ```{r}
 cheese_amount <- 0.25 # in cups
