@@ -101,9 +101,6 @@ plot(newfield$geom)
 # outfield$dummy <- 0
 # bothfields <- rbind(infield, outfield)
 # newfield <- subset(bothfields, dummy == 1)
-
-
-
 ```
 
 

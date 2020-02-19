@@ -257,6 +257,7 @@ the theory of how to do them?**
 > spatial <- dplyr::rename(spatial, musym = MUSYM)
 > spatial <- merge(spatial, names, by = "musym")
 > head(spatial$muname)
+> st_write(spatial, "data/ssurgo.gpkg", layer_options = 'OVERWRITE=YES')
 > ```
 > 
 {: .callout}
