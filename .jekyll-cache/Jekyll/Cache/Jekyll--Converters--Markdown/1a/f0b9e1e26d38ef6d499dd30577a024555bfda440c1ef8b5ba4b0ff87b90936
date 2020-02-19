@@ -1,0 +1,539 @@
+I"��<h2 id="data-cleaning-and-aggregation-in-the-difm-project">Data cleaning and aggregation in the DIFM project</h2>
+
+<p>After harvesting, we collect all the data needed for analysis, and in advance of
+running analysis, we clean and organize the data in order to remove machinary
+error and such. The common data that we collect for analysis includes yield
+(dry), seeding rate as-planted, nitrogen rate as-applied, electronic
+conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
+clean yield data, as-planted data, as-applied data, and sometimes EC data. For
+public data, we simply import them into our aggregated data set
+without cleaning, since they have already been cleaned before being released to
+the public.</p>
+
+<h2 id="introduction-to-data-cleaning">Introduction to data cleaning</h2>
+
+<p>Data cleaning is the process of removing or correcting errors in a dataset, and
+is very important to do before any sort of analysis.  For example, say you were
+manually entering yield values into a spreadsheet, and then wanted to take the
+average of all values entered.  If you accidentally typed an extra zero into
+some of the cells, the average that you calculate is going to be much higher
+than the true average.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">real_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">900</span><span class="p">,</span><span class="w"> </span><span class="m">450</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">320</span><span class="p">)</span><span class="w">
+</span><span class="n">error_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">900</span><span class="p">,</span><span class="w"> </span><span class="m">4500</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">320</span><span class="p">)</span><span class="w">
+</span><span class="n">mean</span><span class="p">(</span><span class="n">real_data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 467.5
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mean</span><span class="p">(</span><span class="n">error_data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1480
+</code></pre></div></div>
+
+<p>Therefore, we want to check for values like this before we do anything else.  If
+the values were manually entered and the intended value is obvious, they can be
+manually corrected.  For larger scale datasets, however, it is often most
+practical to discard problematic data.</p>
+
+<p>For example, we can plot our <code class="highlighter-rouge">error_data</code> and look for values that may look off:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">error_data</span><span class="p">)</span><span class="w"> </span><span class="c1"># use plot function on error rate</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+By eye we can see the 2nd measurement (at <code class="highlighter-rouge">index = 2</code>) looks a little fishy.  In this case
+we might want to apply a cut-off in our data so that we ignore all measurements above a
+certain threshold when we do calculations like taking the mean of our data.</p>
+
+<p>One way to do this is by setting any “weird” values to <code class="highlighter-rouge">NA</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">error_data</span><span class="p">[</span><span class="n">error_data</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">2000</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA</span><span class="w"> </span><span class="c1"># set any values bigger than 2000 to the NA tag</span><span class="w">
+</span><span class="n">error_data</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 900  NA 200 320
+</code></pre></div></div>
+
+<p>Now we can take a mean, with removing <code class="highlighter-rouge">NA</code>’s as we do it and recover a mean that is closer to the correct value:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mean</span><span class="p">(</span><span class="n">error_data</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 473.3333
+</code></pre></div></div>
+
+<p>Data cleaning is a major reason why there needs to be good communication between
+data scientists and end users, in agriculture or any other discipline.  As the person
+who generates the data, you know best where the likely sources of error might be.
+Those sources of error might be something that someone who sits behind a computer
+all day would never think of.  You also know best what values are reasonable,
+and what values are suspiciously high or low.</p>
+
+<p>For different types of data, we have different ways to clean them. Here are the
+main concerns of the original data for the major variables:</p>
+
+<p>Yield, as-planted, and as-applied data:</p>
+
+<ul>
+  <li>We remove observations where the harvester/planter/applicator is moving too slow or too fast.</li>
+  <li>We remove observations on the edges of the plot.</li>
+  <li>We remove observations that are below or above three standard deviations from the mean.</li>
+  <li>We then aggregate them onto our units of observation. <font color="magenta">Do they know what these units are? I don't have a frame of refrence for this terminology</font></li>
+</ul>
+
+<font color="magenta">This comes up in the 03 or 04 but we need to define what a standard devation is</font>
+
+<p><em>For aggregation, we need to generate subplots (units of observation) of the
+original trial design, and then aggregate the cleaned datasets for different
+variables onto the subplots.  Once we have one value per variable per subplot,
+we can begin examining the relationships between the variables.</em></p>
+
+<h2 id="importing-and-visualizing-boundaries-and-subplots">Importing and visualizing boundaries and subplots</h2>
+
+<p>Let’s apply this data-cleaning thinking to measurements of yields.  First, we will aggregate our yields into a grid overlayed on top of our boundary shapefile and look for measurements on this grid that seem too low or to high, and flag these as “outliers” of our dataset in our data-cleaning process.</p>
+
+<h3 id="reading-and-transforming-the-boundary-and-abline-files">Reading and transforming the boundary and abline files</h3>
+
+<p>The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let’s do this step-by-step, starting with reading in the boundary shapefile and projecting it:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boundary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/boundary.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>What is the current coordinate reference system of this object?</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+</code></pre></div></div>
+<p>Let’s transform it to the UTM projection &amp; check out its new coordinate reference system:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boundary_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span><span class="w">
+</span><span class="n">st_crs</span><span class="p">(</span><span class="n">boundary_utm</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+</code></pre></div></div>
+
+<p>In the last episode, we also imported our trial design, which we will do again here:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/trial.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Let’s look at the coordinate reference system here as well:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+</code></pre></div></div>
+<font color="magenta">Do we have a figure showing lat/long to UTM coversion somewhere?  I can add this</font>
+
+<p>Our file is already in the UTM projection, but we can</p>
+
+<p>The following steps read in a trial design shapefile, transform the projection
+of file to utm projection, and then save the file in a geopackage. In many
+cases, the trial design shapefile is already in the correct form, and we are
+just checking the file in advance of creating the subplots of the trial design.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/trial.gpkg"</span><span class="p">)</span><span class="w">
+</span><span class="n">st_crs</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trialutm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">trial</span><span class="w">
+</span></code></pre></div></div>
+
+<p>After we read in the trial design file, we use a function to generate the
+subplots for this trial. Because the code for generating the subplots is
+somewhat complex, we have included it as a
+<a href="https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/making%20subplots.R">supplementary file</a>.
+For now, we will import a shapefile that already has the subplot boundaries
+defined, and will convert the projection to UTM.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boundary_grid_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">boundary_utm</span><span class="p">,</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Trial"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="o">$</span><span class="n">geom</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">abline</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_read</span><span class="p">(</span><span class="s2">"data/abline.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
+Simple feature collection with 1 feature and 1 field
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">abline</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">abline_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">abline</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># 24 m wide trial plots </span><span class="w">
+</span><span class="n">width</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">m_to_ft</span><span class="p">(</span><span class="m">24</span><span class="p">)</span><span class="w">
+</span><span class="n">design_grids_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">make_grids</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="p">,</span><span class="w"> </span><span class="n">abline_utm</span><span class="p">,</span><span class="w"> </span><span class="n">long_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'NS'</span><span class="p">,</span><span class="w"> </span><span class="n">short_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'EW'</span><span class="p">,</span><span class="w"> </span><span class="n">length_ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">width_ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w">
+</span><span class="n">st_crs</span><span class="p">(</span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_crs</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="p">)</span><span class="w">
+
+</span><span class="n">tm_shape</span><span class="p">(</span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-8-2.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trial_grid_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_intersection</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="p">,</span><span class="w"> </span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: attribute variables are assumed to be spatially constant throughout all
+geometries
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tm_shape</span><span class="p">(</span><span class="n">trial_grid_utm</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-8-3.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" /></p>
+
+<p>Here, we graph the subplots that we generated. Note that color indicates the ID
+number of the subplots, which starts from 1, at the right upper corner. We can
+check how many units of observation we are generating with this subplots shapefile.</p>
+
+<h2 id="importing-the-yield-data-and-removing-border-observations">Importing the yield data and removing border observations</h2>
+
+<p>After confirming the subplots we generated (which will become our units of
+observation), we bring the data sets for different variable in for cleaning.
+For example, we will import and clean the yield data.  To match our subplots,
+boundary, and trial design, we will also convert the yield data to UTM.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/yield.gpkg"</span><span class="p">)</span><span class="w">
+</span><span class="n">yield_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">yield</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We check the distribution of the yield data as we clean them to monitor the
+change made by each cleaning step. First, view the distrubution of the original
+data.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">yield_utm</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-vis yield data-1.png" title="plot of chunk vis yield data" alt="plot of chunk vis yield data" width="612" style="display: block; margin: auto;" /></p>
+
+<p>As you can see, we have some extreme values that we will want to get rid of.</p>
+
+<p>We need to remove the yield observations that are on the border of the plots,
+and also at the end of the plots.  The reason for this is that along the edge
+of a subplot, the harvester is likely to measure a mixture of two subplots,
+and therefore the data won’t be accurate for either subplot.  Additionally,
+plants growing at the edge of the field are likely to suffer from wind and other
+effects, lowering their yields.</p>
+
+<p>First we will use the function <code class="highlighter-rouge">st_buffer</code> to create a buffer for each plot.
+We set the buffer inside the trial plots to be 4 meters to the edges, and any
+yield observations that are within a 4-meter distance to the edge of the plots
+are considered on the border.</p>
+
+<p>Next, we determine which yield observations are inside the buffer as using the
+<code class="highlighter-rouge">st_over</code> function, and mark those observations as “out”. Finally, we
+remove the yield observations that are not in the buffer zone.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trialutm</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">yield_utm</span><span class="p">)</span><span class="w">
+</span><span class="n">map_points</span><span class="p">(</span><span class="n">yield_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yld_Vol_Dr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-observations on border-1.png" title="plot of chunk observations on border" alt="plot of chunk observations on border" width="612" style="display: block; margin: auto;" /></p>
+
+<p>Here again, we check the distribution of cleaned yield.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">yield_clean</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-view the distribution of yield data after taking out the yield points on the boader-1.png" title="plot of chunk view the distribution of yield data after taking out the yield points on the boader" alt="plot of chunk view the distribution of yield data after taking out the yield points on the boader" width="612" style="display: block; margin: auto;" /></p>
+
+<h2 id="removing-outliers">Removing outliers</h2>
+
+<p>Even if we don’t know the source of error, we can tell that some observations
+are incorrect just because they are far too small or too large.  How can we
+remove these in an objective, automatic way?  For yield and our other variables,
+we will calculate the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>
+to get an idea of how much the observations tend to be different from the mean.
+Then, we will remove observations that are three standard deviations higher or
+lower than the mean.  If the data followed a normal distribution (<em>i.e</em> a bell
+curve), this would eliminate about one in 1000 data points.  In a real dataset,
+we can be fairly certain that those points are errors.  Our cutoff of three
+standard deviations is arbitrary, which is why we have looked at histograms of
+the data to help confirm that our cutoff makes sense.</p>
+
+<p>In the next few steps, we use <code class="highlighter-rouge">sd</code> and <code class="highlighter-rouge">mean</code> to calculate the standard
+deviation and mean of the yield distribution, respectively. Then we remove the
+yield observations that are greater than mean + 3*sd or less than mean - 3*sd.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">yield_clean</span><span class="p">,</span><span class="w"> </span><span class="n">yield_clean</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Here again, we check the distribution of cleaned yield after taking out the
+yield observations that are outside the range of three standard deviations from
+the mean.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">yield_clean</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-view the distribution of cleaned yield data-1.png" title="plot of chunk view the distribution of cleaned yield data" alt="plot of chunk view the distribution of cleaned yield data" width="612" style="display: block; margin: auto;" /></p>
+
+<p>Finally, we save cleaned file into a geopackage.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_write</span><span class="p">(</span><span class="n">yield_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"data/yield_clean.gpkg"</span><span class="p">,</span><span class="w"> </span><span class="n">layer_options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'OVERWRITE=YES'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Updating layer `yield_clean' to data source `data/yield_clean.gpkg' using driver `GPKG'
+options:        OVERWRITE=YES 
+Updating existing layer yield_clean
+Writing 8578 features with 29 fields and geometry type Point.
+</code></pre></div></div>
+
+<h3 id="discussion">Discussion</h3>
+
+<p>What do you think could have caused these outliers (extreme values)?  If you
+were working with yield data from your own fields, what other sources of error
+might you want to look for?</p>
+
+<h3 id="exercise">Exercise</h3>
+
+<p>Import the shapefile for nitrogen as-applied.  Remove observations from the
+buffer zone, as well as observations more then three standard deviations from
+the mean.</p>
+
+<h2 id="yield-interpolationaggregation">Yield Interpolation/Aggregation</h2>
+
+<p>Interpolation is the estimation of a value at a point that we didn’t measure
+that is between two or more points that we did measure.  Aggregation is the
+combining of multiple data points into a single data point.  What we’ll do here
+is a combination of interpolation and aggregation, where we will use multiple
+measurements across each subplot to generate one value for the subplot. In this
+case we will take the median value within each subplot.  Typically when the data
+are not normally-distributed or when there are errors, the median is more
+representative of the data than the mean is.  Here we will interpolate and
+aggregate yield as an example.  The other variables can be processed in the same
+way.</p>
+
+<p><strong>Question from Lindsay: Why do we need to covert class here?  Please provide an
+explanation.</strong></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">grid_sp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as</span><span class="p">(</span><span class="n">trial_grid_utm</span><span class="p">,</span><span class="w"> </span><span class="s2">"Spatial"</span><span class="p">)</span><span class="w">
+</span><span class="n">crs</span><span class="p">(</span><span class="n">grid_sp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CRS arguments:
+ +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs +ellps=WGS84
++towgs84=0,0,0 
+</code></pre></div></div>
+
+<p><strong>Explain more of what is happening in this code below</strong>
+<strong>Why is one line commented out?</strong></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">merge</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sp</span><span class="o">::</span><span class="n">over</span><span class="p">(</span><span class="n">grid_sp</span><span class="p">,</span><span class="w"> </span><span class="n">as</span><span class="p">(</span><span class="n">yield_clean</span><span class="p">[,</span><span class="s2">"Yld_Vol_Dr"</span><span class="p">],</span><span class="w"> </span><span class="s2">"Spatial"</span><span class="p">),</span><span class="w"> </span><span class="n">fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w">
+</span><span class="n">grid_sp</span><span class="o">@</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">merge</span><span class="p">,</span><span class="w"> </span><span class="n">grid_sp</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w">
+
+</span><span class="n">subplots_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_as_sf</span><span class="p">(</span><span class="n">grid_sp</span><span class="p">)</span><span class="w"> 
+</span><span class="n">map_poly</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="s1">'Yld_Vol_Dr'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield (bu/ac)"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-aggregate yield data-1.png" title="plot of chunk aggregate yield data" alt="plot of chunk aggregate yield data" width="612" style="display: block; margin: auto;" /></p>
+
+<h3 id="exercise-1">Exercise</h3>
+
+<p>Interpolate and aggregate nitrogen as-applied so that you have one value per
+sub-plot.</p>
+
+<p><strong>Solution</strong>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">asapplied</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_read</span><span class="p">(</span><span class="s2">"data/asapplied.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Reading layer `asapplied' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asapplied.gpkg' using driver `GPKG'
+Simple feature collection with 9913 features and 19 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -82.87852 ymin: 40.83947 xmax: -82.87304 ymax: 40.84649
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">asapplied_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">asapplied</span><span class="p">)</span><span class="w">
+
+</span><span class="n">conv_unit</span><span class="p">((</span><span class="m">24</span><span class="o">/</span><span class="m">2</span><span class="p">)</span><span class="o">*</span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="s1">'m'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ft'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 31.49606
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">asapplied_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">asapplied_utm</span><span class="p">,</span><span class="w"> </span><span class="n">asapplied_utm</span><span class="o">$</span><span class="n">Rate_Appli</span><span class="p">)</span><span class="w">
+
+</span><span class="n">merge</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sp</span><span class="o">::</span><span class="n">over</span><span class="p">(</span><span class="n">grid_sp</span><span class="p">,</span><span class="w"> </span><span class="n">as</span><span class="p">(</span><span class="n">asapplied_clean</span><span class="p">[,</span><span class="s2">"Rate_Appli"</span><span class="p">],</span><span class="w"> </span><span class="s2">"Spatial"</span><span class="p">),</span><span class="w"> </span><span class="n">fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w">
+
+</span><span class="n">grid_sp</span><span class="o">@</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">merge</span><span class="p">,</span><span class="w"> </span><span class="n">grid_sp</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">grid_sp</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Rate_Appli Yld_Vol_Dr  Type plotid GRIDY GRIDX
+1   154.6358   159.7329 Trial      3     3     1
+2   155.3956   233.4012 Trial      4     4     1
+3   152.9890   185.4852 Trial      5     5     1
+4   138.7605   186.8338 Trial      6     6     1
+5   140.0642   254.4135 Trial      7     7     1
+6   146.8981   227.0434 Trial      8     8     1
+</code></pre></div></div>
+
+<p>Processing the other variables:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#asplanted and elevation</span><span class="w">
+</span><span class="n">asplanted</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_read</span><span class="p">(</span><span class="s2">"data/asplanted.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Reading layer `asplanted' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted.gpkg' using driver `GPKG'
+Simple feature collection with 6382 features and 30 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -82.87843 ymin: 40.83952 xmax: -82.87315 ymax: 40.84653
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">asplanted_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">asplanted</span><span class="p">)</span><span class="w">
+
+</span><span class="n">conv_unit</span><span class="p">((</span><span class="m">24</span><span class="o">/</span><span class="m">2</span><span class="p">)</span><span class="o">*</span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="s1">'m'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ft'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 31.49606
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">asplanted_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">asplanted_utm</span><span class="p">,</span><span class="w"> </span><span class="n">asplanted_utm</span><span class="o">$</span><span class="n">Rt_Apd_Ct_</span><span class="p">)</span><span class="w">
+
+</span><span class="n">asplanted_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trialutm</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">asplanted_clean</span><span class="p">)</span><span class="w">
+
+</span><span class="n">map_points</span><span class="p">(</span><span class="n">asplanted_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rt_Apd_Ct_"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Seed"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">merge</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sp</span><span class="o">::</span><span class="n">over</span><span class="p">(</span><span class="n">grid_sp</span><span class="p">,</span><span class="w"> </span><span class="n">as</span><span class="p">(</span><span class="n">asplanted_clean</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"Rt_Apd_Ct_"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Elevation_"</span><span class="p">)],</span><span class="w"> </span><span class="s2">"Spatial"</span><span class="p">),</span><span class="w"> </span><span class="n">fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w">
+
+</span><span class="n">grid_sp</span><span class="o">@</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">merge</span><span class="p">,</span><span class="w"> </span><span class="n">grid_sp</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">grid_sp</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Rt_Apd_Ct_ Elevation_ Rate_Appli Yld_Vol_Dr  Type plotid GRIDY GRIDX
+1   35726.80   1018.483   154.6358   159.7329 Trial      3     3     1
+2   35764.24   1019.708   155.3956   233.4012 Trial      4     4     1
+3   35974.67   1021.429   152.9890   185.4852 Trial      5     5     1
+4   35983.17   1021.667   138.7605   186.8338 Trial      6     6     1
+5   35998.15   1021.967   140.0642   254.4135 Trial      7     7     1
+6   32882.86   1021.893   146.8981   227.0434 Trial      8     8     1
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subplots_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_as_sf</span><span class="p">(</span><span class="n">grid_sp</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">st_write</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="s2">"data/data.gpkg"</span><span class="p">,</span><span class="w"> </span><span class="n">layer_options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'OVERWRITE=YES'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Updating layer `data' to data source `data/data.gpkg' using driver `GPKG'
+options:        OVERWRITE=YES 
+Updating existing layer data
+Writing 489 features with 8 fields and geometry type Polygon.
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_poly</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="s1">'Rt_Apd_Ct_'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Seed"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-10-2.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">subplots_data</span><span class="o">$</span><span class="n">Elevation_</span><span class="p">,</span><span class="w"> </span><span class="n">subplots_data</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-10-3.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">subplots_data</span><span class="o">$</span><span class="n">Rt_Apd_Ct_</span><span class="p">,</span><span class="w"> </span><span class="n">subplots_data</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-10-4.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">subplots_data</span><span class="o">$</span><span class="n">Rate_Appli</span><span class="p">,</span><span class="w"> </span><span class="n">subplots_data</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-10-5.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lm</span><span class="p">(</span><span class="n">Yld_Vol_Dr</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Rt_Apd_Ct_</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="n">Rate_Appli</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Elevation_</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subplots_data</span><span class="p">)</span><span class="w">
+</span><span class="n">summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Call:
+lm(formula = Yld_Vol_Dr ~ Rt_Apd_Ct_ + Rate_Appli + Elevation_, 
+    data = subplots_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-72.967  -6.095   1.150   8.300  54.346 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  4.493e+02  2.039e+02   2.204   0.0281 *
+Rt_Apd_Ct_   5.650e-04  3.078e-04   1.836   0.0671 .
+Rate_Appli   4.914e-02  5.442e-02   0.903   0.3671  
+Elevation_  -2.399e-01  1.980e-01  -1.212   0.2262  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.72 on 446 degrees of freedom
+  (39 observations deleted due to missingness)
+Multiple R-squared:  0.01416,	Adjusted R-squared:  0.007532 
+F-statistic: 2.136 on 3 and 446 DF,  p-value: 0.09497
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Now, we have one value per subplot for all of our variables, and because we
+cleaned the data first, we can be confident that value is a good representation
+of the subplot.</p>
+
+<p><strong>Add code here to make a scatter plot of as-applied vs. yield, now that we
+have one value for each for each subplot</strong></p>
+
+<p>####Other Files To Be Cleaned/Aggregated</p>
+<ol>
+  <li>As-applied Data</li>
+  <li>As-planted Data</li>
+  <li>EC Data</li>
+  <li>Elevation Data (from Internet or Trial Yield/As-planted file)</li>
+  <li>Topography Data (Slope and Aspect generated from Elevation Data)</li>
+  <li>SSURGO Data (Specify the soil content)</li>
+  <li>Weather Data (daily/weekly/monthly data)</li>
+</ol>
+
+<p>####Supplementary Code/Function</p>
+<ol>
+  <li>Code to generate the suplots(unit of observations) of the orginal trial design.</li>
+  <li>Code to clean yield data.</li>
+  <li>Code to generate Topography data.</li>
+  <li>Code to process SSURGO data.</li>
+  <li>Code to download weather data.</li>
+</ol>
+:ET

@@ -448,6 +448,139 @@ the theory of how to do them?**
 > ~~~
 > {: .output}
 > 
+> 
+> 
+> ~~~
+> st_write(spatial, "data/ssurgo.gpkg", layer_options = 'OVERWRITE=YES')
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Updating layer `ssurgo' to data source `data/ssurgo.gpkg' using driver `GPKG'
+> options:        OVERWRITE=YES 
+> Writing 14 features with 43 fields and geometry type Multi Polygon.
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> Warning in CPL_write_ogr(obj, dsn, layer, driver,
+> as.character(dataset_options), : GDAL Error 1: sqlite3_exec(CREATE TABLE
+> "ssurgo" ( "fid" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "geom"
+> MULTIPOLYGON, "musym" TEXT, "AREASYMBOL" TEXT, "SPATIALVER" TEXT, "MUKEY" TEXT,
+> "muname" TEXT, "mustatus" BOOLEAN, "slopegraddcp" REAL, "slopegradwta" REAL,
+> "brockdepmin" BOOLEAN, "wtdepannmin" REAL, "wtdepaprjunmin" REAL, "flodfreqdcd"
+> TEXT, "flodfreqmax" TEXT, "pondfreqprs" REAL, "aws025wta" REAL, "aws050wta"
+> REAL, "aws0100wta" REAL, "aws0150wta" REAL, "drclassdcd" TEXT, "drclasswettest"
+> TEXT, "hydgrpdcd" TEXT, "iccdcd" BOOLEAN, "iccdcdpct" REAL, "niccdcd" REAL,
+> "niccdcdpct" REAL, "engdwobdcd" TEXT, "engdwbdcd" TEXT, "engdwbll" TEXT,
+> "engdwbml" TEXT, "engstafdcd" TEXT, "engstafll" TEXT, "engstafml" TEXT,
+> "engsldcd" TEXT, "engsldcp" TEXT, "englrsdcd" TEXT, "engcmssdcd" TEXT,
+> "engcmssmp" TEXT, "urbrecptdcd" TEXT, "urbrecptwta" REAL, "forpehrtdcp" TEXT,
+> "hydclprs" REAL, "awmmfpwwta" REAL, "mukey" REAL)) failed: duplicate column
+> name: mukey
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> Failed to create feature 0 in ssurgo
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> Warning in CPL_write_ogr(obj, dsn, layer, driver,
+> as.character(dataset_options), : GDAL Error 1: failed to prepare SQL: SELECT
+> "fid", ST_MinX("geom"), ST_MaxX("geom"), ST_MinY("geom"), ST_MaxY("geom") FROM
+> "ssurgo" WHERE "geom" NOT NULL AND NOT ST_IsEmpty("geom")
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> Warning in CPL_write_ogr(obj, dsn, layer, driver,
+> as.character(dataset_options), : GDAL Error 1: sqlite3_exec(DROP TABLE "ssurgo")
+> failed: no such table: ssurgo
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpoysZ91/file10e423090e0e3.gpkg
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpoysZ91/file10e423090e0e3.gpkg' using driver `GPKG'
+> options:        OVERWRITE=YES 
+> Writing 14 features with 43 fields and geometry type Multi Polygon.
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> Warning in CPL_write_ogr(obj, tmp, layer, driver,
+> as.character(dataset_options), : GDAL Error 1: sqlite3_exec(CREATE TABLE
+> "ssurgo" ( "fid" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "geom"
+> MULTIPOLYGON, "musym" TEXT, "AREASYMBOL" TEXT, "SPATIALVER" TEXT, "MUKEY" TEXT,
+> "muname" TEXT, "mustatus" BOOLEAN, "slopegraddcp" REAL, "slopegradwta" REAL,
+> "brockdepmin" BOOLEAN, "wtdepannmin" REAL, "wtdepaprjunmin" REAL, "flodfreqdcd"
+> TEXT, "flodfreqmax" TEXT, "pondfreqprs" REAL, "aws025wta" REAL, "aws050wta"
+> REAL, "aws0100wta" REAL, "aws0150wta" REAL, "drclassdcd" TEXT, "drclasswettest"
+> TEXT, "hydgrpdcd" TEXT, "iccdcd" BOOLEAN, "iccdcdpct" REAL, "niccdcd" REAL,
+> "niccdcdpct" REAL, "engdwobdcd" TEXT, "engdwbdcd" TEXT, "engdwbll" TEXT,
+> "engdwbml" TEXT, "engstafdcd" TEXT, "engstafll" TEXT, "engstafml" TEXT,
+> "engsldcd" TEXT, "engsldcp" TEXT, "englrsdcd" TEXT, "engcmssdcd" TEXT,
+> "engcmssmp" TEXT, "urbrecptdcd" TEXT, "urbrecptwta" REAL, "forpehrtdcp" TEXT,
+> "hydclprs" REAL, "awmmfpwwta" REAL, "mukey" REAL)) failed: duplicate column
+> name: mukey
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> Failed to create feature 0 in ssurgo
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> Warning in CPL_write_ogr(obj, tmp, layer, driver,
+> as.character(dataset_options), : GDAL Error 1: failed to prepare SQL: SELECT
+> "fid", ST_MinX("geom"), ST_MaxX("geom"), ST_MinY("geom"), ST_MaxY("geom") FROM
+> "ssurgo" WHERE "geom" NOT NULL AND NOT ST_IsEmpty("geom")
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> Warning in CPL_write_ogr(obj, tmp, layer, driver,
+> as.character(dataset_options), : GDAL Error 1: sqlite3_exec(DROP TABLE "ssurgo")
+> failed: no such table: ssurgo
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpoysZ91/file10e423090e0e3.gpkg
+> ~~~
+> {: .error}
+> 
 {: .callout}
 
 > ## Exercise 5: Create the Soil Map

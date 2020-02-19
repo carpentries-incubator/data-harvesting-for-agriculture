@@ -112,7 +112,7 @@ Yield, as-planted, and as-applied data:
 * We remove observations where the harvester/planter/applicator is moving too slow or too fast.
 * We remove observations on the edges of the plot.
 * We remove observations that are below or above three standard deviations from the mean.
-* We then aggregate them onto our units of observation.
+* We then aggregate them onto our units of observation. <font color="magenta">Do they know what these units are? I don't have a frame of refrence for this terminology</font>
 
 <font color="magenta">This comes up in the 03 or 04 but we need to define what a standard devation is</font>
  
@@ -121,31 +121,69 @@ original trial design, and then aggregate the cleaned datasets for different
 variables onto the subplots.  Once we have one value per variable per subplot,
 we can begin examining the relationships between the variables.*
 
+
 ## Importing and visualizing boundaries and subplots
 
-The following steps read in a boundary shapefile, and transform the projection
-of file to utm projection for later use.
+Let's apply this data-cleaning thinking to measurements of yields.  First, we will aggregate our yields into a grid overlayed on top of our boundary shapefile and look for measurements on this grid that seem too low or to high, and flag these as "outliers" of our dataset in our data-cleaning process.
+
+### Reading and transforming the boundary, trial and abline files
+
+The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
 
 ```{r boundary}
 boundary <- read_sf("data/boundary.gpkg")
+```
+What is the current coordinate reference system of this object?
+```{r boundary2}
 st_crs(boundary)
-
+```
+Let's transform it to the UTM projection & check out its new coordinate reference system:
+```{r boundary3}
 boundary_utm <- st_transform_utm(boundary)
+st_crs(boundary_utm)
+```
+Now we can see that the `+proj=longlat` has changed to `+proj=utm` and gives us that we are in UTM zone #17.
+
+In the last episode, we also imported our trial design, which we will do again here:
+```{r}
+trial <- read_sf("data/trial.gpkg")
 ```
 
-In the last episode, we also imported our trial design.  We will include the
-code again here, in case you are just joining us.
+Let's look at the coordinate reference system here as well:
+```{r}
+st_crs(trial)
+```
+<font color="magenta">Do we have a figure showing lat/long to UTM coversion somewhere?  I can add this</font>
 
+Our file is already in the UTM projection, but if we have one that is not we can convert this as well with:
+```{r}
+trial_utm <- st_transform_utm(trial)
+```
+
+Finally, let's transform our abline file.  We read in the file:
+```{r}
+abline = st_read("data/abline.gpkg")
+```
+Check out its current coordinate reference system:
+```{r}
+st_crs(abline)
+```
+And transform it to UTM:
+```{r}
+abline_utm = st_transform_utm(abline)
+```
+
+<!-- JPN taking out a lot
 The following steps read in a trial design shapefile, transform the projection
 of file to utm projection, and then save the file in a geopackage. In many
 cases, the trial design shapefile is already in the correct form, and we are
 just checking the file in advance of creating the subplots of the trial design.
 
 ```{r}
-trial <- read_sf("data/trial.gpkg")
+trial = read_sf("data/trial.gpkg")
 st_crs(trial)
 
-trialutm <- trial
+trialutm = trial
 ```
 
 After we read in the trial design file, we use a function to generate the
@@ -156,23 +194,33 @@ For now, we will import a shapefile that already has the subplot boundaries
 defined, and will convert the projection to UTM.
 
 ```{r }
-boundary_grid_utm <- subset(boundary_utm, Type == "Trial")
+boundary_grid_utm = subset(boundary_utm, Type == "Trial")
 plot(boundary_grid_utm$geom)
 
-abline <- st_read("data/abline.gpkg")
+abline = st_read("data/abline.gpkg")
 st_crs(abline)
-abline_utm <- st_transform_utm(abline)
+abline_utm = st_transform_utm(abline)
 
 # 24 m wide trial plots 
-width <- m_to_ft(24)
-design_grids_utm <- make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = width, width_ft = width)
-st_crs(design_grids_utm) <- st_crs(boundary_grid_utm)
+width = m_to_ft(24)
+design_grids_utm = make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = width, width_ft = width)
+st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
 
 tm_shape(design_grids_utm) + tm_borders(col='blue')
 
-trial_grid_utm <- st_intersection(boundary_grid_utm, design_grids_utm)
+trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
 tm_shape(trial_grid_utm) + tm_borders(col='blue')
 ```
+-->
+
+### Plotting our transformed shapefiles
+
+After we read in the trial design files, we use a function to generate the
+subplots for this trial. Because the code for generating the subplots is
+somewhat complex, we have included it as a
+[supplementary file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/making%20subplots.R).
+For now, we will import a shapefile that already has the subplot boundaries
+defined, and will convert the projection to UTM.
 
 Here, we graph the subplots that we generated. Note that color indicates the ID
 number of the subplots, which starts from 1, at the right upper corner. We can

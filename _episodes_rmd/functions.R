@@ -76,9 +76,15 @@ map_poly <- function(sfobject, variable, name){
     tm_layout(legend.outside = TRUE, frame = FALSE) 
 }
 
-map_points <- function(sfobject, variable, name){
-  tm_shape(sfobject) + tm_dots(variable, title = name) +
+# in case we need to see any plots better we can mess with the colors: https://geocompr.robinlovelace.net/adv-map.html
+map_points <- function(sfobject, variable, name, colors="default"){
+  if (colors != "default"){
+    tm_shape(sfobject) + tm_dots(variable, title = name, palette=colors) +
     tm_layout(legend.outside = TRUE, frame = FALSE) 
+  } else {
+    tm_shape(sfobject) + tm_dots(variable, title = name) +
+      tm_layout(legend.outside = TRUE, frame = FALSE)
+      }
 }
 
 wt_mean <- function(property, weights)

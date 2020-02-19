@@ -24,6 +24,9 @@ library("data.table")
 library("broom")
 library("ggplot2")
 
+#set margins
+par(mar=c(1,1,1,1))
+
 # test ggplot2
 df = data.frame("x"=c(1,2,3), "y"=c(1,2,3))
 ggplot(df, aes(x=x, y=y)) + geom_point()
