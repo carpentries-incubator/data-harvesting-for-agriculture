@@ -465,16 +465,24 @@ make_subplots <- function(boundary.utm,ab_line,long_in,short_in,starting_point){
   
   max_area <- as.numeric(max(st_area(trial_grid1_utm)))
   
-  trial_grid2 <- trial_grid1_utm %>%
+  trial_grid <- trial_grid1_utm %>%
     mutate(area=as.numeric(st_area(.))) %>%
     mutate(drop=ifelse(area<(max_area-100), 1, 0) )
   
-  return(trial_grid2)
+  return(trial_grid)
 }
 
-treat_assign <- function(trial_grid2_intrial,num_treats,seed_treat_rates,nitrogen_treat_rates,seed_quo,nitrogen_quo){
+treat_assign <- function(trial_grid, num_treats, seed_treat_rates, nitrogen_treat_rates, seed_quo, nitrogen_quo){
+  max_area <- as.numeric(mean(st_area(trial_grid)))
   
-  num_plots <- nrow(trial_grid2)
+  trial_grid <- trial_grid %>%
+    mutate(area = as.numeric(st_area(.))) %>%
+    mutate(drop = ifelse(area < (max_area*0.9), 1, 0) )
+  
+  trial_grid_intrial <- subset(trial_grid, drop==0)
+  
+  num_treats <- length(seed_treat_rates)*length(nitrogen_treat_rates)
+  num_plots <- nrow(trial_grid)
   num_rep <- floor(num_plots/num_treats)
   
   treat_ls <- list()
@@ -485,15 +493,15 @@ treat_assign <- function(trial_grid2_intrial,num_treats,seed_treat_rates,nitroge
   remainder_ls <- sample(1:num_treats,num_plots%%num_treats,replace=FALSE) 
   treat_list <- c(unlist(treat_ls),remainder_ls)
   
-  trial_grid2$GRIDID <- trial_grid2$plotid
+  trial_grid$GRIDID <- trial_grid$plotid
   
   
-  grid_list <- trial_grid2 %>%
+  grid_list <- trial_grid %>%
     .$GRIDID
   
   grid_to_treat <- data.table(GRIDID=grid_list,treat_type=treat_list)
   
-  trial_grid3 <-left_join(trial_grid2,grid_to_treat,by='GRIDID') %>%
+  trial_grid3 <-left_join(trial_grid,grid_to_treat,by='GRIDID') %>%
     mutate(treat_type=ifelse(drop==1,num_treats+1, treat_type)) %>%
     dplyr::select(-area,-drop)
   
@@ -503,9 +511,9 @@ treat_assign <- function(trial_grid2_intrial,num_treats,seed_treat_rates,nitroge
     treat_type=c(num_treats+1)
   )
   
-  pair_ls <- expand.grid(seed_treat_rates,nitrogen_treat_rates) %>% 
+  pair_ls <- expand.grid(seed_treat_rates, nitrogen_treat_rates) %>% 
     data.table() %>% 
-    setnames(names(.),c('SEEDRATE','NRATE')) %>% 
+    setnames(names(.),c('SEEDRATE', 'NRATE')) %>% 
     .[,treat_type:=1:num_treats] %>% 
     rbind(exception) %>% 
     dplyr::select(NRATE,SEEDRATE,treat_type)
@@ -524,11 +532,10 @@ treat_assign <- function(trial_grid2_intrial,num_treats,seed_treat_rates,nitroge
   temp_whole <- whole %>% 
     mutate(id=paste('ID',1:nrow(whole),sep='')) %>% 
     dplyr::select(id,treat_type,NRATE,SEEDRATE)
-  
-  whole_plot <- left_join(whole_td,temp_whole,by='id') %>% 
-    data.table()
-  
-  return(whole_plot)
+
+  tm_shape(temp_whole) + tm_polygons("NRATE")
+
+  return(temp_whole)
 }
 
 st_over <- function(x, y) {
