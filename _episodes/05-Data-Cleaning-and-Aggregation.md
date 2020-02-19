@@ -325,7 +325,7 @@ We will take out these weird observations in two steps:
 
 Let's go through these one by one.
 
-### Data cleaning #1: Taking out boarder observations
+### Data cleaning #1: Taking out border observations
 
 We need to remove the yield observations that are on the border of the plots,
 and also at the end of the plots.  The reason for this is that along the edge
@@ -334,21 +334,21 @@ and therefore the data won't be accurate for either plot.  Additionally,
 plants growing at the edge of the field are likely to suffer from wind and other
 effects, lowering their yields.  We will use the `trial_utm` shapefile to help us clean.
 
-We add a 15 <font color="magenta">meter??</font> boarder.
+We add a 15 <font color="magenta">meter??</font> border.
 
 
 ~~~
-yield_clean_boarder <- clean_buffer(trial_utm, 15, yield_utm)
+yield_clean_border <- clean_buffer(trial_utm, 15, yield_utm)
 ~~~
 {: .language-r}
 
-Let's use our side-by-side plotting we did in the previous episode to compare our original and boarder-yield cleaned yield maps:
+Let's use our side-by-side plotting we did in the previous episode to compare our original and border-yield cleaned yield maps:
 
 
 ~~~
 yield_plot_orig <- map_points(yield_utm, "Yld_Vol_Dr", "Yield, Orig")
-yield_plot_boarder_cleaned <- map_points(yield_clean_boarder, "Yld_Vol_Dr", "Yield, No Boarders")
-yield_plot_comp <- tmap_arrange(yield_plot_orig, yield_plot_boarder_cleaned, ncol = 2, nrow = 1)
+yield_plot_border_cleaned <- map_points(yield_clean_border, "Yld_Vol_Dr", "Yield, No Borders")
+yield_plot_comp <- tmap_arrange(yield_plot_orig, yield_plot_border_cleaned, ncol = 2, nrow = 1)
 yield_plot_comp
 ~~~
 {: .language-r}
@@ -359,13 +359,13 @@ Here again, we also check the distribution of cleaned yield by making a histogra
 
 
 ~~~
-hist(yield_clean_boarder$Yld_Vol_Dr)
+hist(yield_clean_border$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
 
-Looking at both this histogram and the several very red dots in our de-boardered yield map we see that there are still a lot of very high observations so we need to proceed to step two which will clean our observations based on how far they are from the mean of the observations.
+Looking at both this histogram and the several very red dots in our de-bordered yield map we see that there are still a lot of very high observations so we need to proceed to step two which will clean our observations based on how far they are from the mean of the observations.
 
 ### Data cleaning #2: Taking out outliers far from the mean
 
@@ -388,7 +388,7 @@ the `clean_sd` from our `functions.R`:
 
 
 ~~~
-yield_clean <- clean_sd(yield_clean_boarder, yield_clean_boarder$Yld_Vol_Dr)
+yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
@@ -409,9 +409,9 @@ This looks a lot more sensible!  We can double check by comparing all the stages
 
 ~~~
 yield_plot_orig <- map_points(yield_utm, "Yld_Vol_Dr", "Yield, Orig")
-yield_plot_boarder_cleaned <- map_points(yield_clean_boarder, "Yld_Vol_Dr", "Yield, No Boarders")
+yield_plot_border_cleaned <- map_points(yield_clean_border, "Yld_Vol_Dr", "Yield, No Borders")
 yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
-yield_plot_comp_final <- tmap_arrange(yield_plot_orig, yield_plot_boarder_cleaned, yield_plot_clean, ncol = 3, nrow = 1)
+yield_plot_comp_final <- tmap_arrange(yield_plot_orig, yield_plot_border_cleaned, yield_plot_clean, ncol = 3, nrow = 1)
 yield_plot_comp_final
 ~~~
 {: .language-r}
@@ -486,18 +486,18 @@ the mean.
 > > nitrogen_utm = st_transform_utm(nitrogen)
 > > ~~~
 > > {: .language-r}
-> > Clean boarder:
+> > Clean border:
 > > 
 > > ~~~
-> > nitrogen_clean_boarder <- clean_buffer(trial_utm, 15, nitrogen_utm)
+> > nitrogen_clean_border <- clean_buffer(trial_utm, 15, nitrogen_utm)
 > > ~~~
 > > {: .language-r}
 > > Check out our progress with a plot:
 > > 
 > > ~~~
 > > nitrogen_plot_orig <- map_points(nitrogen_utm, "Rate_Appli", "Nitrogen, Orig")
-> > nitrogen_plot_boarder_cleaned <- map_points(nitrogen_clean_boarder, "Rate_Appli", "Nitrogen, No Boarders")
-> > nitrogen_plot_comp <- tmap_arrange(nitrogen_plot_orig, nitrogen_plot_boarder_cleaned, ncol = 2, nrow = 1)
+> > nitrogen_plot_border_cleaned <- map_points(nitrogen_clean_border, "Rate_Appli", "Nitrogen, No Borders")
+> > nitrogen_plot_comp <- tmap_arrange(nitrogen_plot_orig, nitrogen_plot_border_cleaned, ncol = 2, nrow = 1)
 > > nitrogen_plot_comp
 > > ~~~
 > > {: .language-r}
@@ -506,7 +506,7 @@ the mean.
 > > Clean by standard deviation:
 > > 
 > > ~~~
-> > nitrogen_clean <- clean_sd(nitrogen_clean_boarder, nitrogen_clean_boarder$Rate_Appli)
+> > nitrogen_clean <- clean_sd(nitrogen_clean_border, nitrogen_clean_border$Rate_Appli)
 > > ~~~
 > > {: .language-r}
 > > Plot our final result on a map:

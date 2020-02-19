@@ -1,4 +1,4 @@
-I"�<font color="magenta"> NOTE: `clean_sd` gets called in the previous lecture so we should talk about data cleaning then or move it to here</font>
+I",�<font color="magenta"> NOTE: `clean_sd` gets called in the previous lecture so we should talk about data cleaning then or move it to here</font>
 
 <h2 id="data-cleaning-and-aggregation-in-the-difm-project">Data cleaning and aggregation in the DIFM project</h2>
 
@@ -218,7 +218,7 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 
 <p>Let’s go through these one by one.</p>
 
-<h3 id="data-cleaning-1-taking-out-boarder-observations">Data cleaning #1: Taking out boarder observations</h3>
+<h3 id="data-cleaning-1-taking-out-border-observations">Data cleaning #1: Taking out border observations</h3>
 
 <p>We need to remove the yield observations that are on the border of the plots,
 and also at the end of the plots.  The reason for this is that along the edge
@@ -227,16 +227,16 @@ and therefore the data won’t be accurate for either plot.  Additionally,
 plants growing at the edge of the field are likely to suffer from wind and other
 effects, lowering their yields.  We will use the <code class="highlighter-rouge">trial_utm</code> shapefile to help us clean.</p>
 
-<p>We add a 15 <font color="magenta">meter??</font> boarder.</p>
+<p>We add a 15 <font color="magenta">meter??</font> border.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_clean_boarder</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trial_utm</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">yield_utm</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_clean_border</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trial_utm</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">yield_utm</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>Let’s use our side-by-side plotting we did in the previous episode to compare our original and boarder-yield cleaned yield maps:</p>
+<p>Let’s use our side-by-side plotting we did in the previous episode to compare our original and border-yield cleaned yield maps:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_plot_orig</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">yield_utm</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yld_Vol_Dr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield, Orig"</span><span class="p">)</span><span class="w">
-</span><span class="n">yield_plot_boarder_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">yield_clean_boarder</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yld_Vol_Dr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield, No Boarders"</span><span class="p">)</span><span class="w">
-</span><span class="n">yield_plot_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">yield_plot_orig</span><span class="p">,</span><span class="w"> </span><span class="n">yield_plot_boarder_cleaned</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">yield_plot_border_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">yield_clean_border</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yld_Vol_Dr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield, No Borders"</span><span class="p">)</span><span class="w">
+</span><span class="n">yield_plot_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">yield_plot_orig</span><span class="p">,</span><span class="w"> </span><span class="n">yield_plot_border_cleaned</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
 </span><span class="n">yield_plot_comp</span><span class="w">
 </span></code></pre></div></div>
 
@@ -244,12 +244,12 @@ effects, lowering their yields.  We will use the <code class="highlighter-rouge"
 
 <p>Here again, we also check the distribution of cleaned yield by making a histogram.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">yield_clean_boarder</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">yield_clean_border</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
 
-<p>Looking at both this histogram and the several very red dots in our de-boardered yield map we see that there are still a lot of very high observations so we need to proceed to step two which will clean our observations based on how far they are from the mean of the observations.</p>
+<p>Looking at both this histogram and the several very red dots in our de-bordered yield map we see that there are still a lot of very high observations so we need to proceed to step two which will clean our observations based on how far they are from the mean of the observations.</p>
 
 <h3 id="data-cleaning-2-taking-out-outliers-far-from-the-mean">Data cleaning #2: Taking out outliers far from the mean</h3>
 
@@ -270,7 +270,7 @@ deviation and mean of the yield distribution, respectively. Then we remove the
 yield observations that are greater than mean + 3*sd or less than mean - 3*sd.  We use
 the <code class="highlighter-rouge">clean_sd</code> from our <code class="highlighter-rouge">functions.R</code>:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">yield_clean_boarder</span><span class="p">,</span><span class="w"> </span><span class="n">yield_clean_boarder</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">yield_clean_border</span><span class="p">,</span><span class="w"> </span><span class="n">yield_clean_border</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p>Here again, we check the distribution of cleaned yield after taking out the
@@ -287,9 +287,9 @@ This looks a lot more sensible!  We can double check by comparing all the stages
 
 ~~~
 yield_plot_orig <- map_points(yield_utm, "Yld_Vol_Dr", "Yield, Orig")
-yield_plot_boarder_cleaned <- map_points(yield_clean_boarder, "Yld_Vol_Dr", "Yield, No Boarders")
+yield_plot_border_cleaned <- map_points(yield_clean_border, "Yld_Vol_Dr", "Yield, No Borders")
 yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
-yield_plot_comp_final <- tmap_arrange(yield_plot_orig, yield_plot_boarder_cleaned, yield_plot_clean, ncol = 3, nrow = 1)
+yield_plot_comp_final <- tmap_arrange(yield_plot_orig, yield_plot_border_cleaned, yield_plot_clean, ncol = 3, nrow = 1)
 yield_plot_comp_final
 ~~~
 {: .language-r}
@@ -357,22 +357,22 @@ the mean.</li>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_utm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">nitrogen</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
-    <p>Clean boarder:</p>
+    <p>Clean border:</p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_clean_boarder</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trial_utm</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_utm</span><span class="p">)</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_clean_border</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trial_utm</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_utm</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
     <p>Check out our progress with a plot:</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_plot_orig</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">nitrogen_utm</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rate_Appli"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Nitrogen, Orig"</span><span class="p">)</span><span class="w">
-</span><span class="n">nitrogen_plot_boarder_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">nitrogen_clean_boarder</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rate_Appli"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Nitrogen, No Boarders"</span><span class="p">)</span><span class="w">
-</span><span class="n">nitrogen_plot_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">nitrogen_plot_orig</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_plot_boarder_cleaned</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">nitrogen_plot_border_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">nitrogen_clean_border</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rate_Appli"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Nitrogen, No Borders"</span><span class="p">)</span><span class="w">
+</span><span class="n">nitrogen_plot_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">nitrogen_plot_orig</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_plot_border_cleaned</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
 </span><span class="n">nitrogen_plot_comp</span><span class="w">
 </span></code></pre></div>    </div>
 
     <p><img src="../fig/rmd-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="612" style="display: block; margin: auto;" />
 Clean by standard deviation:</p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">nitrogen_clean_boarder</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_clean_boarder</span><span class="o">$</span><span class="n">Rate_Appli</span><span class="p">)</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">nitrogen_clean_border</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_clean_border</span><span class="o">$</span><span class="n">Rate_Appli</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
     <p>Plot our final result on a map:</p>
 
@@ -425,10 +425,14 @@ Now we will make subplots that are 24 meters wide:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_crs</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
+<p>Let’s plot what these grids will look like <font color="magenta"> we need to talk about what tm_shape is here or before</font></p>
+
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tm_shape</span><span class="p">(</span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" /></p>
+
+<p>Now the last step is that we want to make sure this grid overlaps <em>only</em> with our boundary file, so we take the intersection of this rectangular grid with our boundary file’s Trial data outline:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trial_grid_utm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_intersection</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="p">,</span><span class="w"> </span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -441,4 +445,120 @@ geometries
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" /></p>
+<font color="magenta"> there is an error here that we should fix or mention</font>
+
+<h2 id="step-2-interpolationaggregation-on-our-subplots">Step 2: Interpolation/Aggregation on our subplots</h2>
+
+<p>We will now aggregate our yield data over our subplots.</p>
+
+<p>Interpolation is the estimation of a value at a point that we didn’t measure
+that is between two or more points that we did measure.  Aggregation is the
+combining of multiple data points into a single data point.  What we’ll do here
+is a combination of interpolation and aggregation, where we will use multiple
+measurements across each subplot to generate one value for the subplot. In this
+case we will take the median value within each subplot.  Typically when the data
+are not normally-distributed or when there are errors, the median is more
+representative of the data than the mean is.  Here we will interpolate and
+aggregate yield as an example.  The other variables can be processed in the same
+way.</p>
+
+<p><strong>Question from Lindsay: Why do we need to covert class here?  Please provide an
+explanation.</strong> <font color="magenta">not sure what "covert" means here, leaving this question for others</font></p>
+
+<!-- JPN: no work
+
+~~~
+grid_sp = trial_grid_utm
+merge <- sp::over(trial_grid_utm, yield_clean[,"Yld_Vol_Dr"], fn = median)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'over' for signature '"sf", "sf"'
+~~~
+{: .error}
+
+
+
+~~~
+grid_sp@data <- cbind(merge, grid_sp@data)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in cbind(merge, grid_sp@data): trying to get slot "data" from an object (class "sf") that is not an S4 object 
+~~~
+{: .error}
+
+
+
+~~~
+subplots_data <- st_as_sf(grid_sp) 
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
+~~~
+{: .language-r}
+
+
+
+~~~
+Error: Fill argument neither colors nor valid variable name(s)
+~~~
+{: .error}
+-->
+
+<p>One final step we have to do before aggregating is to explicitly tell R that our data is “Spatial” data.  This is a little quirk of R that we have to think about for both our trial grid and yield data:</p>
+
+<font color="magenta">I would personally vote for function-izing the spatial conversion stuff since its new and also then we have to explain the [,] stuff since before we've only called columns with $</font>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trial_grid_spatial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as</span><span class="p">(</span><span class="n">trial_grid_utm</span><span class="p">,</span><span class="w"> </span><span class="s2">"Spatial"</span><span class="p">)</span><span class="w">
+</span><span class="n">yield_clean_spatial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as</span><span class="p">(</span><span class="n">yield_clean</span><span class="p">[,</span><span class="s2">"Yld_Vol_Dr"</span><span class="p">],</span><span class="w"> </span><span class="s2">"Spatial"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>Let’s deposit on our grid using a function <code class="highlighter-rouge">deposit_on_grid</code> from <code class="highlighter-rouge">functions.R</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subplots_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deposit_on_grid</span><span class="p">(</span><span class="n">trial_grid_spatial</span><span class="p">,</span><span class="w"> </span><span class="n">yield_clean_spatial</span><span class="p">,</span><span class="w"> </span><span class="n">fn</span><span class="o">=</span><span class="n">median</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>And let’s finally take a look!</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_poly</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="s1">'Yld_Vol_Dr'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield (bu/ac)"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-37-1.png" title="plot of chunk unnamed-chunk-37" alt="plot of chunk unnamed-chunk-37" width="612" style="display: block; margin: auto;" /></p>
+
+<!-- JPN: took out a lot
+
+
+~~~
+grid_sp <- as(trial_grid_utm, "Spatial")
+crs(grid_sp)
+~~~
+{: .language-r}
+
+
+
+~~~
+CRS arguments:
+ +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs +ellps=WGS84
++towgs84=0,0,0 
+~~~
+{: .output}
+
+**Explain more of what is happening in this code below**
+**Why is one line commented out?**
+
+
+~~~
+merge <- sp::over(grid_sp, as(yield_clean[,"Yld_Vol_Dr"], "Spatial"), fn = median)
+grid_sp@data <- cbind(merge, grid_sp@data)
+
+subplots_data <- st_as_sf(grid_sp) 
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-aggregate yield data-1.png" title="plot of chunk aggregate yield data" alt="plot of chunk aggregate yield data" width="612" style="display: block; margin: auto;" />
+-->
 :ET
