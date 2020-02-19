@@ -242,6 +242,8 @@ Here’s what that omelet process might look like in terms a step closer to prog
 
 <pre>function make_omelet(how_many, todays_cheese, cheese_quantity, other_ingredients) {
 
+# Note: This doesn't actually do anything; it's just a thought-example. You don't need to copy this.
+
 # Multiply number of omelets wanted by 2 eggs each
    eggs <- how_many * 2 
 
