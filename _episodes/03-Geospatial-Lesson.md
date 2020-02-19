@@ -338,7 +338,6 @@ the theory of how to do them?**
 > 
 > 
 > ~~~
-> boundarynew <- read_sf("data/asplanted.gpkg")
 > boundary <- subset(boundary, Type == "Trial")
 > boundary.sp <- as(boundary, "Spatial")
 > ssurgo <- download_ssurgo("samplefield", boundary.sp)
@@ -360,8 +359,6 @@ the theory of how to do them?**
 > {: .output}
 > 
 {: .callout}
-
-<font color="magenta">JPN: just a heads up that it looks like there can be errors in downloads for this data sometimes.  I'm wondering if its on the server-side, like too many requests or something.  Also, I had to delete the "EXTRACTIONS/samplefield" and re-run things which I'm wondering if this is because there are some file paths missing or something? We should test this on other folks computers.  If this is indeed the problem, we might want the code to force-delete these files before running. </font>
 
 > ## SSURGO Data
 > 
@@ -514,14 +511,14 @@ the theory of how to do them?**
 > 
 > 
 > ~~~
-> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpoysZ91/file10e423090e0e3.gpkg
+> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpW3BSW5/file16a427954cdd9.gpkg
 > ~~~
 > {: .output}
 > 
 > 
 > 
 > ~~~
-> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpoysZ91/file10e423090e0e3.gpkg' using driver `GPKG'
+> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpW3BSW5/file16a427954cdd9.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 14 features with 43 fields and geometry type Multi Polygon.
 > ~~~
@@ -577,7 +574,7 @@ the theory of how to do them?**
 > 
 > 
 > ~~~
-> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpoysZ91/file10e423090e0e3.gpkg
+> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpW3BSW5/file16a427954cdd9.gpkg
 > ~~~
 > {: .error}
 > 
