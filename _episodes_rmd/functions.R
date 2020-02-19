@@ -472,14 +472,28 @@ make_subplots <- function(boundary.utm,ab_line,long_in,short_in,starting_point){
   return(trial_grid)
 }
 
-treat_assign <- function(trial_grid, num_treats, seed_treat_rates, nitrogen_treat_rates, seed_quo, nitrogen_quo){
+treat_assign <- function(trialarea, trial_grid, head_buffer_ft, seed_treat_rates, nitrogen_treat_rates, seed_quo, nitrogen_quo){
+ 
+  head_buffer_m <- conv_unit(head_buffer_ft, 'ft', 'm')
+  infield <- st_buffer(trialarea, -head_buffer_m)
+  outfield <- st_difference(trial_grid, infield)
+  
+  intrial <- st_intersection(trial_grid, infield)
+  
+  intrial$dummy <- 1
+  outfield$dummy <- 0
+  
+  trial_grid <- rbind(intrial, outfield)
+
   max_area <- as.numeric(mean(st_area(trial_grid)))
   
   trial_grid <- trial_grid %>%
     mutate(area = as.numeric(st_area(.))) %>%
-    mutate(drop = ifelse(area < (max_area*0.9), 1, 0) )
-  
-  trial_grid_intrial <- subset(trial_grid, drop==0)
+    mutate(small = ifelse(area < (max_area*0.9), 1, 0)) %>%
+    mutate(drop = ifelse(dummy == 0 | small == 1, 1, 0))  # drop polygons in headlands from dummy
+    # drop polygons that are too small
+
+  tm_shape(trial_grid) + tm_polygons("drop")
   
   num_treats <- length(seed_treat_rates)*length(nitrogen_treat_rates)
   num_plots <- nrow(trial_grid)
@@ -502,7 +516,7 @@ treat_assign <- function(trial_grid, num_treats, seed_treat_rates, nitrogen_trea
   grid_to_treat <- data.table(GRIDID=grid_list,treat_type=treat_list)
   
   trial_grid3 <-left_join(trial_grid,grid_to_treat,by='GRIDID') %>%
-    mutate(treat_type=ifelse(drop==1,num_treats+1, treat_type)) %>%
+    mutate(treat_type=ifelse(drop == 1,num_treats+1, treat_type)) %>%
     dplyr::select(-area,-drop)
   
   exception <- data.table(
@@ -518,12 +532,12 @@ treat_assign <- function(trial_grid, num_treats, seed_treat_rates, nitrogen_trea
     rbind(exception) %>% 
     dplyr::select(NRATE,SEEDRATE,treat_type)
   
-  whole <- left_join(trial_grid3,pair_ls,by='treat_type')
+  whole <- left_join(trial_grid3, pair_ls, by = 'treat_type')
   class(whole)
   
   tm_shape(whole) + tm_polygons("NRATE")
   
-  whole_td <- tidy(as(whole, "Spatial")) 
+  whole_td <- broom::tidy(as(whole, "Spatial")) 
   
   whole_td$new_id <- paste('ID',whole_td$id,sep='')
   whole_td$id <- whole_td$new_id
