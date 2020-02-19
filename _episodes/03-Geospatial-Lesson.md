@@ -290,7 +290,7 @@ type to ask them to look at them and identify which is which and describe what t
 > ~~~
 > {: .output}
 > 
-> The new .gpkg file will be visible in your working directory. **Dena: (Check it out: Browse to your working directory in Windows File Explorer or Mac Finder and see the date and time on your new file.)**
+> The new .gpkg file will be visible in your working directory. (Check it out: Browse to your working directory in Windows File Explorer or Mac Finder and see the date and time on your new file.)
 > 
 {: .callout} 
 
@@ -362,10 +362,14 @@ the theory of how to do them?**
 
 > ## SSURGO Data
 > 
-> The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` object contains the polygons of soil types for the field, and  `tabular` contains many dataframes with attributes collected for the soil and soil horizons. Note that these dataframes and their relationships with one another ar very complex. To use these data, you must carefully read the SSURGO documentation. Merging the dataframes to have one value of the attributes for each soil polygon requires reducing the dimension of the data, often by weighting the attributesby horizon depth.
+> The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` object contains the polygons of soil types for the field, and  `tabular` contains many dataframes with attributes collected for the soil and soil horizons. 
+>
+> Note that these dataframes and their relationships with one another are very complex. To use these data, you must carefully read the SSURGO documentation. [The SSURGO Metadata Table Columns Desription document is available online,](https://data.nal.usda.gov/system/files/SSURGO_Metadata_-_Table_Column_Descriptions.pdf) and some of the segments we're going to use are found around page 81. 
+>
+> Merging the dataframes to have one value of the attributes for each soil polygon requires reducing the dimension of the data, often by weighting the attributes by horizon depth.
 > 
 > Let's make a map of the soil types on this field. First, we need to locate the part of
-`tabular` with the soil names; these can be found in `muaggatt`.
+`tabular` with the soil names; these can be found in `muaggatt`. (From the Metadata Table Column Desriptions document linked in above, we can learn that 'muaggatt' stands for 'Map Unit Aggregated Attributes.')
 > 
 > 
 > ~~~
@@ -511,14 +515,14 @@ the theory of how to do them?**
 > 
 > 
 > ~~~
-> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpW3BSW5/file16a427954cdd9.gpkg
+> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpkxKlK7/filedaa7da4f72f.gpkg
 > ~~~
 > {: .output}
 > 
 > 
 > 
 > ~~~
-> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpW3BSW5/file16a427954cdd9.gpkg' using driver `GPKG'
+> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpkxKlK7/filedaa7da4f72f.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 14 features with 43 fields and geometry type Multi Polygon.
 > ~~~
@@ -574,7 +578,7 @@ the theory of how to do them?**
 > 
 > 
 > ~~~
-> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpW3BSW5/file16a427954cdd9.gpkg
+> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpkxKlK7/filedaa7da4f72f.gpkg
 > ~~~
 > {: .error}
 > 
