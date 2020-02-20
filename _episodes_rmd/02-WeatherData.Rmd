@@ -299,9 +299,9 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 > >
 > {: .solution}
 {: .challenge}
-
+<!--
 <font color="magenta">JPN: Do we need this subsetting here?  Do we ever use `&` again?  We haven't introduced boolean operations at all until right now so we should be sure we actually need it</font>
-
+-->
 > We see that the monthly rainfall in June was 7.91 inches. We could also find this by taking a subset with the year and month.
 > ```{r}
 > subset(by_month_year, year == 2015 & month == "Jun")
@@ -354,6 +354,6 @@ a growing season.
 > 
 > There are many possible uses for this weather data. You can calculate cumulative rainfall when it rains for consecutive days or calculate the accumulated GDD. These are more complex operations, but we can help you with the code if you are interested.
 {: .callout}
-
+<!--
 <font color="magenta">JPN: Here we have to explain ggplot in more detail or we have to make this into a function that just takes in this dataframe and makes this plot.  My vote is to functionize it. Also, there are no legends on this plot. </font>
-
+--->
