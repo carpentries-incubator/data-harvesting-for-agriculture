@@ -1,5 +1,13 @@
 ### These are functions found in the Data Carpentry for Agriculture Workshop
 
+fitted_line <- function(data, x, y, x_label, y_label){
+  ggplot() +
+  geom_smooth(data = data, method = "gam", aes(y = y, x = x), size = 0.5, se=FALSE) +
+  ylab(y_label) +
+  xlab(x_label) + 
+  theme_grey(base_size = 12)
+}
+
 deposit_on_grid <- function(grid, data, col, fn = median){
   grid_sp <- as(grid, "Spatial")
   merge <- sp::over(as(grid, "Spatial"), as(data[, col], "Spatial"), fn = fn)
