@@ -115,7 +115,7 @@ head(stuff)
 {: .callout}
 
 > ## Exercise: Yield Map
-Make a map of the yield in bushels per acre from the `yield` file using `map_points()`. Do you notice anything about the yield map?
+Make a map of the yield in bushels per acre from the `yield` file using `map_points()`. This is a new function to us, but it has the same inputs as `map_poly()` where you supply the data, column name to determine the color, and displayed name. Do you notice anything about the yield map?
 > 
 > > ## Solution
 > > ```{r seedvars}
@@ -245,7 +245,7 @@ head(trial)
 
 > ## Planting files
 > 
-> Now that we've seen the trial designs let's look at the application files. We will make a map of the applied seeing rate and compare it with the target rate. 
+> Now that we've seen the trial designs let's look at the application files. We will make a map of the applied seeding rate and compare it with the target rate. 
 > 
 > Looking at the names in the planting file, there are quite a few columns that look similar. But it appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons, so we will use `map_points()`.  
 > 
@@ -280,7 +280,7 @@ map_planting_comp
 
 > ## Yield and Application Map
 > 
-> We can also do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the affect of the seed or nitrogen rates on yield. 
+> We can also do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the effect of the seed or nitrogen rates on yield. 
 > 
 {: .callout}
 
