@@ -120,7 +120,7 @@ design_grids_utm <- make_grids(trialarea, abline_utm,
 > ```
 > 
 > Let's check out what our trial subplots look like:
-> ```{r}
+> ```{r t3jpn}
 > tm_shape(trial_grid) + tm_borders(col='blue')
 > ```
 > 
@@ -161,7 +161,7 @@ design_grids_utm <- make_grids(trialarea, abline_utm,
 > head(whole_plot)
 > ```
 > And as plots:
-> ```{r}
+> ```{r t2jpn}
 > nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
 > seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
 > treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)

@@ -149,7 +149,7 @@ type to ask them to look at them and identify which is which and describe what t
 
 > #### Transforming
 > 
-> The function `st_transform_utm()` transforms a simple feature into a new CRS. This function is in the functions.R script, and is described there.
+> The function `st_transform_utm()` transforms a simple feature that is in lat/long into UTM. This function is in the functions.R script, and is described there in more detail. Make sure that you have run `source("functions.R")` or you will not have the function in your global environment.
 > 
 > ~~~
 > boundaryutm <- st_transform_utm(boundary)
@@ -523,14 +523,14 @@ the theory of how to do them?** -->
 > 
 > 
 > ~~~
-> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpTXs3c5/filed0193faf2fe3.gpkg
+> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpqdspX9/fileeb166ba20c03.gpkg
 > ~~~
 > {: .output}
 > 
 > 
 > 
 > ~~~
-> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpTXs3c5/filed0193faf2fe3.gpkg' using driver `GPKG'
+> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpqdspX9/fileeb166ba20c03.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 14 features with 43 fields and geometry type Multi Polygon.
 > ~~~
@@ -586,7 +586,7 @@ the theory of how to do them?** -->
 > 
 > 
 > ~~~
-> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpTXs3c5/filed0193faf2fe3.gpkg
+> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpqdspX9/fileeb166ba20c03.gpkg
 > ~~~
 > {: .error}
 > 
