@@ -259,6 +259,10 @@ mean(error_data)
 [1] 1480
 ~~~
 {: .output}
+> ## Lists of elements in R
+> You'll see this definition of a list of numbers (or text) in R with a `c()`. This is just a special way of saying all the elements in this list "belong" together, like with all of the numbers in a column of a spreadsheet "belonging" together.
+>
+{: .callout}
 
 Therefore, we want to check for values like this before we do anything else.  If
 the values were manually entered and the intended value is obvious, they can be

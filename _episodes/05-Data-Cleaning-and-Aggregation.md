@@ -564,41 +564,21 @@ Writing 489 features with 8 fields and geometry type Polygon.
 ~~~
 {: .output}
 
+Now we can make plots to look at the response of yield to the other variables. This uses a function called ggplot(). While the code looks complicated, you simple define the following:
+* data = the data with the variables you want to plot
 
+* x = the name of the variable you want on the x-axis
+* y = the name of the variable you want on the y-axis
+* xlab and ylab are the names you want displayed for the variables
+
+The other options do not need to be changed when you go to use the function on other datasets. 
 
 ~~~
-map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
-
-~~~
-plot<- ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Rt_Apd_Ct_,x=Elevation_), size = 0.5, se=FALSE) +
+ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Elevation_), size = 0.5, se=FALSE) +
   ylab('Yield (kg/ha)') +
   xlab('Seed (k/ha)') + 
   theme_grey(base_size = 12)
-plot
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Removed 19 rows containing non-finite values (stat_smooth).
-~~~
-{: .error}
-
-<img src="../fig/rmd-unnamed-chunk-33-2.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
-
-~~~
-plot<- ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rt_Apd_Ct_), size = 0.5, se=FALSE) +
-  ylab('Yield (kg/ha)') +
-  xlab('Seed (k/ha)') + 
-  theme_grey(base_size = 12)
-plot
 ~~~
 {: .language-r}
 
@@ -609,7 +589,43 @@ Warning: Removed 37 rows containing non-finite values (stat_smooth).
 ~~~
 {: .error}
 
-<img src="../fig/rmd-unnamed-chunk-33-3.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-34-1.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="612" style="display: block; margin: auto;" />
+
+~~~
+ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rt_Apd_Ct_), size = 0.5, se=FALSE) +
+  ylab('Yield (kg/ha)') +
+  xlab('Seed (k/ha)') + 
+  theme_grey(base_size = 12)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: Removed 37 rows containing non-finite values (stat_smooth).
+~~~
+{: .error}
+
+<img src="../fig/rmd-unnamed-chunk-34-2.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="612" style="display: block; margin: auto;" />
+
+~~~
+ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rate_Appli), size = 0.5, se=FALSE) +
+  ylab('Yield (kg/ha)') +
+  xlab('Nitrogen') + 
+  theme_grey(base_size = 12)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: Removed 42 rows containing non-finite values (stat_smooth).
+~~~
+{: .error}
+
+<img src="../fig/rmd-unnamed-chunk-34-3.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="612" style="display: block; margin: auto;" />
 
 
 
