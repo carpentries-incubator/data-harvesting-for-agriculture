@@ -126,7 +126,7 @@ type to ask them to look at them and identify which is which and describe what t
 
 > #### Transforming
 > 
-> The function `st_transform_utm()` transforms a simple feature into a new CRS. This function is in the functions.R script, and is described there.
+> The function `st_transform_utm()` transforms a simple feature that is in lat/long into UTM. This function is in the functions.R script, and is described there in more detail. Make sure that you are running `source("functions.R")` or you will not have the function in your global environment.
 > ```{r transform}
 > boundaryutm <- st_transform_utm(boundary)
 > st_crs(boundaryutm)
