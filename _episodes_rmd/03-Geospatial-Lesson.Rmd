@@ -253,9 +253,17 @@ the theory of how to do them?** -->
 > 
 > ```{r soilmerge}
 > spatial <- as(ssurgo$spatial, "sf")
+> ```
+> ```{r}
 > spatial <- dplyr::rename(spatial, musym = MUSYM)
+> ```
+> ```{r}
 > spatial <- merge(spatial, names, by = "musym")
+> ```
+> ```{r}
 > head(spatial$muname)
+> ```
+> ```{r}
 > st_write(spatial, "data/ssurgo.gpkg", layer_options = 'OVERWRITE=YES')
 > ```
 > 

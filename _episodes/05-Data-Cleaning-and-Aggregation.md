@@ -16,139 +16,26 @@ objectives:
  - Correct other issues specific to how data were collected
 keypoints:
  - Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values.
- - All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders
+ - All the cleaning in ArcGIS/QGIS can be done by R, but we need to check the updated shapefile in ArcGIS/QGIS. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders
  - The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns.
 source: Rmd
 ---
 
 
 
-<font color="magenta"> NOTE: `clean_sd` gets called in the previous lecture so we should talk about data cleaning then or move it to here</font>
-
 ## Data cleaning and aggregation in the DIFM project
 
-After harvesting, we collect all the data needed for analysis, and in advance of
-running analysis, we clean and organize the data in order to remove machinary
-error and such. The common data that we collect for analysis includes yield
-(dry), seeding rate as-planted, nitrogen rate as-applied, electronic
-conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
-clean yield data, as-planted data, as-applied data, and sometimes EC data. For
-public data, we simply import them into our aggregated data set
-without cleaning, since they have already been cleaned before being released to
-the public.
+We saw in the last episode that we can make graphs of our trial data, but right now they are all points that cannot easily be combined. For example, we do not know what the yield was at a specific nitrogen or seeding point on the field. But that is important if we are going to talk about the results of the trial. We need to know what the yield was when a certain seeding and nitrogen rate combination was applied. To do this, we first clean the trial points and then create a grid over the field. Inside that grid, we aggregate the points from each data type and report the median of the points that fall into each polygon of the grid. These will form a new dataset where we can directly relate a yield value to a given seed and nitrogen treatment. In the context of trials, the polygons of the grid are typically called the *units of observation.* 
 
-## Introduction to data cleaning
+## Data Cleaning Details 
 
-Data cleaning is the process of removing or correcting errors in a dataset, and
-is very important to do before any sort of analysis.  For example, say you were
-manually entering yield values into a spreadsheet, and then wanted to take the
-average of all values entered.  If you accidentally typed an extra zero into
-some of the cells, the average that you calculate is going to be much higher
-than the true average.
+After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinery error and such. In particular, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For public data, we simply import them into our aggregated data set without cleaning, as they have already been cleaned before being released to the public.
 
+Here are the main concerns for yield, as-planted, and as-applied data:
 
-~~~
-real_data <- c(900, 450, 200, 320)
-error_data <- c(900, 4500, 200, 320)
-mean(real_data)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 467.5
-~~~
-{: .output}
-
-
-
-~~~
-mean(error_data)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 1480
-~~~
-{: .output}
-
-Therefore, we want to check for values like this before we do anything else.  If
-the values were manually entered and the intended value is obvious, they can be
-manually corrected.  For larger scale datasets, however, it is often most
-practical to discard problematic data.
-
-For example, we can plot our `error_data` and look for values that may look off:
-
-
-~~~
-plot(error_data) # use plot function on error rate
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
-By eye we can see the 2nd measurement (at `index = 2`) looks a little fishy.  In this case
-we might want to apply a cut-off in our data so that we ignore all measurements above a
-certain threshold when we do calculations like taking the mean of our data.
-
-One way to do this is by setting any "weird" values to `NA`:
-
-
-~~~
-error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
-error_data
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 900  NA 200 320
-~~~
-{: .output}
-
-Now we can take a mean, with removing `NA`'s as we do it and recover a mean that is closer to the correct value:
-
-~~~
-mean(error_data, na.rm=TRUE)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 473.3333
-~~~
-{: .output}
-
-
-Data cleaning is a major reason why there needs to be good communication between
-data scientists and end users, in agriculture or any other discipline.  As the person
-who generates the data, you know best where the likely sources of error might be.
-Those sources of error might be something that someone who sits behind a computer
-all day would never think of.  You also know best what values are reasonable,
-and what values are suspiciously high or low.
-
-For different types of data, we have different ways to clean them. Here are the
-main concerns of the original data for the major variables:
-
-Yield, as-planted, and as-applied data:
-
-* We remove observations where the harvester/planter/applicator is moving too slow or too fast.
-* We remove observations on the edges of the plot.
-* We remove observations that are below or above three standard deviations from the mean.
-* We then aggregate them onto our units of observation. <font color="magenta">Do they know what these units are? I don't have a frame of refrence for this terminology</font>
-
-<font color="magenta">This comes up in the 03 or 04 but we need to define what a standard devation is</font>
- 
-*For aggregation, we need to generate subplots (units of observation) of the
-original trial design, and then aggregate the cleaned datasets for different
-variables onto the subplots.  Once we have one value per variable per subplot,
-we can begin examining the relationships between the variables.*
-
-<font color="magenta">Have steps listed somewhere before we start</font>
+* Observations where the harvester/planter/applicator is moving too slow or too fast
+* Observations on the edges of the plot
+* Observations that are below or above three standard deviations from the mean
 
 ## Step 1: Importing and transforming our shapefile datasets
 
@@ -216,7 +103,6 @@ Coordinate Reference System:
   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
-<font color="magenta">Do we have a figure showing lat/long to UTM coversion somewhere?  I can add this</font>
 
 Our file is already in the UTM projection, but if we have one that is not we can convert this as well with `trial_utm <- st_transform_utm(trial)`.  For the sake of naming, we'll rename it as `trial_utm`:
 
@@ -259,8 +145,6 @@ trial_utm <- trial
 > >
 > {: .solution}
 {: .challenge}
-
-
 
 Finally, let's transform our abline file.  We read in the file:
 
@@ -305,7 +189,7 @@ abline_utm = st_transform_utm(abline)
 
 ## Step 2: Clean the yield data
 
-Now that we have our shapefiles in the same UTM coordinate system reference frame, we will apply some of our knowledget of data cleaning to take out weird observations. We know we have "weird" measurements by looking at a histogram of our yield data:
+Now that we have our shapefiles in the same UTM coordinate system reference frame, we will apply some of our knowledge of data cleaning to take out weird observations. We know we have "weird" measurements by looking at a histogram of our yield data:
 
 
 ~~~
@@ -313,7 +197,7 @@ hist(yield_utm$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
 The fact that this histogram has a large tail where we see a few measurements far beyond the majority around 250 means we know we have some weird data points.
 
@@ -325,14 +209,11 @@ Let's go through these one by one.
 
 ### Data cleaning #1: Taking out border observations
 
-We need to remove the yield observations that are on the border of the plots,
-and also at the end of the plots.  The reason for this is that along the edge
-of a plot, the harvester is likely to measure a mixture of two plots,
-and therefore the data won't be accurate for either plot.  Additionally,
-plants growing at the edge of the field are likely to suffer from wind and other
-effects, lowering their yields.  We will use the `trial_utm` shapefile to help us clean.
+We need to remove the yield observations that are on the border of the plots, and also at the end of the plots.  The reason for this is that along the edge of a plot, the harvester is likely to collect from two plots. Therefore, the yield is an average of both plots.  Additionally, plants growing at the edge of the field are likely to suffer from wind and other effects, lowering their yields.  
 
-We add a 15 <font color="magenta">meter??</font> border.
+There is a function in `functions.R` called clean_buffer which creates a buffer around the input `buffer_object` and reports the points in `data` that are outside of the buffer. We need to decide how wide the buffer wil be using the input `buffer_ft`. In general this will be something around half the width of the machinery or section.
+
+In the example below, we clean the yield data using the `trial_utm` to define a 15 foot buffer.
 
 
 ~~~
@@ -351,7 +232,7 @@ yield_plot_comp
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
 
 Here again, we also check the distribution of cleaned yield by making a histogram.
 
@@ -361,28 +242,17 @@ hist(yield_clean_border$Yld_Vol_Dr)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
 
-Looking at both this histogram and the several very red dots in our de-bordered yield map we see that there are still a lot of very high observations so we need to proceed to step two which will clean our observations based on how far they are from the mean of the observations.
+Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.
 
 ### Data cleaning #2: Taking out outliers far from the mean
 
 Even if we don't know the source of error, we can tell that some observations
 are incorrect just because they are far too small or too large.  How can we
-remove these in an objective, automatic way?  For yield and our other variables,
-we will calculate the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
-to get an idea of how much the observations tend to be different from the mean.
-Then, we will remove observations that are three standard deviations higher or
-lower than the mean.  If the data followed a normal distribution (i.e a bell
-curve), this would eliminate about one in 1000 data points.  In a real dataset,
-we can be fairly certain that those points are errors.  Our cutoff of three
-standard deviations is arbitrary, which is why we have looked at histograms of
-the data to help confirm that our cutoff makes sense.
+remove these in an objective, automatic way? As before, we remove observations that are three standard deviations higher or lower than the mean.  We look at histograms and maps of the data to help confirm that our cleaning makes sense.
 
-In the next few steps, we use `sd` and `mean` to calculate the standard
-deviation and mean of the yield distribution, respectively. Then we remove the
-yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd.  We use
-the `clean_sd` from our `functions.R`:
+As in lesson 4, we use the `clean_sd` from our `functions.R`:
 
 
 ~~~
@@ -428,7 +298,7 @@ Some legend labels were too wide. These labels have been resized to 0.62, 0.54. 
 ~~~
 {: .output}
 
-<img src="../fig/rmd-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
 -->
 
 This looks a lot more sensible!  We can double check by looking at our final, cleaned yield map:
@@ -439,7 +309,7 @@ yield_plot_clean
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
 
 > ## Discussion
 > What do you think could have caused these outliers (extreme values)?  If you
@@ -451,8 +321,7 @@ might you want to look for?
 > ## Exercise: Cleaning Nitrogen from asapplied
 > 
 > Import the `asapplied.gpkg` shapefile for and clean the nitrogen application data.
-> 1. Remove observations from the
-buffer zone, <font color="magenta">JPN: probably we need a different buffer length for this since I'm getting plots that have taken too much out in the boundary-removal process</font>
+> 1. Remove observations from the buffer zone
 > 2. as well as observations more then three standard deviations from
 the mean.
 >
@@ -478,7 +347,7 @@ the mean.
 > >   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
 > > ~~~
 > > {: .output}
-> > Since its in Lat/Long we have to transform it:
+> > Since it's in Lat/Long we have to transform it:
 > > 
 > > ~~~
 > > nitrogen_utm = st_transform_utm(nitrogen)
@@ -500,7 +369,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="612" style="display: block; margin: auto;" />
 > > Clean by standard deviation:
 > > 
 > > ~~~
@@ -515,7 +384,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="612" style="display: block; margin: auto;" />
 > > And as a histogram:
 > > 
 > > ~~~
@@ -523,22 +392,26 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="612" style="display: block; margin: auto;" />
 > >
 > {: .solution}
 {: .challenge}
 
 # Designing Trials: Generating Grids and Aggregating
 
-Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm.  This happens in a few steps.
+<<<<<<< HEAD
+Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm. This happens in a few steps.
+=======
+Now that we have cleaned data, we will go through the steps to aggregate this data on subplots of our shapefile of our farm.  This happens in a few steps.
+>>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 
-## Step 1: Creating the subplots
+## Step 1: Creating the grids
 
 After we read in the trial design file, we use a function to generate the
 subplots for this trial. Because the code for generating the subplots is
 somewhat complex, we have included it as the `make_grids` function in `functions.R`.
 
-To start, we only want to look at data in the `Trial` portion of our plot, so we take a subset of this:
+To start, we only want to look at data in the `Trial` portion of our plot, so we take a subset of this and plot the resulting geometry:
 
 
 ~~~
@@ -547,8 +420,9 @@ plot(boundary_grid_utm$geom)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
-Now we will make subplots that are 24 meters wide:
+<img src="../fig/rmd-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="612" style="display: block; margin: auto;" />
+
+Now we will make subplots that are 24 meters wide which is the width of the original trial on this field:
 
 
 ~~~
@@ -556,7 +430,15 @@ width = m_to_ft(24) # convert from meters to feet
 ~~~
 {: .language-r}
 
-Now we use `make_grids` to calculate subplots for our shapefile <font color="magenta">more words are needed here about these parameters</font>
+Now we use `make_grids` to calculate subplots for our shapefile. There are several inputs for this function:
+* The boundary to make the grid over in UTM
+* The abline for the field in UTM
+* The direction of the grid that will be long (direction in relation to the abline)
+* The direction of the grid that will be short 
+* The length of grids in feet
+* The width of grids plots in feet
+
+We use the following code to make our grid.
 
 ~~~
 design_grids_utm = make_grids(boundary_grid_utm,
@@ -565,13 +447,40 @@ design_grids_utm = make_grids(boundary_grid_utm,
 ~~~
 {: .language-r}
 
-We need to make sure the coordinate system for both our grids and our original boundary file match up:
+The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as `boundary_grid_utm`:
+
+~~~
+st_crs(design_grids_utm)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System: NA
+~~~
+{: .output}
+
+
 
 ~~~
 st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
 ~~~
 {: .language-r}
 
+<<<<<<< HEAD
+Let's plot what these grids will look like using the basic `plot()` function:
+
+~~~
+plot(design_grids_utm$st_sfc.col_polygons_ls.)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+
+Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_grid_utm`, 
+The resulting grid is seen below:
+=======
 Let's plot what these grids will look like <font color="magenta"> we need to talk about what tm_shape is here or before</font>
 
 ~~~
@@ -581,7 +490,8 @@ tm_shape(design_grids_utm) + tm_borders(col='blue')
 
 <img src="../fig/rmd-plotting design grids now-1.png" title="plot of chunk plotting design grids now" alt="plot of chunk plotting design grids now" width="612" style="display: block; margin: auto;" />
 
-Now the last step is that we want to make sure this grid overlaps *only* with our boundary file, so we take the intersection of this rectangular grid with our boundary file's Trial data outline:
+Now the last step is that we want to make sure this grid overlaps *only* with our boundary file, so we take the intersection of this rectangular grid with our boundary file's trial data outline:
+>>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 
 ~~~
 trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
@@ -599,92 +509,32 @@ geometries
 
 
 ~~~
-tm_shape(trial_grid_utm) + tm_borders(col='blue')
+plot(trial_grid_utm$geom)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
-<font color="magenta"> there is an error here that we should fix or mention</font>
+<img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
 
-## Step 2: Interpolation/Aggregation on our subplots
+## Step 2: Aggregation on our subplots
 
-We will now aggregate our yield data over our subplots.
+We will now aggregate our yield data over our subplots. In this case we will take the median value within each subplot. When the data are not normally-distributed or when there are errors, the median is often more representative of the data than the mean is.  Here we will interpolate and aggregate yield as an example. The other variables can be processed in the same way.
 
-Interpolation is the estimation of a value at a point that we didn't measure
-that is between two or more points that we did measure.  Aggregation is the
-combining of multiple data points into a single data point.  What we'll do here
-is a combination of interpolation and aggregation, where we will use multiple
-measurements across each subplot to generate one value for the subplot. In this
-case we will take the median value within each subplot.  Typically when the data
-are not normally-distributed or when there are errors, the median is more
-representative of the data than the mean is.  Here we will interpolate and
-aggregate yield as an example.  The other variables can be processed in the same
-way.
+There is a function in our `functions.R` called `deposit_on_grid()` that will take the median of the points inside each grid. The function allows us to supply the grid, the data we will aggregate, and the column we want to aggregate. In this case, we will aggregate `Yld_Vol_Dr`.
 
-**Question from Lindsay: Why do we need to covert class here?  Please provide an
-explanation.** <font color="magenta">not sure what "covert" means here, leaving this question for others</font>
-
-<!-- JPN: no work
 
 ~~~
-grid_sp = trial_grid_utm
-merge <- sp::over(trial_grid_utm, yield_clean[,"Yld_Vol_Dr"], fn = median)
+subplots_data <- deposit_on_grid(trial_grid_utm, yield_clean, "Yld_Vol_Dr", fn = median)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'over' for signature '"sf", "sf"'
-~~~
-{: .error}
-
-
-
-~~~
-grid_sp@data <- cbind(merge, grid_sp@data)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in cbind(merge, grid_sp@data): trying to get slot "data" from an object (class "sf") that is not an S4 object 
-~~~
-{: .error}
-
-
-
-~~~
-subplots_data <- st_as_sf(grid_sp) 
-map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error: Fill argument neither colors nor valid variable name(s)
-~~~
-{: .error}
+<<<<<<< HEAD
+=======
 -->
 
 One final step we have to do before aggregating is to explicitly tell R that our data is "Spatial" data.  This is a little quirk of R that we have to think about for both our trial grid and yield data:
 
-<font color="magenta">I would personally vote for function-izing the spatial conversion stuff since its new and also then we have to explain the [,] stuff since before we've only called columns with $</font>
+<font color="magenta">I would personally vote for function-izing the spatial conversion stuff since its new and also then we have to explain the [,] stuff since before we've only called columns with $</font><font color="green">Dena: ...if time permits! If not, explanations work</font>
+>>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 
-
-~~~
-trial_grid_spatial <- as(trial_grid_utm, "Spatial")
-yield_clean_spatial <- as(yield_clean[,"Yld_Vol_Dr"], "Spatial")
-~~~
-{: .language-r}
-Let's deposit on our grid using a function `deposit_on_grid` from `functions.R`:
-
-~~~
-subplots_data <- deposit_on_grid(trial_grid_spatial, yield_clean_spatial, fn=median)
-~~~
-{: .language-r}
 And let's finally take a look!
 
 ~~~
@@ -692,38 +542,48 @@ map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-36-1.png" title="plot of chunk unnamed-chunk-36" alt="plot of chunk unnamed-chunk-36" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
 
-<!-- JPN: took out a lot
-
+We will now clean the asplanted file:
 
 ~~~
-grid_sp <- as(trial_grid_utm, "Spatial")
-crs(grid_sp)
+#asplanted and elevation
+asplanted <- st_read("data/asplanted.gpkg")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-CRS arguments:
- +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs +ellps=WGS84
-+towgs84=0,0,0 
+Reading layer `asplanted' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted.gpkg' using driver `GPKG'
+Simple feature collection with 6382 features and 30 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -82.87843 ymin: 40.83952 xmax: -82.87315 ymax: 40.84653
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ~~~
 {: .output}
 
-**Explain more of what is happening in this code below**
-**Why is one line commented out?**
 
 
 ~~~
-merge <- sp::over(grid_sp, as(yield_clean[,"Yld_Vol_Dr"], "Spatial"), fn = median)
-grid_sp@data <- cbind(merge, grid_sp@data)
+asplanted_utm <- st_transform_utm(asplanted)
+asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
+asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 
-subplots_data <- st_as_sf(grid_sp) 
-map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
+map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-aggregate yield data-1.png" title="plot of chunk aggregate yield data" alt="plot of chunk aggregate yield data" width="612" style="display: block; margin: auto;" />
--->
+<img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+
+~~~
+subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
+
+map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-32-2.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+

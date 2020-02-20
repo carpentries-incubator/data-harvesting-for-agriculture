@@ -220,7 +220,106 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 {: .challenge}
 
 > ## Exercise Discussion and Outliers
-> Looking at the map we can see there are many extreme values, making the map look homogeneous. We will do an initial cleaning to remove these points. There is a function in `functions.R` called `clean_sd()` that deletes observations in the dataset that are beyond three standard deviations from the mean value. The inputs are the dataset and the column for cleaning.
+> Looking at the map we can see there are many extreme values, making the map look homogeneous. 
+
+## Introduction to data cleaning
+
+Data cleaning is the process of removing or correcting errors in a dataset, and
+is very important to do before any sort of analysis.  For example, say you were
+manually entering yield values into a spreadsheet, and then wanted to take the
+average of all values entered.  If you accidentally typed an extra zero into
+some of the cells, the average that you calculate is going to be much higher
+than the true average.
+
+
+~~~
+real_data <- c(900, 450, 200, 320)
+error_data <- c(900, 4500, 200, 320)
+mean(real_data)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 467.5
+~~~
+{: .output}
+
+
+
+~~~
+mean(error_data)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1480
+~~~
+{: .output}
+
+Therefore, we want to check for values like this before we do anything else.  If
+the values were manually entered and the intended value is obvious, they can be
+manually corrected.  For larger scale datasets, however, it is often most
+practical to discard problematic data.
+
+For example, we can plot our `error_data` and look for values that may look off:
+
+
+~~~
+plot(error_data) # use plot function on error rate
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+By eye we can see the 2nd measurement (at `index = 2`) looks a little fishy.  In this case
+we might want to apply a cut-off in our data so that we ignore all measurements above a
+certain threshold when we do calculations like taking the mean of our data.
+
+One way to do this is by setting any "weird" values to `NA`:
+
+
+~~~
+error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
+error_data
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 900  NA 200 320
+~~~
+{: .output}
+
+Now we can take a mean, with removing `NA`'s as we do it and recover a mean that is closer to the correct value:
+
+~~~
+mean(error_data, na.rm=TRUE)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 473.3333
+~~~
+{: .output}
+
+
+Data cleaning is a major reason why there needs to be good communication between
+data scientists and end users, in agriculture or any other discipline.  As the person
+who generates the data, you know best where the likely sources of error might be.
+Those sources of error might be something that someone who sits behind a computer
+all day would never think of. You also know best what values are reasonable,
+and what values are suspiciously high or low.
+
+We will do an initial cleaning to remove these points. We calculate the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) to get an idea of how much the observations tend to be different from the mean. If the data followed a normal distribution (i.e a bell curve), removing points three standard deviations from the mean would eliminate about one in 1000 data points. In a real dataset, we can be fairly certain that those points are errors. 
+
+There is a function in `functions.R` called `clean_sd()` that deletes observations in the dataset that are beyond three standard deviations from the mean value. The inputs are the dataset and the column for cleaning.
+
 > 
 > 
 > ~~~
@@ -239,7 +338,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 > 
 {: .callout}
 
@@ -256,7 +355,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 > 
 > The map shows that the data cleaning removed some very high data values at the headlands of the field. We can see the clean map is relatively homogeneous with some patches of lower or higher yield. 
 > 
@@ -305,7 +404,7 @@ proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
 > >  
 > {: .solution} 
 {: .challenge}
