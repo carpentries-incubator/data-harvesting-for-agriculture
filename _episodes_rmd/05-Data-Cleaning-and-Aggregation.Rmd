@@ -1,7 +1,5 @@
 ---
 title: "Ag Carpentry - Data Cleaning and Aggregation"
-author: "Aolin Gong"
-date: "11/4/2019"
 output: html_document
 include_overview: true
 questions:
@@ -16,7 +14,7 @@ objectives:
  - Correct other issues specific to how data were collected
 keypoints:
  - Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values.
- - All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders
+ - All the cleaning in ArcGIS/QGIS can be done by R, but we need to check the updated shapefile in ArcGIS/QGIS. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders
  - The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns.
 source: Rmd
 ---
@@ -167,7 +165,7 @@ Here again, we also check the distribution of cleaned yield by making a histogra
 hist(yield_clean_border$Yld_Vol_Dr)
 ```
 
-Looking at both this histogram and the several very red dots in our de-bordered yield map we see that there are still a lot of very high observations so we need to proceed to step two which will clean our observations based on how far they are from the mean of the observations.
+Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.
 
 ### Data cleaning #2: Taking out outliers far from the mean
 
@@ -229,7 +227,7 @@ the mean.
 > > ```{r}
 > > st_crs(nitrogen)
 > > ```
-> > Since its in Lat/Long we have to transform it:
+> > Since it's in Lat/Long we have to transform it:
 > > ```{r}
 > > nitrogen_utm = st_transform_utm(nitrogen)
 > > ```
@@ -263,7 +261,11 @@ the mean.
 
 # Designing Trials: Generating Grids and Aggregating
 
+<<<<<<< HEAD
 Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm. This happens in a few steps.
+=======
+Now that we have cleaned data, we will go through the steps to aggregate this data on subplots of our shapefile of our farm.  This happens in a few steps.
+>>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 
 ## Step 1: Creating the grids
 
@@ -305,6 +307,7 @@ st_crs(design_grids_utm)
 st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
 ```
 
+<<<<<<< HEAD
 Let's plot what these grids will look like using the basic `plot()` function:
 ```{r}
 plot(design_grids_utm$st_sfc.col_polygons_ls.)
@@ -312,6 +315,14 @@ plot(design_grids_utm$st_sfc.col_polygons_ls.)
 
 Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_grid_utm`, 
 The resulting grid is seen below:
+=======
+Let's plot what these grids will look like <font color="magenta"> we need to talk about what tm_shape is here or before</font>
+```{r plotting design grids now}
+tm_shape(design_grids_utm) + tm_borders(col='blue')
+```
+
+Now the last step is that we want to make sure this grid overlaps *only* with our boundary file, so we take the intersection of this rectangular grid with our boundary file's trial data outline:
+>>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 ```{r}
 trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
 plot(trial_grid_utm$geom)
@@ -326,6 +337,14 @@ There is a function in our `functions.R` called `deposit_on_grid()` that will ta
 ```{r}
 subplots_data <- deposit_on_grid(trial_grid_utm, yield_clean, "Yld_Vol_Dr", fn = median)
 ```
+<<<<<<< HEAD
+=======
+-->
+
+One final step we have to do before aggregating is to explicitly tell R that our data is "Spatial" data.  This is a little quirk of R that we have to think about for both our trial grid and yield data:
+
+<font color="magenta">I would personally vote for function-izing the spatial conversion stuff since its new and also then we have to explain the [,] stuff since before we've only called columns with $</font><font color="green">Dena: ...if time permits! If not, explanations work</font>
+>>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 
 And let's finally take a look!
 ```{r}

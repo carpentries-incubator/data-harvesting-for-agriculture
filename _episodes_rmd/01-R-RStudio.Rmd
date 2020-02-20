@@ -207,8 +207,15 @@ Instead of using the “library” command, though, we’ll use the “source”
 
 The instructions from here on out assume that you've set your working directory to be a folder named "WorkingDir" and that you have a folder inside it called "data" which contains several files of information. 
 
+<!-- The way it ought to go, but isn't yet ready to...
 * If you copied your software from the USB stick, you'll find WorkingDir just inside the DataHarvestingWin or DataHarvestingMac folder. 
 * If you set up from scratch, you'll want to make WorkingDir and data folders and copy the information either from a nearby USB or from [this folder](https://github.com/data-carpentry-for-agriculture/trial-lesson/tree/gh-pages/_episodes_rmd/data).
+-->
+
+Note for the February 24 cohort: Most of the data was finished at the time the USB drives were created, but a few things changed since then. To get the latest data set:
+1. Visit [https://uofi.box.com/v/dataharvestingdata](https://uofi.box.com/v/dataharvestingdata) and click the **Download** button in the top right corner. 
+2. Save the .zip file in a place where you can find it again, then uncompress it. 
+3. Copy the contents of that "data" folder into your DataHarvestingWin/WorkingDir/data (or DataHarvestingMac/WorkingDir/data) folder and make sure you have the newest copies.
 
 ## The stuff in your “kitchen”: Getting oriented with R Studio
 
@@ -412,11 +419,9 @@ Note that we can call the `head` function without this parameter and it will run
 > Often times google provides a good resource for learning about R functions.  Googling "head function r" will return many pages about the `head` function, including the R-documentation pages.
 >
 >
-> **DENA: Note to JILL: Loop back here for help(head) example?**
->
 {: .callout}
 
-
+<!-- > **DENA: Note to JILL: Loop back here for help(head) example?** -->
 
 <!-- JPN: this looks not great
 > ### Finding Help for a Function
