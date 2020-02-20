@@ -262,8 +262,8 @@ type to ask them to look at them and identify which is which and describe what t
 > {: .solution} 
 {: .challenge} 
 
-> ## Exercise Disucssion
-
+> ## Exercise Discussion
+>
 > The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are 6382 points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
 > 
 {: .callout} 
@@ -523,14 +523,14 @@ the theory of how to do them?** -->
 > 
 > 
 > ~~~
-> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpqdspX9/fileeb166ba20c03.gpkg
+> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpL1Z1tP/file1010a45dcf9fb.gpkg
 > ~~~
 > {: .output}
 > 
 > 
 > 
 > ~~~
-> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpqdspX9/fileeb166ba20c03.gpkg' using driver `GPKG'
+> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpL1Z1tP/file1010a45dcf9fb.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 14 features with 43 fields and geometry type Multi Polygon.
 > ~~~
@@ -586,7 +586,7 @@ the theory of how to do them?** -->
 > 
 > 
 > ~~~
-> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpqdspX9/fileeb166ba20c03.gpkg
+> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpL1Z1tP/file1010a45dcf9fb.gpkg
 > ~~~
 > {: .error}
 > 

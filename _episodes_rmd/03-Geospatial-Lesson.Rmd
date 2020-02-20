@@ -154,8 +154,8 @@ type to ask them to look at them and identify which is which and describe what t
 > {: .solution} 
 {: .challenge} 
 
-> ## Exercise Disucssion
-
+> ## Exercise Discussion
+>
 > The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are `r nrow(planting)` points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
 > 
 {: .callout} 
