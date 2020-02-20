@@ -275,7 +275,7 @@ width = m_to_ft(24) # convert from meters to feet
 Now we use `make_grids` to calculate subplots for our shapefile. There are several inputs for this function:
 * The boundary to make the grid over in UTM
 * The abline for the field in UTM
-* The direction of the grid that will be long (direction in relation to the abline)
+* The direction of the grid that will be long 
 * The direction of the grid that will be short 
 * The length of grids in feet
 * The width of grids plots in feet
