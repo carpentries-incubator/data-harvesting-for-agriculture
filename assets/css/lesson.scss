@@ -65,7 +65,7 @@ $color-windowsUsers: #fc8dc1 !default;
   padding: 5px 10px;
 }
 
-.error::before  { background-color: #ffebe6; content: "Error"; }
+.error::before  { background-color: #ffebe6; content: "Caution"; }
 .output::before { background-color: #efefef; content: "Output"; }
 .source::before { content: "Code"; }
 .bash::before, .language-bash::before { content: "Bash"; }
