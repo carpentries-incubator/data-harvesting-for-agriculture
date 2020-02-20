@@ -167,8 +167,9 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 > ## Exercise 2: Unit Conversions
 >
 > There are two temperature columns in our dataset: `tmax..deg.c.` and `tmin..deg.c.` which give the minimum and maximum temperature measured on a particular day.
-> 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()`. The function `c_to_f()` is like the `mm_to_in` column but instead of taking in a precipitation column it takes in a temperature column. 
-> 2. What is the maximum and minimum temperature recorded? (Hint: recall the `min` and `max` functions from the previous episodes)
+> 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()`. The function `c_to_f()` is like the `mm_to_in` column but instead of taking in a precipitation column it takes in a temperature column.
+> 2. Save these to new columns called `tmax` and `tmin`.
+> 3. What is the maximum and minimum temperature recorded? (Hint: recall the `min` and `max` functions from the previous episodes)
 >
 > > ## Exercise 2 Solutions
 > >
