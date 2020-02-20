@@ -180,7 +180,9 @@ Those sources of error might be something that someone who sits behind a compute
 all day would never think of. You also know best what values are reasonable,
 and what values are suspiciously high or low.
 
-We will do an initial cleaning to remove these points. There is a function in `functions.R` called `clean_sd()` that deletes observations in the dataset that are beyond three standard deviations from the mean value. The inputs are the dataset and the column for cleaning.
+We will do an initial cleaning to remove these points. We calculate the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) to get an idea of how much the observations tend to be different from the mean. If the data followed a normal distribution (i.e a bell curve), removing points three standard deviations from the mean would eliminate about one in 1000 data points. In a real dataset, we can be fairly certain that those points are errors. 
+
+There is a function in `functions.R` called `clean_sd()` that deletes observations in the dataset that are beyond three standard deviations from the mean value. The inputs are the dataset and the column for cleaning.
 
 > 
 > ```{r}
