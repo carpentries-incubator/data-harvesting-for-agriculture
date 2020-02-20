@@ -493,7 +493,7 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 
 > ## Exercise 3: Subsetting
 >
-> 1. Find the total precipitation in 2015.
+> 1. Find the total precipitation in June of 2015.
 > 2. Create a subset of `by_month_year` that contain all the years *except* 2018.
 > 
 > > ## Exercise 3 Solution
@@ -519,6 +519,7 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 > > 6 Jun    2015       7.24
 > > ~~~
 > > {: .output}
+> > We see that the monthly rainfall in June was 7.91 inches. 
 > > and:
 > > 
 > > ~~~
@@ -548,7 +549,7 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 <!--
 <font color="magenta">JPN: Do we need this subsetting here?  Do we ever use `&` again?  We haven't introduced boolean operations at all until right now so we should be sure we actually need it</font>
 -->
-> We see that the monthly rainfall in June was 7.91 inches. We could also find this by taking a subset with the year and month.
+> We could also find this by taking a subset with the year and month:
 > 
 > ~~~
 > subset(by_month_year, year == 2015 & month == "Jun")
