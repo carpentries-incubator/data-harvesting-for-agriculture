@@ -422,6 +422,8 @@ the theory of how to do them?** -->
 > 
 {: .callout}
 
+<!-- JPN: this fixed the saving thing below: https://gis.stackexchange.com/questions/327725/st-write-fails-for-object-created-with-st-difference-using-r -->
+
 > ## Merging Dataframes
 > 
 > We need one dataframe with both the soil name and spatial data. We will merge the soil data and the spatial data by the `musym`. Note that in one of the dataframes the variable is capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.  We also have to do this with the `mukey` variable as well.
@@ -470,6 +472,7 @@ the theory of how to do them?** -->
 > ~~~
 > Updating layer `ssurgo' to data source `data/ssurgo.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
+> Updating existing layer ssurgo
 > Writing 14 features with 43 fields and geometry type Multi Polygon.
 > ~~~
 > {: .output}
