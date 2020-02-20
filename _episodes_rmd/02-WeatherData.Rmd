@@ -285,7 +285,7 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 > ## Exercise 3: Subsetting
 >
 > 1. Find the total precipitation in June of 2015.
-> 2. Create a subset of `by_month_year` that contain all the years *except* 2018.
+> 2. Create a subset of `by_month_year` that contain all the years *except* 2018.  Call this new variable `monthprec_not_2018`.
 > 
 > > ## Exercise 3 Solution
 > > ```{r}
