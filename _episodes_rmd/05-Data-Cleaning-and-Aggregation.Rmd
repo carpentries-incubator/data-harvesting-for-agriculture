@@ -142,14 +142,11 @@ Let's go through these one by one.
 
 ### Data cleaning #1: Taking out border observations
 
-We need to remove the yield observations that are on the border of the plots,
-and also at the end of the plots.  The reason for this is that along the edge
-of a plot, the harvester is likely to measure a mixture of two plots,
-and therefore the data won't be accurate for either plot.  Additionally,
-plants growing at the edge of the field are likely to suffer from wind and other
-effects, lowering their yields.  We will use the `trial_utm` shapefile to help us clean.
+We need to remove the yield observations that are on the border of the plots, and also at the end of the plots.  The reason for this is that along the edge of a plot, the harvester is likely to collect from two plots. Therefore, the yield is an average of both plots.  Additionally, plants growing at the edge of the field are likely to suffer from wind and other effects, lowering their yields.  
 
-We add a 15 <font color="magenta">meter??</font> border.
+There is a function in `functions.R` called clean_buffer which creates a buffer around the input `buffer_object` and reports the points in `data` that are outside of the buffer. We need to decide how wide the buffer wil be using the input `buffer_ft`. In general this will be something around half the width of the machinery or section.
+
+In the example below, we clean the yield data using the `trial_utm` to define a 15 foot buffer.
 
 ```{r}
 yield_clean_border <- clean_buffer(trial_utm, 15, yield_utm)
@@ -176,20 +173,9 @@ Looking at both this histogram and the several very red dots in our de-bordered 
 
 Even if we don't know the source of error, we can tell that some observations
 are incorrect just because they are far too small or too large.  How can we
-remove these in an objective, automatic way?  For yield and our other variables,
-we will calculate the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
-to get an idea of how much the observations tend to be different from the mean.
-Then, we will remove observations that are three standard deviations higher or
-lower than the mean.  If the data followed a normal distribution (i.e a bell
-curve), this would eliminate about one in 1000 data points.  In a real dataset,
-we can be fairly certain that those points are errors.  Our cutoff of three
-standard deviations is arbitrary, which is why we have looked at histograms of
-the data to help confirm that our cutoff makes sense.
+remove these in an objective, automatic way? As before, we remove observations that are three standard deviations higher or lower than the mean.  We look at histograms and maps of the data to help confirm that our cleaning makes sense.
 
-In the next few steps, we use `sd` and `mean` to calculate the standard
-deviation and mean of the yield distribution, respectively. Then we remove the
-yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd.  We use
-the `clean_sd` from our `functions.R`:
+As in lesson 4, we use the `clean_sd` from our `functions.R`:
 
 ```{r 3sd}
 yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr)
@@ -230,8 +216,7 @@ might you want to look for?
 > ## Exercise: Cleaning Nitrogen from asapplied
 > 
 > Import the `asapplied.gpkg` shapefile for and clean the nitrogen application data.
-> 1. Remove observations from the
-buffer zone, <font color="magenta">JPN: probably we need a different buffer length for this since I'm getting plots that have taken too much out in the boundary-removal process</font>
+> 1. Remove observations from the buffer zone
 > 2. as well as observations more then three standard deviations from
 the mean.
 >
@@ -278,111 +263,88 @@ the mean.
 
 # Designing Trials: Generating Grids and Aggregating
 
-Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm.  This happens in a few steps.
+Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm. This happens in a few steps.
 
-## Step 1: Creating the subplots
+## Step 1: Creating the grids
 
 After we read in the trial design file, we use a function to generate the
 subplots for this trial. Because the code for generating the subplots is
 somewhat complex, we have included it as the `make_grids` function in `functions.R`.
 
-To start, we only want to look at data in the `Trial` portion of our plot, so we take a subset of this:
+To start, we only want to look at data in the `Trial` portion of our plot, so we take a subset of this and plot the resulting geometry:
 
 ```{r }
 boundary_grid_utm = subset(boundary_utm, Type == "Trial")
 plot(boundary_grid_utm$geom)
 ```
-Now we will make subplots that are 24 meters wide:
+
+Now we will make subplots that are 24 meters wide which is the width of the original trial on this field:
 
 ```{r}
 width = m_to_ft(24) # convert from meters to feet
 ```
 
-Now we use `make_grids` to calculate subplots for our shapefile <font color="magenta">more words are needed here about these parameters</font>
+Now we use `make_grids` to calculate subplots for our shapefile. There are several inputs for this function:
+* The boundary to make the grid over in UTM
+* The abline for the field in UTM
+* The direction of the grid that will be long (direction in relation to the abline)
+* The direction of the grid that will be short 
+* The length of grids in feet
+* The width of grids plots in feet
+
+We use the following code to make our grid.
 ```{r}
 design_grids_utm = make_grids(boundary_grid_utm,
                               abline_utm, long_in = 'NS', short_in = 'EW',
 			      length_ft = width, width_ft = width)
 ```
 
-We need to make sure the coordinate system for both our grids and our original boundary file match up:
+The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as `boundary_grid_utm`:
 ```{r}
+st_crs(design_grids_utm)
 st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
 ```
 
-Let's plot what these grids will look like <font color="magenta"> we need to talk about what tm_shape is here or before</font>
+Let's plot what these grids will look like using the basic `plot()` function:
 ```{r}
-tm_shape(design_grids_utm) + tm_borders(col='blue')
+plot(design_grids_utm$st_sfc.col_polygons_ls.)
 ```
 
-Now the last step is that we want to make sure this grid overlaps *only* with our boundary file, so we take the intersection of this rectangular grid with our boundary file's Trial data outline:
+Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_grid_utm`, 
+The resulting grid is seen below:
 ```{r}
 trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
-tm_shape(trial_grid_utm) + tm_borders(col='blue')
+plot(trial_grid_utm$geom)
 ```
-<font color="magenta"> there is an error here that we should fix or mention</font>
 
-## Step 2: Interpolation/Aggregation on our subplots
+## Step 2: Aggregation on our subplots
 
-We will now aggregate our yield data over our subplots.
+We will now aggregate our yield data over our subplots. In this case we will take the median value within each subplot. When the data are not normally-distributed or when there are errors, the median is often more representative of the data than the mean is.  Here we will interpolate and aggregate yield as an example. The other variables can be processed in the same way.
 
-Interpolation is the estimation of a value at a point that we didn't measure
-that is between two or more points that we did measure.  Aggregation is the
-combining of multiple data points into a single data point.  What we'll do here
-is a combination of interpolation and aggregation, where we will use multiple
-measurements across each subplot to generate one value for the subplot. In this
-case we will take the median value within each subplot.  Typically when the data
-are not normally-distributed or when there are errors, the median is more
-representative of the data than the mean is.  Here we will interpolate and
-aggregate yield as an example.  The other variables can be processed in the same
-way.
-
-**Question from Lindsay: Why do we need to covert class here?  Please provide an
-explanation.** <font color="magenta">not sure what "covert" means here, leaving this question for others</font>
-
-<!-- JPN: no work
-```{r}
-grid_sp = trial_grid_utm
-merge <- sp::over(trial_grid_utm, yield_clean[,"Yld_Vol_Dr"], fn = median)
-grid_sp@data <- cbind(merge, grid_sp@data)
-
-subplots_data <- st_as_sf(grid_sp) 
-map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
-```
--->
-
-One final step we have to do before aggregating is to explicitly tell R that our data is "Spatial" data.  This is a little quirk of R that we have to think about for both our trial grid and yield data:
-
-<font color="magenta">I would personally vote for function-izing the spatial conversion stuff since its new and also then we have to explain the [,] stuff since before we've only called columns with $</font>
+There is a function in our `functions.R` called `deposit_on_grid()` that will take the median of the points inside each grid. The function allows us to supply the grid, the data we will aggregate, and the column we want to aggregate. In this case, we will aggregate `Yld_Vol_Dr`.
 
 ```{r}
-trial_grid_spatial <- as(trial_grid_utm, "Spatial")
-yield_clean_spatial <- as(yield_clean[,"Yld_Vol_Dr"], "Spatial")
+subplots_data <- deposit_on_grid(trial_grid_utm, yield_clean, "Yld_Vol_Dr", fn = median)
 ```
-Let's deposit on our grid using a function `deposit_on_grid` from `functions.R`:
-```{r}
-subplots_data <- deposit_on_grid(trial_grid_spatial, yield_clean_spatial, fn=median)
-```
+
 And let's finally take a look!
 ```{r}
 map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 ```
 
-<!-- JPN: took out a lot
+We will now clean the asplanted file:
+```{r}
+#asplanted and elevation
+asplanted <- st_read("data/asplanted.gpkg")
+asplanted_utm <- st_transform_utm(asplanted)
+asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
+asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 
-```{r sf2sp}
-grid_sp <- as(trial_grid_utm, "Spatial")
-crs(grid_sp)
+map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
+
+subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
+
+map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
+
 ```
 
-**Explain more of what is happening in this code below**
-**Why is one line commented out?**
-
-```{r aggregate yield data}
-merge <- sp::over(grid_sp, as(yield_clean[,"Yld_Vol_Dr"], "Spatial"), fn = median)
-grid_sp@data <- cbind(merge, grid_sp@data)
-
-subplots_data <- st_as_sf(grid_sp) 
-map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
-```
--->
