@@ -120,7 +120,7 @@ source("functions.R")
 > Once a column is of the `date` data type, we can perform actions
 > like ordering the data by time, finding the data in a certain time period, or calculating the days between two dates.
 > 
-> R has a built-in function `as.Date()` which converts a column to a date.  However, our data has dates in different formats -- `year` is in years and `yday` is days the day of the year in question, starting on January 1st.  We will use one of our functions in `functions.R` to take this into account called `as.Date.daymetr()`:
+> R has a built-in function `as.Date()` which converts a column to a date.  However, our data has dates in different formats -- `year` is in years and `yday` is days the day of the year in question, starting on January 1st.  We will use one of our functions in `functions.R` to take this into account called `as.Date.daymetr()`. We create a new variable in `weather_data` called "date":
 > 
 > ```{r dateformat}
 > weather_data$date <- as.Date.daymetr(weather_data)
