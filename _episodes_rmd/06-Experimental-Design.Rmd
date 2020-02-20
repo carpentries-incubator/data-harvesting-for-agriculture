@@ -79,7 +79,7 @@ boundary_utm <- st_transform_utm(boundary)
 abline_utm <- st_transform_utm(abline)
 ```
 
-
+Finally, we want to make sure we don't plan any trials on the "Headlands" 
 
 
 
