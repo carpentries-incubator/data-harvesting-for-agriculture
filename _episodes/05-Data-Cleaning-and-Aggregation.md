@@ -39,8 +39,6 @@ Here are the main concerns for yield, as-planted, and as-applied data:
 
 ## Step 1: Importing and transforming our shapefile datasets
 
-<!-- Let's apply this data-cleaning thinking to measurements of yields.  First, we will aggregate our yields into a grid overlayed on top of our boundary shapefile and look for measurements on this grid that seem too low or to high, and flag these as "outliers" of our dataset in our data-cleaning process. -->
-
 The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
 
 
@@ -113,7 +111,7 @@ trial_utm <- trial
 
 > ## Exercise: Transform the yield data
 > Read in the yield shape file, look at its current CRS and transform it into the UTM projection.  Call this new, transformed variable `yield_utm`.
->
+> 
 > > ## Solution
 > > First, load the data:
 > > 
@@ -207,7 +205,9 @@ We will take out these weird observations in two steps:
 
 Let's go through these one by one.
 
-### Data cleaning #1: Taking out border observations
+### Data cleaning 
+
+#1: Taking out border observations
 
 We need to remove the yield observations that are on the border of the plots, and also at the end of the plots.  The reason for this is that along the edge of a plot, the harvester is likely to collect from two plots. Therefore, the yield is an average of both plots.  Additionally, plants growing at the edge of the field are likely to suffer from wind and other effects, lowering their yields.  
 
@@ -272,34 +272,6 @@ hist(yield_clean$Yld_Vol_Dr)
 
 <img src="../fig/rmd-view the distribution of cleaned yield data-1.png" title="plot of chunk view the distribution of cleaned yield data" alt="plot of chunk view the distribution of cleaned yield data" width="612" style="display: block; margin: auto;" />
 
-<!-- 
-This looks a lot more sensible!  We can double check by comparing all the stages of our data cleaning on a map:
-
-~~~
-yield_plot_orig <- map_points(yield_utm, "Yld_Vol_Dr", "Yield, Orig")
-yield_plot_border_cleaned <- map_points(yield_clean_border, "Yld_Vol_Dr", "Yield, No Borders")
-yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
-yield_plot_comp_final <- tmap_arrange(yield_plot_orig, yield_plot_border_cleaned, yield_plot_clean, ncol = 3, nrow = 1)
-yield_plot_comp_final
-~~~
-{: .language-r}
-
-
-
-~~~
-Some legend labels were too wide. These labels have been resized to 0.62, 0.54, 0.54. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
-~~~
-{: .output}
-
-
-
-~~~
-Some legend labels were too wide. These labels have been resized to 0.62, 0.54. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
-~~~
-{: .output}
-
-<img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
--->
 
 This looks a lot more sensible!  We can double check by looking at our final, cleaned yield map:
 
@@ -309,7 +281,7 @@ yield_plot_clean
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
 
 > ## Discussion
 > What do you think could have caused these outliers (extreme values)?  If you
@@ -356,7 +328,7 @@ the mean.
 > > Clean border:
 > > 
 > > ~~~
-> > nitrogen_clean_border <- clean_buffer(trial_utm, 15, nitrogen_utm)
+> > nitrogen_clean_border <- clean_buffer(trial_utm, 1, nitrogen_utm)
 > > ~~~
 > > {: .language-r}
 > > Check out our progress with a plot:
@@ -369,7 +341,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="612" style="display: block; margin: auto;" />
 > > Clean by standard deviation:
 > > 
 > > ~~~
@@ -384,7 +356,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="612" style="display: block; margin: auto;" />
 > > And as a histogram:
 > > 
 > > ~~~
@@ -392,18 +364,14 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="612" style="display: block; margin: auto;" />
 > >
 > {: .solution}
 {: .challenge}
 
 # Designing Trials: Generating Grids and Aggregating
 
-<<<<<<< HEAD
 Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm. This happens in a few steps.
-=======
-Now that we have cleaned data, we will go through the steps to aggregate this data on subplots of our shapefile of our farm.  This happens in a few steps.
->>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 
 ## Step 1: Creating the grids
 
@@ -420,7 +388,7 @@ plot(boundary_grid_utm$geom)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="612" style="display: block; margin: auto;" />
 
 Now we will make subplots that are 24 meters wide which is the width of the original trial on this field:
 
@@ -468,7 +436,6 @@ st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
 ~~~
 {: .language-r}
 
-<<<<<<< HEAD
 Let's plot what these grids will look like using the basic `plot()` function:
 
 ~~~
@@ -476,22 +443,11 @@ plot(design_grids_utm$st_sfc.col_polygons_ls.)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
 
 Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_grid_utm`, 
 The resulting grid is seen below:
-=======
-Let's plot what these grids will look like <font color="magenta"> we need to talk about what tm_shape is here or before</font>
 
-~~~
-tm_shape(design_grids_utm) + tm_borders(col='blue')
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-plotting design grids now-1.png" title="plot of chunk plotting design grids now" alt="plot of chunk plotting design grids now" width="612" style="display: block; margin: auto;" />
-
-Now the last step is that we want to make sure this grid overlaps *only* with our boundary file, so we take the intersection of this rectangular grid with our boundary file's trial data outline:
->>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 
 ~~~
 trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
@@ -513,7 +469,7 @@ plot(trial_grid_utm$geom)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
 
 ## Step 2: Aggregation on our subplots
 
@@ -526,14 +482,6 @@ There is a function in our `functions.R` called `deposit_on_grid()` that will ta
 subplots_data <- deposit_on_grid(trial_grid_utm, yield_clean, "Yld_Vol_Dr", fn = median)
 ~~~
 {: .language-r}
-<<<<<<< HEAD
-=======
--->
-
-One final step we have to do before aggregating is to explicitly tell R that our data is "Spatial" data.  This is a little quirk of R that we have to think about for both our trial grid and yield data:
-
-<font color="magenta">I would personally vote for function-izing the spatial conversion stuff since its new and also then we have to explain the [,] stuff since before we've only called columns with $</font><font color="green">Dena: ...if time permits! If not, explanations work</font>
->>>>>>> cda4bf2d54cfffab603f4a743e3588e3b1a4bff6
 
 And let's finally take a look!
 
@@ -542,7 +490,7 @@ map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
 
 We will now clean the asplanted file:
 
@@ -576,14 +524,92 @@ map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
 
 ~~~
 subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
+subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Elevation_", fn = median)
 
 map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-32-2.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-31-2.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
+
+We will now aggregate the asapplied which we already cleaned above:
+
+~~~
+subplots_data <- deposit_on_grid(subplots_data, nitrogen_clean, "Rate_Appli", fn = median)
+
+map_poly(subplots_data, 'Rate_Appli', "Nitrogen")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+
+We want to explore if there are any relationships between the different variables. 
+
+~~~
+st_write(subplots_data, "data/data.gpkg", layer_options = 'OVERWRITE=YES')
+~~~
+{: .language-r}
+
+
+
+~~~
+Updating layer `data' to data source `data/data.gpkg' using driver `GPKG'
+options:        OVERWRITE=YES 
+Updating existing layer data
+Writing 489 features with 8 fields and geometry type Polygon.
+~~~
+{: .output}
+
+
+
+~~~
+map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+
+~~~
+plot<- ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Rt_Apd_Ct_,x=Elevation_), size = 0.5, se=FALSE) +
+  ylab('Yield (kg/ha)') +
+  xlab('Seed (k/ha)') + 
+  theme_grey(base_size = 12)
+plot
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: Removed 19 rows containing non-finite values (stat_smooth).
+~~~
+{: .error}
+
+<img src="../fig/rmd-unnamed-chunk-33-2.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+
+~~~
+plot<- ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rt_Apd_Ct_), size = 0.5, se=FALSE) +
+  ylab('Yield (kg/ha)') +
+  xlab('Seed (k/ha)') + 
+  theme_grey(base_size = 12)
+plot
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: Removed 37 rows containing non-finite values (stat_smooth).
+~~~
+{: .error}
+
+<img src="../fig/rmd-unnamed-chunk-33-3.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+
+
 
