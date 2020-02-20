@@ -429,8 +429,20 @@ the theory of how to do them?** -->
 > 
 > ~~~
 > spatial <- as(ssurgo$spatial, "sf")
+> ~~~
+> {: .language-r}
+> 
+> ~~~
 > spatial <- dplyr::rename(spatial, musym = MUSYM)
+> ~~~
+> {: .language-r}
+> 
+> ~~~
 > spatial <- merge(spatial, names, by = "musym")
+> ~~~
+> {: .language-r}
+> 
+> ~~~
 > head(spatial$muname)
 > ~~~
 > {: .language-r}
@@ -446,8 +458,6 @@ the theory of how to do them?** -->
 > [6] "Condit-Bennington silt loams"               
 > ~~~
 > {: .output}
-> 
-> 
 > 
 > ~~~
 > st_write(spatial, "data/ssurgo.gpkg", layer_options = 'OVERWRITE=YES')
@@ -513,14 +523,14 @@ the theory of how to do them?** -->
 > 
 > 
 > ~~~
-> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpZerihF/fileb26011b3c103.gpkg
+> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpTwuLvJ/filec0a17a11b8fb.gpkg
 > ~~~
 > {: .output}
 > 
 > 
 > 
 > ~~~
-> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpZerihF/fileb26011b3c103.gpkg' using driver `GPKG'
+> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpTwuLvJ/filec0a17a11b8fb.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 14 features with 43 fields and geometry type Multi Polygon.
 > ~~~
@@ -576,7 +586,7 @@ the theory of how to do them?** -->
 > 
 > 
 > ~~~
-> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpZerihF/fileb26011b3c103.gpkg
+> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpTwuLvJ/filec0a17a11b8fb.gpkg
 > ~~~
 > {: .error}
 > 
