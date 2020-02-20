@@ -350,12 +350,19 @@ We want to explore if there are any relationships between the different variable
 st_write(subplots_data, "data/data.gpkg", layer_options = 'OVERWRITE=YES')
 map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
 
-plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)
-plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr)
-plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)
+plot<- ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Rt_Apd_Ct_,x=Elevation_), size = 0.5, se=FALSE) +
+  ylab('Yield (kg/ha)') +
+  xlab('Seed (k/ha)') + 
+  theme_grey(base_size = 12)
+plot
 
-model <- lm(Yld_Vol_Dr ~ Rt_Apd_Ct_ +  Rate_Appli + Elevation_, data = subplots_data)
-summary(model)
+plot<- ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rt_Apd_Ct_), size = 0.5, se=FALSE) +
+  ylab('Yield (kg/ha)') +
+  xlab('Seed (k/ha)') + 
+  theme_grey(base_size = 12)
+plot
 ```
 
 
