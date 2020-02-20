@@ -145,20 +145,26 @@ Now let's design our grid with the following parameters:
 
 ~~~
 width_in_meters = 24 # width of grids is 24 meters
-long_direction = 'NS' # WAIT
-short_directon = 'EW' # WAIT
-length_in_ft = 180 # in feet
+long_direction = 'NS' # direction of grid that will be long
+short_direction = 'EW' # direction of grid that will be short
+length_in_ft = 180 # length of grids in feet
 ~~~
 {: .language-r}
 
-We'll use our `make_grids` function to 
-
-
+We'll use our `make_grids` again function to generate this trial's grid:
 
 ~~~
-width <- m_to_ft(24)
-design_grids_utm <- make_grids(trialarea, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = 180, width_ft = width)
+width <- m_to_ft(24) # convert meters to feet
+design_grids_utm <- make_grids(trialarea, abline_utm,
+                               long_in = long_direction,
+			       short_in = short_direction,
+			       length_ft = length_in_ft,
+			       width_ft = width)
+~~~
+{: .language-r}
+Next we want to make sure the coordinate reference frame of our `trialarea` is the same as our `design_grids_utm` grids and then take the intersection of these grids with our trial area as we did previously:
 
+~~~
 st_crs(design_grids_utm) <- st_crs(trialarea)
 trial_grid <- st_intersection(trialarea, design_grids_utm)
 ~~~
@@ -172,14 +178,14 @@ geometries
 ~~~
 {: .error}
 
-
+Let's check out what our trial subplots look like:
 
 ~~~
 tm_shape(trial_grid) + tm_borders(col='blue')
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-design the checker-board plot-1.png" title="plot of chunk design the checker-board plot" alt="plot of chunk design the checker-board plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
 ### determine treatment types
 Now that we have the trial design plots, we need to assign different treatments to each plot.
@@ -193,16 +199,28 @@ map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
 <img src="../fig/rmd-assigning treatment rates-1.png" title="plot of chunk assigning treatment rates" alt="plot of chunk assigning treatment rates" width="612" style="display: block; margin: auto;" />
 
 ~~~
-plot(newfield$geom)
+head(whole_plot)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in plot(newfield$geom): object 'newfield' not found
+Simple feature collection with 6 features and 4 fields
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 342027 ymin: 4523153 xmax: 342050.3 ymax: 4523297
+epsg (SRID):    32617
+proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
+   id treat_type NRATE SEEDRATE                           geom
+1 ID1          9   225    31000 POLYGON ((342050.1 4523262,...
+2 ID2          6   200    34000 POLYGON ((342050.1 4523262,...
+3 ID3         16   250    40000 POLYGON ((342049.8 4523208,...
+4 ID4          8   200    40000 POLYGON ((342049.8 4523208,...
+5 ID5          3   160    37000 POLYGON ((342049.5 4523153,...
+6 ID6         15   250    37000 POLYGON ((342049.5 4523153,...
 ~~~
-{: .error}
+{: .output}
 
 
 ~~~
@@ -234,4 +252,4 @@ Error in FUN(X[[i]], ...): object 'long' not found
 ~~~
 {: .error}
 
-<img src="../fig/rmd-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
