@@ -566,6 +566,7 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 > 1 Jun    2015       7.24
 > ~~~
 > {: .output}
+> Here we use the `&` to say we want *two different* conditions to be met in our subset. 
 {: .callout}
 
 > # Take the average of monthly rainfall

@@ -166,7 +166,7 @@ source("./functions.R")
 > 
 > Here again, we also check the distribution of cleaned yield by making a histogram.
 > 
-> ```{r}
+> ```{r tt2jpn2}
 > hist(yield_clean_border$Yld_Vol_Dr)
 > ```
 > Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.

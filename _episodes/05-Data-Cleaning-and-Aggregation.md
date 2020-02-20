@@ -247,7 +247,7 @@ source: Rmd
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-tt2jpn2-1.png" title="plot of chunk tt2jpn2" alt="plot of chunk tt2jpn2" width="612" style="display: block; margin: auto;" />
 > Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.
 > 
 >
@@ -280,7 +280,7 @@ source: Rmd
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
 > 
 > ## Discussion
 > What do you think could have caused these outliers (extreme values)?  If you
@@ -340,7 +340,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" />
 > > Clean by standard deviation:
 > > 
 > > ~~~
@@ -355,7 +355,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="612" style="display: block; margin: auto;" />
 > > And as a histogram:
 > > 
 > > ~~~
@@ -363,7 +363,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="612" style="display: block; margin: auto;" />
 > >
 > {: .solution}
 {: .challenge}
@@ -385,7 +385,7 @@ the mean.
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="612" style="display: block; margin: auto;" />
 > 
 >
 >
@@ -443,7 +443,7 @@ the mean.
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="612" style="display: block; margin: auto;" />
 > 
 > Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_grid_utm`, 
 The resulting grid is seen below:
@@ -469,7 +469,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
 >
 >
 > ## Step 2: Aggregation on our subplots
@@ -491,7 +491,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now clean the asplanted file:
@@ -525,7 +525,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
@@ -535,7 +535,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-31-2.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-30-2.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now aggregate the asapplied which we already cleaned above:
@@ -547,7 +547,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
 >
 >
 > ### Making Plots of Relationships between Variables
@@ -576,7 +576,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .error}
 > 
-> <img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > ggplot() +
@@ -594,7 +594,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .error}
 > 
-> <img src="../fig/rmd-unnamed-chunk-33-2.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-32-2.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > ggplot() +
@@ -612,7 +612,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .error}
 > 
-> <img src="../fig/rmd-unnamed-chunk-33-3.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-32-3.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 >
 >
 >
@@ -625,5 +625,5 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-34-1.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
 {: .callout}
