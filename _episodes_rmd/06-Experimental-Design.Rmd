@@ -45,126 +45,130 @@ source("../bin/chunk-options.R")
 source("functions.R")
 ```
 
-Now we will design our own experiments to do on our plots. The only files we will need for the trial design are the boundary file, and ab line.
+> ## Trial Design
+> Now we will design our own experiments on the field. The only files we will need for the trial design are the boundary file and ab line.
+> 
+{: .callout}
 
-<!-- JPN: add in if we have time: In addition, as long as we know the actual direction the machines
-will be driven on the field, we can create our own AB line with a function. -->
+> ## Read and transform shape files
+> 
+> We will start by reading in the shape files we need like we've been doing for the last few episodes:
+> ```{r}
+> boundary <- st_read("data/boundary.gpkg") # read in boundary
+> abline <- st_read("data/abline.gpkg") # read in AB line
+> ```
+> 
+{: .callout}
 
-## Read and transform shape files
+> Now let's check the coordinate references of our two files:
+> ```{r}
+> st_crs(boundary)
+> st_crs(abline)
+> ```
+> Since both of these are in lat/long and we want them in UTM, we'll transform them:
+> 
+> ```{r}
+> boundary_utm <- st_transform_utm(boundary)
+> abline_utm <- st_transform_utm(abline)
+> ```
+> 
+{: .callout}
 
-We will start by reading in the shape files we need like we've been doing for the last few episodes:
-```{r}
-boundary <- st_read("data/boundary.gpkg") # read in boundary
-abline <- st_read("data/abline.gpkg") # read in AB line
-```
+> ## Designing trials
+> 
+> We need decide on the details of experiment design before we get into any of the code.  Relative parameters we need for the trial design include:
+>  * plot dimensions
+>  * number of treatments
+>  * types of treatments, and
+>  * treatment range.
+> 
+> First, we need a file of a boundary without any other sections. In this case, the boundary file already has headlands, but the trial design will create new headlands. Thus, we first remove the existing ones:
+> 
+> ```{r}
+> trialarea <- subset(boundary_utm, Type == "Trial")
+> ```
+> 
+{: .callout}
 
-<!-- JPN: here is where we can have a popout "what if no abline file" -->
-<!-- JPN: add if time
-### make our own AB line if you do not already have one
-ABline stuff creation here if we can figure it out
--->
+> ## Defining Parameters
+> In the following code, we are simply going to assign values to all the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not to worry about the consistency for the whole code.
+> 
+> Now let's design our grid with the following parameters:
+> ```{r}
+> width_in_meters = 24 # width of grids is 24 meters
+> long_direction = 'NS' # direction of grid that will be long
+> short_direction = 'EW' # direction of grid that will be short
+> length_in_ft = 180 # length of grids in feet
+> ```
+> 
+{: .callout}
 
-
-Now let's check the coordinate references of our two files:
-```{r}
-st_crs(boundary)
-```
-```{r}
-st_crs(abline)
-```
-
-Since both of these are in lat/long and we want them in UTM, we'll transform them:
-
-```{r}
-boundary_utm <- st_transform_utm(boundary)
-```
-
-```{r}
-abline_utm <- st_transform_utm(abline)
-```
-
-
-## Designing trials
-
-We need decide on the experiment design before we get into any of the code.  Relative parameters we need for the trial design includes:
- * plot dimension
- * number of treatments
- * types of treatments, and
- * treatment range.
-
-In the following code, we are simply going to assign values to all
-the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not
-to worry about the consistency for the whole code.
-
-First, we want to make sure we don't plan any trials on the "Headlands", so let's make sure we only take the "Trial" portion of our shapefile:
-
-```{r}
-trialarea <- subset(boundary_utm, Type == "Trial")
-```
-
-Now let's design our grid with the following parameters:
-```{r}
-width_in_meters = 24 # width of grids is 24 meters
-long_direction = 'NS' # direction of grid that will be long
-short_direction = 'EW' # direction of grid that will be short
-length_in_ft = 180 # length of grids in feet
-```
-
-We'll use our `make_grids` again function to generate this trial's grid:
-```{r}
-width <- m_to_ft(24) # convert meters to feet
+> ## Make Grids
+> We'll use our `make_grids` again function to generate this trial's grid:
+> ```{r}
+> width <- m_to_ft(24) # convert meters to feet
 design_grids_utm <- make_grids(trialarea, abline_utm,
-                               long_in = long_direction,
+             long_in = long_direction,
 			       short_in = short_direction,
 			       length_ft = length_in_ft,
 			       width_ft = width)
-```
-Next we want to make sure the coordinate reference frame of our `trialarea` is the same as our `design_grids_utm` grids and then take the intersection of these grids with our trial area as we did previously:
-```{r}
-st_crs(design_grids_utm) <- st_crs(trialarea)
-trial_grid <- st_intersection(trialarea, design_grids_utm)
-```
+> ```
+> Next we want to make sure the coordinate reference frame of our `trialarea` is the same as our `design_grids_utm` grids and then take the intersection of these grids with our trial area as we did previously:
+> ```{r}
+> st_crs(design_grids_utm) <- st_crs(trialarea)
+> trial_grid <- st_intersection(trialarea, design_grids_utm)
+> ```
+> 
+> Let's check out what our trial subplots look like:
+> ```{r}
+> tm_shape(trial_grid) + tm_borders(col='blue')
+> ```
+> 
+{: .callout}
 
-Let's check out what our trial subplots look like:
-```{r}
-tm_shape(trial_grid) + tm_borders(col='blue')
-```
+> ## Determining subplot treatments
+> 
+> Now that we have the trial design plots, we need to assign different treatments to each plot.  We can use the `treat_assign` function from `functions.R` to randomly assign seed rates and nitrogen rates to each plot on our grid.
+> 
+> We'll select 4 different seed rates and 4 different nitrogen rates to deposit randomly on our grid:
+> ```{r}
+> seed_rates <- c(31000, 34000, 37000, 40000)
+> nitrogen_rates <- c(160,200,225,250)
+> ```
+> The `seed_quo` and `nitrogen_quo` are the rates that will be applied to the headlands that are not part of the trial.
+> ```{r}
+> seed_quo <- 37000
+> nitrogen_quo <- 225
+> ```
+> 
+{: .callout}
 
-## Determining subplot treatments
-
-Now that we have the trial design plots, we need to assign different treatments to each plot.  We can use the `treat_assign` function from `functions.R` to randomly assign seed rates and nitrogen rates to each plot on our grid.
-
-We'll select 4 different seed rates and 4 different nitrogen rates to deposit randomly on our grid:
-```{r}
-seed_rates <- c(31000, 34000, 37000, 40000)
-nitrogen_rates <- c(160,200,225,250)
-```
-<font color="magenta">I do not know what seed_quo and nitrogen_quo are</font>
-```{r}
-seed_quo <- 37000
-nitrogen_quo <- 225
-```
-
-We are now ready to generate our treatment plot:
-```{r message=FALSE, warning=FALSE}
-whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
+> # Generating Treatment Map
+> We are now ready to generate our treatment plot:
+> ```{r message=FALSE, warning=FALSE}
+> whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
                            seed_treat_rates = seed_rates,
 			   nitrogen_treat_rates = nitrogen_rates,
 			   seed_quo = seed_quo,
 			   nitrogen_quo = nitrogen_quo)
 ```
+> 
+{: .callout}
 
-Let's look at what our trial looks like.  First, as a shape file:
-```{r}
-head(whole_plot)
-```
-And as plots:
-```{r}
-nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
-seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
-treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
-treatment_plot_comp
-```
+> ## Mapping Trial
+> Let's look at what our trial looks like.  First, as a shape file:
+> ```{r}
+> head(whole_plot)
+> ```
+> And as plots:
+> ```{r}
+> nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
+> seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+> treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
+> treatment_plot_comp
+> ```
+> 
+{: .callout}
 
 <!-- JPN takes out
 ```{r assigning treatment rates, message=FALSE, warning=FALSE}
