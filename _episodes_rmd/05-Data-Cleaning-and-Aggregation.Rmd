@@ -352,6 +352,7 @@ st_write(subplots_data, "data/data.gpkg", layer_options = 'OVERWRITE=YES')
 
 Now we can make plots to look at the response of yield to the other variables. This uses a function called ggplot(). While the code looks complicated, you simple define the following:
 * data = the data with the variables you want to plot
+
 * x = the name of the variable you want on the x-axis
 * y = the name of the variable you want on the y-axis
 * xlab and ylab are the names you want displayed for the variables
@@ -359,19 +360,23 @@ Now we can make plots to look at the response of yield to the other variables. T
 The other options do not need to be changed when you go to use the function on other datasets. 
 ```{r}
 
-plot<- ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Rt_Apd_Ct_,x=Elevation_), size = 0.5, se=FALSE) +
+ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Elevation_), size = 0.5, se=FALSE) +
   ylab('Yield (kg/ha)') +
   xlab('Seed (k/ha)') + 
   theme_grey(base_size = 12)
-plot
 
-plot<- ggplot() +
+ggplot() +
   geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rt_Apd_Ct_), size = 0.5, se=FALSE) +
   ylab('Yield (kg/ha)') +
   xlab('Seed (k/ha)') + 
   theme_grey(base_size = 12)
-plot
+
+ggplot() +
+  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rate_Appli), size = 0.5, se=FALSE) +
+  ylab('Yield (kg/ha)') +
+  xlab('Nitrogen') + 
+  theme_grey(base_size = 12)
 ```
 
 
