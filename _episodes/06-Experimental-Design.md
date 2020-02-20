@@ -21,8 +21,7 @@ source: Rmd
 
 
 
-Now we will design our own experiments to do on our plots.  
-The only files we need for the trial design are the boundary file, and ab line.
+Now we will design our own experiments to do on our plots. The only files we will need for the trial design are the boundary file, and ab line.
 
 <!-- JPN: add in if we have time: In addition, as long as we know the actual direction the machines
 will be driven on the field, we can create our own AB line with a function. -->
@@ -187,8 +186,74 @@ tm_shape(trial_grid) + tm_borders(col='blue')
 
 <img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
-### determine treatment types
-Now that we have the trial design plots, we need to assign different treatments to each plot.
+## Determining subplot treatments
+
+Now that we have the trial design plots, we need to assign different treatments to each plot.  We can use the `treat_assign` function from `functions.R` to randomly assign seed rates and nitrogen rates to each plot on our grid.
+
+We'll select 4 different seed rates and 4 different nitrogen rates to deposit randomly on our grid:
+
+~~~
+seed_rates <- c(31000, 34000, 37000, 40000)
+nitrogen_rates <- c(160,200,225,250)
+~~~
+{: .language-r}
+<font color="magenta">I do not know what seed_quo and nitrogen_quo are</font>
+
+~~~
+seed_quo <- 37000
+nitrogen_quo <- 225
+~~~
+{: .language-r}
+
+We are now ready to generate our treatment plot:
+
+~~~
+whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
+                           seed_treat_rates = seed_rates,
+			   nitrogen_treat_rates = nitrogen_rates,
+			   seed_quo = seed_quo,
+			   nitrogen_quo = nitrogen_quo)
+~~~
+{: .language-r}
+
+Let's look at what our trial looks like.  First, as a shape file:
+
+~~~
+head(whole_plot)
+~~~
+{: .language-r}
+
+
+
+~~~
+Simple feature collection with 6 features and 4 fields
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 342027 ymin: 4523153 xmax: 342050.3 ymax: 4523297
+epsg (SRID):    32617
+proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
+   id treat_type NRATE SEEDRATE                           geom
+1 ID1          3   160    37000 POLYGON ((342050.1 4523262,...
+2 ID2         12   225    40000 POLYGON ((342050.1 4523262,...
+3 ID3         12   225    40000 POLYGON ((342049.8 4523208,...
+4 ID4         13   250    31000 POLYGON ((342049.8 4523208,...
+5 ID5          5   200    31000 POLYGON ((342049.5 4523153,...
+6 ID6          5   200    31000 POLYGON ((342049.5 4523153,...
+~~~
+{: .output}
+And as plots:
+
+~~~
+nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
+seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
+treatment_plot_comp
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+
+<!-- JPN takes out
 
 ~~~
 whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width, seed_treat_rates = c(31000, 34000, 37000, 40000), nitrogen_treat_rates = c(160,200,225,250), seed_quo = 37000, nitrogen_quo = 225)
@@ -213,14 +278,15 @@ bbox:           xmin: 342027 ymin: 4523153 xmax: 342050.3 ymax: 4523297
 epsg (SRID):    32617
 proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
    id treat_type NRATE SEEDRATE                           geom
-1 ID1          9   225    31000 POLYGON ((342050.1 4523262,...
-2 ID2          6   200    34000 POLYGON ((342050.1 4523262,...
-3 ID3         16   250    40000 POLYGON ((342049.8 4523208,...
-4 ID4          8   200    40000 POLYGON ((342049.8 4523208,...
-5 ID5          3   160    37000 POLYGON ((342049.5 4523153,...
-6 ID6         15   250    37000 POLYGON ((342049.5 4523153,...
+1 ID1          7   200    37000 POLYGON ((342050.1 4523262,...
+2 ID2         16   250    40000 POLYGON ((342050.1 4523262,...
+3 ID3         15   250    37000 POLYGON ((342049.8 4523208,...
+4 ID4          9   225    31000 POLYGON ((342049.8 4523208,...
+5 ID5          9   225    31000 POLYGON ((342049.5 4523153,...
+6 ID6          4   160    40000 POLYGON ((342049.5 4523153,...
 ~~~
 {: .output}
+The function will automatically take out 
 
 
 ~~~
@@ -252,4 +318,5 @@ Error in FUN(X[[i]], ...): object 'long' not found
 ~~~
 {: .error}
 
-<img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
+-->

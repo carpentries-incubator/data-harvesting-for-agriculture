@@ -1,0 +1,457 @@
+I"��<h2 id="data-cleaning-and-aggregation-in-the-difm-project">Data cleaning and aggregation in the DIFM project</h2>
+
+<p>We saw in the last episode that we can make graphs of our trial data, but right now they are all points that cannot easily be combined. For example, we do not know what the yield was at a specific nitrogen or seeding point on the field. But that is important if we are going to talk about the results of the trial. We need to know what the yield was when a certain seeding and nitrogen rate combination was applied. To do this, we first clean the trial points and then create a grid over the field. Inside that grid, we aggregate the points from each data type and report the median of the points that fall into each polygon of the grid. These will form a new dataset where we can directly relate a yield value to a given seed and nitrogen treatment. In the context of trials, the polygons of the grid are typically called the <em>units of observation.</em></p>
+
+<h2 id="data-cleaning-details">Data Cleaning Details</h2>
+
+<p>After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinery error and such. In particular, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For public data, we simply import them into our aggregated data set without cleaning, as they have already been cleaned before being released to the public.</p>
+
+<p>Here are the main concerns for yield, as-planted, and as-applied data:</p>
+
+<ul>
+  <li>Observations where the harvester/planter/applicator is moving too slow or too fast</li>
+  <li>Observations on the edges of the plot</li>
+  <li>Observations that are below or above three standard deviations from the mean</li>
+</ul>
+
+<h2 id="step-1-importing-and-transforming-our-shapefile-datasets">Step 1: Importing and transforming our shapefile datasets</h2>
+
+<p>The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let’s do this step-by-step, starting with reading in the boundary shapefile and projecting it:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boundary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/boundary.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>What is the current coordinate reference system of this object?</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+</code></pre></div></div>
+<p>Let’s transform it to the UTM projection &amp; check out its new coordinate reference system:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boundary_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span><span class="w">
+</span><span class="n">st_crs</span><span class="p">(</span><span class="n">boundary_utm</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+</code></pre></div></div>
+<p>Now we can see that the <code class="highlighter-rouge">+proj=longlat</code> has changed to <code class="highlighter-rouge">+proj=utm</code> and gives us that we are in UTM zone #17.</p>
+
+<p>In the last episode, we also imported our trial design, which we will do again here:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/trial.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Let’s look at the coordinate reference system here as well:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+</code></pre></div></div>
+
+<p>Our file is already in the UTM projection, but if we have one that is not we can convert this as well with <code class="highlighter-rouge">trial_utm &lt;- st_transform_utm(trial)</code>.  For the sake of naming, we’ll rename it as <code class="highlighter-rouge">trial_utm</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trial_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">trial</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="exercise-transform-the-yield-data">Exercise: Transform the yield data</h2>
+  <p>Read in the yield shape file, look at its current CRS and transform it into the UTM projection.  Call this new, transformed variable <code class="highlighter-rouge">yield_utm</code>.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+    <p>First, load the data:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/yield.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+    <p>Then take a look at the coordinate system:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">yield</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+</code></pre></div>    </div>
+    <p>And finally transform into UTM:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">yield</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+  </blockquote>
+</blockquote>
+
+<p>Finally, let’s transform our abline file.  We read in the file:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">abline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_read</span><span class="p">(</span><span class="s2">"data/abline.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
+Simple feature collection with 1 feature and 1 field
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+</code></pre></div></div>
+<p>Check out its current coordinate reference system:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">abline</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+</code></pre></div></div>
+<p>And transform it to UTM:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">abline_utm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">abline</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="step-2-clean-the-yield-data">Step 2: Clean the yield data</h2>
+
+<p>Now that we have our shapefiles in the same UTM coordinate system reference frame, we will apply some of our knowledge of data cleaning to take out weird observations. We know we have “weird” measurements by looking at a histogram of our yield data:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">yield_utm</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
+
+<p>The fact that this histogram has a large tail where we see a few measurements far beyond the majority around 250 means we know we have some weird data points.</p>
+
+<p>We will take out these weird observations in two steps:</p>
+<ol>
+  <li>First, we will take out observations we <em>know</em> will be weird because they are taken from the edges of our plot.</li>
+  <li>Second, we will take out observations that are too far away from where the majority of the other yield measurements lie.</li>
+</ol>
+
+<p>Let’s go through these one by one.</p>
+
+<h3 id="data-cleaning">Data cleaning</h3>
+
+<p>#1: Taking out border observations</p>
+
+<p>We need to remove the yield observations that are on the border of the plots, and also at the end of the plots.  The reason for this is that along the edge of a plot, the harvester is likely to collect from two plots. Therefore, the yield is an average of both plots.  Additionally, plants growing at the edge of the field are likely to suffer from wind and other effects, lowering their yields.</p>
+
+<p>There is a function in <code class="highlighter-rouge">functions.R</code> called clean_buffer which creates a buffer around the input <code class="highlighter-rouge">buffer_object</code> and reports the points in <code class="highlighter-rouge">data</code> that are outside of the buffer. We need to decide how wide the buffer wil be using the input <code class="highlighter-rouge">buffer_ft</code>. In general this will be something around half the width of the machinery or section.</p>
+
+<p>In the example below, we clean the yield data using the <code class="highlighter-rouge">trial_utm</code> to define a 15 foot buffer.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_clean_border</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trial_utm</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">yield_utm</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Let’s use our side-by-side plotting we did in the previous episode to compare our original and border-yield cleaned yield maps:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_plot_orig</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">yield_utm</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yld_Vol_Dr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield, Orig"</span><span class="p">)</span><span class="w">
+</span><span class="n">yield_plot_border_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">yield_clean_border</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yld_Vol_Dr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield, No Borders"</span><span class="p">)</span><span class="w">
+</span><span class="n">yield_plot_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">yield_plot_orig</span><span class="p">,</span><span class="w"> </span><span class="n">yield_plot_border_cleaned</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">yield_plot_comp</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" /></p>
+
+<p>Here again, we also check the distribution of cleaned yield by making a histogram.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">yield_clean_border</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" /></p>
+
+<p>Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.</p>
+
+<h3 id="data-cleaning-2-taking-out-outliers-far-from-the-mean">Data cleaning #2: Taking out outliers far from the mean</h3>
+
+<p>Even if we don’t know the source of error, we can tell that some observations
+are incorrect just because they are far too small or too large.  How can we
+remove these in an objective, automatic way? As before, we remove observations that are three standard deviations higher or lower than the mean.  We look at histograms and maps of the data to help confirm that our cleaning makes sense.</p>
+
+<p>As in lesson 4, we use the <code class="highlighter-rouge">clean_sd</code> from our <code class="highlighter-rouge">functions.R</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">yield_clean_border</span><span class="p">,</span><span class="w"> </span><span class="n">yield_clean_border</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Here again, we check the distribution of cleaned yield after taking out the
+yield observations that are outside the range of three standard deviations from
+the mean.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">yield_clean</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-view the distribution of cleaned yield data-1.png" title="plot of chunk view the distribution of cleaned yield data" alt="plot of chunk view the distribution of cleaned yield data" width="612" style="display: block; margin: auto;" /></p>
+
+<p>This looks a lot more sensible!  We can double check by looking at our final, cleaned yield map:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield_plot_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">yield_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yld_Vol_Dr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield, Cleaned"</span><span class="p">)</span><span class="w">
+</span><span class="n">yield_plot_clean</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" /></p>
+
+<blockquote class="callout">
+  <h2 id="discussion">Discussion</h2>
+  <p>What do you think could have caused these outliers (extreme values)?  If you
+were working with yield data from your own fields, what other sources of error
+might you want to look for?</p>
+
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="exercise-cleaning-nitrogen-from-asapplied">Exercise: Cleaning Nitrogen from asapplied</h2>
+
+  <p>Import the <code class="highlighter-rouge">asapplied.gpkg</code> shapefile for and clean the nitrogen application data.</p>
+  <ol>
+    <li>Remove observations from the buffer zone</li>
+    <li>as well as observations more then three standard deviations from
+the mean.</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
+    <p>Load the data</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/asapplied.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+    <p>Check CRS</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">nitrogen</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+</code></pre></div>    </div>
+    <p>Since it’s in Lat/Long we have to transform it:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_utm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">nitrogen</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+    <p>Clean border:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_clean_border</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trial_utm</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_utm</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+    <p>Check out our progress with a plot:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_plot_orig</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">nitrogen_utm</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rate_Appli"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Nitrogen, Orig"</span><span class="p">)</span><span class="w">
+</span><span class="n">nitrogen_plot_border_cleaned</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">nitrogen_clean_border</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rate_Appli"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Nitrogen, No Borders"</span><span class="p">)</span><span class="w">
+</span><span class="n">nitrogen_plot_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">nitrogen_plot_orig</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_plot_border_cleaned</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">nitrogen_plot_comp</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="612" style="display: block; margin: auto;" />
+Clean by standard deviation:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">nitrogen_clean_border</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_clean_border</span><span class="o">$</span><span class="n">Rate_Appli</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+    <p>Plot our final result on a map:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_plot_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">nitrogen_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rate_Appli"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Nitrogen, Cleaned"</span><span class="p">)</span><span class="w">
+</span><span class="n">nitrogen_plot_clean</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="612" style="display: block; margin: auto;" />
+And as a histogram:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">nitrogen_clean</span><span class="o">$</span><span class="n">Rate_Appli</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="612" style="display: block; margin: auto;" /></p>
+
+  </blockquote>
+</blockquote>
+
+<h1 id="designing-trials-generating-grids-and-aggregating">Designing Trials: Generating Grids and Aggregating</h1>
+
+<p>Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm. This happens in a few steps.</p>
+
+<h2 id="step-1-creating-the-grids">Step 1: Creating the grids</h2>
+
+<p>After we read in the trial design file, we use a function to generate the
+subplots for this trial. Because the code for generating the subplots is
+somewhat complex, we have included it as the <code class="highlighter-rouge">make_grids</code> function in <code class="highlighter-rouge">functions.R</code>.</p>
+
+<p>To start, we only want to look at data in the <code class="highlighter-rouge">Trial</code> portion of our plot, so we take a subset of this and plot the resulting geometry:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boundary_grid_utm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subset</span><span class="p">(</span><span class="n">boundary_utm</span><span class="p">,</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Trial"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="o">$</span><span class="n">geom</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="612" style="display: block; margin: auto;" /></p>
+
+<p>Now we will make subplots that are 24 meters wide which is the width of the original trial on this field:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m_to_ft</span><span class="p">(</span><span class="m">24</span><span class="p">)</span><span class="w"> </span><span class="c1"># convert from meters to feet</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now we use <code class="highlighter-rouge">make_grids</code> to calculate subplots for our shapefile. There are several inputs for this function:</p>
+<ul>
+  <li>The boundary to make the grid over in UTM</li>
+  <li>The abline for the field in UTM</li>
+  <li>The direction of the grid that will be long</li>
+  <li>The direction of the grid that will be short</li>
+  <li>The length of grids in feet</li>
+  <li>The width of grids plots in feet</li>
+</ul>
+
+<p>We use the following code to make our grid.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">design_grids_utm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_grids</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="p">,</span><span class="w">
+                              </span><span class="n">abline_utm</span><span class="p">,</span><span class="w"> </span><span class="n">long_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'NS'</span><span class="p">,</span><span class="w"> </span><span class="n">short_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'EW'</span><span class="p">,</span><span class="w">
+			      </span><span class="n">length_ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">width_ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as <code class="highlighter-rouge">boundary_grid_utm</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coordinate Reference System: NA
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_crs</span><span class="p">(</span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_crs</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Let’s plot what these grids will look like using the basic <code class="highlighter-rouge">plot()</code> function:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">design_grids_utm</span><span class="o">$</span><span class="n">st_sfc.col_polygons_ls.</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" /></p>
+
+<p>Now we can see that the grid is larger than our trial area. We can use <code class="highlighter-rouge">st_intersection()</code> to only keep the section of the grid that overlaps with <code class="highlighter-rouge">boundary_grid_utm</code>, 
+The resulting grid is seen below:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trial_grid_utm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">st_intersection</span><span class="p">(</span><span class="n">boundary_grid_utm</span><span class="p">,</span><span class="w"> </span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: attribute variables are assumed to be spatially constant throughout all
+geometries
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">trial_grid_utm</span><span class="o">$</span><span class="n">geom</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" /></p>
+
+<h2 id="step-2-aggregation-on-our-subplots">Step 2: Aggregation on our subplots</h2>
+
+<p>We will now aggregate our yield data over our subplots. In this case we will take the median value within each subplot. When the data are not normally-distributed or when there are errors, the median is often more representative of the data than the mean is.  Here we will interpolate and aggregate yield as an example. The other variables can be processed in the same way.</p>
+
+<p>There is a function in our <code class="highlighter-rouge">functions.R</code> called <code class="highlighter-rouge">deposit_on_grid()</code> that will take the median of the points inside each grid. The function allows us to supply the grid, the data we will aggregate, and the column we want to aggregate. In this case, we will aggregate <code class="highlighter-rouge">Yld_Vol_Dr</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subplots_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deposit_on_grid</span><span class="p">(</span><span class="n">trial_grid_utm</span><span class="p">,</span><span class="w"> </span><span class="n">yield_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yld_Vol_Dr"</span><span class="p">,</span><span class="w"> </span><span class="n">fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And let’s finally take a look!</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_poly</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="s1">'Yld_Vol_Dr'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Yield (bu/ac)"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" /></p>
+
+<p>We will now clean the asplanted file:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#asplanted and elevation</span><span class="w">
+</span><span class="n">asplanted</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_read</span><span class="p">(</span><span class="s2">"data/asplanted.gpkg"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Reading layer `asplanted' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted.gpkg' using driver `GPKG'
+Simple feature collection with 6382 features and 30 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -82.87843 ymin: 40.83952 xmax: -82.87315 ymax: 40.84653
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">asplanted_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">asplanted</span><span class="p">)</span><span class="w">
+</span><span class="n">asplanted_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">asplanted_utm</span><span class="p">,</span><span class="w"> </span><span class="n">asplanted_utm</span><span class="o">$</span><span class="n">Rt_Apd_Ct_</span><span class="p">)</span><span class="w">
+</span><span class="n">asplanted_clean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_buffer</span><span class="p">(</span><span class="n">trial_utm</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">asplanted_clean</span><span class="p">)</span><span class="w">
+
+</span><span class="n">map_points</span><span class="p">(</span><span class="n">asplanted_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rt_Apd_Ct_"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Seed"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subplots_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deposit_on_grid</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="n">asplanted_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rt_Apd_Ct_"</span><span class="p">,</span><span class="w"> </span><span class="n">fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w">
+</span><span class="n">subplots_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deposit_on_grid</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="n">asplanted_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Elevation_"</span><span class="p">,</span><span class="w"> </span><span class="n">fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w">
+
+</span><span class="n">map_poly</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="s1">'Rt_Apd_Ct_'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Seed"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-31-2.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" /></p>
+
+<p>We will now aggregate the asapplied which we already cleaned above:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">subplots_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deposit_on_grid</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen_clean</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rate_Appli"</span><span class="p">,</span><span class="w"> </span><span class="n">fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w">
+
+</span><span class="n">map_poly</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="s1">'Rate_Appli'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Nitrogen"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" /></p>
+
+<p>We want to explore if there are any relationships between the different variables.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_write</span><span class="p">(</span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="s2">"data/data.gpkg"</span><span class="p">,</span><span class="w"> </span><span class="n">layer_options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'OVERWRITE=YES'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Updating layer `data' to data source `data/data.gpkg' using driver `GPKG'
+options:        OVERWRITE=YES 
+Updating existing layer data
+Writing 489 features with 8 fields and geometry type Polygon.
+</code></pre></div></div>
+
+<p>Now we can make plots to look at the response of yield to the other variables. This uses a function called ggplot(). While the code looks complicated, you simple define the following:</p>
+<ul>
+  <li>
+    <p>data = the data with the variables you want to plot</p>
+  </li>
+  <li>x = the name of the variable you want on the x-axis</li>
+  <li>y = the name of the variable you want on the y-axis</li>
+  <li>xlab and ylab are the names you want displayed for the variables</li>
+</ul>
+
+<p>The other options do not need to be changed when you go to use the function on other datasets.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gam"</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">Yld_Vol_Dr</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">Elevation_</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s1">'Yield (kg/ha)'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s1">'Seed (k/ha)'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">theme_grey</span><span class="p">(</span><span class="n">base_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: Removed 37 rows containing non-finite values (stat_smooth).
+</code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-34-1.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gam"</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">Yld_Vol_Dr</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">Rt_Apd_Ct_</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s1">'Yield (kg/ha)'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s1">'Seed (k/ha)'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">theme_grey</span><span class="p">(</span><span class="n">base_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: Removed 37 rows containing non-finite values (stat_smooth).
+</code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-34-2.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subplots_data</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"gam"</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">Yld_Vol_Dr</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">Rate_Appli</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ylab</span><span class="p">(</span><span class="s1">'Yield (kg/ha)'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">xlab</span><span class="p">(</span><span class="s1">'Nitrogen'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">theme_grey</span><span class="p">(</span><span class="n">base_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: Removed 42 rows containing non-finite values (stat_smooth).
+</code></pre></div></div>
+
+<p><img src="../fig/rmd-unnamed-chunk-34-3.png" title="plot of chunk unnamed-chunk-34" alt="plot of chunk unnamed-chunk-34" width="612" style="display: block; margin: auto;" /></p>
+
+:ET
