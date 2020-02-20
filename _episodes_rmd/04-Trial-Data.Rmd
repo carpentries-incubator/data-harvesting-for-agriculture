@@ -74,7 +74,7 @@ head(stuff)
 > 
 > ## As-Applied File
 > 
-> The nitrogen file contains 22 variables. The nitrogen type of is reported in `Product`, and this field used NH3. We have columns with the applied rate in both gallons (`Rt_Ap_1`) and pounds (`Rt_Appl`). We typically use pounds in order to compare across different nitrogen types.
+> The nitrogen file contains 22 variables. The nitrogen type of is reported in `Product`, and this field used NH3. The column with the applied rate is `Rate_Appli`.
 > 
 > There is not a clear column with the target rate. This is not a problem as we will later merge the trial map and the application map, so we can compare the rate applied to the intended rate.
 > 
