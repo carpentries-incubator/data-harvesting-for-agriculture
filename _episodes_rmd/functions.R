@@ -1,7 +1,8 @@
 ### These are functions found in the Data Carpentry for Agriculture Workshop
 
-deposit_on_grid <- function(grid_sp, col_sp, fn=median){
-  merge <- sp::over(grid_sp, col_sp, fn = fn)
+deposit_on_grid <- function(grid, data, col, fn = median){
+  grid_sp <- as(grid, "Spatial")
+  merge <- sp::over(as(grid, "Spatial"), as(data[, col], "Spatial"), fn = fn)
   grid_sp@data <- cbind(merge, grid_sp@data)
   subplots_data <- st_as_sf(grid_sp)
   return(subplots_data)
