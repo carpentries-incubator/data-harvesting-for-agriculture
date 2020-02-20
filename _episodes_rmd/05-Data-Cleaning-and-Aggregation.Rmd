@@ -1,5 +1,5 @@
 ---
-title: "Ag Carpentry - Data Cleaning and Aggregation"
+title: "Data Cleaning and Aggregation"
 output: html_document
 include_overview: true
 questions:
