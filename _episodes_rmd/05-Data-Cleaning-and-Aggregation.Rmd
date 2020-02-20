@@ -1,7 +1,5 @@
 ---
 title: "Ag Carpentry - Data Cleaning and Aggregation"
-author: "Aolin Gong"
-date: "11/4/2019"
 output: html_document
 include_overview: true
 questions:
@@ -383,7 +381,7 @@ st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
 ```
 
 Let's plot what these grids will look like <font color="magenta"> we need to talk about what tm_shape is here or before</font>
-```{r}
+```{r plotting design grids now}
 tm_shape(design_grids_utm) + tm_borders(col='blue')
 ```
 
