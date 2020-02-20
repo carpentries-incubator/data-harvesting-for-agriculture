@@ -70,6 +70,11 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 {: .output}
 
 <!-- JPN: here is where we can have a popout "what if no abline file" -->
+<!-- JPN: add if time
+### make our own AB line if you do not already have one
+ABline stuff creation here if we can figure it out
+-->
+
 
 Now let's check the coordinate references of our two files:
 
@@ -116,49 +121,37 @@ abline_utm <- st_transform_utm(abline)
 {: .language-r}
 
 
+## Designing trials
 
+We need decide on the experiment design before we get into any of the code.  Relative parameters we need for the trial design includes:
+ * plot dimension
+ * number of treatments
+ * types of treatments, and
+ * treatment range.
 
-
-##### Field Management Info Above
-We need decide on the experiment design before we get into any of the code, relative parameters we need for the trial design includes: plot dimension, number of treatments, types of treatments, and treatment range. In the following code, we are simply going to assign values to all
+In the following code, we are simply going to assign values to all
 the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not
 to worry about the consistency for the whole code.
+
+First, we want to make sure we don't plan any trials on the "Headlands", so let's make sure we only take the "Trial" portion of our shapefile:
+
 
 ~~~
 trialarea <- subset(boundary_utm, Type == "Trial")
 ~~~
 {: .language-r}
 
-
-### make our own AB line if you do not already have one
-ABline stuff creation here if we can figure it out
-
-
+Now let's design our grid with the following parameters:
 
 ~~~
-abline <- st_read("data/abline.gpkg")
-~~~
-{: .language-r}
-
-
-
-~~~
-Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
-Simple feature collection with 1 feature and 1 field
-geometry type:  LINESTRING
-dimension:      XY
-bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
-epsg (SRID):    4326
-proj4string:    +proj=longlat +datum=WGS84 +no_defs
-~~~
-{: .output}
-
-
-
-~~~
-abline_utm <- st_transform_utm(abline)
+width_in_meters = 24 # width of grids is 24 meters
+long_direction = 'NS' # WAIT
+short_directon = 'EW' # WAIT
+length_in_ft = 180 # in feet
 ~~~
 {: .language-r}
+
+We'll use our `make_grids` function to 
 
 
 
@@ -241,4 +234,4 @@ Error in FUN(X[[i]], ...): object 'long' not found
 ~~~
 {: .error}
 
-<img src="../fig/rmd-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
