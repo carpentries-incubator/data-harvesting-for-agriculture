@@ -21,237 +21,243 @@ source: Rmd
 
 
 
-Now we will design our own experiments to do on our plots. The only files we will need for the trial design are the boundary file, and ab line.
+> ## Trial Design
+> Now we will design our own experiments on the field. The only files we will need for the trial design are the boundary file and ab line.
+> 
+{: .callout}
 
-<!-- JPN: add in if we have time: In addition, as long as we know the actual direction the machines
-will be driven on the field, we can create our own AB line with a function. -->
+> ## Read and transform shape files
+> 
+> We will start by reading in the shape files we need like we've been doing for the last few episodes:
+> 
+> ~~~
+> boundary <- st_read("data/boundary.gpkg") # read in boundary
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Reading layer `boundary' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/boundary.gpkg' using driver `GPKG'
+> Simple feature collection with 2 features and 1 field
+> geometry type:  MULTIPOLYGON
+> dimension:      XY
+> bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
+> epsg (SRID):    4326
+> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> abline <- st_read("data/abline.gpkg") # read in AB line
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
+> Simple feature collection with 1 feature and 1 field
+> geometry type:  LINESTRING
+> dimension:      XY
+> bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
+> epsg (SRID):    4326
+> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+> ~~~
+> {: .output}
+> 
+{: .callout}
 
-## Read and transform shape files
+> Now let's check the coordinate references of our two files:
+> 
+> ~~~
+> st_crs(boundary)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Coordinate Reference System:
+>   EPSG: 4326 
+>   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> st_crs(abline)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Coordinate Reference System:
+>   EPSG: 4326 
+>   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+> ~~~
+> {: .output}
+> Since both of these are in lat/long and we want them in UTM, we'll transform them:
+> 
+> 
+> ~~~
+> boundary_utm <- st_transform_utm(boundary)
+> abline_utm <- st_transform_utm(abline)
+> ~~~
+> {: .language-r}
+> 
+{: .callout}
 
-We will start by reading in the shape files we need like we've been doing for the last few episodes:
+> ## Designing trials
+> 
+> We need decide on the details of experiment design before we get into any of the code.  Relative parameters we need for the trial design include:
+>  * plot dimensions
+>  * number of treatments
+>  * types of treatments, and
+>  * treatment range.
+> 
+> First, we need a file of a boundary without any other sections. In this case, the boundary file already has headlands, but the trial design will create new headlands. Thus, we first remove the existing ones:
+> 
+> 
+> ~~~
+> trialarea <- subset(boundary_utm, Type == "Trial")
+> ~~~
+> {: .language-r}
+> 
+{: .callout}
 
-~~~
-boundary <- st_read("data/boundary.gpkg") # read in boundary
-~~~
-{: .language-r}
+> ## Defining Parameters
+> In the following code, we are simply going to assign values to all the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not to worry about the consistency for the whole code.
+> 
+> Now let's design our grid with the following parameters:
+> 
+> ~~~
+> width_in_meters = 24 # width of grids is 24 meters
+> long_direction = 'NS' # direction of grid that will be long
+> short_direction = 'EW' # direction of grid that will be short
+> length_in_ft = 180 # length of grids in feet
+> ~~~
+> {: .language-r}
+> 
+{: .callout}
 
+> ## Make Grids
+> We'll use our `make_grids` again function to generate this trial's grid:
+> 
+> ~~~
+> width <- m_to_ft(24) # convert meters to feet
+> design_grids_utm <- make_grids(trialarea, abline_utm,
+>              long_in = long_direction,
+> 			       short_in = short_direction,
+> 			       length_ft = length_in_ft,
+> 			       width_ft = width)
+> ~~~
+> {: .language-r}
+> Next we want to make sure the coordinate reference frame of our `trialarea` is the same as our `design_grids_utm` grids and then take the intersection of these grids with our trial area as we did previously:
+> 
+> ~~~
+> st_crs(design_grids_utm) <- st_crs(trialarea)
+> trial_grid <- st_intersection(trialarea, design_grids_utm)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Warning: attribute variables are assumed to be spatially constant throughout all
+> geometries
+> ~~~
+> {: .error}
+> 
+> Let's check out what our trial subplots look like:
+> 
+> ~~~
+> tm_shape(trial_grid) + tm_borders(col='blue')
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> 
+{: .callout}
 
+> ## Determining subplot treatments
+> 
+> Now that we have the trial design plots, we need to assign different treatments to each plot.  We can use the `treat_assign` function from `functions.R` to randomly assign seed rates and nitrogen rates to each plot on our grid.
+> 
+> We'll select 4 different seed rates and 4 different nitrogen rates to deposit randomly on our grid:
+> 
+> ~~~
+> seed_rates <- c(31000, 34000, 37000, 40000)
+> nitrogen_rates <- c(160,200,225,250)
+> ~~~
+> {: .language-r}
+> The `seed_quo` and `nitrogen_quo` are the rates that will be applied to the headlands that are not part of the trial.
+> 
+> ~~~
+> seed_quo <- 37000
+> nitrogen_quo <- 225
+> ~~~
+> {: .language-r}
+> 
+{: .callout}
 
-~~~
-Reading layer `boundary' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/boundary.gpkg' using driver `GPKG'
-Simple feature collection with 2 features and 1 field
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
-epsg (SRID):    4326
-proj4string:    +proj=longlat +datum=WGS84 +no_defs
-~~~
-{: .output}
+> # Generating Treatment Map
+> We are now ready to generate our treatment plot:
+> 
+> ~~~
+> whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
+>                            seed_treat_rates = seed_rates,
+> 			   nitrogen_treat_rates = nitrogen_rates,
+> 			   seed_quo = seed_quo,
+> 			   nitrogen_quo = nitrogen_quo)
+> ~~~
+> {: .language-r}
+> 
+{: .callout}
 
-
-
-~~~
-abline <- st_read("data/abline.gpkg") # read in AB line
-~~~
-{: .language-r}
-
-
-
-~~~
-Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
-Simple feature collection with 1 feature and 1 field
-geometry type:  LINESTRING
-dimension:      XY
-bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
-epsg (SRID):    4326
-proj4string:    +proj=longlat +datum=WGS84 +no_defs
-~~~
-{: .output}
-
-<!-- JPN: here is where we can have a popout "what if no abline file" -->
-<!-- JPN: add if time
-### make our own AB line if you do not already have one
-ABline stuff creation here if we can figure it out
--->
-
-
-Now let's check the coordinate references of our two files:
-
-~~~
-st_crs(boundary)
-~~~
-{: .language-r}
-
-
-
-~~~
-Coordinate Reference System:
-  EPSG: 4326 
-  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
-~~~
-{: .output}
-
-~~~
-st_crs(abline)
-~~~
-{: .language-r}
-
-
-
-~~~
-Coordinate Reference System:
-  EPSG: 4326 
-  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
-~~~
-{: .output}
-
-Since both of these are in lat/long and we want them in UTM, we'll transform them:
-
-
-~~~
-boundary_utm <- st_transform_utm(boundary)
-~~~
-{: .language-r}
-
-
-~~~
-abline_utm <- st_transform_utm(abline)
-~~~
-{: .language-r}
-
-
-## Designing trials
-
-We need decide on the experiment design before we get into any of the code.  Relative parameters we need for the trial design includes:
- * plot dimension
- * number of treatments
- * types of treatments, and
- * treatment range.
-
-In the following code, we are simply going to assign values to all
-the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not
-to worry about the consistency for the whole code.
-
-First, we want to make sure we don't plan any trials on the "Headlands", so let's make sure we only take the "Trial" portion of our shapefile:
-
-
-~~~
-trialarea <- subset(boundary_utm, Type == "Trial")
-~~~
-{: .language-r}
-
-Now let's design our grid with the following parameters:
-
-~~~
-width_in_meters = 24 # width of grids is 24 meters
-long_direction = 'NS' # direction of grid that will be long
-short_direction = 'EW' # direction of grid that will be short
-length_in_ft = 180 # length of grids in feet
-~~~
-{: .language-r}
-
-We'll use our `make_grids` again function to generate this trial's grid:
-
-~~~
-width <- m_to_ft(24) # convert meters to feet
-design_grids_utm <- make_grids(trialarea, abline_utm,
-                               long_in = long_direction,
-			       short_in = short_direction,
-			       length_ft = length_in_ft,
-			       width_ft = width)
-~~~
-{: .language-r}
-Next we want to make sure the coordinate reference frame of our `trialarea` is the same as our `design_grids_utm` grids and then take the intersection of these grids with our trial area as we did previously:
-
-~~~
-st_crs(design_grids_utm) <- st_crs(trialarea)
-trial_grid <- st_intersection(trialarea, design_grids_utm)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: attribute variables are assumed to be spatially constant throughout all
-geometries
-~~~
-{: .error}
-
-Let's check out what our trial subplots look like:
-
-~~~
-tm_shape(trial_grid) + tm_borders(col='blue')
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
-
-## Determining subplot treatments
-
-Now that we have the trial design plots, we need to assign different treatments to each plot.  We can use the `treat_assign` function from `functions.R` to randomly assign seed rates and nitrogen rates to each plot on our grid.
-
-We'll select 4 different seed rates and 4 different nitrogen rates to deposit randomly on our grid:
-
-~~~
-seed_rates <- c(31000, 34000, 37000, 40000)
-nitrogen_rates <- c(160,200,225,250)
-~~~
-{: .language-r}
-<font color="magenta">I do not know what seed_quo and nitrogen_quo are</font>
-
-~~~
-seed_quo <- 37000
-nitrogen_quo <- 225
-~~~
-{: .language-r}
-
-We are now ready to generate our treatment plot:
-
-~~~
-whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
-                           seed_treat_rates = seed_rates,
-			   nitrogen_treat_rates = nitrogen_rates,
-			   seed_quo = seed_quo,
-			   nitrogen_quo = nitrogen_quo)
-~~~
-{: .language-r}
-
-Let's look at what our trial looks like.  First, as a shape file:
-
-~~~
-head(whole_plot)
-~~~
-{: .language-r}
-
-
-
-~~~
-Simple feature collection with 6 features and 4 fields
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: 342027 ymin: 4523153 xmax: 342050.3 ymax: 4523297
-epsg (SRID):    32617
-proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
-   id treat_type NRATE SEEDRATE                           geom
-1 ID1          3   160    37000 POLYGON ((342050.1 4523262,...
-2 ID2         12   225    40000 POLYGON ((342050.1 4523262,...
-3 ID3         12   225    40000 POLYGON ((342049.8 4523208,...
-4 ID4         13   250    31000 POLYGON ((342049.8 4523208,...
-5 ID5          5   200    31000 POLYGON ((342049.5 4523153,...
-6 ID6          5   200    31000 POLYGON ((342049.5 4523153,...
-~~~
-{: .output}
-And as plots:
-
-~~~
-nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
-seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
-treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
-treatment_plot_comp
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+> ## Mapping Trial
+> Let's look at what our trial looks like.  First, as a shape file:
+> 
+> ~~~
+> head(whole_plot)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Simple feature collection with 6 features and 4 fields
+> geometry type:  POLYGON
+> dimension:      XY
+> bbox:           xmin: 342027 ymin: 4523153 xmax: 342050.3 ymax: 4523297
+> epsg (SRID):    32617
+> proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
+>    id treat_type NRATE SEEDRATE                           geom
+> 1 ID1          9   225    31000 POLYGON ((342050.1 4523262,...
+> 2 ID2          8   200    40000 POLYGON ((342050.1 4523262,...
+> 3 ID3          4   160    40000 POLYGON ((342049.8 4523208,...
+> 4 ID4          9   225    31000 POLYGON ((342049.8 4523208,...
+> 5 ID5         11   225    37000 POLYGON ((342049.5 4523153,...
+> 6 ID6          3   160    37000 POLYGON ((342049.5 4523153,...
+> ~~~
+> {: .output}
+> And as plots:
+> 
+> ~~~
+> nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
+> seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+> treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
+> treatment_plot_comp
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
+> 
+{: .callout}
 
 <!-- JPN takes out
 
@@ -278,12 +284,12 @@ bbox:           xmin: 342027 ymin: 4523153 xmax: 342050.3 ymax: 4523297
 epsg (SRID):    32617
 proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
    id treat_type NRATE SEEDRATE                           geom
-1 ID1          7   200    37000 POLYGON ((342050.1 4523262,...
-2 ID2         16   250    40000 POLYGON ((342050.1 4523262,...
-3 ID3         15   250    37000 POLYGON ((342049.8 4523208,...
-4 ID4          9   225    31000 POLYGON ((342049.8 4523208,...
-5 ID5          9   225    31000 POLYGON ((342049.5 4523153,...
-6 ID6          4   160    40000 POLYGON ((342049.5 4523153,...
+1 ID1          1   160    31000 POLYGON ((342050.1 4523262,...
+2 ID2         10   225    34000 POLYGON ((342050.1 4523262,...
+3 ID3         13   250    31000 POLYGON ((342049.8 4523208,...
+4 ID4          2   160    34000 POLYGON ((342049.8 4523208,...
+5 ID5         14   250    34000 POLYGON ((342049.5 4523153,...
+6 ID6          5   200    31000 POLYGON ((342049.5 4523153,...
 ~~~
 {: .output}
 The function will automatically take out 
@@ -318,5 +324,5 @@ Error in FUN(X[[i]], ...): object 'long' not found
 ~~~
 {: .error}
 
-<img src="../fig/rmd-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
 -->
