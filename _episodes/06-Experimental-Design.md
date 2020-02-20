@@ -21,14 +21,18 @@ source: Rmd
 
 
 
-<font color="magenta">Words about what we are actually doing go here</font>
+Now we will design our own experiments to do on our plots.  
+The only files we need for the trial design are the boundary file, and ab line.
 
-The only files we need for the trial design are the boundary file, and ab line. In addition, as long as we know the actual direction the machines
-will be driven on the field, we can create our own AB line with a function.
+<!-- JPN: add in if we have time: In addition, as long as we know the actual direction the machines
+will be driven on the field, we can create our own AB line with a function. -->
 
+## Read and transform shape files
+
+We will start by reading in the shape files we need like we've been doing for the last few episodes:
 
 ~~~
-boundary.sfdf <- st_read("data/boundary.gpkg")
+boundary <- st_read("data/boundary.gpkg") # read in boundary
 ~~~
 {: .language-r}
 
@@ -48,24 +52,88 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 
 
 ~~~
-boundary.utm <- st_transform_utm(boundary.sfdf)
+abline <- st_read("data/abline.gpkg") # read in AB line
 ~~~
 {: .language-r}
 
 
 
-#####Field Management Info Above
+~~~
+Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
+Simple feature collection with 1 feature and 1 field
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+~~~
+{: .output}
+
+<!-- JPN: here is where we can have a popout "what if no abline file" -->
+
+Now let's check the coordinate references of our two files:
+
+~~~
+st_crs(boundary)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+~~~
+{: .output}
+
+~~~
+st_crs(abline)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+~~~
+{: .output}
+
+Since both of these are in lat/long and we want them in UTM, we'll transform them:
+
+
+~~~
+boundary_utm <- st_transform_utm(boundary)
+~~~
+{: .language-r}
+
+
+~~~
+abline_utm <- st_transform_utm(abline)
+~~~
+{: .language-r}
+
+
+
+
+
+##### Field Management Info Above
 We need decide on the experiment design before we get into any of the code, relative parameters we need for the trial design includes: plot dimension, number of treatments, types of treatments, and treatment range. In the following code, we are simply going to assign values to all
 the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not
 to worry about the consistency for the whole code.
 
 ~~~
-trialarea <- subset(boundary.utm, Type == "Trial")
+trialarea <- subset(boundary_utm, Type == "Trial")
 ~~~
 {: .language-r}
 
 
-###make our own AB line if you do not already have one
+### make our own AB line if you do not already have one
+ABline stuff creation here if we can figure it out
+
+
 
 ~~~
 abline <- st_read("data/abline.gpkg")
@@ -130,7 +198,18 @@ map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
 {: .language-r}
 
 <img src="../fig/rmd-assigning treatment rates-1.png" title="plot of chunk assigning treatment rates" alt="plot of chunk assigning treatment rates" width="612" style="display: block; margin: auto;" />
+
+~~~
 plot(newfield$geom)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in plot(newfield$geom): object 'newfield' not found
+~~~
+{: .error}
 
 
 ~~~
@@ -146,8 +225,20 @@ plot(newfield$geom)
 
 
 ###eg plot
-  
+
+
+~~~
 ggplot(data = whole_plot, aes(x=long,y=lat,group=group)) +
   geom_polygon(aes(fill=factor(NRATE))) +
   scale_fill_brewer(palette = 'Greens') 
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in FUN(X[[i]], ...): object 'long' not found
+~~~
+{: .error}
+
+<img src="../fig/rmd-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />

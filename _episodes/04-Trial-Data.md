@@ -409,7 +409,9 @@ proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 > {: .solution} 
 {: .challenge}
 
+<!--
 <font color="magenta">JPN: there aren't any plots showing up for the Solution plot and i get a legends too wide error.  In subsequent plots it looks like tgts and tgtn don't show up as well.  I had the same problem in RStudio as well.</font>
+-->
 
 > ## Planting files
 > 
