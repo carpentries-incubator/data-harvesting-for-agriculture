@@ -21,25 +21,23 @@ objectives:
 keypoints:
  - sf is prefereable for data analysis; it is easier to access the dataframe
  - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
- - Different data formats that you are likely to encounter include gpkg, shp (cpg, dbf, prj, sbn, sbx), geojson, and tif **Dena: We don't discuss most of these in the lesson - tweak description or add overview?**
+ - Different data formats that you are likely to encounter include gpkg, shp (cpg, dbf, prj, sbn, sbx), geojson, and tif 
 source: Rmd
 ---
+<!-- Dena: We don't discuss most of those data formats - add info or tweak description? -->
 
 
 
 
 > ## Introducing Spatial Data with SSURGO data
 >
-> **Dena: This would be a good point for an "We're starting with a bunch of miscellanous files and by the end of this lesson here's the things you'll be able to do with them" overview? Rough notes below, they just aren't pre-bolded...**
-> 
-> **Spatial data can be stored in many different ways, and an important part of using your farm's data will involve understanding what format your data is already in and what format another program needs it to be in. During the course of this lesson, we'll learn:
+> Spatial data can be stored in many different ways, and an important part of using your farm's data will involve understanding what format your data is already in and what format another program needs it to be in. During the course of this lesson, we'll learn:
 > 
 > * How to identify which coordinate reference system a data file is using
 > * How, when, and why to transform data from the WGS84 standard to the UTM standard (or vice versa)
 > * How to save the transformed data as a new file
 > * Some ways of creating visualizations from your data
 > * How to get key soil type data for your farm from the publicly available SSURGO database
-> **/end add?**
 > 
 {: .callout}
 
@@ -146,8 +144,8 @@ For reprojecting spatial data, the function `st_transform()` uses an ESPG code t
 > 
 {: .callout}
 
-**Dena: I feel like this is a fantastic place to have an exercise with the name and/or first few lines of a file of each
-type to ask them to look at them and identify which is which and describe what that means, to check understanding?**
+<!-- **Dena: I feel like this is a fantastic place to have an exercise with the name and/or first few lines of a file of each
+type to ask them to look at them and identify which is which and describe what that means, to check understanding?** -->
 
 > #### Transforming
 > 
@@ -169,10 +167,10 @@ type to ask them to look at them and identify which is which and describe what t
 > {: .output}
 > 
 {: .callout}
-**Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?**
+<!-- **Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?** -->
 
 > ## Exercise: Exploring Geospatial Files
-> 1. Bring the file called "asplanted.gpkg" **Dena: add (from the data subdirectory of your WorkingDir) ?** in your environment. Name the object `planting`. This file contains the planting information for 2017.
+> 1. Bring the file called "asplanted.gpkg" (from the data subdirectory of your WorkingDir) in your environment. Name the object `planting`. This file contains the planting information for 2017.
 > 2. Identify the CRS of the object. 
 > 3. Look at the geometry features. What kind of geometric features are in this dataset?
 > 4. Transform the file to UTM or Lat/Long, depending on the current CRS.
@@ -296,7 +294,7 @@ type to ask them to look at them and identify which is which and describe what t
 
 > ## .gpkg vs. .shp files
 > You can save the file as a .gpkg or .shp file. The advantage of a .gpkg file is that you only save one file rather than four files in a shapefile. Because shapefiles contain multiple files, they can be corrupted if one piece is missing. One example is a .prj file. In this case, the shapefile will have no CRS, and you will need to determine the CRS of the object. You will often need to transform a file from UTM to lat/long and save the new file during trial design, so this is an important step.
-> One common problem with these files is that when you try to open a .gpkg file for the first time in R, it might not work if you haven't opened it in QGIS before. **Dena: Is this something to mention here, or should it go in the section where we're opening things with QGIS?**
+> One common problem with these files is that when you try to open a .gpkg file for the first time in R, it might not work if you haven't opened it in QGIS before. <!-- **Dena: Is this something to mention here, or should it go in the section where we're opening things with QGIS?** -->
 > 
 {: .callout} 
 
@@ -324,8 +322,8 @@ type to ask them to look at them and identify which is which and describe what t
 > 
 {: .callout} 
 
-**Dena: Is this their first detailed picture? Maybe pause to discuss what types of boundaries they might find useful and
-the theory of how to do them?**
+<!-- **Dena: Is this their first detailed picture? Maybe pause to discuss what types of boundaries they might find useful and
+the theory of how to do them?** -->
 
 > ## SSURGO Soil Data
 > 
@@ -515,14 +513,14 @@ the theory of how to do them?**
 > 
 > 
 > ~~~
-> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpnMNZi3/file204e3f850bd4.gpkg
+> writing first to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpZerihF/fileb26011b3c103.gpkg
 > ~~~
 > {: .output}
 > 
 > 
 > 
 > ~~~
-> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpnMNZi3/file204e3f850bd4.gpkg' using driver `GPKG'
+> Updating layer `ssurgo' to data source `/var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpZerihF/fileb26011b3c103.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 14 features with 43 fields and geometry type Multi Polygon.
 > ~~~
@@ -578,7 +576,7 @@ the theory of how to do them?**
 > 
 > 
 > ~~~
-> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpnMNZi3/file204e3f850bd4.gpkg
+> Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES"): failed writing to temporary file /var/folders/t5/9xgccmv92hnfvjwd62mk8zqh0000gn/T//RtmpZerihF/fileb26011b3c103.gpkg
 > ~~~
 > {: .error}
 > 
