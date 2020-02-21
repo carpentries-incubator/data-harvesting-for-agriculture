@@ -564,7 +564,7 @@ The resulting grid is seen below:
 > ggplot() +
 >   geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Elevation_), size = 0.5, se=FALSE) +
 >   ylab('Yield (kg/ha)') +
->   xlab('Seed (k/ha)') + 
+>   xlab('Elevation') + 
 >   theme_grey(base_size = 12)
 > ~~~
 > {: .language-r}
@@ -576,7 +576,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .error}
 > 
-> <img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-jpnt23405-1.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > ggplot() +
@@ -594,7 +594,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .error}
 > 
-> <img src="../fig/rmd-unnamed-chunk-32-2.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-jpnt23405-2.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > ggplot() +
@@ -612,7 +612,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .error}
 > 
-> <img src="../fig/rmd-unnamed-chunk-32-3.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-jpnt23405-3.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 >
 >
 >
@@ -625,5 +625,5 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 {: .callout}

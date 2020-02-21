@@ -356,12 +356,12 @@ The resulting grid is seen below:
 > * xlab and ylab are the names you want displayed for the variables
 > 
 > The other options do not need to be changed when you go to use the function on other datasets. 
-> ```{r}
+> ```{r jpnt23405}
 > 
 > ggplot() +
   geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Elevation_), size = 0.5, se=FALSE) +
   ylab('Yield (kg/ha)') +
-  xlab('Seed (k/ha)') + 
+  xlab('Elevation') + 
   theme_grey(base_size = 12)
 > 
 > ggplot() +
