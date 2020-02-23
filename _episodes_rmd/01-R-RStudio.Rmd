@@ -54,7 +54,7 @@ In order to make breakfast, you need:
  * A **destination** (where to put the food that’s ready to be consumed)
      * You could put your outputs in your working directory (eat breakfast in your kitchen) or you could send it to another location (put leftovers in the refrigerator)
 
-<img src='../fig/1-breakfast.png' width="70%">
+<img src='../figure/1-breakfast.png' width="70%">
 <span class="attribution"><a href="https://www.flickr.com/photos/11849171@N00/8330968310">"Breakfast"</a> by <a href="https://www.flickr.com/photos/11849171@N00/8330968310">viviandnguyen_</a> is licensed under <a href="https://www.flickr.com/photos/11849171@N00/8330968310">CC BY-SA 2.0</a></span>
 
 
@@ -71,15 +71,15 @@ We launch RStudio by double clicking on its icon, as we would with other softwar
 > ## Windows Users: Click Here for more details
 > If you’re running R Studio from a copy made from the USB stick, then the first time you launch R Studio, you’ll be asked where your installation of R is located.
 > 1. Choose the “Choose a specific version of R” item next to the large text box.
-> <img src="../fig/1-Win-Rstudio-firstlaunch.png" width="70%">
+> <img src="../figure/1-Win-Rstudio-firstlaunch.png" width="70%">
 > 2. Use the **Browse** button to navigate to:
 >    * **DataHarvestingWin/ProgramFiles/R/R-3.6.2/bin/**
 >    * and choose **Select Folder**.
-> <img src="../fig/1-Win-Rstudio-folderpick.PNG" width="70%">
+> <img src="../figure/1-Win-Rstudio-folderpick.PNG" width="70%">
 > Next, you’ll be prompted which version you want to use. You could choose either 32 bit or 64 bit; either should work, but 64 bit is likely to be what your computer is capable of.
-> <img src="../fig/1-Win-Rstudio-choosewhich.PNG" width="70%">
+> <img src="../figure/1-Win-Rstudio-choosewhich.PNG" width="70%">
 > In the image below, the 64 bit version has been chosen and you can now press OK.
-> <img src="../fig/1-Win-Rstudio-pickedfolder.PNG" width="70%">
+> <img src="../figure/1-Win-Rstudio-pickedfolder.PNG" width="70%">
 > You'll be prompted to restart R Studio; double click the launch icon again.
 > At this point, R Studio should open next.
 >
@@ -94,8 +94,8 @@ In this lesson, we will be making use of another software called "RStudio" as a 
 We launch RStudio by double clicking on its icon, as we would with other software on our computers.  If this is the first time you have opened it, the entire left pane will be taken up by something called the `Console` that you can see as the left hand panel in the figure below: -->
 
 
-<!-- ![starting R studio](../fig/Rstudio_blank.png) -->
-<img src="../fig/Rstudio_blank.png" width="80%">
+<!-- ![starting R studio](../figure/Rstudio_blank.png) -->
+<img src="../figure/Rstudio_blank.png" width="80%">
 
 <!--
 <font color="magenta"> **Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? </font><font color="green">Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
@@ -113,11 +113,11 @@ Let’s get our “countertop” ready to “cook breakfast” by:
 Under the **Session** menu, choose **Set Working Directory**, then **Choose Directory**.
 
 > ## Windows Users: Click Here for more details
-> <img src="../fig/2-RStudio-setworkingdir1.PNG" width="70%">
+> <img src="../figure/2-RStudio-setworkingdir1.PNG" width="70%">
 > In each software collection on the USB drive, we’ve made subdirectories called **WorkingDir** with another subdirectory called **data**. (Even if you’ve installed from scratch rather than copying from the USB drive, the instructions will be easier to follow if you have a folder called **WorkingDir** that contains another one called **data**.)
 > 
 > So if you’re using our file collection after copying it to your local hard drive on Windows, choosing your working directory will look like this:
-> <img src="../fig/2-RStudio-setworkingdir2.PNG" width="70%">
+> <img src="../figure/2-RStudio-setworkingdir2.PNG" width="70%">
 >
 > (If you’re running from the USB drive, the drive letter there will likely say D instead of C, but the rest will be the same.)
 >
@@ -125,16 +125,16 @@ Under the **Session** menu, choose **Set Working Directory**, then **Choose Dire
 
 
 <!-- JPN: use this if workingDir is not created yet THEY WILL HAVE TO PUT DATA IN BY HAND
-<img src="../fig/set_wd_mac_workingDir.png" width="70%">
-<img src="../fig/set_wd_mac_open.png" width="70%">
+<img src="../figure/set_wd_mac_workingDir.png" width="70%">
+<img src="../figure/set_wd_mac_open.png" width="70%">
 -->
 
 > ## Mac Users: Click Here for more details
-> <img src="../fig/set_wd_mac.png" width="70%">
+> <img src="../figure/set_wd_mac.png" width="70%">
 > Selecting the **WorkingDir** file where we've copied the scripts and **data** directory.
-> <img src="../fig/set_wd_mac_wdIsthere.png" width="70%">
+> <img src="../figure/set_wd_mac_wdIsthere.png" width="70%">
 > Once selected, click **Open**.  Once you have your directory set you should see a `setwd` command show up in the console of RStudio:
-> <img src="../fig/set_wd_mac_final.png" width="70%">
+> <img src="../figure/set_wd_mac_final.png" width="70%">
 >
 >
 {: .windowsUsers}
@@ -168,13 +168,13 @@ So with this set of instructions, we’re telling R that we want a set of publis
  1. Save the file as **package_load_and_test.R** in your working directory so that you’ll be able to use it again. 
  1. Run each line by selecting it and clicking the **Run** key. Each test should let you know whether an error was encountered in the loading process.
 
-<img src="../fig/wininstall6-rstudiolibraryload.png" width="70%">
+<img src="../figure/wininstall6-rstudiolibraryload.png" width="70%">
 
 After you’ve finished with the library loading part of the script, the testing part of the script should make sure each library component is working. 
 
 Just as above, select what you want to run and click the Run button. (Tip: Select everything between pairs of green # lines to run one test at a time and see its output.)
 
-<img src="../fig/wininstall7-rstudiotmaptest.png" width="70%">
+<img src="../figure/wininstall7-rstudiotmaptest.png" width="70%">
 
 ### Sourcing functions for this workshop
 
@@ -188,7 +188,7 @@ Instead of using the “library” command, though, we’ll use the “source”
  1. Save it as **functions.R** in your working directory.
  1. Click the **Source** button near the top right of your script window to load these functions as well.
 
-<img src="../fig/3-Rstudio-source.png" width="70%">
+<img src="../figure/3-Rstudio-source.png" width="70%">
 
 **Tip:** You’ll want to re-run the library loading script and re-source the functions script whenever you restart R Studio, so remember to re-open them tomorrow morning!
 
