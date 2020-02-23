@@ -37,7 +37,7 @@ source: Rmd
 {: .textchunk}
 
 > # Using daymetr to download weather
-> Let's first start by using the function `read_sf` to load in the boundary file for our plot of land. The function `read_sf` is like the `read.csv` function we used previously to lead data, but it is designed for shape-files (hence the `sf` in its name):
+> Let's first start by using the function `read_sf` to load in the boundary file for our plot of land. The function `read_sf` is like the `read.csv` function we used previously to lead data, but it is designed to read in shapefiles with a simple formatting (hence the `sf` in its name for "simple figure"):
 > 
 > ~~~
 > boundary <- read_sf("data/boundary.gpkg")
