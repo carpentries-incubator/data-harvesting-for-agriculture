@@ -23,7 +23,7 @@ source: Rmd
 
 
 
-> # Daymet Weather Data
+> ### Daymet Weather Data
 > 
 > The Oak Ridge National Laboratory produces a datset called Daymet which contains predicted
 > weather observations on a one meter grid. These data come from weather station climate 
@@ -34,7 +34,7 @@ source: Rmd
 > For a single point, you can use the command `download_daymet()`.
 > (If you want to download the data for a set of points, there is also the command `download_daymet_batch()` which takes an argument a .csv of the points in lat/long. If you want to use this approach, we can give you an example.) 
 > 
-{: .callout}
+{: .textchunk}
 
 > # Using daymetr to download weather
 > Let's first start by using the function `read_sf` to load in the boundary file for our plot of land. The function `read_sf` is like the `read.csv` function we used previously to lead data, but it is designed for shape-files (hence the `sf` in its name):
