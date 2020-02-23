@@ -10,6 +10,7 @@ $color-brand:       #2b3990 !default;
 
 // code boxes
 $color-error:       #bd2c00 !default;
+$color-warning:     #bd6500 !default;
 $color-output:      #303030 !default;
 $color-source:      #6e5494 !default;
 
@@ -40,6 +41,7 @@ $color-windowsUsers: #fc8dc1 !default;
 }
 
 .error  { @include cdSetup($color-error); }
+.warning  { @include cdSetup($color-warning); }
 .output { @include cdSetup($color-output); }
 .source { @include cdSetup($color-source); }
 
@@ -51,6 +53,7 @@ $color-windowsUsers: #fc8dc1 !default;
 .sql, .language-sql       { @include cdSetup($color-source); }
 
 .error::before,
+.warning::before,
 .output::before,
 .source::before,
 .bash::before, .language-bash::before,
@@ -65,7 +68,8 @@ $color-windowsUsers: #fc8dc1 !default;
   padding: 5px 10px;
 }
 
-.error::before  { background-color: #ffebe6; content: "Caution"; }
+.error::before  { background-color: #ffebe6; content: "Error"; }
+.warning::before { background-color: #fff6e6; content: "Warning"; }
 .output::before { background-color: #efefef; content: "Output"; }
 .source::before { content: "Code"; }
 .bash::before, .language-bash::before { content: "Bash"; }

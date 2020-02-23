@@ -188,7 +188,7 @@ source("./functions.R")
 > ```
 > 
 > This looks a lot more sensible!  We can double check by looking at our final, cleaned yield map:
-> ```{r}
+> ```{r yieldCleanPlot}
 > yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
 > yield_plot_clean
 > ```
@@ -225,7 +225,7 @@ the mean.
 > > nitrogen_clean_border <- clean_buffer(trial_utm, 1, nitrogen_utm)
 > > ```
 > > Check out our progress with a plot:
-> > ```{r}
+> > ```{r nitrogenCompPlot}
 > > nitrogen_plot_orig <- map_points(nitrogen_utm, "Rate_Appli", "Nitrogen, Orig")
 > > nitrogen_plot_border_cleaned <- map_points(nitrogen_clean_border, "Rate_Appli", "Nitrogen, No Borders")
 > > nitrogen_plot_comp <- tmap_arrange(nitrogen_plot_orig, nitrogen_plot_border_cleaned, ncol = 2, nrow = 1)
