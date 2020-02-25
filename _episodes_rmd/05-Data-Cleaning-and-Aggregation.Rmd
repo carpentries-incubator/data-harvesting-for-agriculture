@@ -61,15 +61,15 @@ source("./functions.R")
 > 
 > The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
 > 
-> ```{r boundary}
+> ```{r}
 > boundary <- read_sf("data/boundary.gpkg")
 > ```
 > What is the current coordinate reference system of this object?
-> ```{r boundary2}
+> ```{r}
 > st_crs(boundary)
 > ```
 > Let's transform it to the UTM projection & check out its new coordinate reference system:
-> ```{r boundary3}
+> ```{r}
 > boundary_utm <- st_transform_utm(boundary)
 > st_crs(boundary_utm)
 > ```
