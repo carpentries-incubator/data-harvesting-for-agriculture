@@ -68,7 +68,7 @@ source("functions.R")
 > Since both of these are in lat/long and we want them in UTM, we'll transform them:
 > 
 > ```{r}
-> boundary_utm <- st_transform_utm(boundary)
+> trialarea <- st_transform_utm(boundary)
 > abline_utm <- st_transform_utm(abline)
 > ```
 > 
@@ -81,12 +81,6 @@ source("functions.R")
 >  * number of treatments
 >  * types of treatments, and
 >  * treatment range.
-> 
-> First, we need a file of a boundary without any other sections. In this case, the boundary file already has headlands, but the trial design will create new headlands. Thus, we first remove the existing ones:
-> 
-> ```{r}
-> trialarea <- subset(boundary_utm, Type == "Trial")
-> ```
 > 
 {: .callout}
 
