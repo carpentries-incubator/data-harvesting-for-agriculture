@@ -115,7 +115,7 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 > 
 > ## As-Applied File
 > 
-> The nitrogen file contains 22 variables. The nitrogen type of is reported in `Product`, and this field used NH3. We have columns with the applied rate in both gallons (`Rt_Ap_1`) and pounds (`Rt_Appl`). We typically use pounds in order to compare across different nitrogen types.
+> The nitrogen file contains 22 variables. The nitrogen type of is reported in `Product`, and this field used NH3. The column with the applied rate is `Rate_Appli`.
 > 
 > There is not a clear column with the target rate. This is not a problem as we will later merge the trial map and the application map, so we can compare the rate applied to the intended rate.
 > 
@@ -185,7 +185,7 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 {: .callout}
 
 > ## Exercise: Yield Map
-Make a map of the yield in bushels per acre from the `yield` file using `map_points()`. Do you notice anything about the yield map?
+Make a map of the yield in bushels per acre from the `yield` file using `map_points()`. This is a new function to us, but it has the same inputs as `map_poly()` where you supply the data, column name to determine the color, and displayed name. Do you notice anything about the yield map?
 > 
 > > ## Solution
 > > 
@@ -419,7 +419,7 @@ proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 
 > ## Planting files
 > 
-> Now that we've seen the trial designs let's look at the application files. We will make a map of the applied seeing rate and compare it with the target rate. 
+> Now that we've seen the trial designs let's look at the application files. We will make a map of the applied seeding rate and compare it with the target rate. 
 > 
 > Looking at the names in the planting file, there are quite a few columns that look similar. But it appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons, so we will use `map_points()`.  
 > 
@@ -468,7 +468,7 @@ proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 
 > ## Yield and Application Map
 > 
-> We can also do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the affect of the seed or nitrogen rates on yield. 
+> We can also do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the effect of the seed or nitrogen rates on yield. 
 > 
 {: .callout}
 

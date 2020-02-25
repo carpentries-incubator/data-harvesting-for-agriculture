@@ -26,7 +26,7 @@ source("../bin/chunk-options.R")
 
 1. Check which version of Mac OS you have. To do this, click on the Apple icon on the top-left of your screen, then click "About This Mac". A little window should pop up with version information.
 
-<img src="../fig/which_mac_version.png" width="50%">  
+<img src="../figure/which_mac_version.png" width="50%">  
 
 
 2. Make sure that you have about 500 MB of free space on your machine. We will need this space to install both R and RStudio, and when the program installs the compressed files expand to take much more space.  
@@ -45,11 +45,11 @@ R is now **installed** on your computer.
 
 1. Double-click on the R icon in the Applications folder:
 
-<img src="../fig/applications_folder_r.png" width="50%">
+<img src="../figure/applications_folder_r.png" width="50%">
 
 A window titled "R Console" should pop up:
 
-<img src="../fig/R_Console.png" width="40%">  
+<img src="../figure/R_Console.png" width="40%">  
 
 The `>` character is called the prompt and is the place where we enter commands for the program to interpret. For instance, if you type `25+5` followed by the return/enter key, you will see:
 
@@ -57,14 +57,14 @@ The `>` character is called the prompt and is the place where we enter commands 
 25+5
 ```
 
-<img src="../fig/R_console_using.png" width="50%">
+<img src="../figure/R_console_using.png" width="50%">
 
 2. To quit R, call the quit function by going to `File -> Quit R`.
 
 
 R will ask you if you want to save your work:
 
-<img src="../fig/closing_r_dontSAve.png" width="50%">
+<img src="../figure/closing_r_dontSAve.png" width="50%">
 
 Click on "Don't Save". You have now left R.  
 
@@ -79,7 +79,7 @@ We are not going to use R this way often, as we will use an integrated environme
 
 3. Once the file has been downloaded, click on it. A window should pop up:
 
-<img src="../fig/Rstudio_download.png" width="50%">
+<img src="../figure/Rstudio_download.png" width="50%">
 
 Click on the RStudio icon and drag it into the Applications folder. 
 
@@ -91,11 +91,11 @@ RStudio is now **installed** on your computer.
 
 1. Double-click on the RStudio icon in the Applications:
 
-<img src="../fig/applications_folder.png" width="50%">  
+<img src="../figure/applications_folder.png" width="50%">  
 
 A window titled "RStudio" should pop up, looking something like this:
 
-<img src="../fig/rstudio_opened.png" width="75%">
+<img src="../figure/rstudio_opened.png" width="75%">
 
 2. Just as in R, the `>` character in the Console window is where we enter commands for the program to interpret.  You can try entering something there and then hitting the `Enter` key to see:
 
@@ -114,7 +114,7 @@ contents of [this installation script file](https://github.com/data-carpentry-fo
 
 Here's where to make a new script:
 
-<img src="../fig/mac_open_new_script.png" width="50%">
+<img src="../figure/mac_open_new_script.png" width="50%">
 
 * Run each line in this script by selecting it and clicking Run. 
 * Watch for any error messages along the way.
@@ -124,7 +124,7 @@ Here's where to make a new script:
 that were already taken care of on the USB sticks. If you can wait for the USB sticks, you'll have
 a faster way to get up and running.)
 
-<img src="../fig/wininstall5-rstudioinstallscript2.png" width="50%">
+<img src="../figure/wininstall5-rstudioinstallscript2.png" width="50%">
 
 
 ### Checking that the packages installed correctly
@@ -133,11 +133,11 @@ a faster way to get up and running.)
 contents of [the package load and test file](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R). 
 * Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
 
-<img src="../fig/wininstall6-rstudiolibraryload.png" width="50%">
+<img src="../figure/wininstall6-rstudiolibraryload.png" width="50%">
 
 An example of one of the tests' output:
 
-<img src="../fig/wininstall7-rstudiotmaptest.png" width="75%">
+<img src="../figure/wininstall7-rstudiotmaptest.png" width="75%">
 
 
 
@@ -150,11 +150,11 @@ Note: This is a ~1Gb file, so it's likely to take some time to download.
 
 You should see a new icon in your Applications folder:
 
-<img src="../fig/qgis_macInstall_applications.png" width="50%">
+<img src="../figure/qgis_macInstall_applications.png" width="50%">
 
 When you double click QGIS should open up:
 
-<img src="../fig/qgis_macInstall_opened.png" width="75%">
+<img src="../figure/qgis_macInstall_opened.png" width="75%">
 
 
 

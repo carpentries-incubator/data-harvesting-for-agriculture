@@ -42,7 +42,7 @@ source("functions.R")
 
 
 
-> # Daymet Weather Data
+> ### Daymet Weather Data
 > 
 > The Oak Ridge National Laboratory produces a datset called Daymet which contains predicted
 > weather observations on a one meter grid. These data come from weather station climate 
@@ -53,10 +53,10 @@ source("functions.R")
 > For a single point, you can use the command `download_daymet()`.
 > (If you want to download the data for a set of points, there is also the command `download_daymet_batch()` which takes an argument a .csv of the points in lat/long. If you want to use this approach, we can give you an example.) 
 > 
-{: .callout}
+{: .textchunk}
 
 > # Using daymetr to download weather
-> Let's first start by using the function `read_sf` to load in the boundary file for our plot of land. The function `read_sf` is like the `read.csv` function we used previously to lead data, but it is designed for shape-files (hence the `sf` in its name):
+> Let's first start by using the function `read_sf` to load in the boundary file for our plot of land. The function `read_sf` is like the `read.csv` function we used previously to lead data, but it is designed to read in shapefiles with a simple formatting (hence the `sf` in its name for "simple figure"):
 > ```{r firstBoundary}
 > boundary <- read_sf("data/boundary.gpkg")
 > ```
@@ -167,8 +167,9 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 > ## Exercise 2: Unit Conversions
 >
 > There are two temperature columns in our dataset: `tmax..deg.c.` and `tmin..deg.c.` which give the minimum and maximum temperature measured on a particular day.
-> 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()`. The function `c_to_f()` is like the `mm_to_in` column but instead of taking in a precipitation column it takes in a temperature column. 
-> 2. What is the maximum and minimum temperature recorded? (Hint: recall the `min` and `max` functions from the previous episodes)
+> 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()`. The function `c_to_f()` is like the `mm_to_in` column but instead of taking in a precipitation column it takes in a temperature column.
+> 2. Save these to new columns called `tmax` and `tmin`.
+> 3. What is the maximum and minimum temperature recorded? (Hint: recall the `min` and `max` functions from the previous episodes)
 >
 > > ## Exercise 2 Solutions
 > >
@@ -283,14 +284,15 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 
 > ## Exercise 3: Subsetting
 >
-> 1. Find the total precipitation in 2015.
-> 2. Create a subset of `by_month_year` that contain all the years *except* 2018.
+> 1. Find the total precipitation in June of 2015.
+> 2. Create a subset of `by_month_year` that contain all the years *except* 2018.  Call this new variable `monthprec_not_2018`.
 > 
 > > ## Exercise 3 Solution
 > > ```{r}
 > > monthprec_2015 <- subset(by_month_year, year == 2015)
 > > head(monthprec_2015)
 > > ```
+> > We see that the monthly rainfall in June was 7.91 inches. 
 > > and:
 > > ```{r}
 > > monthprec_not_2018 <- subset(by_month_year, year != 2018)
@@ -302,10 +304,11 @@ for each year. This is accomplished in the function as.Date.daymetr(). To see th
 <!--
 <font color="magenta">JPN: Do we need this subsetting here?  Do we ever use `&` again?  We haven't introduced boolean operations at all until right now so we should be sure we actually need it</font>
 -->
-> We see that the monthly rainfall in June was 7.91 inches. We could also find this by taking a subset with the year and month.
+> We could also find this by taking a subset with the year and month:
 > ```{r}
 > subset(by_month_year, year == 2015 & month == "Jun")
 > ```
+> Here we use the `&` to say we want *two different* conditions to be met in our subset. 
 {: .callout}
 
 > # Take the average of monthly rainfall

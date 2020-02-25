@@ -154,8 +154,8 @@ type to ask them to look at them and identify which is which and describe what t
 > {: .solution} 
 {: .challenge} 
 
-> ## Exercise Disucssion
-
+> ## Exercise Discussion
+>
 > The cleaned planting file was in WGS84 initially. When we look at the geometry features, they are `r nrow(planting)` points defined in xand y coordinates. Using `st_transform_utm()` we create a new file called `plantingutm` with the CRS of UTM zone 17.
 > 
 {: .callout} 
@@ -247,15 +247,18 @@ the theory of how to do them?** -->
 > 
 {: .callout}
 
+<!-- JPN: this fixed the saving thing below: https://gis.stackexchange.com/questions/327725/st-write-fails-for-object-created-with-st-difference-using-r -->
+
 > ## Merging Dataframes
 > 
-> We need one dataframe with both the soil name and spatial data. We will merge the soil data and the spatial data by the `musym`. Note that in one of the dataframes the variable is capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.
+> We need one dataframe with both the soil name and spatial data. We will merge the soil data and the spatial data by the `musym`. Note that in one of the dataframes the variable is capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.  We also have to do this with the `mukey` variable as well.
 > 
 > ```{r soilmerge}
 > spatial <- as(ssurgo$spatial, "sf")
 > ```
 > ```{r}
 > spatial <- dplyr::rename(spatial, musym = MUSYM)
+> spatial <- dplyr::rename(spatial, mukey = MUKEY)
 > ```
 > ```{r}
 > spatial <- merge(spatial, names, by = "musym")

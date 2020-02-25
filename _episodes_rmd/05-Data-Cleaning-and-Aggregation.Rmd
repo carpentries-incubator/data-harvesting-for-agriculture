@@ -166,7 +166,7 @@ source("./functions.R")
 > 
 > Here again, we also check the distribution of cleaned yield by making a histogram.
 > 
-> ```{r}
+> ```{r tt2jpn2}
 > hist(yield_clean_border$Yld_Vol_Dr)
 > ```
 > Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.
@@ -188,7 +188,7 @@ source("./functions.R")
 > ```
 > 
 > This looks a lot more sensible!  We can double check by looking at our final, cleaned yield map:
-> ```{r}
+> ```{r yieldCleanPlot}
 > yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
 > yield_plot_clean
 > ```
@@ -225,7 +225,7 @@ the mean.
 > > nitrogen_clean_border <- clean_buffer(trial_utm, 1, nitrogen_utm)
 > > ```
 > > Check out our progress with a plot:
-> > ```{r}
+> > ```{r nitrogenCompPlot}
 > > nitrogen_plot_orig <- map_points(nitrogen_utm, "Rate_Appli", "Nitrogen, Orig")
 > > nitrogen_plot_border_cleaned <- map_points(nitrogen_clean_border, "Rate_Appli", "Nitrogen, No Borders")
 > > nitrogen_plot_comp <- tmap_arrange(nitrogen_plot_orig, nitrogen_plot_border_cleaned, ncol = 2, nrow = 1)
@@ -356,12 +356,12 @@ The resulting grid is seen below:
 > * xlab and ylab are the names you want displayed for the variables
 > 
 > The other options do not need to be changed when you go to use the function on other datasets. 
-> ```{r}
+> ```{r jpnt23405}
 > 
 > ggplot() +
   geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Elevation_), size = 0.5, se=FALSE) +
   ylab('Yield (kg/ha)') +
-  xlab('Seed (k/ha)') + 
+  xlab('Elevation') + 
   theme_grey(base_size = 12)
 > 
 > ggplot() +

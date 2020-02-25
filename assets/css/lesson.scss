@@ -10,11 +10,14 @@ $color-brand:       #2b3990 !default;
 
 // code boxes
 $color-error:       #bd2c00 !default;
+$color-warning:     #bd6500 !default;
 $color-output:      #303030 !default;
 $color-source:      #6e5494 !default;
 
 // blockquotes
 $color-callout:     #f4fd9c !default;
+// JPN: Brittani wants chunked text - temp background
+$color-textchunk:   #3396FF !default;
 $color-challenge:   #eec275 !default;
 $color-checklist:   #dfd2a0 !default;
 $color-discussion:  #eec275 !default;
@@ -40,6 +43,7 @@ $color-windowsUsers: #fc8dc1 !default;
 }
 
 .error  { @include cdSetup($color-error); }
+.warning  { @include cdSetup($color-warning); }
 .output { @include cdSetup($color-output); }
 .source { @include cdSetup($color-source); }
 
@@ -51,6 +55,7 @@ $color-windowsUsers: #fc8dc1 !default;
 .sql, .language-sql       { @include cdSetup($color-source); }
 
 .error::before,
+.warning::before,
 .output::before,
 .source::before,
 .bash::before, .language-bash::before,
@@ -66,6 +71,7 @@ $color-windowsUsers: #fc8dc1 !default;
 }
 
 .error::before  { background-color: #ffebe6; content: "Error"; }
+.warning::before { background-color: #fff6e6; content: "Warning"; }
 .output::before { background-color: #efefef; content: "Output"; }
 .source::before { content: "Code"; }
 .bash::before, .language-bash::before { content: "Bash"; }
@@ -115,7 +121,128 @@ $codeblock-padding: 5px !default;
 
 }
 
+// JPN: Brittani's chunks
+$codeblock-padding-text: 10px !default; 
+
+@mixin bkSetupText($color) {
+
+  $gradientcolor1: $color;
+  $gradientcolor2: scale-color($color, $lightness: 10%);
+
+  padding: 0 0 $codeblock-padding $codeblock-padding;
+  border: 1px solid;
+  border-color: $color;
+  border-radius: 4px;
+
+  margin: 15px 5px 10px 0;
+
+  // support all heading fonts: h1-h6
+  h1 {
+    padding-top: $codeblock-padding-text;
+    padding-bottom: $codeblock-padding-text;
+    padding-left: 10px; // this shifts lettering in
+    //font-size: 20px;
+    background: linear-gradient(to bottom, $gradientcolor1, $gradientcolor2);
+    border-color: $color;
+    margin-top: 0px;
+    margin-left: -$codeblock-padding; // to move back to the left margin of the enclosing blockquote
+  }
+  h1:before {
+    font-family: 'Glyphicons Halflings';
+    //float: left;
+    padding-left: $codeblock-padding-text;
+    padding-right: $codeblock-padding-text;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h2 {
+    padding-top: $codeblock-padding-text;
+    padding-bottom: $codeblock-padding-text;
+    padding-left: 10px; // this shifts lettering in
+    //font-size: 20px;
+    background: linear-gradient(to bottom, $gradientcolor1, $gradientcolor2);
+    border-color: $color;
+    margin-top: 0px;
+    margin-left: -$codeblock-padding; // to move back to the left margin of the enclosing blockquote
+  }
+  h2:before {
+    font-family: 'Glyphicons Halflings';
+    //float: left;
+    padding-left: $codeblock-padding-text;
+    padding-right: $codeblock-padding-text;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+  }
+  h3 {
+    padding-top: $codeblock-padding-text;
+    padding-bottom: $codeblock-padding-text;
+    padding-left: 10px; // this shifts lettering in
+    background: linear-gradient(to bottom, $gradientcolor1, $gradientcolor2);
+    border-color: $color;
+    margin-top: 0px;
+    margin-left: -$codeblock-padding; // to move back to the left margin of the enclosing blockquote
+  }
+  h3:before {
+    font-family: 'Glyphicons Halflings';
+    padding-left: $codeblock-padding-text;
+    padding-right: $codeblock-padding-text;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+  }
+  h4 {
+    padding-top: $codeblock-padding-text;
+    padding-bottom: $codeblock-padding-text;
+    padding-left: 10px; // this shifts lettering in
+    background: linear-gradient(to bottom, $gradientcolor1, $gradientcolor2);
+    border-color: $color;
+    margin-top: 0px;
+    margin-left: -$codeblock-padding; // to move back to the left margin of the enclosing blockquote
+  }
+  h4:before {
+    font-family: 'Glyphicons Halflings';
+    padding-left: $codeblock-padding-text;
+    padding-right: $codeblock-padding-text;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+  }
+  h5 {
+    padding-top: $codeblock-padding-text;
+    padding-bottom: $codeblock-padding-text;
+    padding-left: 10px; // this shifts lettering in
+    background: linear-gradient(to bottom, $gradientcolor1, $gradientcolor2);
+    border-color: $color;
+    margin-top: 0px;
+    margin-left: -$codeblock-padding; // to move back to the left margin of the enclosing blockquote
+  }
+  h5:before {
+    font-family: 'Glyphicons Halflings';
+    padding-left: $codeblock-padding-text;
+    padding-right: $codeblock-padding-text;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+  }
+  h6 {
+    padding-top: $codeblock-padding-text;
+    padding-bottom: $codeblock-padding-text;
+    padding-left: 10px; // this shifts lettering in
+    background: linear-gradient(to bottom, $gradientcolor1, $gradientcolor2);
+    border-color: $color;
+    margin-top: 0px;
+    margin-left: -$codeblock-padding; // to move back to the left margin of the enclosing blockquote
+  }
+  h6:before {
+    font-family: 'Glyphicons Halflings';
+    padding-left: $codeblock-padding-text;
+    padding-right: $codeblock-padding-text;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+  }
+
+}
+
 .callout{ @include bkSetup($color-callout, "\e146"); }
+.textchunk{ @include bkSetupText($color-textchunk); }
 .challenge{ @include bkSetup($color-challenge, "\270f"); }
 .checklist{ @include bkSetup($color-checklist, "\e067"); }
 .discussion{ @include bkSetup($color-discussion, "\e123"); }
@@ -128,7 +255,9 @@ $codeblock-padding: 5px !default;
 .testimonial{ @include bkSetup($color-testimonial, "\e143"); }
 
 // JPN added windowsUsers
+// JPN: for textchunk: not sure what we need as far as headers go though
 .callout h3,
+//.textchunk h3,
 .challenge h3,
 .checklist h3,
 .discussion h3,
@@ -143,6 +272,8 @@ font-size: 18px;
 
 .challenge    { background-color: #eec27520; }
 .callout      { background-color: #f4fd9c20; }
+// JPN: I think 20 is opacity
+.textchunk    { background-color: #3396FF20; }
 .challenge    { background-color: #eec27520; }
 .checklist    { background-color: #dfd2a020; }
 .discussion   { background-color: #eec27520; }
