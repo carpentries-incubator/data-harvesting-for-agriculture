@@ -64,6 +64,23 @@ source: Rmd
 > ~~~
 > {: .language-r}
 > 
+> 
+> 
+> ~~~
+> Warning in CPL_read_ogr(dsn, layer, query, as.character(options), quiet, :
+> GDAL Error 1: unable to open database file: this file is a WAL-enabled
+> database. It cannot be opened because it is presumably read-only or in a
+> read-only directory.
+> ~~~
+> {: .warning}
+> 
+> 
+> 
+> ~~~
+> Error: Cannot open "/Users/brittaniedge/Documents/DataCarpentry/DCAgriculture/_episodes_rmd/data/boundary.gpkg"; The source could be corrupt or not supported. See `st_drivers()` for a list of supported formats.
+> ~~~
+> {: .error}
+> 
 > There are many functions for reading files into the environment, but `read_sf()` creates an object of class **`sf`** or **simple feature.** This class makes accessing spatial data much easier. Much like a data frame, you can access variables within an `sf` object using the `$` operator. For this and other reasons like the number of spatial calculations available for `sf` objects, this class is perferred in most situations.
 > 
 {: .callout}
@@ -81,11 +98,9 @@ source: Rmd
 > 
 > 
 > ~~~
-> Coordinate Reference System:
->   EPSG: 4326 
->   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+> Error in st_crs(boundary): object 'boundary' not found
 > ~~~
-> {: .output}
+> {: .error}
 > 
 > The boundary file is projected in longitude and latitude using the WGS84 datum. This will be the CRS of most of the data you see. 
 > 
@@ -103,28 +118,9 @@ source: Rmd
 > 
 > 
 > ~~~
-> Geometry set for 2 features 
-> geometry type:  MULTIPOLYGON
-> dimension:      XY
-> bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
-> epsg (SRID):    4326
-> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+> Error in head(boundary$geom): object 'boundary' not found
 > ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> MULTIPOLYGON (((-82.87319 40.84574, -82.87306 4...
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> MULTIPOLYGON (((-82.87803 40.83981, -82.87805 4...
-> ~~~
-> {: .output}
+> {: .error}
 > 
 {: .callout}
 
@@ -153,6 +149,19 @@ type to ask them to look at them and identify which is which and describe what t
 > 
 > ~~~
 > boundaryutm <- st_transform_utm(boundary)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in st_bbox(sfobject): object 'boundary' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
 > st_crs(boundaryutm)
 > ~~~
 > {: .language-r}
@@ -160,11 +169,9 @@ type to ask them to look at them and identify which is which and describe what t
 > 
 > 
 > ~~~
-> Coordinate Reference System:
->   EPSG: 32617 
->   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+> Error in st_crs(boundaryutm): object 'boundaryutm' not found
 > ~~~
-> {: .output}
+> {: .error}
 > 
 {: .callout}
 <!-- **Dena: This exercise might run well as a talk-through -- ask the room to describe their understanding of how to do the thing -- followed by a type-along where you type what they tell you to do, and then explain what worked or what didn't?** -->
@@ -281,12 +288,9 @@ type to ask them to look at them and identify which is which and describe what t
 > 
 > 
 > ~~~
-> Updating layer `boundary_utm' to data source `boundary_utm.gpkg' using driver `GPKG'
-> options:        OVERWRITE=YES 
-> Updating existing layer boundary_utm
-> Writing 2 features with 1 fields and geometry type Multi Polygon.
+> Error in st_write(boundaryutm, "boundary_utm.gpkg", layer_options = "OVERWRITE=YES", : object 'boundaryutm' not found
 > ~~~
-> {: .output}
+> {: .error}
 > 
 > The new .gpkg file will be visible in your working directory. (Check it out: Browse to your working directory in Windows File Explorer or Mac Finder and see the date and time on your new file.)
 > 
@@ -308,7 +312,12 @@ type to ask them to look at them and identify which is which and describe what t
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="612" style="display: block; margin: auto;" />
+> 
+> 
+> ~~~
+> Error in plot(boundary$geom): object 'boundary' not found
+> ~~~
+> {: .error}
 > 
 > We can also plot the data where the polygons change color based on the value of one of the variables. This can be done with a package `tmap()`. We will discuss this package more in the next lesson, but we provide the function `map_poly()` in the functions.R script for making a simple map with polygon features colored based on a given variable. The function requires a spatial object and a variable name in ''.
 >
@@ -318,7 +327,12 @@ type to ask them to look at them and identify which is which and describe what t
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-touchAgainCompile-1.png" title="plot of chunk touchAgainCompile" alt="plot of chunk touchAgainCompile" width="612" style="display: block; margin: auto;" />
+> 
+> 
+> ~~~
+> Error in as.list.environment(environment()): object 'boundary' not found
+> ~~~
+> {: .error}
 > 
 {: .callout} 
 
@@ -337,7 +351,33 @@ the theory of how to do them?** -->
 > 
 > ~~~
 > boundary <- subset(boundary, Type == "Trial")
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in subset(boundary, Type == "Trial"): object 'boundary' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
 > boundary.sp <- as(boundary, "Spatial")
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in .class1(object): object 'boundary' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
 > ssurgo <- download_ssurgo("samplefield", boundary.sp)
 > ~~~
 > {: .language-r}
@@ -403,14 +443,15 @@ the theory of how to do them?** -->
 > > 8 Crd1… Cardi… NA                  3          2.8 NA                   46
 > > 9 Crd1… Cardi… NA                  9          8.4 NA                   46
 > > # … with 33 more variables: wtdepaprjunmin <dbl>, flodfreqdcd <chr>,
-> > #   flodfreqmax <chr>, pondfreqprs <dbl>, aws025wta <dbl>, aws050wta <dbl>,
-> > #   aws0100wta <dbl>, aws0150wta <dbl>, drclassdcd <chr>, drclasswettest <chr>,
-> > #   hydgrpdcd <chr>, iccdcd <lgl>, iccdcdpct <dbl>, niccdcd <dbl>,
-> > #   niccdcdpct <dbl>, engdwobdcd <chr>, engdwbdcd <chr>, engdwbll <chr>,
-> > #   engdwbml <chr>, engstafdcd <chr>, engstafll <chr>, engstafml <chr>,
-> > #   engsldcd <chr>, engsldcp <chr>, englrsdcd <chr>, engcmssdcd <chr>,
-> > #   engcmssmp <chr>, urbrecptdcd <chr>, urbrecptwta <dbl>, forpehrtdcp <chr>,
-> > #   hydclprs <dbl>, awmmfpwwta <dbl>, mukey <dbl>
+> > #   flodfreqmax <chr>, pondfreqprs <dbl>, aws025wta <dbl>,
+> > #   aws050wta <dbl>, aws0100wta <dbl>, aws0150wta <dbl>, drclassdcd <chr>,
+> > #   drclasswettest <chr>, hydgrpdcd <chr>, iccdcd <lgl>, iccdcdpct <dbl>,
+> > #   niccdcd <dbl>, niccdcdpct <dbl>, engdwobdcd <chr>, engdwbdcd <chr>,
+> > #   engdwbll <chr>, engdwbml <chr>, engstafdcd <chr>, engstafll <chr>,
+> > #   engstafml <chr>, engsldcd <chr>, engsldcp <chr>, englrsdcd <chr>,
+> > #   engcmssdcd <chr>, engcmssmp <chr>, urbrecptdcd <chr>,
+> > #   urbrecptwta <dbl>, forpehrtdcp <chr>, hydclprs <dbl>,
+> > #   awmmfpwwta <dbl>, mukey <dbl>
 > > ~~~
 > > {: .output}
 > > 
@@ -523,83 +564,83 @@ the theory of how to do them?** -->
 > 
 > ~~~
 > 
-  |                                                                            
-  |                                                                      |   0%
-  |                                                                            
-  |===                                                                   |   4%
-  |                                                                            
-  |=====                                                                 |   7%
-  |                                                                            
-  |========                                                              |  11%
-  |                                                                            
-  |==========                                                            |  15%
-  |                                                                            
-  |=============                                                         |  19%
-  |                                                                            
-  |================                                                      |  22%
-  |                                                                            
-  |==================                                                    |  26%
-  |                                                                            
-  |=====================                                                 |  30%
-  |                                                                            
-  |=======================                                               |  33%
-  |                                                                            
-  |==========================                                            |  37%
-  |                                                                            
-  |=============================                                         |  41%
-  |                                                                            
-  |===============================                                       |  44%
-  |                                                                            
-  |==================================                                    |  48%
-  |                                                                            
-  |====================================                                  |  52%
-  |                                                                            
-  |=======================================                               |  56%
-  |                                                                            
-  |=========================================                             |  59%
-  |                                                                            
-  |============================================                          |  63%
-  |                                                                            
-  |===============================================                       |  67%
-  |                                                                            
-  |=================================================                     |  70%
-  |                                                                            
-  |====================================================                  |  74%
-  |                                                                            
-  |======================================================                |  78%
-  |                                                                            
-  |=========================================================             |  81%
-  |                                                                            
-  |============================================================          |  85%
-  |                                                                            
-  |==============================================================        |  89%
-  |                                                                            
-  |=================================================================     |  93%
-  |                                                                            
-  |===================================================================   |  96%
-  |                                                                            
-  |======================================================================| 100%
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |==                                                               |   4%
+  |                                                                       
+  |=====                                                            |   7%
+  |                                                                       
+  |=======                                                          |  11%
+  |                                                                       
+  |==========                                                       |  15%
+  |                                                                       
+  |============                                                     |  19%
+  |                                                                       
+  |==============                                                   |  22%
+  |                                                                       
+  |=================                                                |  26%
+  |                                                                       
+  |===================                                              |  30%
+  |                                                                       
+  |======================                                           |  33%
+  |                                                                       
+  |========================                                         |  37%
+  |                                                                       
+  |==========================                                       |  41%
+  |                                                                       
+  |=============================                                    |  44%
+  |                                                                       
+  |===============================                                  |  48%
+  |                                                                       
+  |==================================                               |  52%
+  |                                                                       
+  |====================================                             |  56%
+  |                                                                       
+  |=======================================                          |  59%
+  |                                                                       
+  |=========================================                        |  63%
+  |                                                                       
+  |===========================================                      |  67%
+  |                                                                       
+  |==============================================                   |  70%
+  |                                                                       
+  |================================================                 |  74%
+  |                                                                       
+  |===================================================              |  78%
+  |                                                                       
+  |=====================================================            |  81%
+  |                                                                       
+  |=======================================================          |  85%
+  |                                                                       
+  |==========================================================       |  89%
+  |                                                                       
+  |============================================================     |  93%
+  |                                                                       
+  |===============================================================  |  96%
+  |                                                                       
+  |=================================================================| 100%
 > 
-  |                                                                            
-  |                                                                      |   0%
-  |                                                                            
-  |========                                                              |  11%
-  |                                                                            
-  |================                                                      |  22%
-  |                                                                            
-  |=======================                                               |  33%
-  |                                                                            
-  |===============================                                       |  44%
-  |                                                                            
-  |=======================================                               |  56%
-  |                                                                            
-  |===============================================                       |  67%
-  |                                                                            
-  |======================================================                |  78%
-  |                                                                            
-  |==============================================================        |  89%
-  |                                                                            
-  |======================================================================| 100%
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=======                                                          |  11%
+  |                                                                       
+  |==============                                                   |  22%
+  |                                                                       
+  |======================                                           |  33%
+  |                                                                       
+  |=============================                                    |  44%
+  |                                                                       
+  |====================================                             |  56%
+  |                                                                       
+  |===========================================                      |  67%
+  |                                                                       
+  |===================================================              |  78%
+  |                                                                       
+  |==========================================================       |  89%
+  |                                                                       
+  |=================================================================| 100%
 > ~~~
 > {: .output}
 > 
@@ -613,16 +654,26 @@ the theory of how to do them?** -->
 > 
 > 
 > ~~~
->     mukey AREASYMBOL SPATIALVER  MUSYM     clay     silt     sand water_storage
-> 1 1019357      OH033         10    BeA 30.88180 49.35860 19.75960      24.93720
-> 2  168539      OH033         10    BgB 31.09245 48.94345 19.96410      24.72030
-> 3  168557      OH033         10     Cr 33.80601 45.40116 20.79283      21.87375
-> 4  168570      OH033         10    HpE 28.17274 37.20299 34.62427      21.24000
-> 5  168578      OH033         10     Lo 23.32787 49.29454 27.37760      27.86000
-> 6  168588      OH033         10     Pm 34.08070 46.99515 18.92415      25.82340
-> 7  168591      OH033         10     Sh 21.67045 44.65005 33.67950      31.86120
-> 8 2996476      OH033         10 Crd1B1 30.17855 46.96980 22.85165      24.72070
-> 9 2996690      OH033         10 Crd1C2 29.92200 45.94210 24.13590      23.14610
+>     mukey AREASYMBOL SPATIALVER  MUSYM     clay     silt     sand
+> 1 1019357      OH033         10    BeA 30.88180 49.35860 19.75960
+> 2  168539      OH033         10    BgB 31.09245 48.94345 19.96410
+> 3  168557      OH033         10     Cr 33.80601 45.40116 20.79283
+> 4  168570      OH033         10    HpE 28.17274 37.20299 34.62427
+> 5  168578      OH033         10     Lo 23.32787 49.29454 27.37760
+> 6  168588      OH033         10     Pm 34.08070 46.99515 18.92415
+> 7  168591      OH033         10     Sh 21.67045 44.65005 33.67950
+> 8 2996476      OH033         10 Crd1B1 30.17855 46.96980 22.85165
+> 9 2996690      OH033         10 Crd1C2 29.92200 45.94210 24.13590
+>   water_storage
+> 1      24.93720
+> 2      24.72030
+> 3      21.87375
+> 4      21.24000
+> 5      27.86000
+> 6      25.82340
+> 7      31.86120
+> 8      24.72070
+> 9      23.14610
 > ~~~
 > {: .output}
 > 

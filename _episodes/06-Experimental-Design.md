@@ -40,8 +40,8 @@ source: Rmd
 > 
 > ~~~
 > Reading layer `boundary' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/boundary.gpkg' using driver `GPKG'
-> Simple feature collection with 2 features and 1 field
-> geometry type:  MULTIPOLYGON
+> Simple feature collection with 1 feature and 0 fields
+> geometry type:  POLYGON
 > dimension:      XY
 > bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
 > epsg (SRID):    4326
@@ -106,7 +106,7 @@ source: Rmd
 > 
 > 
 > ~~~
-> boundary_utm <- st_transform_utm(boundary)
+> trialarea <- st_transform_utm(boundary)
 > abline_utm <- st_transform_utm(abline)
 > ~~~
 > {: .language-r}
@@ -120,14 +120,6 @@ source: Rmd
 >  * number of treatments
 >  * types of treatments, and
 >  * treatment range.
-> 
-> First, we need a file of a boundary without any other sections. In this case, the boundary file already has headlands, but the trial design will create new headlands. Thus, we first remove the existing ones:
-> 
-> 
-> ~~~
-> trialarea <- subset(boundary_utm, Type == "Trial")
-> ~~~
-> {: .language-r}
 > 
 {: .callout}
 
@@ -234,16 +226,16 @@ source: Rmd
 > Simple feature collection with 6 features and 4 fields
 > geometry type:  POLYGON
 > dimension:      XY
-> bbox:           xmin: 342027 ymin: 4523153 xmax: 342050.3 ymax: 4523297
+> bbox:           xmin: 342043.5 ymin: 4523203 xmax: 342066.9 ymax: 4523349
 > epsg (SRID):    32617
 > proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 >    id treat_type NRATE SEEDRATE                           geom
-> 1 ID1          4   160    40000 POLYGON ((342050.1 4523262,...
-> 2 ID2          4   160    40000 POLYGON ((342050.1 4523262,...
-> 3 ID3          1   160    31000 POLYGON ((342049.8 4523208,...
-> 4 ID4          5   200    31000 POLYGON ((342049.8 4523208,...
-> 5 ID5          5   200    31000 POLYGON ((342049.5 4523153,...
-> 6 ID6         11   225    37000 POLYGON ((342049.5 4523153,...
+> 1 ID1         17   225    37000 POLYGON ((342066.7 4523313,...
+> 2 ID2         17   225    37000 POLYGON ((342066.7 4523313,...
+> 3 ID3          5   200    31000 POLYGON ((342066.5 4523258,...
+> 4 ID4         13   250    31000 POLYGON ((342066.5 4523258,...
+> 5 ID5          4   160    40000 POLYGON ((342066.2 4523203,...
+> 6 ID6          6   200    34000 POLYGON ((342066.2 4523203,...
 > ~~~
 > {: .output}
 > And as plots:
@@ -281,16 +273,16 @@ head(whole_plot)
 Simple feature collection with 6 features and 4 fields
 geometry type:  POLYGON
 dimension:      XY
-bbox:           xmin: 342027 ymin: 4523153 xmax: 342050.3 ymax: 4523297
+bbox:           xmin: 342043.5 ymin: 4523203 xmax: 342066.9 ymax: 4523349
 epsg (SRID):    32617
 proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
    id treat_type NRATE SEEDRATE                           geom
-1 ID1         16   250    40000 POLYGON ((342050.1 4523262,...
-2 ID2          9   225    31000 POLYGON ((342050.1 4523262,...
-3 ID3          9   225    31000 POLYGON ((342049.8 4523208,...
-4 ID4          6   200    34000 POLYGON ((342049.8 4523208,...
-5 ID5          6   200    34000 POLYGON ((342049.5 4523153,...
-6 ID6          5   200    31000 POLYGON ((342049.5 4523153,...
+1 ID1         17   225    37000 POLYGON ((342066.7 4523313,...
+2 ID2         17   225    37000 POLYGON ((342066.7 4523313,...
+3 ID3         15   250    37000 POLYGON ((342066.5 4523258,...
+4 ID4          5   200    31000 POLYGON ((342066.5 4523258,...
+5 ID5          5   200    31000 POLYGON ((342066.2 4523203,...
+6 ID6         13   250    31000 POLYGON ((342066.2 4523203,...
 ~~~
 {: .output}
 The function will automatically take out 
@@ -325,5 +317,5 @@ Error in FUN(X[[i]], ...): object 'long' not found
 ~~~
 {: .error}
 
-<img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
 -->
