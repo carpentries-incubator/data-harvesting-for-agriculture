@@ -21,6 +21,7 @@ source: Rmd
 
 
 
+
 > ## Trial Design
 > Now we will design our own experiments on the field. The only files we will need for the trial design are the boundary file and ab line.
 > 
@@ -38,19 +39,15 @@ source: Rmd
 > 
 > 
 > ~~~
-> Warning in CPL_read_ogr(dsn, layer, query, as.character(options), quiet, :
-> GDAL Error 1: unable to open database file: this file is a WAL-enabled
-> database. It cannot be opened because it is presumably read-only or in a
-> read-only directory.
+> Reading layer `boundary' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/boundary.gpkg' using driver `GPKG'
+> Simple feature collection with 1 feature and 0 fields
+> geometry type:  POLYGON
+> dimension:      XY
+> bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
+> epsg (SRID):    4326
+> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 > ~~~
-> {: .warning}
-> 
-> 
-> 
-> ~~~
-> Error: Cannot open "/Users/brittaniedge/Documents/DataCarpentry/DCAgriculture/_episodes_rmd/data/boundary.gpkg"; The source could be corrupt or not supported. See `st_drivers()` for a list of supported formats.
-> ~~~
-> {: .error}
+> {: .output}
 > 
 > 
 > 
@@ -62,7 +59,7 @@ source: Rmd
 > 
 > 
 > ~~~
-> Reading layer `abline' from data source `/Users/brittaniedge/Documents/DataCarpentry/DCAgriculture/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
+> Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
 > Simple feature collection with 1 feature and 1 field
 > geometry type:  LINESTRING
 > dimension:      XY
@@ -84,7 +81,9 @@ source: Rmd
 > 
 > 
 > ~~~
-> Coordinate Reference System: NA
+> Coordinate Reference System:
+>   EPSG: 4326 
+>   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
 > ~~~
 > {: .output}
 > 
@@ -108,19 +107,6 @@ source: Rmd
 > 
 > ~~~
 > trialarea <- st_transform_utm(boundary)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in UseMethod("st_bbox"): no applicable method for 'st_bbox' applied to an object of class "function"
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > abline_utm <- st_transform_utm(abline)
 > ~~~
 > {: .language-r}
@@ -164,30 +150,10 @@ source: Rmd
 > 			       width_ft = width)
 > ~~~
 > {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in st_bbox(bothfields): object 'trialarea' not found
-> ~~~
-> {: .error}
 > Next we want to make sure the coordinate reference frame of our `trialarea` is the same as our `design_grids_utm` grids and then take the intersection of these grids with our trial area as we did previously:
 > 
 > ~~~
 > st_crs(design_grids_utm) <- st_crs(trialarea)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in st_crs(trialarea): object 'trialarea' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > trial_grid <- st_intersection(trialarea, design_grids_utm)
 > ~~~
 > {: .language-r}
@@ -195,9 +161,10 @@ source: Rmd
 > 
 > 
 > ~~~
-> Error in st_intersection(trialarea, design_grids_utm): object 'trialarea' not found
+> Warning: attribute variables are assumed to be spatially constant throughout all
+> geometries
 > ~~~
-> {: .error}
+> {: .warning}
 > 
 > Let's check out what our trial subplots look like:
 > 
@@ -206,12 +173,7 @@ source: Rmd
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'trial_grid' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-t3jpn-1.png" title="plot of chunk t3jpn" alt="plot of chunk t3jpn" width="612" style="display: block; margin: auto;" />
 > 
 {: .callout}
 
@@ -248,13 +210,6 @@ source: Rmd
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in st_buffer(trialarea, -head_buffer_m): object 'trialarea' not found
-> ~~~
-> {: .error}
-> 
 {: .callout}
 
 > ## Mapping Trial
@@ -268,64 +223,32 @@ source: Rmd
 > 
 > 
 > ~~~
-> Error in head(whole_plot): object 'whole_plot' not found
+> Simple feature collection with 6 features and 4 fields
+> geometry type:  POLYGON
+> dimension:      XY
+> bbox:           xmin: 342043.5 ymin: 4523203 xmax: 342066.9 ymax: 4523349
+> epsg (SRID):    32617
+> proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
+>    id treat_type NRATE SEEDRATE                           geom
+> 1 ID1         17   225    37000 POLYGON ((342066.7 4523313,...
+> 2 ID2         17   225    37000 POLYGON ((342066.7 4523313,...
+> 3 ID3          5   200    31000 POLYGON ((342066.5 4523258,...
+> 4 ID4         13   250    31000 POLYGON ((342066.5 4523258,...
+> 5 ID5          4   160    40000 POLYGON ((342066.2 4523203,...
+> 6 ID6          6   200    34000 POLYGON ((342066.2 4523203,...
 > ~~~
-> {: .error}
+> {: .output}
 > And as plots:
 > 
 > ~~~
 > nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'whole_plot' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'whole_plot' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1): object 'nitrogen_plot' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > treatment_plot_comp
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in eval(expr, envir, enclos): object 'treatment_plot_comp' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-t2jpn-1.png" title="plot of chunk t2jpn" alt="plot of chunk t2jpn" width="612" style="display: block; margin: auto;" />
 > 
 {: .callout}
 
@@ -333,29 +256,11 @@ source: Rmd
 
 ~~~
 whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width, seed_treat_rates = c(31000, 34000, 37000, 40000), nitrogen_treat_rates = c(160,200,225,250), seed_quo = 37000, nitrogen_quo = 225)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in st_buffer(trialarea, -head_buffer_m): object 'trialarea' not found
-~~~
-{: .error}
-
-
-
-~~~
 map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in as.list.environment(environment()): object 'whole_plot' not found
-~~~
-{: .error}
+<img src="../fig/rmd-assigning treatment rates-1.png" title="plot of chunk assigning treatment rates" alt="plot of chunk assigning treatment rates" width="612" style="display: block; margin: auto;" />
 
 ~~~
 head(whole_plot)
@@ -365,9 +270,21 @@ head(whole_plot)
 
 
 ~~~
-Error in head(whole_plot): object 'whole_plot' not found
+Simple feature collection with 6 features and 4 fields
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: 342043.5 ymin: 4523203 xmax: 342066.9 ymax: 4523349
+epsg (SRID):    32617
+proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
+   id treat_type NRATE SEEDRATE                           geom
+1 ID1         17   225    37000 POLYGON ((342066.7 4523313,...
+2 ID2         17   225    37000 POLYGON ((342066.7 4523313,...
+3 ID3         15   250    37000 POLYGON ((342066.5 4523258,...
+4 ID4          5   200    31000 POLYGON ((342066.5 4523258,...
+5 ID5          5   200    31000 POLYGON ((342066.2 4523203,...
+6 ID6         13   250    31000 POLYGON ((342066.2 4523203,...
 ~~~
-{: .error}
+{: .output}
 The function will automatically take out 
 
 
@@ -396,7 +313,9 @@ ggplot(data = whole_plot, aes(x=long,y=lat,group=group)) +
 
 
 ~~~
-Error in ggplot(data = whole_plot, aes(x = long, y = lat, group = group)): object 'whole_plot' not found
+Error in FUN(X[[i]], ...): object 'long' not found
 ~~~
 {: .error}
+
+<img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
 -->
