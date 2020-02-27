@@ -19,6 +19,7 @@ keypoints:
 source: Rmd
 ---
 
+
 ```{r setup, include=FALSE}
 library(sf)
 library(fasterize)
@@ -256,14 +257,6 @@ the mean.
 > 
 > After we read in the trial design file, we use a function to generate the subplots for this trial. Because the code for generating the subplots is somewhat complex, we have included it as the `make_grids` function in `functions.R`.
 > 
-> To start, we only want to look at data in the `Trial` portion of our plot, so we take a subset of this and plot the resulting geometry:
-> 
-> ```{r }
-> boundary_grid_utm = subset(boundary_utm, Type == "Trial")
-> plot(boundary_grid_utm$geom)
-> ```
-> 
->
 >
 > ### Making Subplots
 > Now we will make subplots that are 24 meters wide which is the width of the original trial on this field:
@@ -282,15 +275,15 @@ the mean.
 > 
 > We use the following code to make our grid.
 > ```{r}
-> design_grids_utm = make_grids(boundary_grid_utm,
+> design_grids_utm = make_grids(boundary_utm,
                               abline_utm, long_in = 'NS', short_in = 'EW',
 			      length_ft = width, width_ft = width)
 > ```
 > 
-> The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as `boundary_grid_utm`:
+> The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as `boundary_utm`:
 > ```{r}
 > st_crs(design_grids_utm)
-> st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
+> st_crs(design_grids_utm) = st_crs(boundary_utm)
 > ```
 > 
 > Let's plot what these grids will look like using the basic `plot()` function:
@@ -298,11 +291,11 @@ the mean.
 > plot(design_grids_utm$st_sfc.col_polygons_ls.)
 > ```
 > 
-> Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_grid_utm`, 
+> Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_utm`, 
 The resulting grid is seen below:
-> 
+>
 > ```{r}
-> trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
+> trial_grid_utm = st_intersection(boundary_utm, design_grids_utm)
 > plot(trial_grid_utm$geom)
 > ```
 >

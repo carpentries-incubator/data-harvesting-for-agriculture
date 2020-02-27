@@ -23,6 +23,7 @@ source: Rmd
 
 
 
+
 > # Data cleaning and aggregation in the DIFM project
 > 
 > We saw in the last episode that we can make graphs of our trial data, but right now they are all points that cannot easily be combined. For example, we do not know what the yield was at a specific nitrogen or seeding point on the field. But that is important if we are going to talk about the results of the trial. We need to know what the yield was when a certain seeding and nitrogen rate combination was applied. To do this, we first clean the trial points and then create a grid over the field. Inside that grid, we aggregate the points from each data type and report the median of the points that fall into each polygon of the grid. These will form a new dataset where we can directly relate a yield value to a given seed and nitrogen treatment. In the context of trials, the polygons of the grid are typically called the *units of observation.* 
@@ -158,7 +159,7 @@ source: Rmd
 > 
 > 
 > ~~~
-> Reading layer `abline' from data source `/Users/brittaniedge/Documents/DataCarpentry/DCAgriculture/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
+> Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
 > Simple feature collection with 1 feature and 1 field
 > geometry type:  LINESTRING
 > dimension:      XY
@@ -376,18 +377,6 @@ the mean.
 > 
 > After we read in the trial design file, we use a function to generate the subplots for this trial. Because the code for generating the subplots is somewhat complex, we have included it as the `make_grids` function in `functions.R`.
 > 
-> To start, we only want to look at data in the `Trial` portion of our plot, so we take a subset of this and plot the resulting geometry:
-> 
-> 
-> ~~~
-> boundary_grid_utm = subset(boundary_utm, Type == "Trial")
-> plot(boundary_grid_utm$geom)
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" width="612" style="display: block; margin: auto;" />
-> 
->
 >
 > ### Making Subplots
 > Now we will make subplots that are 24 meters wide which is the width of the original trial on this field:
@@ -409,13 +398,13 @@ the mean.
 > We use the following code to make our grid.
 > 
 > ~~~
-> design_grids_utm = make_grids(boundary_grid_utm,
+> design_grids_utm = make_grids(boundary_utm,
 >                               abline_utm, long_in = 'NS', short_in = 'EW',
 > 			      length_ft = width, width_ft = width)
 > ~~~
 > {: .language-r}
 > 
-> The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as `boundary_grid_utm`:
+> The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as `boundary_utm`:
 > 
 > ~~~
 > st_crs(design_grids_utm)
@@ -432,7 +421,7 @@ the mean.
 > 
 > 
 > ~~~
-> st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
+> st_crs(design_grids_utm) = st_crs(boundary_utm)
 > ~~~
 > {: .language-r}
 > 
@@ -443,22 +432,22 @@ the mean.
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="612" style="display: block; margin: auto;" />
 > 
-> Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_grid_utm`, 
+> Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_utm`, 
 The resulting grid is seen below:
-> 
+>
 > 
 > ~~~
-> trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
+> trial_grid_utm = st_intersection(boundary_utm, design_grids_utm)
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> Warning: attribute variables are assumed to be spatially constant
-> throughout all geometries
+> Warning: attribute variables are assumed to be spatially constant throughout all
+> geometries
 > ~~~
 > {: .warning}
 > 
@@ -469,7 +458,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
 >
 >
 > ## Step 2: Aggregation on our subplots
@@ -491,7 +480,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now clean the asplanted file:
@@ -504,7 +493,7 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Reading layer `asplanted' from data source `/Users/brittaniedge/Documents/DataCarpentry/DCAgriculture/_episodes_rmd/data/asplanted.gpkg' using driver `GPKG'
+> Reading layer `asplanted' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted.gpkg' using driver `GPKG'
 > Simple feature collection with 6382 features and 30 fields
 > geometry type:  POINT
 > dimension:      XY
@@ -525,7 +514,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
@@ -535,7 +524,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-31-2.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-30-2.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now aggregate the asapplied which we already cleaned above:
@@ -547,7 +536,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
 >
 >
 > ### Making Plots of Relationships between Variables
@@ -608,7 +597,7 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Warning: Removed 42 rows containing non-finite values (stat_smooth).
+> Warning: Removed 19 rows containing non-finite values (stat_smooth).
 > ~~~
 > {: .warning}
 > 
@@ -625,5 +614,5 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 {: .callout}
