@@ -115,11 +115,10 @@ nitrogen_clean <- clean_sd(nitrogen_utm, nitrogen_utm$Rate_Appli)
 hist(nitrogen_clean$Rate_Appli)
 subplots_data <- deposit_on_grid(subplots_data, nitrogen_clean, "Rate_Appli", fn = median)
 
-# Plot fit model
-par(mfrow=c(1,3))
-# do simple MLR
-#myMod = lm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=subplots_data)
-myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=subplots_data)
+
+# INPUTS INTO MODEL
+# will be given: rate applied for nitrogen, seeding rate (Rt_Apd_Ct_), and elevation
+# OR: do we want to be given a grid and randomly select from a list of ... come back to in am
 nPoints = 1000
 rapp = seq(130, 200, length=nPoints)
 #rapp_rates = c(130, 160,200,225,250) # only certain rates
@@ -128,41 +127,37 @@ rseed_rates = c(30000, 32000, 34000, 36000, 38000) # only certain rates
 rseed = sample(rseed_rates, size=nPoints, replace=TRUE)
 elev = seq(1000, 1050, length=nPoints)
 
-# Grab SE about each coefficient
-#yieldsSTD = coef(summary(myMod))[, "Std. Error"]/length(subplots_data$Rate_Appli)**0.5
-# # generate new yields points from these fits, but with randomly chosen coefficients
-# coeff1 = rnorm(nPoints, mean=myMod$coefficients[1], sd = yieldsSTD[1])
-# #coeff1 = myMod$coefficients[1]
-# coeff2 = rnorm(nPoints, mean=myMod$coefficients[2], sd = yieldsSTD[2])
-# coeff3 = rnorm(nPoints, mean=myMod$coefficients[3], sd = yieldsSTD[3])
-# coeff4 = rnorm(nPoints, mean=myMod$coefficients[4], sd = yieldsSTD[4])
-# # create new model:
-# yieldsMod = coeff1 + coeff2*rapp + coeff3*rseed + coeff4*elev
-# 
-# yieldsModLine = myMod$coefficients[1] + myMod$coefficients[2]*rapp + myMod$coefficients[3]*rseed + myMod$coefficients[4]*elev
 
-#library(MASS) # For multivariate normal distribution, handy later on => don't wanna use MASS library!
-#coefs <- mvrnorm(n = nPoints, mu = coefficients(myMod), Sigma = vcov(myMod))
-coefs <- rnorm(n = nPoints, mean = coefficients(myMod), sd = vcov(myMod))
+# FIT MODEL AND GRAB YIELDS OUT
+# do simple MLR/GLM
+#myMod = lm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=subplots_data)
+myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=subplots_data) ### THIS IS WHAT WE WANT TO SAVE
 
+## read in model here!
+
+# simulate the range of coefficients
+coefs <- rnorm(n = nPoints, mean = coefficients(myMod), sd = vcov(myMod)) ### THIS BELOW IS WHAT WE SIMULATE
+# create random yields
 yieldsMod = coefs[,'(Intercept)'] + coefs[, 'Rate_Appli']*rapp + coefs[, 'Rt_Apd_Ct_']*rseed + coefs[, 'Elevation_']*elev
+
+
 
 # PLOT:
 # yield, nitrogen
 #y=Yld_Vol_Dr,x=Rate_Appli
-plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))#, xlim=c(130, 250))
+plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)#, ylim=c(100, 300))#, xlim=c(130, 250))
 #lines(rapp, yieldsModLine, col="red")
 points(rapp, yieldsMod, col='blue')
 
 # seeding
 #y=Yld_Vol_Dr,x=Rt_Apd_Ct_
-plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))
+plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr)#, ylim=c(100, 300))
 #lines(rseed, yieldsModLine, col="red")
 points(rseed, yieldsMod, col='blue')
 
 # elevation
 #y=Yld_Vol_Dr,x=Elevation_
-plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))
+plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)#, ylim=c(100, 300))
 #lines(elev, yieldsModLine, col="red")
 points(elev, yieldsMod, col='blue')
 
