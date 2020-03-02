@@ -136,6 +136,7 @@ myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=subplots_data) ###
 ## read in model here!
 
 # simulate the range of coefficients
+# reference: https://www.jamesuanhoro.com/post/2018/05/07/simulating-data-from-regression-models/
 coefs <- rnorm(n = nPoints, mean = coefficients(myMod), sd = vcov(myMod)) ### THIS BELOW IS WHAT WE SIMULATE
 # create random yields
 yieldsMod = coefs[,'(Intercept)'] + coefs[, 'Rate_Appli']*rapp + coefs[, 'Rt_Apd_Ct_']*rseed + coefs[, 'Elevation_']*elev
