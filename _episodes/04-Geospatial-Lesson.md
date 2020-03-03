@@ -16,9 +16,9 @@ objectives:
  - Reproject the dataset into UTM
  - Visualize geospatial data with R
 keypoints:
- - sf is prefereable for data analysis; it is easier to access the dataframe
+ - sf is preferable for data analysis; it is easier to access the dataframe
  - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
- - Different data formats that you are likely to encounter include gpkg, shp (cpg, dbf, prj, sbn, sbx), geojson, and tif 
+ - Different data formats that you are likely to encounter include gpkg, shp (cpg, dbf, prj, sbn, sbx), geojson, and tif
 source: Rmd
 ---
 <!-- Dena: We don't discuss most of those data formats - add info or tweak description? -->
