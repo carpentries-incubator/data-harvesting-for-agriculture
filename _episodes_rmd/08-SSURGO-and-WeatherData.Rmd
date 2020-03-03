@@ -20,6 +20,7 @@ source: Rmd
 ```{r setup, include=FALSE}
 library(knitr)
 library(sf)
+library(gstat)
 library(fasterize)
 library(raster)
 library(rjson)
@@ -27,15 +28,16 @@ library(httr)
 library(rgdal)
 library(rgeos)
 library(maptools)
-library(knitr)
 require(tmap)
 require(ggplot2)
 require(gridExtra)
 library(daymetr)
+library(grid)
 library(readr)
 library(measurements)
 library(FedData)
 library(lubridate)
+library(plyr)
 source("../bin/chunk-options.R")
 source("functions.R")
 ```
@@ -53,7 +55,7 @@ source("functions.R")
 > The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
 > 
 > ```{r ssurgo, echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
-> boundary <- subset(boundary, Type == "Trial")
+> boundary <- read_sf("data/boundary.gpkg")
 > boundary.sp <- as(boundary, "Spatial")
 > ssurgo <- download_ssurgo("samplefield", boundary.sp)
 > ```
