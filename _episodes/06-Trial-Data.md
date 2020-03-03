@@ -61,6 +61,7 @@ source: Rmd
 > {: .solution}
 {: .challenge}
 
+<!-- JPN: this is just the solution though? 
 > ## Exercise Discussion
 > 
 > ~~~
@@ -77,7 +78,9 @@ source: Rmd
 > [16] "Prod_ac_hr"   "Date"         "Rate_Appli"   "Rate_Appli.1" "geom"        
 > ~~~
 > {: .output}
-> 
+>
+-->
+
 > ## As-Applied File
 > 
 > The nitrogen file contains 22 variables. The nitrogen type of is reported in `Product`, and this field used NH3. The column with the applied rate is `Rate_Appli`.
@@ -114,7 +117,7 @@ source: Rmd
 > {: .output}
 > 
 > 
-{: .callout}
+{: .textchunk}
 
 > ## As-Planted File
 > 
@@ -141,13 +144,13 @@ source: Rmd
 > 
 > There are several other variables that could be useful. First, the hybrid is located in the `Product` column; we want to keep this in our records if we want to compare across years. We may also want to know things like the swath width (`Swth_W_`) or elevation (`Elevtn`), swath width for cleaning and aggregating which will be discussed later and elevation for considering its impact on yield.
 > 
-{: .callout}
+{: .textchunk}
 
 > ## Visualizing the Trial Data
 > 
 > In the next section, we will have exercises to visually explore the trial data. We will look at the importance of data cleaning with a yield map visualization. We will compare the application rate to the target rates and the yield levels.
 > 
-{: .callout}
+{: .textchunk}
 
 > ## Exercise: Yield Map
 Make a map of the yield in bushels per acre from the `yield` file using `map_points()`. This is a new function to us, but it has the same inputs as `map_poly()` where you supply the data, column name to determine the color, and displayed name. Do you notice anything about the yield map?
@@ -185,110 +188,99 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 {: .challenge}
 
 > ## Exercise Discussion and Outliers
-> Looking at the map we can see there are many extreme values, making the map look homogeneous. 
-
-## Introduction to data cleaning
-
-Data cleaning is the process of removing or correcting errors in a dataset, and
-is very important to do before any sort of analysis.  For example, say you were
-manually entering yield values into a spreadsheet, and then wanted to take the
-average of all values entered.  If you accidentally typed an extra zero into
-some of the cells, the average that you calculate is going to be much higher
-than the true average.
-
-
-~~~
-real_data <- c(900, 450, 200, 320)
-error_data <- c(900, 4500, 200, 320)
-mean(real_data)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 467.5
-~~~
-{: .output}
-
-
-
-~~~
-mean(error_data)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 1480
-~~~
-{: .output}
-> ## Lists of elements in R
-> You'll see this definition of a list of numbers (or text) in R with a `c()`. This is just a special way of saying all the elements in this list "belong" together, like with all of the numbers in a column of a spreadsheet "belonging" together.
+> Looking at the map we can see there are many extreme values, making the map look homogeneous.
 >
 {: .callout}
 
-Therefore, we want to check for values like this before we do anything else.  If
-the values were manually entered and the intended value is obvious, they can be
-manually corrected.  For larger scale datasets, however, it is often most
-practical to discard problematic data.
-
-For example, we can plot our `error_data` and look for values that may look off:
-
-
-~~~
-plot(error_data) # use plot function on error rate
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
-By eye we can see the 2nd measurement (at `index = 2`) looks a little fishy.  In this case
-we might want to apply a cut-off in our data so that we ignore all measurements above a
-certain threshold when we do calculations like taking the mean of our data.
-
-One way to do this is by setting any "weird" values to `NA`:
-
-
-~~~
-error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
-error_data
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 900  NA 200 320
-~~~
-{: .output}
-
-Now we can take a mean, with removing `NA`'s as we do it and recover a mean that is closer to the correct value:
-
-~~~
-mean(error_data, na.rm=TRUE)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 473.3333
-~~~
-{: .output}
-
-
-Data cleaning is a major reason why there needs to be good communication between
-data scientists and end users, in agriculture or any other discipline.  As the person
-who generates the data, you know best where the likely sources of error might be.
-Those sources of error might be something that someone who sits behind a computer
-all day would never think of. You also know best what values are reasonable,
-and what values are suspiciously high or low.
-
-We will do an initial cleaning to remove these points. We calculate the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) to get an idea of how much the observations tend to be different from the mean. If the data followed a normal distribution (i.e a bell curve), removing points three standard deviations from the mean would eliminate about one in 1000 data points. In a real dataset, we can be fairly certain that those points are errors. 
-
-There is a function in `functions.R` called `clean_sd()` that deletes observations in the dataset that are beyond three standard deviations from the mean value. The inputs are the dataset and the column for cleaning.
-
+> ## Introduction to data cleaning
+> 
+> Data cleaning is the process of removing or correcting errors in a dataset, and is very important to do before any sort of analysis.  For example, say you were manually entering yield values into a spreadsheet, and then wanted to take the average of all values entered.  If you accidentally typed an extra zero into some of the cells, the average that you calculate is going to be much higher than the true average.
+> 
+> 
+> ~~~
+> real_data <- c(900, 450, 200, 320)
+> error_data <- c(900, 4500, 200, 320) # the 2nd entry has an incorrect entry
+> mean(real_data)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] 467.5
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> mean(error_data)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] 1480
+> ~~~
+> {: .output}
+>
+>
+> > ## Lists of elements in R
+> > You'll see this definition of a list of numbers (or text) in R with a `c()`. This is just a special way of saying all the elements in this list "belong" together, like with all of the numbers in a column of a spreadsheet "belonging" together.
+> >
+> {: .callout}
+>
+> Therefore, we want to check for values like this before we do anything else.  If the values were manually entered and the intended value is obvious, they can be manually corrected.  For larger scale datasets, however, it is often most practical to discard problematic data.
+> 
+> For example, we can plot our `error_data` and look for values that may look off:
+> 
+> 
+> ~~~
+> plot(error_data) # use plot function on error rate
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-dataClean2-1.png" title="plot of chunk dataClean2" alt="plot of chunk dataClean2" width="612" style="display: block; margin: auto;" />
+>
+> By eye we can see the 2nd measurement (at `index = 2`) looks a little fishy.  In this case we might want to apply a cut-off in our data so that we ignore all measurements above a certain threshold when we do calculations like taking the mean of our data.
+> 
+> One way to do this is by setting any "weird" values to `NA`:
+> 
+> 
+> ~~~
+> error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
+> error_data
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] 900  NA 200 320
+> ~~~
+> {: .output}
+> 
+> Now we can take a mean, with removing `NA`'s as we do it and recover a mean that is closer to the correct value:
+> 
+> ~~~
+> mean(error_data, na.rm=TRUE)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] 473.3333
+> ~~~
+> {: .output}
+> 
+> Data cleaning is a major reason why there needs to be good communication between data scientists and end users, in agriculture or any other discipline.  As the person who generates the data, you know best where the likely sources of error might be.  Those sources of error might be something that someone who sits behind a computer all day would never think of. You also know best what values are reasonable, and what values are suspiciously high or low.
+> 
+> We will do an initial cleaning to remove these points. We calculate the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) to get an idea of how much the observations tend to be different from the mean. If the data followed a normal distribution (i.e a bell curve), removing points three standard deviations from the mean would eliminate about one in 1000 data points. In a real dataset, we can be fairly certain that those points are errors. 
+>
+> There is a function in `functions.R` called `clean_sd()` that deletes observations in the dataset that are beyond three standard deviations from the mean value. The inputs are the dataset and the column for cleaning.
+>
 > 
 > 
 > ~~~
@@ -296,9 +288,9 @@ There is a function in `functions.R` called `clean_sd()` that deletes observatio
 > ~~~
 > {: .language-r}
 > 
-{: .callout}
+{: .textchunk}
 
-> # Map after Cleaning
+> # Maps after Cleaning
 > 
 > 
 > ~~~
@@ -307,10 +299,9 @@ There is a function in `functions.R` called `clean_sd()` that deletes observatio
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-dataCleanMap1-1.png" title="plot of chunk dataCleanMap1" alt="plot of chunk dataCleanMap1" width="612" style="display: block; margin: auto;" />
 > 
-{: .callout}
-
+> 
 > ## Side-by-Side Maps
 > 
 > Some kinds of maps you want to see close together. For example, perhaps we want to asses how close the asapplied rates were to the target rates for seed and nitrogen. We can use `tmap_arrange()` to make a grid of `tmap` objects, which we can see in the R environment that the results of `map_poly()` and `map_points()` are Large tmap objects. 
@@ -324,41 +315,11 @@ There is a function in `functions.R` called `clean_sd()` that deletes observatio
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-map_yield_comp1-1.png" title="plot of chunk map_yield_comp1" alt="plot of chunk map_yield_comp1" width="612" style="display: block; margin: auto;" />
 > 
 > The map shows that the data cleaning removed some very high data values at the headlands of the field. We can see the clean map is relatively homogeneous with some patches of lower or higher yield. 
 > 
-{: .callout}
-
-<!-- JPN: testng
-
-~~~
-head(trial)
-~~~
-{: .language-r}
-
-
-
-~~~
-Simple feature collection with 6 features and 10 fields
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: 341634.4 ymin: 4523368 xmax: 341734 ymax: 4523425
-epsg (SRID):    32617
-proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
-# A tibble: 6 x 11
-  GRIDID GRIDX GRIDY DISTANCE TREATMENT BLOCK RANDNBR treat_type NRATE SEEDRATE
-   <dbl> <dbl> <dbl>    <dbl> <chr>     <dbl>   <dbl>      <dbl> <dbl>    <dbl>
-1      2     2    11      282 <NA>          0       0         26   190    36000
-2      3     3    11      282 <NA>          0       0         26   190    36000
-3      4     4    11      282 <NA>          0       0         26   190    36000
-4      5     5    11      282 <NA>          0       0         26   190    36000
-5      6     6    11      282 <NA>          0       0         26   190    36000
-6      7     7    11      282 <NA>          0       0         26   190    36000
-# … with 1 more variable: geom <POLYGON [m]>
-~~~
-{: .output}
--->
+{: .textchunk}
 
 > ## Exercise: Trial Design Map
 > 
@@ -373,14 +334,10 @@ proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
 > >  
 > {: .solution} 
 {: .challenge}
-
-<!--
-<font color="magenta">JPN: there aren't any plots showing up for the Solution plot and i get a legends too wide error.  In subsequent plots it looks like tgts and tgtn don't show up as well.  I had the same problem in RStudio as well.</font>
--->
 
 > ## Planting files
 > 
@@ -397,11 +354,11 @@ proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-seedmap-1.png" title="plot of chunk seedmap" alt="plot of chunk seedmap" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-seedmap_new-1.png" title="plot of chunk seedmap_new" alt="plot of chunk seedmap_new" width="612" style="display: block; margin: auto;" />
 > 
 > From the map, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates. 
 > 
-{: .callout}
+{: .textchunk}
 
 > ## Nitrogen Application 
 > 
@@ -425,36 +382,37 @@ proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 > 
 > <img src="../fig/rmd-nitrogenmap-2.png" title="plot of chunk nitrogenmap" alt="plot of chunk nitrogenmap" width="612" style="display: block; margin: auto;" />
 > 
-{: .callout}
-> 
 > We can see that the nitrogen application is not as precise as the planting, but this is expected due to the machinery capabilities. 
 > 
-{: .callout}
+{: .textchunk}
 
 > ## Yield and Application Map
 > 
 > We can also do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the effect of the seed or nitrogen rates on yield. 
 > 
-{: .callout}
-
-> ## Exercise: Yield and Application
-> Make a map like in the previous example but with yield in bushels and the seeding rate. 
-Report what you see in the map?
-> > ## Solution
-> > 
-> > ~~~
-> > map_yield_asplanted <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
-> > map_yield_asplanted
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-sol map as pl1-1.png" title="plot of chunk sol map as pl1" alt="plot of chunk sol map as pl1" width="612" style="display: block; margin: auto;" />
-> >  
-> {: .solution} 
-{: .challenge}
+>
+>
+> > ## Exercise: Yield and Application
+> > Make a map like in the previous example but with yield in bushels and the seeding rate. 
+> > Report: what you see in the map?
+> > > ## Solution
+> > > 
+> > > ~~~
+> > > map_yield_asplanted <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+> > > map_yield_asplanted
+> > > ~~~
+> > > {: .language-r}
+> > > 
+> > > <img src="../fig/rmd-sol map as pl1-1.png" title="plot of chunk sol map as pl1" alt="plot of chunk sol map as pl1" width="612" style="display: block; margin: auto;" />
+> > >  
+> > {: .solution} 
+> {: .challenge}
+{: .textchunk}
 
 > ## Exercise Discussion
 > 
 > From the map, it is difficult to see any sign of yield response. This highlights the importance of doing statistical rather than visual analysis of harvest data. 
 > 
 {: .callout}
+
+<font color="magenta">Dena asks: Do we add in a financial data exercise here?</font>
