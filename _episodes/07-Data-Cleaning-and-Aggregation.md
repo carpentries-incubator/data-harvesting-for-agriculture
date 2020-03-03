@@ -210,7 +210,7 @@ source: Rmd
 > 
 > Let's go through these one by one.
 > 
-> <br></br>
+> <br>
 > 
 > **1: Taking out border observations**
 > 
@@ -250,7 +250,8 @@ source: Rmd
 > <img src="../fig/rmd-tt2jpn2-1.png" title="plot of chunk tt2jpn2" alt="plot of chunk tt2jpn2" width="612" style="display: block; margin: auto;" />
 > Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.
 > 
->
+> <br>
+> 
 > **2: Taking out outliers far from the mean**
 > 
 > Even if we don't know the source of error, we can tell that some observations are incorrect just because they are far too small or too large.  How can we remove these in an objective, automatic way? As before, we remove observations that are three standard deviations higher or lower than the mean.  We look at histograms and maps of the data to help confirm that our cleaning makes sense.
