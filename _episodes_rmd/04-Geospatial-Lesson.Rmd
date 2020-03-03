@@ -204,7 +204,7 @@ type to ask them to look at them and identify which is which and describe what t
 > 
 > There are several ways to visualize spatial data. First, we can use `plot()` to look at the basic shape of the data. 
 > 
-> ```{r}
+> ```{r plotGeomFirst}
 > plot(boundary$geom)
 > ```
 > 

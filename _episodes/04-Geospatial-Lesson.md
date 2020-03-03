@@ -336,6 +336,6 @@ type to ask them to look at them and identify which is which and describe what t
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-plotGeomFirst-1.png" title="plot of chunk plotGeomFirst" alt="plot of chunk plotGeomFirst" width="612" style="display: block; margin: auto;" />
 > 
 {: .textchunk}
