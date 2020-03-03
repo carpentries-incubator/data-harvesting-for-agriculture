@@ -1,0 +1,393 @@
+I"��<blockquote class="textchunk">
+  <h2 id="lesson-overview">Lesson Overview</h2>
+
+  <p>In this lesson we will explore the files that are generated during a trial season. These data include yield, as-applied, as-planted, and sometimes electrical conductivity. While you are likely using your yield maps every year to assess productivity, you might not be looking at your application maps if you normally use uniform rates. But if you use variable rate applications or have completed an agricultural trial, your application map contains information about how well the machine applied the target rates.</p>
+
+</blockquote>
+
+<blockquote class="textchunk">
+  <h2 id="reading-the-files">Reading the Files</h2>
+
+  <p>In the next exercise we will bring these data into the R environment. We’ve already looked at the asplanted data in the geospatial lesson. Now let’s see what variables are contained in the other files.</p>
+
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="exercise-exploring-trial-data">Exercise: Exploring Trial Data</h2>
+  <p>Read the yield, as-planted, and as-applied files and explore the variables. For each file, identify what variables might we be interested in and why?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">planting</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/asplanted.gpkg"</span><span class="p">)</span><span class="w">
+</span><span class="n">nitrogen</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/asapplied.gpkg"</span><span class="p">)</span><span class="w">
+</span><span class="n">yield</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/yield.gpkg"</span><span class="p">)</span><span class="w">
+</span><span class="n">trial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/trial.gpkg"</span><span class="p">)</span><span class="w">
+</span><span class="nf">names</span><span class="p">(</span><span class="n">nitrogen</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "Product"      "Obj__Id"      "Track_deg_"   "Swth_Wdth_"   "Distance_f"  
+ [6] "Duration_s"   "Elevation_"   "Area_Count"   "Diff_Statu"   "Time"        
+[11] "Y_Offset_f"   "X_Offset_f"   "Rt_Apd_Ms_"   "Pass_Num"     "Speed_mph_"  
+[16] "Prod_ac_hr"   "Date"         "Rate_Appli"   "Rate_Appli.1" "geom"        
+</code></pre></div>    </div>
+
+  </blockquote>
+</blockquote>
+
+<!-- JPN: this is just the solution though? 
+> ## Exercise Discussion
+> 
+> ~~~
+> names(nitrogen)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+>  [1] "Product"      "Obj__Id"      "Track_deg_"   "Swth_Wdth_"   "Distance_f"  
+>  [6] "Duration_s"   "Elevation_"   "Area_Count"   "Diff_Statu"   "Time"        
+> [11] "Y_Offset_f"   "X_Offset_f"   "Rt_Apd_Ms_"   "Pass_Num"     "Speed_mph_"  
+> [16] "Prod_ac_hr"   "Date"         "Rate_Appli"   "Rate_Appli.1" "geom"        
+> ~~~
+> {: .output}
+>
+-->
+
+<blockquote class="textchunk">
+  <h2 id="as-applied-file">As-Applied File</h2>
+
+  <p>The nitrogen file contains 22 variables. The nitrogen type of is reported in <code class="highlighter-rouge">Product</code>, and this field used NH3. The column with the applied rate is <code class="highlighter-rouge">Rate_Appli</code>.</p>
+
+  <p>There is not a clear column with the target rate. This is not a problem as we will later merge the trial map and the application map, so we can compare the rate applied to the intended rate.</p>
+
+  <p>We can also see the automatic-section control reacting when the applicator is off of the guidance line, with the swatch width changing in <code class="highlighter-rouge">Swth_W_</code>.</p>
+
+</blockquote>
+
+<blockquote class="textchunk">
+  <h2 id="yield-file">Yield File</h2>
+
+  <p><code class="highlighter-rouge">yield</code> contains 32 variables. Many of the variables are similar to those we in the nitrogen data: time, date, elevation, and product.</p>
+
+  <p>The main variables in the harvest files are <code class="highlighter-rouge">Yld_Vol_Dr</code> and <code class="highlighter-rouge">Yld_Mass_D</code>. We also use speed (<code class="highlighter-rouge">Speed_mph_</code>) to eliminate the points collected when the machine was slowing down or speeding up as this effects the accuracy of the yield monitor.</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">names</span><span class="p">(</span><span class="n">yield</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "Product"    "Obj__Id"    "Distance_f" "Track_deg_" "Duration_s"
+ [6] "Elevation_" "Time"       "Area_Count" "Swth_Wdth_" "Y_Offset_f"
+[11] "Crop_Flw_M" "Moisture__" "Yld_Mass_W" "Yld_Vol_We" "Yld_Mass_D"
+[16] "Yld_Vol_Dr" "Humidity__" "Air_Temp__" "Wind_Speed" "Soil_Temp_"
+[21] "Wind_Dir"   "Sky_Cond"   "Pass_Num"   "Speed_mph_" "Prod_ac_h_"
+[26] "Crop_Flw_V" "Date"       "Yield__Dry" "geom"      
+</code></pre></div>  </div>
+
+</blockquote>
+
+<blockquote class="textchunk">
+  <h2 id="as-planted-file">As-Planted File</h2>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">names</span><span class="p">(</span><span class="n">planting</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "Product"      "Obj__Id"      "Distance_f"   "Track_deg_"   "Duration_s"  
+ [6] "Elevation_"   "Time"         "Area_Count"   "Swth_Wdth_"   "Seed_Cnt__"  
+[11] "Plant_Pop_"   "Rt_Apd_Ct_"   "SeedFlow_k"   "Tgt_Rate_k"   "Y_Offset_f"  
+[16] "DF_Margin_"   "Humidity__"   "Air_Temp__"   "Wind_Speed"   "Soil_Temp_"  
+[21] "Pass_Num"     "Speed_mph_"   "Prod_ac_h_"   "Prdt_Amt"     "Date"        
+[26] "Population"   "Rate__Coun"   "Target_Rat"   "Population.1" "Date___Tim"  
+[31] "geom"        
+</code></pre></div>  </div>
+
+  <p>We see that the planting file has 33 variables, several of which appear to be identical. The main variables of interest are the planting rate (<code class="highlighter-rouge">Rt_A_C_</code>) and the target rate (<code class="highlighter-rouge">Tgt_Rt_</code>). These columns do appear under different names. We will discuss how to handle this below.</p>
+
+  <p>There are several other variables that could be useful. First, the hybrid is located in the <code class="highlighter-rouge">Product</code> column; we want to keep this in our records if we want to compare across years. We may also want to know things like the swath width (<code class="highlighter-rouge">Swth_W_</code>) or elevation (<code class="highlighter-rouge">Elevtn</code>), swath width for cleaning and aggregating which will be discussed later and elevation for considering its impact on yield.</p>
+
+</blockquote>
+
+<blockquote class="textchunk">
+  <h2 id="trial-data-for-this-workshop">Trial data for this workshop</h2>
+  <p>In the last episode, we discussed making your own trial design and made plots of how this would look on our example farm by:</p>
+  <ol>
+    <li>First generating a treatment map:</li>
+  </ol>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># (I) Read in and transform our shape files</span><span class="w">
+</span><span class="n">boundary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_read</span><span class="p">(</span><span class="s2">"data/boundary.gpkg"</span><span class="p">)</span><span class="w"> </span><span class="c1"># read in boundary</span><span class="w">
+</span><span class="n">abline</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_read</span><span class="p">(</span><span class="s2">"data/abline.gpkg"</span><span class="p">)</span><span class="w"> </span><span class="c1"># read in AB line</span><span class="w">
+
+</span><span class="n">trialarea</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span><span class="w">
+</span><span class="n">abline_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_transform_utm</span><span class="p">(</span><span class="n">abline</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># (II) parameters</span><span class="w">
+</span><span class="n">width_in_meters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="c1"># width of grids is 24 meters</span><span class="w">
+</span><span class="n">long_direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'NS'</span><span class="w"> </span><span class="c1"># direction of grid that will be long</span><span class="w">
+</span><span class="n">short_direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'EW'</span><span class="w"> </span><span class="c1"># direction of grid that will be short</span><span class="w">
+</span><span class="n">length_in_ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="c1"># length of grids in feet</span><span class="w">
+
+</span><span class="c1"># (III) making grids</span><span class="w">
+</span><span class="n">width</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">m_to_ft</span><span class="p">(</span><span class="m">24</span><span class="p">)</span><span class="w"> </span><span class="c1"># convert meters to feet</span><span class="w">
+</span><span class="n">design_grids_utm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">make_grids</span><span class="p">(</span><span class="n">trialarea</span><span class="p">,</span><span class="w"> </span><span class="n">abline_utm</span><span class="p">,</span><span class="w">
+             </span><span class="n">long_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">long_direction</span><span class="p">,</span><span class="w">
+			       </span><span class="n">short_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">short_direction</span><span class="p">,</span><span class="w">
+			       </span><span class="n">length_ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">length_in_ft</span><span class="p">,</span><span class="w">
+			       </span><span class="n">width_ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># (IV) correcting the CRS and subsetting to our farm boundary</span><span class="w">
+</span><span class="n">st_crs</span><span class="p">(</span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_crs</span><span class="p">(</span><span class="n">trialarea</span><span class="p">)</span><span class="w">
+</span><span class="n">trial_grid</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">st_intersection</span><span class="p">(</span><span class="n">trialarea</span><span class="p">,</span><span class="w"> </span><span class="n">design_grids_utm</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># (V) Picking a range of seed and nitrogen rates for our trials</span><span class="w">
+</span><span class="n">seed_rates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">31000</span><span class="p">,</span><span class="w"> </span><span class="m">34000</span><span class="p">,</span><span class="w"> </span><span class="m">37000</span><span class="p">,</span><span class="w"> </span><span class="m">40000</span><span class="p">)</span><span class="w">
+</span><span class="n">nitrogen_rates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">160</span><span class="p">,</span><span class="m">200</span><span class="p">,</span><span class="m">225</span><span class="p">,</span><span class="m">250</span><span class="p">)</span><span class="w">
+</span><span class="c1"># and setting our headlands rates</span><span class="w">
+</span><span class="n">seed_quo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">37000</span><span class="w">
+</span><span class="n">nitrogen_quo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">225</span><span class="w">
+
+</span><span class="c1"># (VI) Depositing a these randomly distributed seed &amp; nitrogen rates to our gridded field:</span><span class="w">
+</span><span class="n">whole_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">treat_assign</span><span class="p">(</span><span class="n">trialarea</span><span class="p">,</span><span class="w"> </span><span class="n">trial_grid</span><span class="p">,</span><span class="w"> </span><span class="n">head_buffer_ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w">
+                           </span><span class="n">seed_treat_rates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seed_rates</span><span class="p">,</span><span class="w">
+			   </span><span class="n">nitrogen_treat_rates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nitrogen_rates</span><span class="p">,</span><span class="w">
+			   </span><span class="n">seed_quo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seed_quo</span><span class="p">,</span><span class="w">
+			   </span><span class="n">nitrogen_quo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nitrogen_quo</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Regions defined for each Polygons
+</code></pre></div>  </div>
+  <ol>
+    <li>Plotting the results of the gridded trial design</li>
+  </ol>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_poly</span><span class="p">(</span><span class="n">whole_plot</span><span class="p">,</span><span class="w"> </span><span class="s2">"NRATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Nitrogen Treatment"</span><span class="p">)</span><span class="w">
+</span><span class="n">seed_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_poly</span><span class="p">(</span><span class="n">whole_plot</span><span class="p">,</span><span class="w"> </span><span class="s2">"SEEDRATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Seedrate Treatment"</span><span class="p">)</span><span class="w">
+</span><span class="n">treatment_plot_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">nitrogen_plot</span><span class="p">,</span><span class="w"> </span><span class="n">seed_plot</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">treatment_plot_comp</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p><img src="../fig/rmd-tdata_map_plot-1.png" title="plot of chunk tdata_map_plot" alt="plot of chunk tdata_map_plot" width="612" style="display: block; margin: auto;" /></p>
+
+</blockquote>
+
+<blockquote class="textchunk">
+  <h2 id="visualizing-the-trial-data">Visualizing the Trial Data</h2>
+
+  <p>In the next section, we will have exercises to visually explore the trial data. We will look at the importance of data cleaning with a yield map visualization. We will compare the application rate to the target rates and the yield levels.</p>
+
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="exercise-yield-map">Exercise: Yield Map</h2>
+  <p>Make a map of the yield in bushels per acre from the <code class="highlighter-rouge">yield</code> file using <code class="highlighter-rouge">map_points()</code>. This is a new function to us, but it has the same inputs as <code class="highlighter-rouge">map_poly()</code> where you supply the data, column name to determine the color, and displayed name. Do you notice anything about the yield map?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">names</span><span class="p">(</span><span class="n">yield</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "Product"    "Obj__Id"    "Distance_f" "Track_deg_" "Duration_s"
+ [6] "Elevation_" "Time"       "Area_Count" "Swth_Wdth_" "Y_Offset_f"
+[11] "Crop_Flw_M" "Moisture__" "Yld_Mass_W" "Yld_Vol_We" "Yld_Mass_D"
+[16] "Yld_Vol_Dr" "Humidity__" "Air_Temp__" "Wind_Speed" "Soil_Temp_"
+[21] "Wind_Dir"   "Sky_Cond"   "Pass_Num"   "Speed_mph_" "Prod_ac_h_"
+[26] "Crop_Flw_V" "Date"       "Yield__Dry" "geom"      
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_yieldog</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">yield</span><span class="p">,</span><span class="w"> </span><span class="s1">'Yld_Vol_Dr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Yield (bu/ac)'</span><span class="p">)</span><span class="w">
+</span><span class="n">map_yieldog</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-seedvars-1.png" title="plot of chunk seedvars" alt="plot of chunk seedvars" width="612" style="display: block; margin: auto;" /></p>
+
+  </blockquote>
+</blockquote>
+
+<blockquote class="callout">
+  <h2 id="exercise-discussion-and-outliers">Exercise Discussion and Outliers</h2>
+  <p>Looking at the map we can see there are many extreme values, making the map look homogeneous.</p>
+
+</blockquote>
+
+<blockquote class="textchunk">
+  <h2 id="introduction-to-data-cleaning">Introduction to data cleaning</h2>
+
+  <p>Data cleaning is the process of removing or correcting errors in a dataset, and is very important to do before any sort of analysis.  For example, say you were manually entering yield values into a spreadsheet, and then wanted to take the average of all values entered.  If you accidentally typed an extra zero into some of the cells, the average that you calculate is going to be much higher than the true average.</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">real_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">900</span><span class="p">,</span><span class="w"> </span><span class="m">450</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">320</span><span class="p">)</span><span class="w">
+</span><span class="n">error_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">900</span><span class="p">,</span><span class="w"> </span><span class="m">4500</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">320</span><span class="p">)</span><span class="w"> </span><span class="c1"># the 2nd entry has an incorrect entry</span><span class="w">
+</span><span class="n">mean</span><span class="p">(</span><span class="n">real_data</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 467.5
+</code></pre></div>  </div>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mean</span><span class="p">(</span><span class="n">error_data</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1480
+</code></pre></div>  </div>
+
+  <blockquote class="callout">
+    <h2 id="lists-of-elements-in-r">Lists of elements in R</h2>
+    <p>You’ll see this definition of a list of numbers (or text) in R with a <code class="highlighter-rouge">c()</code>. This is just a special way of saying all the elements in this list “belong” together, like with all of the numbers in a column of a spreadsheet “belonging” together.</p>
+
+  </blockquote>
+
+  <p>Therefore, we want to check for values like this before we do anything else.  If the values were manually entered and the intended value is obvious, they can be manually corrected.  For larger scale datasets, however, it is often most practical to discard problematic data.</p>
+
+  <p>For example, we can plot our <code class="highlighter-rouge">error_data</code> and look for values that may look off:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">error_data</span><span class="p">)</span><span class="w"> </span><span class="c1"># use plot function on error rate</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p><img src="../fig/rmd-dataClean2-1.png" title="plot of chunk dataClean2" alt="plot of chunk dataClean2" width="612" style="display: block; margin: auto;" /></p>
+
+  <p>By eye we can see the 2nd measurement (at <code class="highlighter-rouge">index = 2</code>) looks a little fishy.  In this case we might want to apply a cut-off in our data so that we ignore all measurements above a certain threshold when we do calculations like taking the mean of our data.</p>
+
+  <p>One way to do this is by setting any “weird” values to <code class="highlighter-rouge">NA</code>:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">error_data</span><span class="p">[</span><span class="n">error_data</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">2000</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA</span><span class="w"> </span><span class="c1"># set any values bigger than 2000 to the NA tag</span><span class="w">
+</span><span class="n">error_data</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 900  NA 200 320
+</code></pre></div>  </div>
+
+  <p>Now we can take a mean, with removing <code class="highlighter-rouge">NA</code>’s as we do it and recover a mean that is closer to the correct value:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mean</span><span class="p">(</span><span class="n">error_data</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 473.3333
+</code></pre></div>  </div>
+
+  <p>Data cleaning is a major reason why there needs to be good communication between data scientists and end users, in agriculture or any other discipline.  As the person who generates the data, you know best where the likely sources of error might be.  Those sources of error might be something that someone who sits behind a computer all day would never think of. You also know best what values are reasonable, and what values are suspiciously high or low.</p>
+
+  <p>We will do an initial cleaning to remove these points. We calculate the <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a> to get an idea of how much the observations tend to be different from the mean. If the data followed a normal distribution (i.e a bell curve), removing points three standard deviations from the mean would eliminate about one in 1000 data points. In a real dataset, we can be fairly certain that those points are errors.</p>
+
+  <p>There is a function in <code class="highlighter-rouge">functions.R</code> called <code class="highlighter-rouge">clean_sd()</code> that deletes observations in the dataset that are beyond three standard deviations from the mean value. The inputs are the dataset and the column for cleaning.</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yield</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">yield</span><span class="p">,</span><span class="w"> </span><span class="n">yield</span><span class="o">$</span><span class="n">Yld_Vol_Dr</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+</blockquote>
+
+<blockquote class="textchunk">
+  <h1 id="maps-after-cleaning">Maps after Cleaning</h1>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_yieldcl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">yield</span><span class="p">,</span><span class="w"> </span><span class="s1">'Yld_Vol_Dr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Yield (bu/ac)'</span><span class="p">)</span><span class="w">
+</span><span class="n">map_yieldcl</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p><img src="../fig/rmd-dataCleanMap1-1.png" title="plot of chunk dataCleanMap1" alt="plot of chunk dataCleanMap1" width="612" style="display: block; margin: auto;" /></p>
+
+  <h2 id="side-by-side-maps">Side-by-Side Maps</h2>
+
+  <p>Some kinds of maps you want to see close together. For example, perhaps we want to asses how close the asapplied rates were to the target rates for seed and nitrogen. We can use <code class="highlighter-rouge">tmap_arrange()</code> to make a grid of <code class="highlighter-rouge">tmap</code> objects, which we can see in the R environment that the results of <code class="highlighter-rouge">map_poly()</code> and <code class="highlighter-rouge">map_points()</code> are Large tmap objects.</p>
+
+  <p>To use <code class="highlighter-rouge">tmap_arrange()</code> we define <code class="highlighter-rouge">ncol</code> and <code class="highlighter-rouge">nrow</code>, and the command will arrange the objects given into the grid. Let’s compare the yield map before and after cleaning. In this case, we want two columns and one row.</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_yield_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">map_yieldog</span><span class="p">,</span><span class="w"> </span><span class="n">map_yieldcl</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">map_yield_comp</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p><img src="../fig/rmd-map_yield_comp1-1.png" title="plot of chunk map_yield_comp1" alt="plot of chunk map_yield_comp1" width="612" style="display: block; margin: auto;" /></p>
+
+  <p>The map shows that the data cleaning removed some very high data values at the headlands of the field. We can see the clean map is relatively homogeneous with some patches of lower or higher yield.</p>
+
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="exercise-trial-design-map">Exercise: Trial Design Map</h2>
+
+  <p>Look at the data <code class="highlighter-rouge">trial</code> and make a comparison of the nitrogen and seed designs in one map.</p>
+  <blockquote class="solution">
+    <h2 id="solution-2">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tgts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_poly</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span><span class="w"> </span><span class="s1">'SEEDRATE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seed'</span><span class="p">)</span><span class="w"> 
+</span><span class="n">tgtn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_poly</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span><span class="w"> </span><span class="s1">'NRATE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Nitrogen'</span><span class="p">)</span><span class="w">
+</span><span class="n">trial_map</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">tgts</span><span class="p">,</span><span class="w"> </span><span class="n">tgtn</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">trial_map</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" /></p>
+
+  </blockquote>
+</blockquote>
+
+<blockquote class="textchunk">
+  <h2 id="planting-files">Planting files</h2>
+
+  <p>Now that we’ve seen the trial designs let’s look at the application files. We will make a map of the applied seeding rate and compare it with the target rate.</p>
+
+  <p>Looking at the names in the planting file, there are quite a few columns that look similar. But it appears that <code class="highlighter-rouge">Rt_A_C_</code> is the applied rate and <code class="highlighter-rouge">Tgt_Rt_</code> is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons, so we will use <code class="highlighter-rouge">map_points()</code>.</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">planting</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">planting</span><span class="p">,</span><span class="n">planting</span><span class="o">$</span><span class="n">Rt_Apd_Ct_</span><span class="p">)</span><span class="w">
+</span><span class="n">map_asplanted</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">planting</span><span class="p">,</span><span class="w"> </span><span class="s1">'Rt_Apd_Ct_'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Applied Seeding Rate"</span><span class="p">)</span><span class="w">
+</span><span class="n">map_planting_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">map_asplanted</span><span class="p">,</span><span class="w"> </span><span class="n">tgts</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">map_planting_comp</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p><img src="../fig/rmd-seedmap_new-1.png" title="plot of chunk seedmap_new" alt="plot of chunk seedmap_new" width="612" style="display: block; margin: auto;" /></p>
+
+  <p>From the map, we can see that this trial had a very accurate application of the designed seeding rates. This is a common result for seed, which has more accurate application than nitrogen. However, we still have maximum and minimum applied rates that are much higher than the designed rates.</p>
+
+</blockquote>
+
+<blockquote class="textchunk">
+  <h2 id="nitrogen-application">Nitrogen Application</h2>
+
+  <p>Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. Then we make a map called <code class="highlighter-rouge">map_nitrogen</code> with the application and compare it to the map we made earlier <code class="highlighter-rouge">tgtn</code>.</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nitrogen</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">clean_sd</span><span class="p">(</span><span class="n">nitrogen</span><span class="p">,</span><span class="w"> </span><span class="n">nitrogen</span><span class="o">$</span><span class="n">Rate_Appli</span><span class="p">)</span><span class="w">
+</span><span class="n">map_nitrogen</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_points</span><span class="p">(</span><span class="n">nitrogen</span><span class="p">,</span><span class="w"> </span><span class="s1">'Rate_Appli'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Nitrogen'</span><span class="p">)</span><span class="w">
+</span><span class="n">map_nitrogen</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p><img src="../fig/rmd-nitrogenmap-1.png" title="plot of chunk nitrogenmap" alt="plot of chunk nitrogenmap" width="612" style="display: block; margin: auto;" /></p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_nitrogen_comp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">map_nitrogen</span><span class="p">,</span><span class="w"> </span><span class="n">tgtn</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">map_nitrogen_comp</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p><img src="../fig/rmd-nitrogenmap-2.png" title="plot of chunk nitrogenmap" alt="plot of chunk nitrogenmap" width="612" style="display: block; margin: auto;" /></p>
+
+  <p>We can see that the nitrogen application is not as precise as the planting, but this is expected due to the machinery capabilities.</p>
+
+</blockquote>
+
+<!-- JPN: not sure if we  want these many layered boxes but whatevs-->
+
+<blockquote class="textchunk">
+  <h2 id="yield-and-application-map">Yield and Application Map</h2>
+
+  <p>We can also do a visual comparison of yield and seed. While often the spatial patterns from soil content are more visible than the trial rates, sometimes one can see the effect of the seed or nitrogen rates on yield.</p>
+
+  <blockquote class="challenge">
+    <h2 id="exercise-yield-and-application">Exercise: Yield and Application</h2>
+    <p>Make a map like in the previous example but with yield in bushels and the seeding rate. 
+Report: what you see in the map?</p>
+    <blockquote class="solution">
+      <h2 id="solution-3">Solution</h2>
+
+      <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_yield_asplanted</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">map_yieldcl</span><span class="p">,</span><span class="w"> </span><span class="n">map_asplanted</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">map_yield_asplanted</span><span class="w">
+</span></code></pre></div>      </div>
+
+      <p><img src="../fig/rmd-sol map as pl1-1.png" title="plot of chunk sol map as pl1" alt="plot of chunk sol map as pl1" width="612" style="display: block; margin: auto;" /></p>
+
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<blockquote class="callout">
+  <h2 id="exercise-discussion">Exercise Discussion</h2>
+
+  <p>From the map, it is difficult to see any sign of yield response. This highlights the importance of doing statistical rather than visual analysis of harvest data.</p>
+
+</blockquote>
+
+<font color="magenta">Dena asks: Do we add in a financial data exercise here?</font>
+:ET

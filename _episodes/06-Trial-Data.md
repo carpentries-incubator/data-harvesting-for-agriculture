@@ -146,6 +146,79 @@ source: Rmd
 > 
 {: .textchunk}
 
+> ## Trial data for this workshop
+> In the last episode, we discussed making your own trial design and made plots of how this would look on our example farm.  The summary of this code is below.
+> #### 1. First we generated a treatement map:
+> 
+> ~~~
+> # (I) Read in and transform our shape files
+> boundary <- st_read("data/boundary.gpkg") # read in boundary
+> abline <- st_read("data/abline.gpkg") # read in AB line
+> 
+> trialarea <- st_transform_utm(boundary)
+> abline_utm <- st_transform_utm(abline)
+> 
+> # (II) parameters
+> width_in_meters = 24 # width of grids is 24 meters
+> long_direction = 'NS' # direction of grid that will be long
+> short_direction = 'EW' # direction of grid that will be short
+> length_in_ft = 180 # length of grids in feet
+> 
+> # (III) making grids
+> width <- m_to_ft(24) # convert meters to feet
+> design_grids_utm <- make_grids(trialarea, abline_utm,
+>              long_in = long_direction,
+> 			       short_in = short_direction,
+> 			       length_ft = length_in_ft,
+> 			       width_ft = width)
+> 
+> # (IV) correcting the CRS and subsetting to our farm boundary
+> st_crs(design_grids_utm) <- st_crs(trialarea)
+> trial_grid <- st_intersection(trialarea, design_grids_utm)
+> 
+> # (V) Picking a range of seed and nitrogen rates for our trials
+> seed_rates <- c(31000, 34000, 37000, 40000)
+> nitrogen_rates <- c(160,200,225,250)
+> # and setting our headlands rates
+> seed_quo <- 37000
+> nitrogen_quo <- 225
+> 
+> # (VI) Depositing a these randomly distributed seed & nitrogen rates to our gridded field:
+> whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
+>                            seed_treat_rates = seed_rates,
+> 			   nitrogen_treat_rates = nitrogen_rates,
+> 			   seed_quo = seed_quo,
+> 			   nitrogen_quo = nitrogen_quo)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Regions defined for each Polygons
+> ~~~
+> {: .output}
+> #### 2. Then we plotted the results of the gridded trial design:
+> 
+> ~~~
+> nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
+> seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+> treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
+> treatment_plot_comp
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-tdata_map_plot-1.png" title="plot of chunk tdata_map_plot" alt="plot of chunk tdata_map_plot" width="612" style="display: block; margin: auto;" />
+>
+>
+{: .textchunk}
+
+> ## Simulating yields
+> Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield measurements you have stored in your `yield.gpkg` file can be used for this exercise, however **for this workshop only** will *simulate* the yields we'd expect to get out from your trial design.
+>
+{: .callout}
+
+
 > ## Visualizing the Trial Data
 > 
 > In the next section, we will have exercises to visually explore the trial data. We will look at the importance of data cleaning with a yield map visualization. We will compare the application rate to the target rates and the yield levels.
@@ -385,6 +458,8 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > We can see that the nitrogen application is not as precise as the planting, but this is expected due to the machinery capabilities. 
 > 
 {: .textchunk}
+
+<!-- JPN: not sure if we  want these many layered boxes but whatevs-->
 
 > ## Yield and Application Map
 > 
