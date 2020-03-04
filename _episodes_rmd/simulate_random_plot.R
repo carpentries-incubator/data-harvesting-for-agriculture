@@ -133,8 +133,8 @@ completedf = subset(newdf, complete.cases(newdf))
 
 # do simple MLR/GLM
 myMod = lm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf)
-#myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=subplots_data) ### THIS IS WHAT WE WANT TO SAVE
-#myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf, family=poisson())
+#myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=subplots_data) 
+#myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf, family=poisson())  ## I'm FAIRLY sure we want to use this one
 
 ################################################################
 
@@ -171,6 +171,7 @@ yieldsMod = coefs[,'(Intercept)'] + coefs[, 'Rate_Appli']*rapp + coefs[, 'Rt_Apd
 # PLOT:
 # yield, nitrogen
 #y=Yld_Vol_Dr,x=Rate_Appli
+par(mfrow=c(1,3))
 plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)#, ylim=c(100, 300))#, xlim=c(130, 250))
 points(rapp, yieldsMod, col='blue')
 
@@ -258,8 +259,8 @@ maxBig = 1200
 minBig = 400
 
 randomBigProbApp = 0.005 # random as applied
-maxBigApp = 1200
-minBigApp = 400
+maxBigApp = 50
+minBigApp = 1300
 
 
 nPrint = 50
@@ -347,3 +348,9 @@ for (i in 1:length(whole_plot$geom)){
 # Warning message:
 #   attribute variables are assumed to be spatially constant throughout all geometries 
 # > plot(yield_int$geom)
+
+
+# others
+trial_utm <- whole_plot
+yield_utm <- myOut
+yield_clean_border <- clean_buffer(trial_utm, 15, yield_utm)
