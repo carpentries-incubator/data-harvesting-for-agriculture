@@ -217,6 +217,16 @@ source: Rmd
 > 
 > ~~~
 > [1] "This might take a little while... now is a great time for a coffee :)"
+> [1] "On 50 of 543 geometries"
+> [1] "On 100 of 543 geometries"
+> [1] "On 150 of 543 geometries"
+> [1] "On 200 of 543 geometries"
+> [1] "On 250 of 543 geometries"
+> [1] "On 300 of 543 geometries"
+> [1] "On 350 of 543 geometries"
+> [1] "On 400 of 543 geometries"
+> [1] "On 450 of 543 geometries"
+> [1] "On 500 of 543 geometries"
 > ~~~
 > {: .output}
 > 
@@ -537,7 +547,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > Updating layer `yield_new' to data source `yield_new.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Updating existing layer yield_new
-> Writing 159 features with 28 fields and geometry type Point.
+> Writing 25740 features with 28 fields and geometry type Point.
 > ~~~
 > {: .output}
 > 
@@ -554,7 +564,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > Updating layer `asapplied_new' to data source `asapplied_new.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Updating existing layer asapplied_new
-> Writing 145 features with 19 fields and geometry type Point.
+> Writing 13076 features with 19 fields and geometry type Point.
 > ~~~
 > {: .output}
 > 
@@ -571,7 +581,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > Updating layer `asplanted_new' to data source `asplanted_new.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Updating existing layer asplanted_new
-> Writing 89 features with 30 fields and geometry type Point.
+> Writing 8922 features with 30 fields and geometry type Point.
 > ~~~
 > {: .output}
 >
