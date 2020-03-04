@@ -68,6 +68,6 @@ planting <- simulated_trial$asplanted
 
 # write the new files
 st_write(trial, "data/trial_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(yield_orig, "data/yield_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(nitrogen_orig, "data/asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(planting_orig, "data/asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+st_write(yield, "data/yield_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+st_write(nitrogen, "data/asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+st_write(planting, "data/asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)

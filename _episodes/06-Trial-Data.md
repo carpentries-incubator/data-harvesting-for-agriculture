@@ -29,24 +29,39 @@ source: Rmd
 > 
 {: .textchunk}
 
+
+> ## Simulating yields
+> Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield, asplanted, asapplied, and trial measurements you have stored can be used for this exercise, however **for this workshop only** have *simulated* the yields we'd expect to get out from your trial design.  These are the data files with the `_new` in their titles which we will read in now.
+>
+> For example, reading in the asplanted file will now look like:
+>
+> 
+> ~~~
+> planting <- read_sf("data/asplanted_new.gpkg")
+> ~~~
+> {: .language-r}
+> 
+>
+>
+{: .callout}
+
+
 > ## Reading the Files
 > 
-> In the next exercise we will bring these data into the R environment. We've already looked at the asplanted data in the geospatial lesson. Now let's see what variables are contained in the other files. 
+> In the next exercise we will bring these data into the R environment. We've already looked at the asplanted data in the geospatial lesson (and have read it in again here). Now let's see what variables are contained in the other files. 
 > 
 {: .textchunk}
 
-<font color="magenta">Don't think we need this if we are going right from our trial data??  At least not the trial data??  I will replace it with whole plot</font>
 
 > ## Exercise: Exploring Trial Data
-> Read the yield, as-planted, and as-applied files and explore the variables. For each file, identify what variables might we be interested in and why?
+> Read the yield, trial, and as-applied files and explore the variables. For each file, identify what variables might we be interested in and why?
 > 
 > > ## Solution
 > > 
 > > ~~~
-> > planting <- read_sf("data/asplanted.gpkg")
-> > nitrogen <- read_sf("data/asapplied.gpkg")
-> > yield <- read_sf("data/yield.gpkg")
-> > trial <- read_sf("data/trial.gpkg")
+> > nitrogen <- read_sf("data/asapplied_new.gpkg")
+> > yield <- read_sf("data/yield_new.gpkg")
+> > trial <- read_sf("data/trial_new.gpkg")
 > > names(nitrogen)
 > > ~~~
 > > {: .language-r}
@@ -131,83 +146,7 @@ source: Rmd
 > 
 {: .textchunk}
 
-> ## Trial data for this workshop
-> In the last episode, we discussed making your own trial design and made plots of how this would look on our example farm.  The summary of this code is below.
-> #### 1. First we generated a treatement map:
-> 
-> ~~~
-> # (I) Read in and transform our shape files
-> boundary <- st_read("data/boundary.gpkg") # read in boundary
-> abline <- st_read("data/abline.gpkg") # read in AB line
-> 
-> trialarea <- st_transform_utm(boundary)
-> abline_utm <- st_transform_utm(abline)
-> 
-> # (II) parameters
-> width_in_meters = 24 # width of grids is 24 meters
-> long_direction = 'NS' # direction of grid that will be long
-> short_direction = 'EW' # direction of grid that will be short
-> length_in_ft = 180 # length of grids in feet
-> 
-> # (III) making grids
-> width <- m_to_ft(24) # convert meters to feet
-> design_grids_utm <- make_grids(trialarea, abline_utm,
->              long_in = long_direction,
-> 			       short_in = short_direction,
-> 			       length_ft = length_in_ft,
-> 			       width_ft = width)
-> 
-> # (IV) correcting the CRS and subsetting to our farm boundary
-> st_crs(design_grids_utm) <- st_crs(trialarea)
-> trial_grid <- st_intersection(trialarea, design_grids_utm)
-> 
-> # (V) Picking a range of seed and nitrogen rates for our trials
-> seed_rates <- c(31000, 34000, 37000, 40000)
-> nitrogen_rates <- c(160,200,225,250)
-> # and setting our headlands rates
-> seed_quo <- 37000
-> nitrogen_quo <- 225
-> 
-> # (VI) Depositing a these randomly distributed seed & nitrogen rates to our gridded field:
-> whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
->                            seed_treat_rates = seed_rates,
-> 			   nitrogen_treat_rates = nitrogen_rates,
-> 			   seed_quo = seed_quo,
-> 			   nitrogen_quo = nitrogen_quo)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Regions defined for each Polygons
-> ~~~
-> {: .output}
-> #### 2. Then we plotted the results of the gridded trial design:
-> 
-> ~~~
-> nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
-> seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
-> treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
-> treatment_plot_comp
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-tdata_map_plot-1.png" title="plot of chunk tdata_map_plot" alt="plot of chunk tdata_map_plot" width="612" style="display: block; margin: auto;" />
->
->
-{: .textchunk}
 
-
-
-
-
-
-> ## Simulating yields
-> Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield measurements you have stored in your `yield.gpkg` file can be used for this exercise, however **for this workshop only** will *simulate* the yields we'd expect to get out from your trial design.
->
->
-{: .callout}
 
 
 > ## Visualizing the Trial Data
@@ -289,12 +228,15 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > ~~~
 > {: .output}
 >
+{: .textchunk}
+
+
+> ## Lists of elements in R
+> You'll see this definition of a list of numbers (or text) in R with a `c()`. This is just a special way of saying all the elements in this list "belong" together, like with all of the numbers in a column of a spreadsheet "belonging" together.
 >
-> > ## Lists of elements in R
-> > You'll see this definition of a list of numbers (or text) in R with a `c()`. This is just a special way of saying all the elements in this list "belong" together, like with all of the numbers in a column of a spreadsheet "belonging" together.
-> >
-> {: .callout}
 >
+{: .callout}
+
 > Therefore, we want to check for values like this before we do anything else.  If the values were manually entered and the intended value is obvious, they can be manually corrected.  For larger scale datasets, however, it is often most practical to discard problematic data.
 > 
 > For example, we can plot our `error_data` and look for values that may look off:
@@ -348,8 +290,6 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> # saving for later
-> yield_orig <- yield
 > yield <- clean_sd(yield, yield$Yld_Vol_Dr)
 > ~~~
 > {: .language-r}
@@ -413,7 +353,6 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> planting_orig <- planting # save for later
 > planting <- clean_sd(planting,planting$Rt_Apd_Ct_)
 > map_asplanted <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
 > map_planting_comp <- tmap_arrange(map_asplanted, tgts, ncol = 2, nrow = 1)
@@ -433,7 +372,6 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> nitrogen_orig <- nitrogen # save for later
 > nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli)
 > map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
 > map_nitrogen
@@ -487,10 +425,4 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 
 <font color="magenta">Dena asks: Do we add in a financial data exercise here?</font>
 
-<font color="magenta"> Presumabily we now use st_write to save these files for the next lesson?</font>
 
-> ## Saving our trial files
-> 
->
->
-{: .textchunk}
