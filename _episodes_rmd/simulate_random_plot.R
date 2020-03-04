@@ -143,7 +143,7 @@ myMod = lm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf)
 # INPUTS INTO MODEL
 # will be given: rate applied for nitrogen, seeding rate (Rt_Apd_Ct_), and elevation
 # OR: do we want to be given a grid and randomly select from a list of ... come back to in am
-nPoints = 1000
+nPoints = 10000
 rapp = seq(130, 200, length=nPoints)
 #rapp_rates = c(130, 160,200,225,250) # only certain rates
 #rapp = sample(rapp_rates, size=nPoints, replace=TRUE)
@@ -158,6 +158,10 @@ elev = seq(1000, 1050, length=nPoints)
 #coefs <- rnorm(n = nPoints, mean = coefficients(myMod), sd = vcov(myMod)) ### WHY NO WORK I ASK YOU
 library(MASS) # For multivariate normal distribution, handy later on
 coefs <- mvrnorm(n = nPoints, mu = coefficients(myMod), Sigma = vcov(myMod)) ### THIS BELOW IS WHAT WE SIMULATE
+# write coefs to CSV
+write.csv(coefs, '/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv', row.names=F)
+# check
+df = read.csv('/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv')
 # create random yields
 yieldsMod = coefs[,'(Intercept)'] + coefs[, 'Rate_Appli']*rapp + coefs[, 'Rt_Apd_Ct_']*rseed + coefs[, 'Elevation_']*elev
 
@@ -228,6 +232,9 @@ whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
 # seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
 # treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
 # treatment_plot_comp
+
+# read
+coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit.csv')
 
 yield2 <- read_sf("/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/yield.gpkg") ## THIS WILL BE THEIR INPUT
 # transform
