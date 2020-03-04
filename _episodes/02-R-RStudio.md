@@ -176,8 +176,10 @@ You can save your R Studio environment so that the next time it loads, it will r
 
 You'll be prompted to do this when you quit R Studio:
 
+<pre>
 q()
 Save workspace image to C:/DataHarvestingWin/WorkingDir/.RData? [y/n]: 
+</pre>
 
 If you choose Y, you'll save your working environment and R Studio will load it at the next launch. 
 
@@ -207,15 +209,9 @@ With these modifications, if you start R Studio and don't see what you expect to
 
 The instructions from here on out assume that you've set your working directory to be a folder named "WorkingDir" and that you have a folder inside it called "data" which contains several files of information. 
 
-<!-- The way it ought to go, but isn't yet ready to...
-* If you copied your software from the USB stick, you'll find WorkingDir just inside the DataHarvestingWin or DataHarvestingMac folder. 
-* If you set up from scratch, you'll want to make WorkingDir and data folders and copy the information either from a nearby USB or from [this folder](https://github.com/data-carpentry-for-agriculture/trial-lesson/tree/gh-pages/_episodes_rmd/data).
--->
+We've automated bringing data sets in from our lesson as part of the setup script, but when you want to work with your own data, it'll help to know which directory you've stored it in.
 
-Note for the February 24 cohort: Most of the data was finished at the time the USB drives were created, but a few things changed since then. To get the latest data set:
-1. Visit [https://uofi.box.com/v/dataharvestingdata](https://uofi.box.com/v/dataharvestingdata) and click the **Download** button in the top right corner. 
-2. Save the .zip file in a place where you can find it again, then uncompress it. 
-3. Copy the contents of that "data" folder into your DataHarvestingWin/WorkingDir/data (or DataHarvestingMac/WorkingDir/data) folder and make sure you have the newest copies.
+**Tip:** When you're testing things out, it's a good idea to work with copies of your files rather than with the originals. Making copies in a different working directory gives you the freedom to experiment and possibly make mistakes without damaging your original data.
 
 ## The stuff in your “kitchen”: Getting oriented with R Studio
 
