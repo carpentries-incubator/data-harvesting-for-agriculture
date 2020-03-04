@@ -361,10 +361,10 @@ map_planting_comp
 
 > ## Saving our trial files
 > ```{r saveFilesOurTrial}
-st_write(trial, "trial_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(yield_orig, "yield_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(nitrogen_orig, "asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(planting_orig, "asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+st_write(trial, "data/trial_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+st_write(yield_orig, "data/yield_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+st_write(nitrogen_orig, "data/asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+st_write(planting_orig, "data/asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
 ```
 >
 >

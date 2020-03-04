@@ -524,7 +524,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > ## Saving our trial files
 > 
 > ~~~
-> st_write(trial, "trial_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+> st_write(trial, "data/trial_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
 > ~~~
 > {: .language-r}
 > 
@@ -532,7 +532,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > ~~~
 > Deleting layer `trial_new' using driver `GPKG'
-> Updating layer `trial_new' to data source `trial_new.gpkg' using driver `GPKG'
+> Updating layer `trial_new' to data source `data/trial_new.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 543 features with 4 fields and geometry type Unknown (any).
 > ~~~
@@ -541,7 +541,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> st_write(yield_orig, "yield_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+> st_write(yield_orig, "data/yield_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
 > ~~~
 > {: .language-r}
 > 
@@ -549,7 +549,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > ~~~
 > Deleting layer `yield_new' using driver `GPKG'
-> Updating layer `yield_new' to data source `yield_new.gpkg' using driver `GPKG'
+> Updating layer `yield_new' to data source `data/yield_new.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 25891 features with 28 fields and geometry type Point.
 > ~~~
@@ -558,7 +558,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> st_write(nitrogen_orig, "asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+> st_write(nitrogen_orig, "data/asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
 > ~~~
 > {: .language-r}
 > 
@@ -566,7 +566,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > ~~~
 > Deleting layer `asapplied_new' using driver `GPKG'
-> Updating layer `asapplied_new' to data source `asapplied_new.gpkg' using driver `GPKG'
+> Updating layer `asapplied_new' to data source `data/asapplied_new.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 13118 features with 19 fields and geometry type Point.
 > ~~~
@@ -575,7 +575,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> st_write(planting_orig, "asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
+> st_write(planting_orig, "data/asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
 > ~~~
 > {: .language-r}
 > 
@@ -583,7 +583,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > ~~~
 > Deleting layer `asplanted_new' using driver `GPKG'
-> Updating layer `asplanted_new' to data source `asplanted_new.gpkg' using driver `GPKG'
+> Updating layer `asplanted_new' to data source `data/asplanted_new.gpkg' using driver `GPKG'
 > options:        OVERWRITE=YES 
 > Writing 8922 features with 30 fields and geometry type Point.
 > ~~~
