@@ -1,5 +1,5 @@
 # Run some sim tests for this dataset
-source('/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/functions.R')
+source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R')
 
 # libraries
 library(knitr)
@@ -240,7 +240,7 @@ whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
                            seed_treat_rates = seed_rates,
                            nitrogen_treat_rates = nitrogen_rates,
                            seed_quo = seed_quo,
-                           nitrogen_quo = nitrogen_quo)
+                           nitrogen_quo = nitrogen_quo, set_seed=TRUE)
 
 # check out our plots, you know, if you wanna
 # nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")

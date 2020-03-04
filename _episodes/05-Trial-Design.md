@@ -272,4 +272,3 @@ source: Rmd
 Brittani testing whether I'm the problem with the rendering
 -->
 
-<font color="magenta">JPN: will come back here and add in yield simulation data</font>
