@@ -617,6 +617,7 @@ clean_buffer <- function(buffer_object, buffer_ft, data){
 
 
 # JPN: for simulating yields, asapplied & asplanted based on trial design
+# NOTE: known issues with slowness of rbind: https://stackoverflow.com/questions/14693956/how-can-i-prevent-rbind-from-geting-really-slow-as-dataframe-grows-larger
 
 simulate_trial <- function(whole_plot, yield, asapplied, asplanted, useGLM=TRUE){
  # "yield" is an input, "planting" and "nitrogen" since those have changed

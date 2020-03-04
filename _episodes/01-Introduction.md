@@ -89,6 +89,5 @@ We’ll use two colors of sticky notes for quick check-ins around the room to se
 	  
       <li> We’ll look at some publicly available data such as weather history and soil types, which you can use with R Studio and QGIS to take a look at trends over time.</li>
       
-      <li><font color="magenta">Come back here and refine this when we’ve decided on the sequence</font></li>
 
 </ol>
