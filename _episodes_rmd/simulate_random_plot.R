@@ -162,29 +162,45 @@ coefs = subset(coefs,complete.cases(coefs))
 # write coefs to CSV
 write.csv(coefs, '/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv', row.names=F)
 # check
-df = read.csv('/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv')
+#df = read.csv('/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv')
 # create random yields
 yieldsMod = coefs[,'(Intercept)'] + coefs[, 'Rate_Appli']*rapp + coefs[, 'Rt_Apd_Ct_']*rseed + coefs[, 'Elevation_']*elev
 
+# myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf, family=poisson)  ## I'm FAIRLY sure we want to use this one
+# sim.dat <- matrix(nrow = nPoints, ncol = nrow(coefs))
+# fit.p.mat <- model.matrix(myMod)
+# for (i in 1:nrow(coefs)) {
+#   sim.dat[, i] <- rpois(nPoints, exp(fit.p.mat %*% coefs[i, ]))
+# }
+myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf, family=poisson)
+# create new dataframe
+newdf = data.frame(rapp,rseed,elev)
+colnames(newdf)=c('Rate_Appli', 'Rt_Apd_Ct_', 'Elevation_')
+# clean out
+completedf = subset(newdf, complete.cases(newdf))
+# get expected value of y
+mu.y <- predict(myMod, newdata=newdf, type='response')
+yieldsMod <- replicate(1, rpois(rep(1, length(mu.y)), mu.y))
 
 
 # PLOT:
 # yield, nitrogen
 #y=Yld_Vol_Dr,x=Rate_Appli
 par(mfrow=c(1,3))
-plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)#, ylim=c(100, 300))#, xlim=c(130, 250))
+plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))#, xlim=c(130, 250))
 points(rapp, yieldsMod, col='blue')
 
 # seeding
 #y=Yld_Vol_Dr,x=Rt_Apd_Ct_
-plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr)#, ylim=c(100, 300))
+plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))
 points(rseed, yieldsMod, col='blue')
 
 # elevation
 #y=Yld_Vol_Dr,x=Elevation_
-plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)#, ylim=c(100, 300))
+plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))
 points(elev, yieldsMod, col='blue')
 
+write.csv(coefs, '/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit_glm.csv', row.names=F)
 
 #########################################
 # CREATE NEW TRIAL GRID
