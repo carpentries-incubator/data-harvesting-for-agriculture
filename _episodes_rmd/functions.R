@@ -217,8 +217,12 @@ make_abline <- function(LongA,LongB,LatA,LatB,projutm){
   return(ab_line)
 }
 
-make_grids <- function(bothfields, ab_line, long_in, short_in, length_ft, width_ft){
+make_grids <- function(bothfields, ab_line, long_in, short_in, length_ft, width_ft, set_seed=FALSE){
   
+  # for the purposes of the workshop
+  if (set_seed){
+    set.seed(42) # 42, obvs :D
+  }
   bbox_field <- st_bbox(bothfields)
   # +c(100,100,50,50)
   xmin <- bbox_field[1]
@@ -466,7 +470,9 @@ make_grids <- function(bothfields, ab_line, long_in, short_in, length_ft, width_
   }
   #--- combine all the grids ---#
   all_grids <- do.call(rbind,all_polygons_ls)
-  
+  if (set_seed){ #reset
+    set.seed(NULL)
+  }
   return(all_grids)
 }
 
