@@ -326,12 +326,9 @@ The resulting grid is seen below:
 >
 > We will now clean the asplanted file:
 > ```{r}
-> asplanted <- st_read("data/asplanted.gpkg")
-> asplanted_utm <- st_transform_utm(asplanted)
-> # JPN new data
-> asplanted <- st_read("asplanted_new.gpkg")
+> asplanted <- st_read("data/asplanted_new.gpkg")
 > st_crs(asplanted)
-> asplanted_utm <- asplanted # st_transform_utm(asplanted)
+> asplanted_utm <- asplanted # already in utm!
 > asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
 > asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 > 

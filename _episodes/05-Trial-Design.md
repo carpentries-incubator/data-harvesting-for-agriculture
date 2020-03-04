@@ -224,9 +224,16 @@ source: Rmd
 > 			   set_seed=TRUE)
 > ~~~
 > {: .language-r}
-> <font color="magenta">Talk about seed setting here</font>
 > 
 {: .textchunk}
+
+> ## Simulating yields
+> Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  Because we want everybody to be using the same trial data we have set a flag `set_seed=TRUE` in our call to `treat_assign`.  When you do this on your own you can set this parameter to `FALSE` or just leave it out of the function call altogether.
+> 
+>
+>
+{: .callout}
+
 
 > ## Mapping Trial
 > Let's look at what our trial looks like.  First, as a shape file:

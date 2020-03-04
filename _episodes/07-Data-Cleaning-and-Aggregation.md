@@ -494,38 +494,22 @@ The resulting grid is seen below:
 > We will now clean the asplanted file:
 > 
 > ~~~
-> asplanted <- st_read("data/asplanted.gpkg")
+> asplanted <- st_read("data/asplanted_new.gpkg")
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> Reading layer `asplanted' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted.gpkg' using driver `GPKG'
-> Simple feature collection with 6382 features and 30 fields
+> Reading layer `asplanted_new' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted_new.gpkg' using driver `GPKG'
+> Simple feature collection with 8922 features and 30 fields
 > geometry type:  POINT
 > dimension:      XY
-> bbox:           xmin: -82.87843 ymin: 40.83952 xmax: -82.87315 ymax: 40.84653
-> epsg (SRID):    4326
-> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+> bbox:           xmin: 341645.8 ymin: 4522631 xmax: 342088.8 ymax: 4523418
+> epsg (SRID):    32617
+> proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
 > ~~~
 > {: .output}
-> 
-> 
-> 
-> ~~~
-> asplanted_utm <- st_transform_utm(asplanted)
-> # JPN new data
-> asplanted <- st_read("asplanted_new.gpkg")
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error: Cannot open "asplanted_new.gpkg"; The file doesn't seem to exist.
-> ~~~
-> {: .error}
 > 
 > 
 > 
@@ -538,30 +522,18 @@ The resulting grid is seen below:
 > 
 > ~~~
 > Coordinate Reference System:
->   EPSG: 4326 
->   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+>   EPSG: 32617 
+>   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 > ~~~
 > {: .output}
 > 
 > 
 > 
 > ~~~
-> asplanted_utm <- asplanted # st_transform_utm(asplanted)
+> asplanted_utm <- asplanted # already in utm!
 > asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
 > asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
-> ~~~
-> {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in st_geos_binop("intersects", x, y, sparse = sparse, prepared = prepared): st_crs(x) == st_crs(y) is not TRUE
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
 > ~~~
 > {: .language-r}
@@ -570,43 +542,13 @@ The resulting grid is seen below:
 > 
 > ~~~
 > subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in .local(x, y, returnList, fn, ...): identicalCRS(x, y) is not TRUE
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Elevation_", fn = median)
-> ~~~
-> {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in .local(x, y, returnList, fn, ...): identicalCRS(x, y) is not TRUE
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error: Fill argument neither colors nor valid variable name(s)
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-unnamed-chunk-28-2.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now aggregate the asapplied which we already cleaned above:
@@ -643,11 +585,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in FUN(X[[i]], ...): object 'Elevation_' not found
+> Warning: Removed 112 rows containing non-finite values (stat_smooth).
 > ~~~
-> {: .error}
+> {: .warning}
 > 
-> 
+> <img src="../fig/rmd-jpnt23405-1.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > ggplot() +
@@ -661,11 +603,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in FUN(X[[i]], ...): object 'Rt_Apd_Ct_' not found
+> Warning: Removed 112 rows containing non-finite values (stat_smooth).
 > ~~~
-> {: .error}
+> {: .warning}
 > 
-> 
+> <img src="../fig/rmd-jpnt23405-2.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > ggplot() +
@@ -683,7 +625,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .warning}
 > 
-> <img src="../fig/rmd-jpnt23405-1.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-jpnt23405-3.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 >
 >
 >
