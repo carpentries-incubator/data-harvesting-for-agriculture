@@ -166,14 +166,6 @@ treatment_plot_comp
 > ## Simulating yields
 > Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield measurements you have stored in your `yield.gpkg` file can be used for this exercise, however **for this workshop only** will *simulate* the yields we'd expect to get out from your trial design.
 >
-> ```{r simDat, warning=FALSE}
-trial <- whole_plot
-simulated_trial = simulate_trial(whole_plot, yield, nitrogen, planting)
-yield <- simulated_trial$yield
-nitrogen <- simulated_trial$asapplied
-planting <- simulated_trial$asplanted
-
-```
 >
 {: .callout}
 
@@ -360,12 +352,7 @@ map_planting_comp
 <font color="magenta"> Presumabily we now use st_write to save these files for the next lesson?</font>
 
 > ## Saving our trial files
-> ```{r saveFilesOurTrial}
-st_write(trial, "data/trial_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(yield_orig, "data/yield_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(nitrogen_orig, "data/asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-st_write(planting_orig, "data/asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-```
+> 
 >
 >
 {: .textchunk}

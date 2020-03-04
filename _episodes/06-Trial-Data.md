@@ -206,38 +206,6 @@ source: Rmd
 > ## Simulating yields
 > Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield measurements you have stored in your `yield.gpkg` file can be used for this exercise, however **for this workshop only** will *simulate* the yields we'd expect to get out from your trial design.
 >
-> 
-> ~~~
-> trial <- whole_plot
-> simulated_trial = simulate_trial(whole_plot, yield, nitrogen, planting)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] "This might take a little while... now is a great time for a coffee :)"
-> [1] "On 50 of 543 geometries"
-> [1] "On 100 of 543 geometries"
-> [1] "On 150 of 543 geometries"
-> [1] "On 200 of 543 geometries"
-> [1] "On 250 of 543 geometries"
-> [1] "On 300 of 543 geometries"
-> [1] "On 350 of 543 geometries"
-> [1] "On 400 of 543 geometries"
-> [1] "On 450 of 543 geometries"
-> [1] "On 500 of 543 geometries"
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> yield <- simulated_trial$yield
-> nitrogen <- simulated_trial$asapplied
-> planting <- simulated_trial$asplanted
-> ~~~
-> {: .language-r}
 >
 {: .callout}
 
@@ -523,71 +491,6 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 
 > ## Saving our trial files
 > 
-> ~~~
-> st_write(trial, "data/trial_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Deleting layer `trial_new' using driver `GPKG'
-> Updating layer `trial_new' to data source `data/trial_new.gpkg' using driver `GPKG'
-> options:        OVERWRITE=YES 
-> Writing 543 features with 4 fields and geometry type Unknown (any).
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> st_write(yield_orig, "data/yield_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Deleting layer `yield_new' using driver `GPKG'
-> Updating layer `yield_new' to data source `data/yield_new.gpkg' using driver `GPKG'
-> options:        OVERWRITE=YES 
-> Writing 25891 features with 28 fields and geometry type Point.
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> st_write(nitrogen_orig, "data/asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Deleting layer `asapplied_new' using driver `GPKG'
-> Updating layer `asapplied_new' to data source `data/asapplied_new.gpkg' using driver `GPKG'
-> options:        OVERWRITE=YES 
-> Writing 13118 features with 19 fields and geometry type Point.
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> st_write(planting_orig, "data/asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', delete_layer = TRUE)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Deleting layer `asplanted_new' using driver `GPKG'
-> Updating layer `asplanted_new' to data source `data/asplanted_new.gpkg' using driver `GPKG'
-> options:        OVERWRITE=YES 
-> Writing 8922 features with 30 fields and geometry type Point.
-> ~~~
-> {: .output}
 >
 >
 {: .textchunk}
