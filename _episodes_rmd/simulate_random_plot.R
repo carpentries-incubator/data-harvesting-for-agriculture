@@ -138,7 +138,7 @@ myMod = lm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf)
 
 ################################################################
 
-### SIMPLE EXAMPLE FROM GENERATING POINTS
+### SIMPLE EXAMPLE FROM GENERATING POINTS 
 
 # INPUTS INTO MODEL
 # will be given: rate applied for nitrogen, seeding rate (Rt_Apd_Ct_), and elevation
@@ -180,3 +180,71 @@ plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)#, ylim=c(100, 300))
 points(elev, yieldsMod, col='blue')
 
 
+#########################################
+# CREATE NEW TRIAL GRID
+
+# (I) Read in and transform our shape files
+# NOTE: using stuff direct from "fixed" files
+boundary <- st_read("/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/boundary.gpkg") # read in boundary
+abline <- st_read("/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg") # read in AB line
+
+trialarea <- st_transform_utm(boundary)
+abline_utm <- st_transform_utm(abline)
+
+# (II) parameters
+width_in_meters = 24 # width of grids is 24 meters
+long_direction = 'NS' # direction of grid that will be long
+short_direction = 'EW' # direction of grid that will be short
+length_in_ft = 180 # length of grids in feet
+
+# (III) making grids
+width <- m_to_ft(24) # convert meters to feet
+design_grids_utm <- make_grids(trialarea, abline_utm,
+                               long_in = long_direction,
+                               short_in = short_direction,
+                               length_ft = length_in_ft,
+                               width_ft = width)
+
+# (IV) correcting the CRS and subsetting to our farm boundary
+st_crs(design_grids_utm) <- st_crs(trialarea)
+trial_grid <- st_intersection(trialarea, design_grids_utm)
+
+# (V) Picking a range of seed and nitrogen rates for our trials
+seed_rates <- c(31000, 34000, 37000, 40000)
+nitrogen_rates <- c(160,200,225,250)
+# and setting our headlands rates
+seed_quo <- 37000
+nitrogen_quo <- 225
+
+# (VI) Depositing a these randomly distributed seed & nitrogen rates to our gridded field:
+whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
+                           seed_treat_rates = seed_rates,
+                           nitrogen_treat_rates = nitrogen_rates,
+                           seed_quo = seed_quo,
+                           nitrogen_quo = nitrogen_quo)
+
+# check out our plots, you know, if you wanna
+# nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
+# seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+# treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
+# treatment_plot_comp
+
+yield2 <- read_sf("/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/yield.gpkg") ## THIS WILL BE THEIR INPUT
+# transform
+if (st_crs(yield2) != st_crs(whole_plot)){
+  yieldutm = st_transform_utm(yield2)
+}
+
+# loop tnrough each geometry
+for (i in 1:length(whole_plot$geom)){
+  print(i)
+  yield_int <- st_intersection(yieldutm, subplots_data$geometry[i])
+  print(length(row(yield_int)))
+}
+
+#see:
+# > plot(subplots_data$geometry[10])
+# > yield_int <- st_intersection(yield_clean, subplots_data$geometry[10])
+# Warning message:
+#   attribute variables are assumed to be spatially constant throughout all geometries 
+# > plot(yield_int$geom)
