@@ -208,45 +208,8 @@ source: Rmd
 >
 > 
 > ~~~
-> # "yield" is an input, "planting" and "nitrogen" since those have changed
-> 
-> # replace trial data with whole plot
 > trial <- whole_plot
-> asapplied <- nitrogen
-> asplanted <- planting
-> 
-> # from fit
-> coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit.csv')
-> 
-> # transform if needed
-> if (st_crs(yield) != st_crs(whole_plot)){
->   yieldutm = st_transform_utm(yield)
-> }
-> if (st_crs(asplanted) != st_crs(whole_plot)){
->   asplanted = st_transform_utm(asplanted)
-> }
-> if (st_crs(asapplied) != st_crs(whole_plot)){
->   asapplied = st_transform_utm(asapplied)
-> }
-> 
-> # also, add in random bigs
-> randomBigProb = 0.005 # will pull random big, looks like this happens ~0.003 of the time
-> maxBig = 1200
-> minBig = 400
-> 
-> # another param, how often to print
-> nPrint = 50
-> 
-> # loop through each geometry
-> flag = 0 # flag to turn off one
-> flagapp = 0
-> flaggplant = 0
-> 
-> # loop through each geometry
-> flag = 0 # flag to turn off one
-> flagapp = 0
-> flaggplant = 0
-> print("This might take a little while... now is a great time for a coffee :)")
+> simulated_trial = simulate_trial(whole_plot, yield, nitrogen, planting)
 > ~~~
 > {: .language-r}
 > 
@@ -260,99 +223,9 @@ source: Rmd
 > 
 > 
 > ~~~
-> for (i in 1:length(whole_plot$geom)){
->   if (i%%nPrint==0){
->     print(paste0('On ', i, ' of ', length(whole_plot$geom), ' geometries'))
->   }
->   yield_int <- st_intersection(yieldutm, whole_plot$geom[i])
->   asapplied_int <- st_intersection(asapplied, whole_plot$geom[i])
->   asplanted_int <- st_intersection(asplanted, whole_plot$geom[i])
->   if (flagapp == 0){
->       asappliedOut = asapplied_int
->       if (nrow(asapplied_int)>0){
->         asappliedOut$Rate_Appli = whole_plot$NRATE[i]
->       }
->       flagapp = 1
->   } else {
->     if (nrow(asapplied_int)>0){
->       asappliedOut2 = asapplied_int
->       asappliedOut2$Rate_Appli = whole_plot$NRATE[i]
->       asappliedOut = rbind(asappliedOut, asappliedOut2)
->     }
->   }    
->   if (flaggplant == 0){
->     asplantedOut = asplanted_int
->     if (nrow(asplanted_int)>0){
->       asplantedOut$Rt_Apd_Ct_ = whole_plot$SEEDRATE[i]
->     }
->     flaggplant = 1
->   } else {
->     if (nrow(asplanted_int)>0){
->       asplantedOut2 = asplanted_int
->       asplantedOut2$Rt_Apd_Ct_ = whole_plot$SEEDRATE[i]
->       asplantedOut = rbind(asplantedOut, asplantedOut2)
->     }
->   }    
->   
->   
->   if (length(row(yield_int)) > 0){ # have entries, update
->     # grab random index of row for coefficients of fit
->     if (nrow(asplanted_int)>0){
->       ele = mean(asplanted_int$Elevation_)
->     } else {
->       ele = mean(asplanted$Elevation_)
->     }
->     mycoefs = coefs[sample(nrow(coefs), nrow(yield_int)), ]
->     yieldsMod = mycoefs[,'X.Intercept.'] + mycoefs[, 'Rate_Appli']*whole_plot$NRATE[i] + 
->       mycoefs[, 'Rt_Apd_Ct_']*whole_plot$SEEDRATE[i] + mycoefs[, 'Elevation_']*ele
->     ## add in big stuff randomly
->     samps = runif(length(yieldsMod))
->     yieldsMod[samps <= randomBigProb] = samps[samps <= randomBigProb]/randomBigProb*(maxBig-minBig) + minBig
->     if (flag == 0){
->       myOut = yield_int
->       myOut$Yld_Vol_Dr = yieldsMod
->       flag = 1
->     } else {
->       myOut2 = yield_int
->       myOut2$Yld_Vol_Dr = yieldsMod
->       myOut = rbind(myOut, myOut2)
->     }
->   } else { # no entries
->     if (flag == 0){
->       myOut = yield_int
->       flag = 1
->     } else {
->       myOut2 = yield_int
->       myOut = rbind(myOut, myOut2)
->     }
->   }
-> }
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] "On 50 of 543 geometries"
-> [1] "On 100 of 543 geometries"
-> [1] "On 150 of 543 geometries"
-> [1] "On 200 of 543 geometries"
-> [1] "On 250 of 543 geometries"
-> [1] "On 300 of 543 geometries"
-> [1] "On 350 of 543 geometries"
-> [1] "On 400 of 543 geometries"
-> [1] "On 450 of 543 geometries"
-> [1] "On 500 of 543 geometries"
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> # reassign
-> yield <- myOut
-> nitrogen <- asappliedOut
-> planting <- asplantedOut
+> yield <- simulated_trial$yield
+> nitrogen <- simulated_trial$asapplied
+> planting <- simulated_trial$asplanted
 > ~~~
 > {: .language-r}
 >
@@ -631,3 +504,76 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 {: .callout}
 
 <font color="magenta">Dena asks: Do we add in a financial data exercise here?</font>
+
+<font color="magenta"> Presumabily we now use st_write to save these files for the next lesson?</font>
+
+> ## Saving our trial files
+> 
+> ~~~
+> st_write(trial, "trial_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Updating layer `trial_new' to data source `trial_new.gpkg' using driver `GPKG'
+> options:        OVERWRITE=YES 
+> Updating existing layer trial_new
+> Writing 543 features with 4 fields and geometry type Unknown (any).
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> st_write(yield, "yield_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Updating layer `yield_new' to data source `yield_new.gpkg' using driver `GPKG'
+> options:        OVERWRITE=YES 
+> Updating existing layer yield_new
+> Writing 159 features with 28 fields and geometry type Point.
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> st_write(nitrogen, "asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Updating layer `asapplied_new' to data source `asapplied_new.gpkg' using driver `GPKG'
+> options:        OVERWRITE=YES 
+> Updating existing layer asapplied_new
+> Writing 145 features with 19 fields and geometry type Point.
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> st_write(planting, "asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Updating layer `asplanted_new' to data source `asplanted_new.gpkg' using driver `GPKG'
+> options:        OVERWRITE=YES 
+> Updating existing layer asplanted_new
+> Writing 89 features with 30 fields and geometry type Point.
+> ~~~
+> {: .output}
+>
+>
+{: .textchunk}
