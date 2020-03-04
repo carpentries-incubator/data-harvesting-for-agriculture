@@ -168,7 +168,7 @@ So with this set of instructions, we’re telling R that we want a set of publis
  1. Save the file as **package_load_and_test.R** in your working directory so that you’ll be able to use it again. 
  1. Click the **Source** button near the top right of your script window to load these functions as well.
 
-<img src="...figure/wininstall5-rstudioinstallscript2.png" width="70%">
+<img src="../figure/wininstall5-rstudioinstallscript2.png" width="70%">
 
 ### Updating your startup script and saving your R Studio environment
 
