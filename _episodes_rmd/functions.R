@@ -618,7 +618,7 @@ clean_buffer <- function(buffer_object, buffer_ft, data){
 
 # JPN: for simulating yields, asapplied & asplanted based on trial design
 
-simulate_trial <- function(whole_plot, yield, asapplied, asplanted){
+simulate_trial <- function(whole_plot, yield, asapplied, asplanted, useGLM=TRUE){
  # "yield" is an input, "planting" and "nitrogen" since those have changed
 
  # replace trial data with whole plot
@@ -627,8 +627,11 @@ simulate_trial <- function(whole_plot, yield, asapplied, asplanted){
  #asplanted <- planting
 	
  # from fit
- coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit.csv')
-
+ if (useGLM){
+  coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit_glm.csv')
+ } else {
+  coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit.csv')
+ }
  # transform if needed
  if (st_crs(yield) != st_crs(whole_plot)){
    yieldutm = st_transform_utm(yield)
@@ -660,6 +663,10 @@ simulate_trial <- function(whole_plot, yield, asapplied, asplanted){
  flaggplant = 0
  print("This might take a little while... now is a great time for a coffee :)")
  for (i in 1:length(whole_plot$geom)){
+  myOut2 = 0
+  asappliedOut2 = 0
+  asplantedOut2 = 0
+  samps = 0
  #for (i in 1:3){ # test
    if (i%%nPrint==0){
      print(paste0('On ', i, ' of ', length(whole_plot$geom), ' geometries'))
@@ -729,6 +736,14 @@ simulate_trial <- function(whole_plot, yield, asapplied, asplanted){
        myOut = rbind(myOut, myOut2)
      }
    }
+   # clean
+  rm(myOut2)
+  rm(asappliedOut2)
+  rm(asplantedOut2)
+  rm(yield_int)
+  rm(asapplied_int)
+  rm(asplanted_int)
+  rm(samps)
  }
 
 

@@ -133,8 +133,6 @@ completedf = subset(newdf, complete.cases(newdf))
 
 # do simple MLR/GLM
 myMod = lm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf)
-#myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=subplots_data) 
-#myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf, family=poisson())  ## I'm FAIRLY sure we want to use this one
 
 ################################################################
 
@@ -157,21 +155,17 @@ elev = seq(1000, 1050, length=nPoints)
 # reference: https://www.jamesuanhoro.com/post/2018/05/07/simulating-data-from-regression-models/
 #coefs <- rnorm(n = nPoints, mean = coefficients(myMod), sd = vcov(myMod)) ### WHY NO WORK I ASK YOU
 library(MASS) # For multivariate normal distribution, handy later on
-coefs <- mvrnorm(n = nPoints, mu = coefficients(myMod), Sigma = vcov(myMod)) ### THIS BELOW IS WHAT WE SIMULATE
-coefs = subset(coefs,complete.cases(coefs))
+coefsLin <- mvrnorm(n = nPoints, mu = coefficients(myMod), Sigma = vcov(myMod)) ### THIS BELOW IS WHAT WE SIMULATE
+coefsLin = subset(coefs,complete.cases(coefs))
 # write coefs to CSV
-write.csv(coefs, '/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv', row.names=F)
+write.csv(coefsLin, '/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv', row.names=F)
 # check
 #df = read.csv('/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv')
 # create random yields
-yieldsMod = coefs[,'(Intercept)'] + coefs[, 'Rate_Appli']*rapp + coefs[, 'Rt_Apd_Ct_']*rseed + coefs[, 'Elevation_']*elev
+yieldsModLin = coefsLin[,'(Intercept)'] + coefsLin[, 'Rate_Appli']*rapp + coefsLin[, 'Rt_Apd_Ct_']*rseed + 
+  coefsLin[, 'Elevation_']*elev
 
-# myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf, family=poisson)  ## I'm FAIRLY sure we want to use this one
-# sim.dat <- matrix(nrow = nPoints, ncol = nrow(coefs))
-# fit.p.mat <- model.matrix(myMod)
-# for (i in 1:nrow(coefs)) {
-#   sim.dat[, i] <- rpois(nPoints, exp(fit.p.mat %*% coefs[i, ]))
-# }
+# GLM poissonian model
 myMod = glm(Yld_Vol_Dr~Rate_Appli+Rt_Apd_Ct_+Elevation_, data=completedf, family=poisson)
 # create new dataframe
 newdf = data.frame(rapp,rseed,elev)
@@ -189,16 +183,19 @@ yieldsMod <- replicate(1, rpois(rep(1, length(mu.y)), mu.y))
 par(mfrow=c(1,3))
 plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))#, xlim=c(130, 250))
 points(rapp, yieldsMod, col='blue')
+points(rapp, yieldsModLin, col='red')
 
 # seeding
 #y=Yld_Vol_Dr,x=Rt_Apd_Ct_
 plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))
 points(rseed, yieldsMod, col='blue')
+points(rseed, yieldsModLin, col='red')
 
 # elevation
 #y=Yld_Vol_Dr,x=Elevation_
 plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr, ylim=c(100, 300))
 points(elev, yieldsMod, col='blue')
+points(elev, yieldsModLin, col='red')
 
 write.csv(coefs, '/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit_glm.csv', row.names=F)
 
@@ -252,7 +249,8 @@ whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
 # treatment_plot_comp
 
 # read
-coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit.csv')
+#coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit.csv')
+coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit_glm.csv')
 
 # INPUTS
 yield2 <- read_sf("/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/yield.gpkg") ## THIS WILL BE THEIR INPUT
@@ -279,14 +277,82 @@ maxBigApp = 50
 minBigApp = 1300
 
 
-nPrint = 50
+# # NOTE!!!  This won't work for geometries that are bigger than originial!!
+# # loop through each geometry
+# print("This might take a little while... now is a great time for a coffee :)")
+# # speed up -> preallocate, evidentally rbind is slow... hurray for R
+# yieldOut = yieldutm
+# yieldOut$Yld_Vol_Dr = rep(NA, length(yieldOut$Yld_Vol_Dr))# set to NAs initially
+# 
+# asappliedOut = asapplied
+# asappliedOut$Rate_Appli = rep(NA, length(asappliedOut$Rate_Appli))
+# 
+# asplantedOut = asplanted
+# asplantedOut$Rt_Apd_Ct_ = rep(NA, length(asplantedOut$Rt_Apd_Ct_))
+# 
+# index = 1
+# indexApp = 1
+# indexPlt = 1
+# nPrint = 50
+# for (i in 1:length(whole_plot$geom)){
+# #for (i in 10:11){
+#   samps = 0
+#   yieldsMod = 0
+#   if (i%%nPrint==0){
+#     print(paste0('On ', i, ' of ', length(whole_plot$geom), ' geometries'))
+#   }
+#   yield_int <- st_intersection(yieldutm, whole_plot$geom[i])
+#   asapplied_int <- st_intersection(asapplied, whole_plot$geom[i])
+#   asplanted_int <- st_intersection(asplanted, whole_plot$geom[i])
+#   
+#   # grab elevation for calc
+#   if (nrow(asplanted_int)>0){
+#     ele = mean(asplanted_int$Elevation_)
+#   } else {
+#     ele = mean(asplanted$Elevation_)
+#   }  
+#   
+#   # if any yield points in here, let's update them
+#   if (nrow(yield_int) > 0) {
+#     indexEnd = nrow(yield_int)+index
+#     yieldOut$geom[index:indexEnd] = yield_int$geom
+#     # update yields
+#     mycoefs = coefs[sample(nrow(coefs), nrow(yield_int)), ]
+#     yieldsMod = mycoefs[,'X.Intercept.'] + mycoefs[, 'Rate_Appli']*whole_plot$NRATE[i] + 
+#       mycoefs[, 'Rt_Apd_Ct_']*whole_plot$SEEDRATE[i] + mycoefs[, 'Elevation_']*ele
+#     # add in big stuff randomly 
+#     samps = runif(length(yieldsMod))
+#     yieldsMod[samps <= randomBigProb] = samps[samps <= randomBigProb]/randomBigProb*(maxBig-minBig) + minBig
+#     # update yields
+#     yieldOut$Yld_Vol_Dr[index:indexEnd] = yieldsMod
+#     index = indexEnd+1
+#   }
+#   
+#   # if any asapplied points in here, let's update them
+#   if (nrow(asapplied_int) > 0) {
+#     indexEndApp = nrow(asapplied_int)+indexApp
+#     asappliedOut$geom[indexApp:indexEndApp] = asapplied_int$geom
+#     # update yields
+#     # add in big stuff randomly
+#     samps = runif(length(asapplied_int$Rate_Appli))
+#     asapplied_int$Rate_Appli[samps <= randomBigProbApp] = 
+#       samps[samps <= randomBigProbApp]/randomBigProbApp*(maxBigApp-minBigApp) + minBigApp
+#     asappliedOut$Rate_Appli[indexApp:indexEndApp] = asapplied_int
+#     indexApp = indexEndApp+1
+#   }
+#   rm(yield_int)
+#   rm(yieldsMod)
+#   rm(asapplied_int)
+# }
+# 
 
-# loop through each geometry
-flag = 0 # flag to turn off one
-flagapp = 0
-flaggplant = 0
-print("This might take a little while... now is a great time for a coffee :)")
+
+nPrint = 50
 for (i in 1:length(whole_plot$geom)){
+  myOut2 = 0
+  asappliedOut2 = 0
+  asplantedOut2 = 0
+  samps = 0
   if (i%%nPrint==0){
     print(paste0('On ', i, ' of ', length(whole_plot$geom), ' geometries'))
   }
@@ -356,6 +422,13 @@ for (i in 1:length(whole_plot$geom)){
       myOut = rbind(myOut, myOut2)
     }
   }
+  rm(myOut2)
+  rm(asappliedOut2)
+  rm(asplantedOut2)
+  rm(yield_int)
+  rm(asapplied_int)
+  rm(asplanted_int)
+  rm(samps)
 }
 
 #see:
@@ -370,3 +443,15 @@ for (i in 1:length(whole_plot$geom)){
 trial_utm <- whole_plot
 yield_utm <- myOut
 yield_clean_border <- clean_buffer(trial_utm, 15, yield_utm)
+
+
+# testing to see what is taking so long
+print("This might take a little while... now is a great time for a coffee :)")
+for (i in 1:length(whole_plot$geom)){
+  if (i%%10==0){
+    print(paste0('On ', i, ' of ', length(whole_plot$geom), ' geometries'))
+  }
+  yield_int <- st_intersection(yieldutm, whole_plot$geom[i])
+  asapplied_int <- st_intersection(asapplied, whole_plot$geom[i])
+  asplanted_int <- st_intersection(asplanted, whole_plot$geom[i])
+}
