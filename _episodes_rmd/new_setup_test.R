@@ -19,6 +19,7 @@ source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-l
 # check if data directory exists
 reDownloadData = TRUE # only if we wanna re-download the data for any reason
 reDownloadTrialData = TRUE # this will download "new" trial data that was simulated
+downloadScripts = TRUE # download lesson catchups
 
 # URLs of data: original data
 dataURLS = c("https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/asapplied.gpkg", 
@@ -33,6 +34,16 @@ simsURLS = c("https://github.com/data-carpentry-for-agriculture/trial-lesson/raw
              "https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/asplanted_new.gpkg",
              "https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/trial_new.gpkg",
              "https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/yield_new.gpkg")
+
+# URLS of catchup scripts
+scriptURLS = c("https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson1.R",
+               "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson2.R",
+               "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson3.R",
+               "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson4.R",
+               "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson5.R",
+               "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson6.R",
+               "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson7.R",
+               "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson8.R")
 
 if (dir.exists(paste0(getwd(),"/data"))){
   #print('Data directory exists!')
@@ -71,6 +82,22 @@ if (dir.exists(paste0(getwd(),"/data"))){
     }    
   }  
 }
+
+# Also download all catchup scripts
+if (downloadScripts){
+  if (!(dir.exists(paste0(getwd(),"/lesson-catchup-scripts")))){
+    dir.create(paste0(getwd(),"/lesson-catchup-scripts"))
+  } 
+  
+  for (i in 1:length(scriptURLS)){
+    # get names of files
+    myList = strsplit(scriptURLS[i],'/')
+    fname = tail(myList[[1]],1)
+    download.file(scriptURLS[i], paste0(getwd(),"/lesson-catchup-scripts/",fname), method = "auto", quiet=FALSE)
+  }  
+}
+
+
 
 # STEP 4: "test my setup"
 # make "test images folder" in working dir
@@ -140,13 +167,17 @@ gridded(meuse.grid) = TRUE
 #   plot
 lzn.vgm = variogram(log(zinc)~1,data = meuse)
 lzn.fit = fit.variogram(lzn.vgm, model = vgm(1, "Sph", 900, 1))
-plot(lzn.vgm, lzn.fit)
+myPlot = plot(lzn.vgm, lzn.fit)
+plot(myPlot)
 dev.off()
 
 # plot #4
 jpeg(paste0(getwd(),"/test_images/plot4_tmap.jpg"))
 # test tmap
-tm_shape(nc) + tm_polygons('area')
+#nc <- st_read(system.file("shape/nc.shp", package="sf"))
+myMap = tm_shape(nc) + tm_polygons('area')
+#plot(myMap)
+tmap_save(myMap, paste0(getwd(),"/test_images/plot4_tmap.jpg"))
 dev.off()
 
 # text #2
