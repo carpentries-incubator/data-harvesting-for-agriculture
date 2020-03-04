@@ -995,5 +995,6 @@ run_workshop_test <- function(){
   print(text1)
   print(text2)
   print(text3)
+  dev.off()
 }
 
