@@ -158,6 +158,7 @@ elev = seq(1000, 1050, length=nPoints)
 #coefs <- rnorm(n = nPoints, mean = coefficients(myMod), sd = vcov(myMod)) ### WHY NO WORK I ASK YOU
 library(MASS) # For multivariate normal distribution, handy later on
 coefs <- mvrnorm(n = nPoints, mu = coefficients(myMod), Sigma = vcov(myMod)) ### THIS BELOW IS WHAT WE SIMULATE
+coefs = subset(coefs,complete.cases(coefs))
 # write coefs to CSV
 write.csv(coefs, '/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/coefs_fit.csv', row.names=F)
 # check
@@ -236,17 +237,91 @@ whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
 # read
 coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit.csv')
 
+# INPUTS
 yield2 <- read_sf("/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/yield.gpkg") ## THIS WILL BE THEIR INPUT
+asplanted <- st_read("/Users/jillnaiman/Dropbox/agriculture_SC_workshop_Feb2020/shifted_gpkg/asplanted.gpkg")
+asapplied <- st_read("/Users/jillnaiman/Dropbox/agriculture_SC_workshop_Feb2020/shifted_gpkg/asapplied.gpkg")
+
 # transform
 if (st_crs(yield2) != st_crs(whole_plot)){
   yieldutm = st_transform_utm(yield2)
 }
+if (st_crs(asplanted) != st_crs(whole_plot)){
+  asplanted = st_transform_utm(asplanted)
+}
+if (st_crs(asapplied) != st_crs(whole_plot)){
+  asapplied = st_transform_utm(asapplied)
+}
+# also, add in random bigs
+randomBigProb = 0.005 # will pull random big, looks like this happens ~0.003 of the time
+maxBig = 1200
+minBig = 400
 
-# loop tnrough each geometry
+# loop through each geometry
+flag = 0 # flag to turn off one
+flagapp = 0
+flaggplant = 0
 for (i in 1:length(whole_plot$geom)){
-  print(i)
+  if (i%%10==0){
+    print(paste0('On ', i, ' of ', length(whole_plot$geom), ' geometries'))
+  }
   yield_int <- st_intersection(yieldutm, subplots_data$geometry[i])
-  print(length(row(yield_int)))
+  asapplied_int <- st_intersection(asapplied, subplots_data$geometry[i])
+  asplanted_int <- st_intersection(asplanted, subplots_data$geometry[i])
+  if (flagapp == 0){
+      asappliedOut = asapplied_int
+      if (nrow(asapplied_int)>0){
+        asappliedOut$Rate_Appli = subplots_data$Rate_Appli[i]
+      }
+      flagapp = 1
+  } else {
+    if (nrow(asapplied_int)>0){
+      asappliedOut2 = asapplied_int
+      asappliedOut2$Rate_Appli = subplots_data$Rate_Appli[i]
+      asappliedOut = rbind(asappliedOut, asappliedOut2)
+    }
+  }    
+  if (flaggplant == 0){
+    asplantedOut = asplanted_int
+    if (nrow(asplanted_int)>0){
+      asplantedOut$Rt_Apd_Ct_ = subplots_data$Rt_Apd_Ct_[i]
+    }
+    flaggplant = 1
+  } else {
+    if (nrow(asplanted_int)>0){
+      asplantedOut2 = asplanted_int
+      asplantedOut2$Rt_Apd_Ct_ = subplots_data$Rt_Apd_Ct_[i]
+      asplantedOut = rbind(asplantedOut, asplantedOut2)
+    }
+  }    
+  
+  
+  if (length(row(yield_int)) > 0){ # have entries, update
+    # grab random index of row for coefficients of fit
+    mycoefs = coefs[sample(nrow(coefs), nrow(yield_int)), ]
+    yieldsMod = mycoefs[,'X.Intercept.'] + mycoefs[, 'Rate_Appli']*subplots_data$Rate_Appli[i] + 
+      mycoefs[, 'Rt_Apd_Ct_']*subplots_data$Rt_Apd_Ct_[i] + mycoefs[, 'Elevation_']*subplots_data$Elevation_[i]
+    # add in big stuff randomly
+    samps = runif(length(yieldsMod))
+    yieldsMod[samps <= randomBigProb] = samps/randomBigProb*(maxBig-minBig) + minBig
+    if (flag == 0){
+      myOut = yield_int
+      myOut$Yld_Vol_Dr = yieldsMod
+      flag = 1
+    } else {
+      myOut2 = yield_int
+      myOut2$Yld_Vol_Dr = yieldsMod
+      myOut = rbind(myOut, myOut2)
+    }
+  } else { # no entries
+    if (flag == 0){
+      myOut = yield_int
+      flag = 1
+    } else {
+      myOut2 = yield_int
+      myOut = rbind(myOut, myOut2)
+    }
+  }
 }
 
 #see:

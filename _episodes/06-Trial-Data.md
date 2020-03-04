@@ -34,6 +34,8 @@ source: Rmd
 > 
 {: .textchunk}
 
+<font color="magenta">Don't think we need this if we are going right from our trial data??  At least not the trial data??  I will replace it with whole plot</font>
+
 > ## Exercise: Exploring Trial Data
 > Read the yield, as-planted, and as-applied files and explore the variables. For each file, identify what variables might we be interested in and why?
 > 
@@ -61,25 +63,7 @@ source: Rmd
 > {: .solution}
 {: .challenge}
 
-<!-- JPN: this is just the solution though? 
-> ## Exercise Discussion
-> 
-> ~~~
-> names(nitrogen)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
->  [1] "Product"      "Obj__Id"      "Track_deg_"   "Swth_Wdth_"   "Distance_f"  
->  [6] "Duration_s"   "Elevation_"   "Area_Count"   "Diff_Statu"   "Time"        
-> [11] "Y_Offset_f"   "X_Offset_f"   "Rt_Apd_Ms_"   "Pass_Num"     "Speed_mph_"  
-> [16] "Prod_ac_hr"   "Date"         "Rate_Appli"   "Rate_Appli.1" "geom"        
-> ~~~
-> {: .output}
->
--->
+
 
 > ## As-Applied File
 > 
@@ -215,6 +199,26 @@ source: Rmd
 
 > ## Simulating yields
 > Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield measurements you have stored in your `yield.gpkg` file can be used for this exercise, however **for this workshop only** will *simulate* the yields we'd expect to get out from your trial design.
+>
+> 
+> ~~~
+> # "yield" is an input, "planting" and "nitrogen" since those have changed
+> 
+> # replace trial data with whole plot
+> trial <- whole_plot
+> 
+> coefs = read.csv('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/coefs_fit.csv')
+> # transform if needed
+> if (st_crs(yield) != st_crs(whole_plot)){
+>   yieldutm = st_transform_utm(yield)
+> }
+> 
+> # also, add in random bigs
+> randomBigProb = 0.005 # will pull random big, looks like this happens ~0.003 of the time
+> maxBig = 1200
+> minBig = 400
+> ~~~
+> {: .language-r}
 >
 {: .callout}
 
