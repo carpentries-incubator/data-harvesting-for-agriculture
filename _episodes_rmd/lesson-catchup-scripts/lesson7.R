@@ -1,42 +1,29 @@
-# Lesson 6 catch-up file - current as of Feb 20, 2020
+# Lesson 7 catch-up file - current as of March 4, 2020
+
+# Lesson 8 catch-up file - current as of March 4, 2020
+
+# Find out whether you're working in the directory you intend:
+getwd()
 
 # Set working directory:
-# If you haven't re-started R Studio since the previous lesson,
-# you don't need to do this again. 
-# If you have restarted R Studio, do this again.
-# (If you changed the directory you used in lesson 1, 
-# change it here and in the Source command too.)
-
+# If that isn't the directory you want to work in, 
+# set your working directory.
+# (If you changed the directory you used in lesson 2, 
+# change it here.)
 setwd("C:/DataHarvestingWin/WorkingDir")
 
-# Load your libraries
-# Based upon the list at https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R
-#
-# Again, if you haven't restarted since the previous lesson, you can skip this.
-# If you have restarted, do these again.
-
-library("rgdal")
-library("plyr")
-library("dplyr")
-library("sp")
-library("sf")
-library("gstat")
-library("tmap")
-library("measurements")
-library("daymetr")
-library("FedData")
-library("lubridate")
-library("raster")
-library("data.table")
-library("broom")
-library("ggplot2")
-
 # Source R scripts particular to this class
-# If you haven't restarted since the previous lesson, you can skip this.
-# If you have restarted, do this again.
-# If you changed where your functions.R is saved in lesson 1, change it here too.
+# If you saved your environment configuration file as
+# package_load_and_test.R, do this.
+# (You could also navigate to it in File-> Open and use
+# the Source button.)
+source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
 
-source('C:/DataHarvestingWin/WorkingDir/functions.R')
+
+
+
+
+########
 
 # Starting to create a trial design - load files
 boundary <- st_read("data/boundary.gpkg") # read in boundary
