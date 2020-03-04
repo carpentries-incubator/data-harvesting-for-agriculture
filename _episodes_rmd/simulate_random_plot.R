@@ -257,40 +257,52 @@ randomBigProb = 0.005 # will pull random big, looks like this happens ~0.003 of 
 maxBig = 1200
 minBig = 400
 
+randomBigProbApp = 0.005 # random as applied
+maxBigApp = 1200
+minBigApp = 400
+
+
+nPrint = 50
+
 # loop through each geometry
 flag = 0 # flag to turn off one
 flagapp = 0
 flaggplant = 0
+print("This might take a little while... now is a great time for a coffee :)")
 for (i in 1:length(whole_plot$geom)){
-  if (i%%10==0){
+  if (i%%nPrint==0){
     print(paste0('On ', i, ' of ', length(whole_plot$geom), ' geometries'))
   }
-  yield_int <- st_intersection(yieldutm, subplots_data$geometry[i])
-  asapplied_int <- st_intersection(asapplied, subplots_data$geometry[i])
-  asplanted_int <- st_intersection(asplanted, subplots_data$geometry[i])
+  yield_int <- st_intersection(yieldutm, whole_plot$geom[i])
+  asapplied_int <- st_intersection(asapplied, whole_plot$geom[i])
+  asplanted_int <- st_intersection(asplanted, whole_plot$geom[i])
   if (flagapp == 0){
       asappliedOut = asapplied_int
       if (nrow(asapplied_int)>0){
-        asappliedOut$Rate_Appli = subplots_data$Rate_Appli[i]
+        asappliedOut$Rate_Appli = whole_plot$NRATE[i]
       }
       flagapp = 1
   } else {
     if (nrow(asapplied_int)>0){
       asappliedOut2 = asapplied_int
-      asappliedOut2$Rate_Appli = subplots_data$Rate_Appli[i]
+      asappliedOut2$Rate_Appli = whole_plot$NRATE[i]
+      # add in big stuff randomly
+      samps = runif(length(asappliedOut2$Rate_Appli))
+      asappliedOut2$Rate_Appli[samps <= randomBigProbApp] = 
+        samps[samps <= randomBigProbApp]/randomBigProbApp*(maxBigApp-minBigApp) + minBigApp
       asappliedOut = rbind(asappliedOut, asappliedOut2)
     }
   }    
   if (flaggplant == 0){
     asplantedOut = asplanted_int
     if (nrow(asplanted_int)>0){
-      asplantedOut$Rt_Apd_Ct_ = subplots_data$Rt_Apd_Ct_[i]
+      asplantedOut$Rt_Apd_Ct_ = whole_plot$SEEDRATE[i]
     }
     flaggplant = 1
   } else {
     if (nrow(asplanted_int)>0){
       asplantedOut2 = asplanted_int
-      asplantedOut2$Rt_Apd_Ct_ = subplots_data$Rt_Apd_Ct_[i]
+      asplantedOut2$Rt_Apd_Ct_ = whole_plot$SEEDRATE[i]
       asplantedOut = rbind(asplantedOut, asplantedOut2)
     }
   }    
@@ -298,12 +310,17 @@ for (i in 1:length(whole_plot$geom)){
   
   if (length(row(yield_int)) > 0){ # have entries, update
     # grab random index of row for coefficients of fit
+    if (nrow(asplanted_int)>0){
+      ele = mean(asplanted_int$Elevation_)
+    } else {
+      ele = mean(asplanted$Elevation_)
+    }
     mycoefs = coefs[sample(nrow(coefs), nrow(yield_int)), ]
-    yieldsMod = mycoefs[,'X.Intercept.'] + mycoefs[, 'Rate_Appli']*subplots_data$Rate_Appli[i] + 
-      mycoefs[, 'Rt_Apd_Ct_']*subplots_data$Rt_Apd_Ct_[i] + mycoefs[, 'Elevation_']*subplots_data$Elevation_[i]
-    # add in big stuff randomly
+    yieldsMod = mycoefs[,'X.Intercept.'] + mycoefs[, 'Rate_Appli']*whole_plot$NRATE[i] + 
+      mycoefs[, 'Rt_Apd_Ct_']*whole_plot$SEEDRATE[i] + mycoefs[, 'Elevation_']*ele
+    # add in big stuff randomly - DO NOT
     samps = runif(length(yieldsMod))
-    yieldsMod[samps <= randomBigProb] = samps/randomBigProb*(maxBig-minBig) + minBig
+    yieldsMod[samps <= randomBigProb] = samps[samps <= randomBigProb]/randomBigProb*(maxBig-minBig) + minBig
     if (flag == 0){
       myOut = yield_int
       myOut$Yld_Vol_Dr = yieldsMod
