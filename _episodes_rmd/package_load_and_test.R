@@ -15,6 +15,7 @@ download_workshop_data() # download all the data
 
 # STEP 4: Run test script and see about outputs
 run_workshop_test()
+dev.off()
 
 
 # When you've run this script, look for:
