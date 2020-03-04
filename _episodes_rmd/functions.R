@@ -470,9 +470,7 @@ make_grids <- function(bothfields, ab_line, long_in, short_in, length_ft, width_
   }
   #--- combine all the grids ---#
   all_grids <- do.call(rbind,all_polygons_ls)
-  if (set_seed){ #reset
-    set.seed(NULL)
-  }
+
   return(all_grids)
 }
 
@@ -500,8 +498,10 @@ make_subplots <- function(boundary.utm,ab_line,long_in,short_in,starting_point){
   return(trial_grid)
 }
 
-treat_assign <- function(trialarea, trial_grid, head_buffer_ft, seed_treat_rates, nitrogen_treat_rates, seed_quo, nitrogen_quo){
- 
+treat_assign <- function(trialarea, trial_grid, head_buffer_ft, seed_treat_rates, nitrogen_treat_rates, seed_quo, nitrogen_quo, set_seed=FALSE){
+  if (set_seed){ 
+    set.seed(42) # obvs :D
+  } 
   head_buffer_m <- conv_unit(head_buffer_ft, 'ft', 'm')
   infield <- st_buffer(trialarea, -head_buffer_m)
   outfield <- st_difference(trial_grid, infield)
@@ -578,6 +578,9 @@ treat_assign <- function(trialarea, trial_grid, head_buffer_ft, seed_treat_rates
   tm_shape(temp_whole) + tm_polygons("NRATE")
 
   return(temp_whole)
+  if (set_seed){ #reset
+    set.seed(NULL)
+  }
 }
 
 st_over <- function(x, y) {

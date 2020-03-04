@@ -159,8 +159,10 @@ design_grids_utm <- make_grids(trialarea, abline_utm,
                            seed_treat_rates = seed_rates,
 			   nitrogen_treat_rates = nitrogen_rates,
 			   seed_quo = seed_quo,
-			   nitrogen_quo = nitrogen_quo)
+			   nitrogen_quo = nitrogen_quo,
+			   set_seed=TRUE)
 ```
+> <font color="magenta">Talk about seed setting here</font>
 > 
 {: .textchunk}
 
