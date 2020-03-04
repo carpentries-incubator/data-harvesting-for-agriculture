@@ -86,6 +86,8 @@ source: Rmd
 > 
 > ~~~
 > trial <- read_sf("data/trial.gpkg")
+> # JPN: new data
+> trial <- read_sf("trial_new.gpkg")
 > ~~~
 > {: .language-r}
 > 
@@ -142,8 +144,20 @@ source: Rmd
 > > 
 > > ~~~
 > > yield_utm <- st_transform_utm(yield)
+> > # JPN new data
+> > yield_utm <- read_sf("yield_new.gpkg")
+> > st_crs(yield_utm)
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Coordinate Reference System:
+> >   EPSG: 32617 
+> >   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+> > ~~~
+> > {: .output}
 > >
 > {: .solution}
 {: .challenge}
@@ -323,6 +337,25 @@ the mean.
 > > 
 > > ~~~
 > > nitrogen_utm = st_transform_utm(nitrogen)
+> > # JPN new data
+> > nitrogen = read_sf("asapplied_new.gpkg")
+> > st_crs(nitrogen_utm)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Coordinate Reference System:
+> >   EPSG: 32617 
+> >   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > nitrogen_utm <- nitrogen # st_transform_utm(nitrogen)
 > > ~~~
 > > {: .language-r}
 > > Clean border:
@@ -507,6 +540,44 @@ The resulting grid is seen below:
 > 
 > ~~~
 > asplanted_utm <- st_transform_utm(asplanted)
+> # JPN new data
+> asplanted <- st_read("asplanted_new.gpkg")
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Reading layer `asplanted_new' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/asplanted_new.gpkg' using driver `GPKG'
+> Simple feature collection with 8922 features and 30 fields
+> geometry type:  POINT
+> dimension:      XY
+> bbox:           xmin: 341645.8 ymin: 4522631 xmax: 342088.8 ymax: 4523418
+> epsg (SRID):    32617
+> proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> st_crs(asplanted)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Coordinate Reference System:
+>   EPSG: 32617 
+>   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> asplanted_utm <- asplanted # st_transform_utm(asplanted)
 > asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
 > asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 > 
@@ -561,7 +632,7 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Warning: Removed 37 rows containing non-finite values (stat_smooth).
+> Warning: Removed 112 rows containing non-finite values (stat_smooth).
 > ~~~
 > {: .warning}
 > 
@@ -579,7 +650,7 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Warning: Removed 37 rows containing non-finite values (stat_smooth).
+> Warning: Removed 112 rows containing non-finite values (stat_smooth).
 > ~~~
 > {: .warning}
 > 

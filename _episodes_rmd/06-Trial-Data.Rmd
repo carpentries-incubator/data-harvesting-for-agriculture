@@ -15,6 +15,7 @@ include_overview: yes
 source: Rmd
 ---
 
+<!-- JPN test -->
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -249,6 +250,8 @@ map_yieldog
 >
 > 
 > ```{r dataClean5}
+> # saving for later
+> yield_orig <- yield
 > yield <- clean_sd(yield, yield$Yld_Vol_Dr)
 > ```
 > 
@@ -298,6 +301,7 @@ map_yieldog
 > Looking at the names in the planting file, there are quite a few columns that look similar. But it appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons, so we will use `map_points()`.  
 > 
 > ```{r seedmap_new}
+> planting_orig <- planting # save for later
 > planting <- clean_sd(planting,planting$Rt_Apd_Ct_)
 > map_asplanted <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
 map_planting_comp <- tmap_arrange(map_asplanted, tgts, ncol = 2, nrow = 1)
@@ -313,6 +317,7 @@ map_planting_comp
 > Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. Then we make a map called `map_nitrogen` with the application and compare it to the map we made earlier `tgtn`.
 > 
 > ```{r nitrogenmap }
+> nitrogen_orig <- nitrogen # save for later
 > nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli)
 > map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
 > map_nitrogen
@@ -358,9 +363,9 @@ map_planting_comp
 > ## Saving our trial files
 > ```{r saveFilesOurTrial}
 st_write(trial, "trial_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
-st_write(yield, "yield_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
-st_write(nitrogen, "asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
-st_write(planting, "asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(yield_orig, "yield_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(nitrogen_orig, "asapplied_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+st_write(planting_orig, "asplanted_new.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
 ```
 >
 >

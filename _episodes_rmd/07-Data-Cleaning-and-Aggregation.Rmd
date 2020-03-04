@@ -78,6 +78,8 @@ source("./functions.R")
 > In the last episode, we also imported our trial design, which we will do again here:
 > ```{r}
 > trial <- read_sf("data/trial.gpkg")
+> # JPN: new data
+> trial <- read_sf("trial_new.gpkg")
 > ```
 > 
 > Let's look at the coordinate reference system here as well:
@@ -106,6 +108,9 @@ source("./functions.R")
 > > And finally transform into UTM:
 > > ```{r}
 > > yield_utm <- st_transform_utm(yield)
+> > # JPN new data
+> > yield_utm <- read_sf("yield_new.gpkg")
+> > st_crs(yield_utm)
 > > ```
 > >
 > {: .solution}
@@ -220,6 +225,10 @@ the mean.
 > > Since it's in Lat/Long we have to transform it:
 > > ```{r}
 > > nitrogen_utm = st_transform_utm(nitrogen)
+> > # JPN new data
+> > nitrogen = read_sf("asapplied_new.gpkg")
+> > st_crs(nitrogen_utm)
+> > nitrogen_utm <- nitrogen # st_transform_utm(nitrogen)
 > > ```
 > > Clean border:
 > > ```{r}
@@ -320,6 +329,10 @@ The resulting grid is seen below:
 > ```{r}
 > asplanted <- st_read("data/asplanted.gpkg")
 > asplanted_utm <- st_transform_utm(asplanted)
+> # JPN new data
+> asplanted <- st_read("asplanted_new.gpkg")
+> st_crs(asplanted)
+> asplanted_utm <- asplanted # st_transform_utm(asplanted)
 > asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
 > asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 > 
