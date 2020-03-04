@@ -22,10 +22,18 @@ utm_zone <- function(long){
 }
 
 st_transform_utm <- function(sfobject){
-  utmzone <- utm_zone(mean(st_bbox(sfobject)[c(1,3)]))
-  projutm <- as.numeric(paste0("326", utmzone))
-  newobj <- st_transform(sfobject, projutm)
-  return(newobj)
+  crs <- st_crs(sfobject)
+  epsg <- crs$epsg
+  if (epsg != 4326){
+    print("Not in lat/long. Returning original object.")
+    return(sfobject)
+  }
+  else {
+    utmzone <- utm_zone(mean(st_bbox(sfobject)[c(1,3)]))
+    projutm <- as.numeric(paste0("326", utmzone))
+    newobj <- st_transform(sfobject, projutm)
+    return(newobj)
+  }
 }
 
 # `long2UTM()` is a function written to take the argument `long` and output the
@@ -200,8 +208,8 @@ c_s_s_soil <- function(ssurgo){
   return(spatial)
 }
 
-clean_sd <- function(data, var){
-  data <- subset(data, var >= mean(var, na.rm = TRUE) - 3*sd(var, na.rm = TRUE) &  var <= mean(var, na.rm = TRUE) + 3*sd(var, na.rm = TRUE))
+clean_sd <- function(data, var, sd_no){
+  data <- subset(data, var >= mean(var, na.rm = TRUE) - sd_no*sd(var, na.rm = TRUE) &  var <= mean(var, na.rm = TRUE) + sd_no*sd(var, na.rm = TRUE))
   return(data)
 }
 
@@ -466,10 +474,9 @@ make_grids <- function(bothfields, ab_line, long_in, short_in, length_ft, width_
   }
   #--- combine all the grids ---#
   all_grids <- do.call(rbind,all_polygons_ls)
-  
+  all_grids <- dplyr::rename(all_grids, geom = st_sfc.col_polygons_ls.)
   return(all_grids)
 }
-
 
 make_subplots <- function(boundary.utm,ab_line,long_in,short_in,starting_point){
   
