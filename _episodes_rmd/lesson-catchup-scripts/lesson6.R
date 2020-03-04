@@ -1,100 +1,103 @@
-# Lesson 6 catch-up file - current as of Feb 20, 2020
+# Lesson 6 catch-up file - current as of March 4, 2020
+
+# Find out whether you're working in the directory you intend:
+getwd()
 
 # Set working directory:
-# If you haven't re-started R Studio since the previous lesson,
-# you don't need to do this again. 
-# If you have restarted R Studio, do this again.
-# (If you changed the directory you used in lesson 1, 
-# change it here and in the Source command too.)
-
+# If that isn't the directory you want to work in, 
+# set your working directory.
+# (If you changed the directory you used in lesson 2, 
+# change it here.)
 setwd("C:/DataHarvestingWin/WorkingDir")
 
-# Load your libraries
-# Based upon the list at https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R
-#
-# Again, if you haven't restarted since the previous lesson, you can skip this.
-# If you have restarted, do these again.
-
-library("rgdal")
-library("plyr")
-library("dplyr")
-library("sp")
-library("sf")
-library("gstat")
-library("tmap")
-library("measurements")
-library("daymetr")
-library("FedData")
-library("lubridate")
-library("raster")
-library("data.table")
-library("broom")
-library("ggplot2")
-
 # Source R scripts particular to this class
-# If you haven't restarted since the previous lesson, you can skip this.
-# If you have restarted, do this again.
-# If you changed where your functions.R is saved in lesson 1, change it here too.
+# If you saved your environment configuration file as
+# package_load_and_test.R, do this.
+# (You could also navigate to it in File-> Open and use
+# the Source button.)
+source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
 
-source('C:/DataHarvestingWin/WorkingDir/functions.R')
+# Let's load up some trial data and look at it.
+planting <- read_sf("data/asplanted_new.gpkg")
+nitrogen <- read_sf("data/asapplied_new.gpkg")
+yield <- read_sf("data/yield_new.gpkg")
+trial <- read_sf("data/trial_new.gpkg")
 
-# Starting to create a trial design - load files
-boundary <- st_read("data/boundary.gpkg") # read in boundary
-abline <- st_read("data/abline.gpkg") # read in AB line
+# What are the names of the variables in the nitrogen dataframe (created from the as-applied gpkg)?
+names(nitrogen)
 
-# Check coordinate reference system
-st_crs(boundary)
-st_crs(abline)
+# How about the yield variables?
+names(yield)
 
-# Transform them from lat/long to UTM
-boundary_utm <- st_transform_utm(boundary)
-abline_utm <- st_transform_utm(abline)
+# Planting variables next
+names(planting)
 
-# remove headlands
-trialarea <- subset(boundary_utm, Type == "Trial")
+# EXERCISE: Yield Map
+# First check the variable names
+names(yield)
 
-# define our parameters
-width_in_meters = 24 # width of grids is 24 meters
-long_direction = 'NS' # direction of grid that will be long
-short_direction = 'EW' # direction of grid that will be short
-length_in_ft = 180 # length of grids in feet
+# Then use map_points() to make a map of bushels per acre
+map_yieldog <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+map_yieldog
 
-# make grids
-width <- m_to_ft(24) # convert meters to feet
-design_grids_utm <- make_grids(trialarea, abline_utm,
-                               long_in = long_direction,
-                               short_in = short_direction,
-                               length_ft = length_in_ft,
-                               width_ft = width)
+# Note the map doesn't have much contrast. That's
+# because some odd values haven't been cleaned up
+# and it's skewing the rest of the results.
 
-# overlay grids on trial area
-st_crs(design_grids_utm) <- st_crs(trialarea)
-trial_grid <- st_intersection(trialarea, design_grids_utm)
+# Here's an example of data cleaning that doesn't
+# involve our map, just a demonstration with numbers.
+real_data <- c(900, 450, 200, 320)
+error_data <- c(900, 4500, 200, 320)
+mean(real_data)
+mean(error_data)
 
-# look at the plots
-tm_shape(trial_grid) + tm_borders(col='blue')
+# Let's draw a diagram of our error example
+plot(error_data) # use plot function on error rate
 
-# determine subplot treatments
-seed_rates <- c(31000, 34000, 37000, 40000)
-nitrogen_rates <- c(160,200,225,250)
+# Let's put NA on the numbers that are clearly wrong
+error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
+error_data
 
-# here's what goes in the headlands
-seed_quo <- 37000
-nitrogen_quo <- 225
+# Let's do some math on the cleaned up example
+mean(error_data, na.rm=TRUE)
 
-# generate treatment map
-whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
-                           seed_treat_rates = seed_rates,
-                           nitrogen_treat_rates = nitrogen_rates,
-                           seed_quo = seed_quo,
-                           nitrogen_quo = nitrogen_quo)
+# Let's try some cleaning on our real data now
+yield <- clean_sd(yield, yield$Yld_Vol_Dr)
 
-# check it out
-head(whole_plot)
+# Here's what the cleaned map looks like
+map_yieldcl <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
+map_yieldcl
 
-# show side by side comparisons
-nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
-seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
-treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
-treatment_plot_comp
+# Let's compare original and cleaned data maps side by side
+map_yield_comp <- tmap_arrange(map_yieldog, map_yieldcl, ncol = 2, nrow = 1)
+map_yield_comp
+
+# EXERCISE: Trial design map
+# Let's try that side by side again, this time
+# with the seed map and the nitrogen map.
+tgts <- map_poly(trial, 'SEEDRATE', 'Seed') 
+tgtn <- map_poly(trial, 'NRATE', 'Nitrogen')
+trial_map <- tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1)
+trial_map
+
+# Let's work with planting files now
+planting <- clean_sd(planting,planting$Rt_Apd_Ct_)
+map_asplanted <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
+
+# Compare planting target to what actually happened
+map_planting_comp <- tmap_arrange(map_asplanted, tgts, ncol = 2, nrow = 1)
+map_planting_comp
+
+# Nitrogen files next
+nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli)
+map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
+map_nitrogen
+
+# Compare nitrogen target to what actually happened
+map_nitrogen_comp <- tmap_arrange(map_nitrogen, tgtn, ncol = 2, nrow = 1)
+map_nitrogen_comp
+
+# EXERCISE: Yield and application version
+map_yield_asplanted <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+map_yield_asplanted
 
