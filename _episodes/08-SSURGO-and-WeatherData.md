@@ -903,23 +903,9 @@ source: Rmd
 
 > ## Making the graph
 >
-> We will now use `ggplot` to create a graph with a bar representing
-> the monthly precipitation 
-> in 2018 and a point with the average rainfall from 2000 to 2017. In 
-> the function `geom_bar()` `stat = identity` creates a bar graph 
-> where the height of the bar is the value of the 
-> variable rather than the count of the observations, the common use 
-> of a bar chart. 
+> We will now use a function `month_prec_graph()` to make a graph with the monthly precipitation represented by the height of the bar, and the color of the bar is determined by whether the 2018 precipitation was above or below the average precipitation.
 >
-> 
-> ~~~
-> monthly_prec <- ggplot(prec_merged) + 
->   geom_bar(aes(x = month, y = prec_month), stat = 'identity') 
-> monthly_prec + geom_point(aes(month, prec_avg), show.legend = TRUE) + ggtitle("2018 Monthly Precipitation Compared to Average")
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-precmonthplot-1.png" title="plot of chunk precmonthplot" alt="plot of chunk precmonthplot" width="612" style="display: block; margin: auto;" />
+> month_prec_graph(prec_merged)
 >
 > The most notable feature of the weather graph is the below average rainfall in July, the most 
 critical growing period for corn. To understand whether this affected yield on the field, we
