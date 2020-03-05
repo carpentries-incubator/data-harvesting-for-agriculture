@@ -144,8 +144,8 @@ source: Rmd
 > 
 > ~~~
 > width_in_meters = 24 # width of grids is 24 meters
-> long_direction = 'NS' # direction of grid that will be long
-> short_direction = 'EW' # direction of grid that will be short
+> long_direction = 'NS' # direction of grid that will be long in relation to AB line
+> short_direction = 'EW' # direction of grid that will be short in relation to AB line
 > length_in_ft = 180 # length of grids in feet
 > ~~~
 > {: .language-r}
