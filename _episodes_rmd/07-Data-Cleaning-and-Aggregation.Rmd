@@ -355,36 +355,31 @@ The resulting grid is seen below:
 >
 > ### Making Plots of Relationships between Variables
 > 
-> Now we can make plots to look at the response of yield to the other variables. This uses a function called ggplot(). While the code looks complicated, you simple define the following:
-> * data = the data with the variables you want to plot
-> * x = the name of the variable you want on the x-axis
-> * y = the name of the variable you want on the y-axis
-> * xlab and ylab are the names you want displayed for the variables
+> ```{r}
+> Pc <- 3.5
+> Ps <- 2.5/1000
+> Pn <- 0.3
+> other_costs <- 400
+> s_sq <- 37000
+> n_sq <- 225
+> s_ls <- c(31000, 34000, 37000, 40000)
+> n_ls <- c(160, 200, 225, 250)
+> ```
+> 
+> ```{r}
+data <- rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
+> ```
+> 
+> ```{r}
+> graphs <- profit_graphs(data, s_ls, n_ls, s_sq, n_sq, Pc, Ps, Pn, other_costs)
+> graphs[1]
+> graphs[2]
+> graphs[3]
+> graphs[4]
+> ```
 > 
 > The other options do not need to be changed when you go to use the function on other datasets. 
-> ```{r jpnt23405}
 > 
-> ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Elevation_), size = 0.5, se=FALSE) +
-  ylab('Yield (kg/ha)') +
-  xlab('Elevation') + 
-  theme_grey(base_size = 12)
-> 
-> ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rt_Apd_Ct_), size = 0.5, se=FALSE) +
-  ylab('Yield (kg/ha)') +
-  xlab('Seed (k/ha)') + 
-  theme_grey(base_size = 12)
-> 
-> ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rate_Appli), size = 0.5, se=FALSE) +
-  ylab('Yield (kg/ha)') +
-  xlab('Nitrogen') + 
-  theme_grey(base_size = 12)
-> ```
->
->
->
 > We can also add the trial grid onto the data and use it for looking at the accuracy of the planting application.
 > ```{r}
 > subplots_data <- deposit_on_grid(subplots_data, trial_utm, "SEEDRATE", fn = median)
