@@ -128,7 +128,7 @@ design_grids_utm <- make_grids(trialarea, abline_utm,
 > 
 > Let's check out what our trial subplots look like:
 > ```{r t3jpn}
-> tm_shape(trial_grid) + tm_borders(col='blue')
+> plot(trial_grid$geom)
 > ```
 > 
 {: .textchunk}

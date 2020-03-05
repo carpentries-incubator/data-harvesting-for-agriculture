@@ -149,7 +149,7 @@ source: Rmd
 > Let's check out what our trial subplots look like:
 > 
 > ~~~
-> tm_shape(trial_grid) + tm_borders(col='blue')
+> plot(trial_grid$geom)
 > ~~~
 > {: .language-r}
 > 
