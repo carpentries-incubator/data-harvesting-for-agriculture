@@ -11,11 +11,12 @@ getwd()
 # setwd("C:/DataHarvestingWin/WorkingDir")
 
 # Source R scripts particular to this class
-# If you saved your environment configuration file as
-# package_load_and_test.R, do this.
-# (You could also navigate to it in File-> Open and use
+# If you need to reload and saved your environment configuration file as
+# package_load_and_test.R, remove the # before source.
+# (You could also navigate to your file with File-> Open and use
 # the Source button.)
-source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
+#
+# source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
 
 # Loading boundary file
 boundary <- read_sf("data/boundary.gpkg")
