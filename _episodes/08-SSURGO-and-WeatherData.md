@@ -21,7 +21,7 @@ source: Rmd
 
 
 
-<font color="magenta">This could use a bit of re-writing - I just put the SSURGO stuff in with the weather data</font>
+<!-- <font color="magenta">This could use a bit of re-writing - I just put the SSURGO stuff in with the weather data</font> -->
 
 > # SSURGO Soil Data
 > 
@@ -839,7 +839,7 @@ source: Rmd
 > {: .solution}
 {: .challenge}
 
-<font color="magenta">JPN: Do we need this subsetting here?  Do we ever use `&` again?  We haven't introduced boolean operations at all until right now so we should be sure we actually need it</font>
+<!-- <font color="magenta">JPN: Do we need this subsetting here?  Do we ever use `&` again?  We haven't introduced boolean operations at all until right now so we should be sure we actually need it</font> -->
 
 > We could also find this by taking a subset with the year and month:
 > 
