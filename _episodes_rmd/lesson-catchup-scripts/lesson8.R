@@ -11,11 +11,12 @@ getwd()
 setwd("C:/DataHarvestingWin/WorkingDir")
 
 # Source R scripts particular to this class
-# If you saved your environment configuration file as
-# package_load_and_test.R, do this.
-# (You could also navigate to it in File-> Open and use
+# If you need to reload and saved your environment configuration file as
+# package_load_and_test.R, remove the # before source.
+# (You could also navigate to your file with File-> Open and use
 # the Source button.)
-source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
+#
+# source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
 
 # Getting SSURGO data
 boundary <- read_sf("data/boundary.gpkg")
@@ -40,7 +41,7 @@ head(spatial$muname)
 # Saving what we've created as a geopackage
 st_write(spatial, "data/ssurgo.gpkg", layer_options = 'OVERWRITE=YES')
 
-# Exercise 5 - using map_poly to create a map by soil type
+# Exercise - using map_poly to create a map by soil type
 map_soil <- map_poly(spatial, 'muname', "Soil Type")
 map_soil
 
@@ -66,7 +67,7 @@ weather <- download_daymet(site = "Field1", lat = lat, lon = lon, start = 2000, 
 # Examining that data with str()
 str(weather)
 
-# Exercise 1 - Explore the weather data
+# Exercise - Explore the weather data
 weather_data <- weather$data
 str(weather_data)
 
@@ -143,6 +144,4 @@ prec_merged <- merge(monthprec_2018, monthprec_avg_not_2018, by = "month")
 monthly_prec <- ggplot(prec_merged) + 
   geom_bar(aes(x = month, y = prec_month), stat = 'identity') 
 monthly_prec + geom_point(aes(month, prec_avg), show.legend = TRUE) + ggtitle("2018 Monthly Precipitation Compared to Average")
-
-
 
