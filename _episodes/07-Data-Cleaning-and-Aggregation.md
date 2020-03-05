@@ -584,16 +584,9 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> data <- rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
+> data <- dplyr::rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
 > ~~~
 > {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr): could not find function "rename"
-> ~~~
-> {: .error}
 > 
 > 
 > ~~~
@@ -604,7 +597,7 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in as.data.frame.default(data, optional = TRUE): cannot coerce class '"function"' to a data.frame
+> Error in data.table(.): could not find function "data.table"
 > ~~~
 > {: .error}
 > 
