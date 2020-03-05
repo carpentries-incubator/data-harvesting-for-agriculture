@@ -300,7 +300,7 @@ the mean.
 > 
 > Let's plot what these grids will look like using the basic `plot()` function:
 > ```{r}
-> plot(design_grids_utm$st_sfc.col_polygons_ls.)
+> plot(design_grids_utm$geom)
 > ```
 > 
 > Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_utm`, 
