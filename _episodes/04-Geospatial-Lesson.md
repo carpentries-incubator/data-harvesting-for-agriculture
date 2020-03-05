@@ -77,6 +77,31 @@ source: Rmd
 >
 {: .textchunk}
 
+> ## Loading Libraries
+> In the beginning of this workshop, we had you all install a bunch of packages that have a collection of functions we are going to use to plot our data.  We want to tell R to load in all of these functions, and we can do that by using the `library` function: 
+> 
+> ~~~
+> library("rgdal")
+> library("plyr")
+> library("dplyr")
+> library("sp")
+> library("sf")
+> library("gstat")
+> library("tmap")
+> library("measurements")
+> library("daymetr")
+> library("FedData")
+> library("lubridate")
+> library("raster")
+> library("data.table")
+> library("broom")
+> library("ggplot2")
+> ~~~
+> {: .language-r}
+> Note: this will probably generate a lot of output, and some of it will be in red, but that is normal!
+>
+{: .callout}
+
 > ## Reading in the Boundary File
 > 
 > Before we can look at a CRS in R, we need to have a geospatial file in the R environment. We will bring in the field boundary. Use the function `read_sf()` to bring the dataset into your R environment. Because we have already set the working directory for this file, we don't need to give the whole path, just the folder data that the gpkg file is stored within. 
