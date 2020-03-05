@@ -50,42 +50,10 @@ source: Rmd
 > We will start by reading in the shape files we need:
 > 
 > ~~~
-> boundary <- st_read("data/boundary.gpkg") # read in boundary
+> boundary <- read_sf("data/boundary.gpkg") # read in boundary
+> abline <- read_sf("data/abline.gpkg") # read in AB line
 > ~~~
 > {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Reading layer `boundary' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/boundary.gpkg' using driver `GPKG'
-> Simple feature collection with 1 feature and 0 fields
-> geometry type:  POLYGON
-> dimension:      XY
-> bbox:           xmin: -82.87853 ymin: 40.83945 xmax: -82.87306 ymax: 40.8466
-> epsg (SRID):    4326
-> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> abline <- st_read("data/abline.gpkg") # read in AB line
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
-> Simple feature collection with 1 feature and 1 field
-> geometry type:  LINESTRING
-> dimension:      XY
-> bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
-> epsg (SRID):    4326
-> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-> ~~~
-> {: .output}
 > 
 > Now let's check the coordinate references of our two files:
 > 
@@ -252,13 +220,15 @@ source: Rmd
 > bbox:           xmin: 342043.5 ymin: 4523203 xmax: 342066.9 ymax: 4523349
 > epsg (SRID):    32617
 > proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
->    id treat_type NRATE SEEDRATE                           geom
-> 1 ID1         17   225    37000 POLYGON ((342066.7 4523313,...
-> 2 ID2         17   225    37000 POLYGON ((342066.7 4523313,...
-> 3 ID3          5   200    31000 POLYGON ((342066.5 4523258,...
-> 4 ID4          2   160    34000 POLYGON ((342066.5 4523258,...
-> 5 ID5         16   250    40000 POLYGON ((342066.2 4523203,...
-> 6 ID6          7   200    37000 POLYGON ((342066.2 4523203,...
+> # A tibble: 6 x 5
+>   id    treat_type NRATE SEEDRATE                                           geom
+>   <chr>      <dbl> <dbl>    <dbl>                                  <POLYGON [m]>
+> 1 ID1           17   225    37000 ((342066.7 4523313, 342043.7 4523313, 342043.…
+> 2 ID2           17   225    37000 ((342066.7 4523313, 342043.7 4523313, 342043.…
+> 3 ID3            5   200    31000 ((342066.5 4523258, 342044.1 4523258, 342043.…
+> 4 ID4            2   160    34000 ((342066.5 4523258, 342044.1 4523258, 342043.…
+> 5 ID5           16   250    40000 ((342066.2 4523203, 342044.5 4523203, 342044.…
+> 6 ID6            7   200    37000 ((342066.2 4523203, 342044.5 4523203, 342044.…
 > ~~~
 > {: .output}
 > And as plots:

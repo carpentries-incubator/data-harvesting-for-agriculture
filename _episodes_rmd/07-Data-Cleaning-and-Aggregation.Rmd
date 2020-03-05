@@ -122,7 +122,7 @@ yield_utm <- yield
 
 > Finally, let's transform our abline file.  We read in the file:
 > ```{r}
-> abline = st_read("data/abline.gpkg")
+> abline = read_sf("data/abline.gpkg")
 > ```
 > Check out its current coordinate reference system:
 > ```{r}
@@ -331,7 +331,7 @@ The resulting grid is seen below:
 >
 > We will now clean the asplanted file:
 > ```{r}
-> asplanted <- st_read("data/asplanted_new.gpkg")
+> asplanted <- read_sf("data/asplanted_new.gpkg")
 > st_crs(asplanted)
 > asplanted_utm <- asplanted # already in utm!
 > asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_, sd_no=3)

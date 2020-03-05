@@ -73,8 +73,8 @@ source("functions.R")
 > 
 > We will start by reading in the shape files we need:
 > ```{r}
-> boundary <- st_read("data/boundary.gpkg") # read in boundary
-> abline <- st_read("data/abline.gpkg") # read in AB line
+> boundary <- read_sf("data/boundary.gpkg") # read in boundary
+> abline <- read_sf("data/abline.gpkg") # read in AB line
 > ```
 > 
 > Now let's check the coordinate references of our two files:

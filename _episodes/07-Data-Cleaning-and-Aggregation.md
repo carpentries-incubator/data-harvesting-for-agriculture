@@ -159,22 +159,9 @@ source: Rmd
 > Finally, let's transform our abline file.  We read in the file:
 > 
 > ~~~
-> abline = st_read("data/abline.gpkg")
+> abline = read_sf("data/abline.gpkg")
 > ~~~
 > {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Reading layer `abline' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/abline.gpkg' using driver `GPKG'
-> Simple feature collection with 1 feature and 1 field
-> geometry type:  LINESTRING
-> dimension:      XY
-> bbox:           xmin: -82.87334 ymin: 40.84301 xmax: -82.87322 ymax: 40.84611
-> epsg (SRID):    4326
-> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-> ~~~
-> {: .output}
 > Check out its current coordinate reference system:
 > 
 > ~~~
@@ -498,26 +485,7 @@ The resulting grid is seen below:
 > We will now clean the asplanted file:
 > 
 > ~~~
-> asplanted <- st_read("data/asplanted_new.gpkg")
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Reading layer `asplanted_new' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted_new.gpkg' using driver `GPKG'
-> Simple feature collection with 8922 features and 30 fields
-> geometry type:  POINT
-> dimension:      XY
-> bbox:           xmin: 341645.8 ymin: 4522631 xmax: 342088.8 ymax: 4523418
-> epsg (SRID):    32617
-> proj4string:    +proj=utm +zone=17 +datum=WGS84 +units=m +no_defs
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
+> asplanted <- read_sf("data/asplanted_new.gpkg")
 > st_crs(asplanted)
 > ~~~
 > {: .language-r}
