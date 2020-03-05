@@ -1109,4 +1109,15 @@ profit_graphs <- function(data, s_ls, n_ls, s_sq, n_sq, Pc, Ps, Pn, other_costs)
   
   return(graphs)
 }
+	 
+month_prec_graph <- function(prec_merged){
+  prec_merged$prec_diff <- prec_merged$prec_month - prec_merged$prec_avg
+  
+  monthly_prec <- ggplot(prec_merged) + 
+    geom_bar(aes(x = month, y = prec_month, fill=prec_diff), stat = 'identity') +
+    ggtitle("2018 Monthly Precipitation Compared to Average") +
+    labs(y= "Precipitation (in)", x = "Month") +
+    guides(fill=guide_legend(title="2018 Minus Average"))
+  return(monthly_prec)
+}	 
 
