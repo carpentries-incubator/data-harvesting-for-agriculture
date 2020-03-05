@@ -50,8 +50,8 @@ source("functions.R")
 > To determine the most cost effective seed and fertilizer rates in a given field, we need to figure out:
 >  * How much seed and nitrogen am I applying in this field now?
 >  * How much does seed and nitrogen currently cost me?
->  * Should I apply more seed and/or nitrogen to improve yield?
->  * Could I apply less seed and/or nitrogen without reducing yield?
+>  * Should I apply more seed and/or nitrogen to improve profits?
+>  * Could I apply less seed and/or nitrogen without reducing profits?
 >
 > How do I minimize the cost of inputs (seed and nitrogen) while maximizing yield (bushels per acre) at the current cost of seed and nitrogen?
 >
@@ -138,6 +138,8 @@ design_grids_utm <- make_grids(trialarea, abline_utm,
 > ## Determining subplot treatments
 > 
 > Now that we have the trial design plots, we need to assign different treatments to each plot.  We can use the `treat_assign` function from `functions.R` to randomly assign seed rates and nitrogen rates to each plot on our grid.
+> 
+> <img src="../figure/Nitrogen Response.png" width="70%">
 > 
 > We'll select 4 different seed rates and 4 different nitrogen rates to deposit randomly on our grid:
 > ```{r}
