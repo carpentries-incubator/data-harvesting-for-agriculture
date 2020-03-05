@@ -604,70 +604,103 @@ The resulting grid is seen below:
 >
 > ### Making Plots of Relationships between Variables
 > 
-> Now we can make plots to look at the response of yield to the other variables. This uses a function called ggplot(). While the code looks complicated, you simple define the following:
-> * data = the data with the variables you want to plot
-> * x = the name of the variable you want on the x-axis
-> * y = the name of the variable you want on the y-axis
-> * xlab and ylab are the names you want displayed for the variables
+> 
+> ~~~
+> Pc <- 3.5
+> Ps <- 2.5/1000
+> Pn <- 0.3
+> other_costs <- 400
+> s_sq <- 37000
+> n_sq <- 225
+> s_ls <- c(31000, 34000, 37000, 40000)
+> n_ls <- c(160, 200, 225, 250)
+> ~~~
+> {: .language-r}
+> 
+> 
+> ~~~
+> data <- rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr): could not find function "rename"
+> ~~~
+> {: .error}
+> 
+> 
+> ~~~
+> graphs <- profit_graphs(data, s_ls, n_ls, s_sq, n_sq, Pc, Ps, Pn, other_costs)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in as.data.frame.default(data, optional = TRUE): cannot coerce class '"function"' to a data.frame
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> graphs[1]
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in eval(expr, envir, enclos): object 'graphs' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> graphs[2]
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in eval(expr, envir, enclos): object 'graphs' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> graphs[3]
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in eval(expr, envir, enclos): object 'graphs' not found
+> ~~~
+> {: .error}
+> 
+> 
+> 
+> ~~~
+> graphs[4]
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in eval(expr, envir, enclos): object 'graphs' not found
+> ~~~
+> {: .error}
 > 
 > The other options do not need to be changed when you go to use the function on other datasets. 
 > 
-> ~~~
-> ggplot() +
->   geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Elevation_), size = 0.5, se=FALSE) +
->   ylab('Yield (kg/ha)') +
->   xlab('Elevation') + 
->   theme_grey(base_size = 12)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Warning: Removed 112 rows containing non-finite values (stat_smooth).
-> ~~~
-> {: .warning}
-> 
-> <img src="../fig/rmd-jpnt23405-1.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
-> 
-> ~~~
-> ggplot() +
->   geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rt_Apd_Ct_), size = 0.5, se=FALSE) +
->   ylab('Yield (kg/ha)') +
->   xlab('Seed (k/ha)') + 
->   theme_grey(base_size = 12)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Warning: Removed 112 rows containing non-finite values (stat_smooth).
-> ~~~
-> {: .warning}
-> 
-> <img src="../fig/rmd-jpnt23405-2.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
-> 
-> ~~~
-> ggplot() +
->   geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rate_Appli), size = 0.5, se=FALSE) +
->   ylab('Yield (kg/ha)') +
->   xlab('Nitrogen') + 
->   theme_grey(base_size = 12)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Warning: Removed 19 rows containing non-finite values (stat_smooth).
-> ~~~
-> {: .warning}
-> 
-> <img src="../fig/rmd-jpnt23405-3.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
->
->
->
 > We can also add the trial grid onto the data and use it for looking at the accuracy of the planting application.
 > 
 > ~~~
@@ -677,5 +710,5 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
 {: .textchunk}
