@@ -11,11 +11,12 @@ getwd()
 setwd("C:/DataHarvestingWin/WorkingDir")
 
 # Source R scripts particular to this class
-# If you saved your environment configuration file as
-# package_load_and_test.R, do this.
-# (You could also navigate to it in File-> Open and use
+# If you need to reload and saved your environment configuration file as
+# package_load_and_test.R, remove the # before source.
+# (You could also navigate to your file with File-> Open and use
 # the Source button.)
-source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
+#
+# source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
 
 # Loading boundary file
 boundary <- read_sf("data/boundary.gpkg")
@@ -28,7 +29,7 @@ boundary_utm <- st_transform_utm(boundary)
 st_crs(boundary_utm)
 
 # Getting the trial design too
-trial <- read_sf("data/trial.gpkg")
+trial <- read_sf("data/trial_new.gpkg")
 
 # Looking at trial CRS
 st_crs(trial)
@@ -37,7 +38,7 @@ st_crs(trial)
 trial_utm <- trial
 
 # EXERCISE: Same with yield data
-yield <- read_sf("data/yield.gpkg")
+yield <- read_sf("data/yield_new.gpkg")
 st_crs(yield)
 yield_utm <- st_transform_utm(yield)
 
@@ -64,17 +65,20 @@ yield_plot_comp
 hist(yield_clean_border$Yld_Vol_Dr)
 
 # Some things are still odd, so let's clean again
-yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr)
+yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr, sd_no=3)
 
 # Let's look at the results of the second cleaning
 hist(yield_clean$Yld_Vol_Dr)
 
 # Look at the cleaned up yield map
+yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr, sd_no=3)
+hist(yield_clean$Yld_Vol_Dr)
 yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
 yield_plot_clean
 
+
 # EXERCISE: Cleaning up the nitrogen data from asapplied.gpkg
-nitrogen <- read_sf("data/asapplied.gpkg")
+nitrogen <- read_sf("data/asapplied_new.gpkg")
 st_crs(nitrogen)
 nitrogen_utm <- nitrogen
 nitrogen_clean_border <- clean_buffer(trial_utm, 1, nitrogen_utm)
@@ -82,7 +86,7 @@ nitrogen_plot_orig <- map_points(nitrogen_utm, "Rate_Appli", "Nitrogen, Orig")
 nitrogen_plot_border_cleaned <- map_points(nitrogen_clean_border, "Rate_Appli", "Nitrogen, No Borders")
 nitrogen_plot_comp <- tmap_arrange(nitrogen_plot_orig, nitrogen_plot_border_cleaned, ncol = 2, nrow = 1)
 nitrogen_plot_comp
-nitrogen_clean <- clean_sd(nitrogen_clean_border, nitrogen_clean_border$Rate_Appli)
+nitrogen_clean <- clean_sd(nitrogen_clean_border, nitrogen_clean_border$Rate_Appli, sd_no=3)
 nitrogen_plot_clean <- map_points(nitrogen_clean, "Rate_Appli", "Nitrogen, Cleaned")
 nitrogen_plot_clean
 hist(nitrogen_clean$Rate_Appli)
@@ -96,7 +100,7 @@ st_crs(design_grids_utm)
 st_crs(design_grids_utm) = st_crs(boundary_utm)
 
 # Show the grid
-plot(design_grids_utm$st_sfc.col_polygons_ls.)
+plot(design_grids_utm$geom)
 
 # Lay the grid onto our field's boundary information
 trial_grid_utm = st_intersection(boundary_utm, design_grids_utm)
@@ -114,7 +118,7 @@ map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
 asplanted <- st_read("data/asplanted_new.gpkg")
 st_crs(asplanted)
 asplanted_utm <- asplanted # already in utm!
-asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
+asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_, sd_no=3)
 asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 
 # Show the results
@@ -134,30 +138,23 @@ subplots_data <- deposit_on_grid(subplots_data, nitrogen_clean, "Rate_Appli", fn
 map_poly(subplots_data, 'Rate_Appli', "Nitrogen")
 
 # Showing relationships between variables
-# Yield and elevation:
-ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Elevation_), size = 0.5, se=FALSE) +
-  ylab('Yield (kg/ha)') +
-  xlab('Elevation') + 
-  theme_grey(base_size = 12)
+Pc <- 3.5
+Ps <- 2.5/1000
+Pn <- 0.3
+other_costs <- 400
+s_sq <- 37000
+n_sq <- 225
+s_ls <- c(31000, 34000, 37000, 40000)
+n_ls <- c(160, 200, 225, 250)
 
-# Yield and seed rates:
-ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rt_Apd_Ct_), size = 0.5, se=FALSE) +
-  ylab('Yield (kg/ha)') +
-  xlab('Seed (k/ha)') + 
-  theme_grey(base_size = 12)
+data <- dplyr::rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
 
-# Yield and nitrogen:
-ggplot() +
-  geom_smooth(data = subplots_data, method = "gam", aes(y=Yld_Vol_Dr,x=Rate_Appli), size = 0.5, se=FALSE) +
-  ylab('Yield (kg/ha)') +
-  xlab('Nitrogen') + 
-  theme_grey(base_size = 12)
-
-# Comparing what seed rate was intended with
-# the seed rate that was applied, to see how accurate
-# the variable rate application was
+graphs <- profit_graphs(data, s_ls, n_ls, s_sq, n_sq, Pc, Ps, Pn, other_costs)
+graphs[1]
+graphs[2]
+graphs[3]
+graphs[4]
 
 subplots_data <- deposit_on_grid(subplots_data, trial_utm, "SEEDRATE", fn = median)
+
 map_poly(subplots_data, 'SEEDRATE', "Target Seed")
