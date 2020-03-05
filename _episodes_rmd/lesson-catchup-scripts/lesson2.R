@@ -8,7 +8,7 @@ getwd()
 # set your working directory.
 # (If you changed the directory you used in lesson 2, 
 # change it here.)
-setwd("C:/DataHarvestingWin/WorkingDir")
+# setwd("C:/DataHarvestingWin/WorkingDir")
 
 # Source R scripts particular to this class
 # If you saved your environment configuration file as
