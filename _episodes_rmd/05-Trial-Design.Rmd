@@ -159,10 +159,19 @@ design_grids_utm <- make_grids(trialarea, abline_utm,
                            seed_treat_rates = seed_rates,
 			   nitrogen_treat_rates = nitrogen_rates,
 			   seed_quo = seed_quo,
-			   nitrogen_quo = nitrogen_quo)
+			   nitrogen_quo = nitrogen_quo,
+			   set_seed=TRUE)
 ```
 > 
 {: .textchunk}
+
+> ## Simulating yields
+> Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  Because we want everybody to be using the same trial data we have set a flag `set_seed=TRUE` in our call to `treat_assign`.  When you do this on your own you can set this parameter to `FALSE` or just leave it out of the function call altogether.
+> 
+>
+>
+{: .callout}
+
 
 > ## Mapping Trial
 > Let's look at what our trial looks like.  First, as a shape file:
@@ -183,4 +192,3 @@ design_grids_utm <- make_grids(trialarea, abline_utm,
 Brittani testing whether I'm the problem with the rendering
 -->
 
-<font color="magenta">JPN: will come back here and add in yield simulation data</font>

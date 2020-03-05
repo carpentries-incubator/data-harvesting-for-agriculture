@@ -156,66 +156,62 @@ Under the **Session** menu, choose **Set Working Directory**, then **Choose Dire
 
 Now we’ve identified where we want to work and can start loading libraries and data.
 
-### Loading libraries
+### Loading libraries and sourcing functions
 
 R and RStudio are used in many different fields, including biology, genomics, and geospatial data. If we loaded everything that R was capable of handing at once, though, it would take even more space than it already does! 
 
 So with this set of instructions, we’re telling R that we want a set of published tools that are appropriate for working with geospatial data and public data sources, and also some custom-written scripts specifically for this workshop.
 
- 1. Right-click to open  the code for the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R">package_load_and_test.R script</a> in a new web browser window. This file will tell R which published tools should be loaded into its memory and make sure they’re all working.
+ 1. Right-click to open  the code for the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R">package_load_and_test.R script</a> in a new web browser window. This file will tell R which  tools should be loaded into its memory and make sure they’re all working.
  1. Create a new R script file for yourself in R Studio by clicking on **File -> New File -> R Script**.
  1. Copy and paste the test script from the browser window into your new script file.
  1. Save the file as **package_load_and_test.R** in your working directory so that you’ll be able to use it again. 
- 1. Run each line by selecting it and clicking the **Run** key. Each test should let you know whether an error was encountered in the loading process.
-
-<img src="../figure/wininstall6-rstudiolibraryload.png" width="70%">
-
-After you’ve finished with the library loading part of the script, the testing part of the script should make sure each library component is working. 
-
-Just as above, select what you want to run and click the Run button. (Tip: Select everything between pairs of green # lines to run one test at a time and see its output.)
-
-<img src="../figure/wininstall7-rstudiotmaptest.png" width="70%">
-
-### Sourcing functions for this workshop
-
-The library loading process above uses formally published and reviewed software packages that are available to everyone in the world. However, we’ve also written some custom functions to make this workshop easier, and you can add them to your R environment in a similar method. 
-
-Instead of using the “library” command, though, we’ll use the “source” button instead. (You can also do this with functions you write for yourself, if you wish to make more functions.)
-
- 1. Open the <a href="https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R">functions.R script</a> in a new browser window.
- 1. As above, create a new R script file in R Studio by clicking on **File -> New File -> R Script**.
- 1. Copy and paste the functions script from the browser window into your new script file.
- 1. Save it as **functions.R** in your working directory.
  1. Click the **Source** button near the top right of your script window to load these functions as well.
 
-<img src="../figure/3-Rstudio-source.png" width="70%">
+<img src="../figure/wininstall5-rstudioinstallscript2.png" width="70%">
 
-**Tip:** You’ll want to re-run the library loading script and re-source the functions script whenever you restart R Studio, so remember to re-open them tomorrow morning!
+### Updating your startup script and saving your R Studio environment
 
-> ## Running with the Source command
-> Alternatively in the console at the start of each session you can add:
-> 
-> ### Windows
-> source("C:/DataHarvestingWin/WorkingDir/functions.R")
-> 
-> ### Mac
-> source("~/WorkingDir/functions.R")
->
-{: .callout}
+You can save your R Studio environment so that the next time it loads, it will remember what libraries and functions you've been working with.
+
+You'll be prompted to do this when you quit R Studio:
+
+<pre>
+q()
+Save workspace image to C:/DataHarvestingWin/WorkingDir/.RData? [y/n]: 
+</pre>
+
+If you choose Y, you'll save your working environment and R Studio will load it at the next launch. 
+
+However, it's not a bad idea to modify the download and test script a little bit so that you could reuse it in case you're working on other projects as well.
+
+To find out what your current working directory is, run this command in the console:
+
+getwd()
+
+Ideally, this should say **C:/DataHarvestingWin/WorkingDir** on Windows. (Macs will see a different variation involving DataHarvestingMac.)
+
+If the directory you see here isn't the one you want to use, scroll up to the "Set Working Directory" section above and use those instructions to choose your working directory. Then run **getwd()** again to make sure you have the directory you want.
+
+Once you have the directory you want in **getwd()**:
+
+1. Remove the # before setwd in the line below STEP 1.
+1. If your getwd() results don't match "C:/DataHarvestingWin/WorkingDir", change what's in quotations on that line.
+1. With your cursor on that line of the script, click the Run button.
+1. The setwd() command will run from the script.
+1. Click **File -> Save** in order to save the changes to your script so you won't need to do this again in the future.
+
+Additionally, you probably won't want to re-download the data files every time you run the startup script. To prevent that from happening, we add a # at the start of the line after STEP 3.
+
+With these modifications, if you start R Studio and don't see what you expect to see, you can re-open package_load_and_test.R and click the Source button to get your environment re-loaded.
 
 ### Locating data ingredients 
 
 The instructions from here on out assume that you've set your working directory to be a folder named "WorkingDir" and that you have a folder inside it called "data" which contains several files of information. 
 
-<!-- The way it ought to go, but isn't yet ready to...
-* If you copied your software from the USB stick, you'll find WorkingDir just inside the DataHarvestingWin or DataHarvestingMac folder. 
-* If you set up from scratch, you'll want to make WorkingDir and data folders and copy the information either from a nearby USB or from [this folder](https://github.com/data-carpentry-for-agriculture/trial-lesson/tree/gh-pages/_episodes_rmd/data).
--->
+We've automated bringing data sets in from our lesson as part of the setup script, but when you want to work with your own data, it'll help to know which directory you've stored it in.
 
-Note for the February 24 cohort: Most of the data was finished at the time the USB drives were created, but a few things changed since then. To get the latest data set:
-1. Visit [https://uofi.box.com/v/dataharvestingdata](https://uofi.box.com/v/dataharvestingdata) and click the **Download** button in the top right corner. 
-2. Save the .zip file in a place where you can find it again, then uncompress it. 
-3. Copy the contents of that "data" folder into your DataHarvestingWin/WorkingDir/data (or DataHarvestingMac/WorkingDir/data) folder and make sure you have the newest copies.
+**Tip:** When you're testing things out, it's a good idea to work with copies of your files rather than with the originals. Making copies in a different working directory gives you the freedom to experiment and possibly make mistakes without damaging your original data.
 
 ## The stuff in your “kitchen”: Getting oriented with R Studio
 

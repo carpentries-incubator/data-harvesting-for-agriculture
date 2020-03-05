@@ -220,11 +220,20 @@ source: Rmd
 >                            seed_treat_rates = seed_rates,
 > 			   nitrogen_treat_rates = nitrogen_rates,
 > 			   seed_quo = seed_quo,
-> 			   nitrogen_quo = nitrogen_quo)
+> 			   nitrogen_quo = nitrogen_quo,
+> 			   set_seed=TRUE)
 > ~~~
 > {: .language-r}
 > 
 {: .textchunk}
+
+> ## Simulating yields
+> Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  Because we want everybody to be using the same trial data we have set a flag `set_seed=TRUE` in our call to `treat_assign`.  When you do this on your own you can set this parameter to `FALSE` or just leave it out of the function call altogether.
+> 
+>
+>
+{: .callout}
+
 
 > ## Mapping Trial
 > Let's look at what our trial looks like.  First, as a shape file:
@@ -246,10 +255,10 @@ source: Rmd
 >    id treat_type NRATE SEEDRATE                           geom
 > 1 ID1         17   225    37000 POLYGON ((342066.7 4523313,...
 > 2 ID2         17   225    37000 POLYGON ((342066.7 4523313,...
-> 3 ID3         15   250    37000 POLYGON ((342066.5 4523258,...
-> 4 ID4          6   200    34000 POLYGON ((342066.5 4523258,...
-> 5 ID5         13   250    31000 POLYGON ((342066.2 4523203,...
-> 6 ID6         15   250    37000 POLYGON ((342066.2 4523203,...
+> 3 ID3          5   200    31000 POLYGON ((342066.5 4523258,...
+> 4 ID4          2   160    34000 POLYGON ((342066.5 4523258,...
+> 5 ID5         16   250    40000 POLYGON ((342066.2 4523203,...
+> 6 ID6          7   200    37000 POLYGON ((342066.2 4523203,...
 > ~~~
 > {: .output}
 > And as plots:
@@ -270,4 +279,3 @@ source: Rmd
 Brittani testing whether I'm the problem with the rendering
 -->
 
-<font color="magenta">JPN: will come back here and add in yield simulation data</font>

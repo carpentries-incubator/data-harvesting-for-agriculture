@@ -38,8 +38,15 @@ source: Rmd
 > * Observations where the harvester/planter/applicator is moving too slow or too fast
 > * Observations on the edges of the plot
 > * Observations that are below or above three standard deviations from the mean
-> 
 >
+{: .textchunk}
+
+> ## Simulating yields
+> Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield, asplanted, asapplied, and trial measurements you have stored can be used for this exercise, however **for this workshop only** have *simulated* the yields we'd expect to get out from your trial design.  These are the data files with the `_new` in their titles.
+>
+{: .callout}
+
+
 > ### Step 1: Importing and transforming our shapefile datasets
 > 
 > The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
@@ -85,9 +92,7 @@ source: Rmd
 > In the last episode, we also imported our trial design, which we will do again here:
 > 
 > ~~~
-> trial <- read_sf("data/trial.gpkg")
-> # JPN: new data
-> trial <- read_sf("trial_new.gpkg")
+> trial <- read_sf("data/trial_new.gpkg")
 > ~~~
 > {: .language-r}
 > 
@@ -115,14 +120,14 @@ source: Rmd
 > 
 {: .textchunk}
 
-> ## Exercise: Transform the yield data
+> ## Exercise: Examine yield data and transform if necessary
 > Read in the yield shape file, look at its current CRS and transform it into the UTM projection.  Call this new, transformed variable `yield_utm`.
 > 
 > > ## Solution
 > > First, load the data:
 > > 
 > > ~~~
-> > yield <- read_sf("data/yield.gpkg")
+> > yield <- read_sf("data/yield_new.gpkg")
 > > ~~~
 > > {: .language-r}
 > > Then take a look at the coordinate system:
@@ -136,28 +141,17 @@ source: Rmd
 > > 
 > > ~~~
 > > Coordinate Reference System:
-> >   EPSG: 4326 
-> >   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
-> > ~~~
-> > {: .output}
-> > And finally transform into UTM:
-> > 
-> > ~~~
-> > yield_utm <- st_transform_utm(yield)
-> > # JPN new data
-> > yield_utm <- read_sf("yield_new.gpkg")
-> > st_crs(yield_utm)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Coordinate Reference System:
 > >   EPSG: 32617 
 > >   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 > > ~~~
 > > {: .output}
+> > This trial data is already in UTM so we don't need to transform it!  If we did, we could use `st_transform_utm` again to do this.
+> > Let's update the name of this variable to show that its already in UTM:
+> > 
+> > ~~~
+> > yield_utm <- yield
+> > ~~~
+> > {: .language-r}
 > >
 > {: .solution}
 {: .challenge}
@@ -214,7 +208,7 @@ source: Rmd
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
 > 
 > The fact that this histogram has a large tail where we see a few measurements far beyond the majority around 250 means we know we have some weird data points.
 > 
@@ -251,7 +245,7 @@ source: Rmd
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
 > 
 > Here again, we also check the distribution of cleaned yield by making a histogram.
 > 
@@ -315,7 +309,7 @@ the mean.
 > > Load the data
 > > 
 > > ~~~
-> > nitrogen <- read_sf("data/asapplied.gpkg")
+> > nitrogen <- read_sf("data/asapplied_new.gpkg")
 > > ~~~
 > > {: .language-r}
 > > Check CRS
@@ -329,33 +323,14 @@ the mean.
 > > 
 > > ~~~
 > > Coordinate Reference System:
-> >   EPSG: 4326 
-> >   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
-> > ~~~
-> > {: .output}
-> > Since it's in Lat/Long we have to transform it:
-> > 
-> > ~~~
-> > nitrogen_utm = st_transform_utm(nitrogen)
-> > # JPN new data
-> > nitrogen = read_sf("asapplied_new.gpkg")
-> > st_crs(nitrogen_utm)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Coordinate Reference System:
 > >   EPSG: 32617 
 > >   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 > > ~~~
 > > {: .output}
-> > 
-> > 
+> > Since it's in already in UTM we don't have to transform it, just rename:
 > > 
 > > ~~~
-> > nitrogen_utm <- nitrogen # st_transform_utm(nitrogen)
+> > nitrogen_utm <- nitrogen
 > > ~~~
 > > {: .language-r}
 > > Clean border:
@@ -389,7 +364,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="612" style="display: block; margin: auto;" />
 > > And as a histogram:
 > > 
 > > ~~~
@@ -397,7 +372,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="612" style="display: block; margin: auto;" />
 > >
 > {: .solution}
 {: .challenge}
@@ -465,7 +440,7 @@ the mean.
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-25-1.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="612" style="display: block; margin: auto;" />
 > 
 > Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_utm`, 
 The resulting grid is seen below:
@@ -491,7 +466,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-25-1.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" width="612" style="display: block; margin: auto;" />
 >
 >
 > ## Step 2: Aggregation on our subplots
@@ -513,42 +488,20 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now clean the asplanted file:
 > 
 > ~~~
-> asplanted <- st_read("data/asplanted.gpkg")
+> asplanted <- st_read("data/asplanted_new.gpkg")
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> Reading layer `asplanted' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted.gpkg' using driver `GPKG'
-> Simple feature collection with 6382 features and 30 fields
-> geometry type:  POINT
-> dimension:      XY
-> bbox:           xmin: -82.87843 ymin: 40.83952 xmax: -82.87315 ymax: 40.84653
-> epsg (SRID):    4326
-> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> asplanted_utm <- st_transform_utm(asplanted)
-> # JPN new data
-> asplanted <- st_read("asplanted_new.gpkg")
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Reading layer `asplanted_new' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/asplanted_new.gpkg' using driver `GPKG'
+> Reading layer `asplanted_new' from data source `/Users/jillnaiman/trial-lesson_ag/_episodes_rmd/data/asplanted_new.gpkg' using driver `GPKG'
 > Simple feature collection with 8922 features and 30 fields
 > geometry type:  POINT
 > dimension:      XY
@@ -577,7 +530,7 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> asplanted_utm <- asplanted # st_transform_utm(asplanted)
+> asplanted_utm <- asplanted # already in utm!
 > asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
 > asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 > 
@@ -585,7 +538,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
@@ -595,7 +548,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-29-2.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-28-2.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now aggregate the asapplied which we already cleaned above:
@@ -607,7 +560,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
 >
 >
 > ### Making Plots of Relationships between Variables
@@ -685,5 +638,5 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
 {: .textchunk}

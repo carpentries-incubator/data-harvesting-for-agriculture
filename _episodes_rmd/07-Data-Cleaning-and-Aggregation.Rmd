@@ -55,8 +55,15 @@ source("./functions.R")
 > * Observations where the harvester/planter/applicator is moving too slow or too fast
 > * Observations on the edges of the plot
 > * Observations that are below or above three standard deviations from the mean
-> 
 >
+{: .textchunk}
+
+> ## Simulating yields
+> Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield, asplanted, asapplied, and trial measurements you have stored can be used for this exercise, however **for this workshop only** have *simulated* the yields we'd expect to get out from your trial design.  These are the data files with the `_new` in their titles.
+>
+{: .callout}
+
+
 > ### Step 1: Importing and transforming our shapefile datasets
 > 
 > The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
@@ -77,9 +84,7 @@ source("./functions.R")
 > 
 > In the last episode, we also imported our trial design, which we will do again here:
 > ```{r}
-> trial <- read_sf("data/trial.gpkg")
-> # JPN: new data
-> trial <- read_sf("trial_new.gpkg")
+> trial <- read_sf("data/trial_new.gpkg")
 > ```
 > 
 > Let's look at the coordinate reference system here as well:
@@ -93,25 +98,23 @@ source("./functions.R")
 > 
 {: .textchunk}
 
-> ## Exercise: Transform the yield data
+> ## Exercise: Examine yield data and transform if necessary
 > Read in the yield shape file, look at its current CRS and transform it into the UTM projection.  Call this new, transformed variable `yield_utm`.
 > 
 > > ## Solution
 > > First, load the data:
 > > ```{r}
-> > yield <- read_sf("data/yield.gpkg")
+> > yield <- read_sf("data/yield_new.gpkg")
 > > ```
 > > Then take a look at the coordinate system:
 > > ```{r}
 > > st_crs(yield)
 > > ```
-> > And finally transform into UTM:
-> > ```{r}
-> > yield_utm <- st_transform_utm(yield)
-> > # JPN new data
-> > yield_utm <- read_sf("yield_new.gpkg")
-> > st_crs(yield_utm)
-> > ```
+> > This trial data is already in UTM so we don't need to transform it!  If we did, we could use `st_transform_utm` again to do this.
+> > Let's update the name of this variable to show that its already in UTM:
+> > ```{r updateYutm}
+yield_utm <- yield
+```
 > >
 > {: .solution}
 {: .challenge}
@@ -216,19 +219,15 @@ the mean.
 > > ## Solution
 > > Load the data
 > > ```{r}
-> > nitrogen <- read_sf("data/asapplied.gpkg")
+> > nitrogen <- read_sf("data/asapplied_new.gpkg")
 > > ```
 > > Check CRS
 > > ```{r}
 > > st_crs(nitrogen)
 > > ```
-> > Since it's in Lat/Long we have to transform it:
+> > Since it's in already in UTM we don't have to transform it, just rename:
 > > ```{r}
-> > nitrogen_utm = st_transform_utm(nitrogen)
-> > # JPN new data
-> > nitrogen = read_sf("asapplied_new.gpkg")
-> > st_crs(nitrogen_utm)
-> > nitrogen_utm <- nitrogen # st_transform_utm(nitrogen)
+> > nitrogen_utm <- nitrogen
 > > ```
 > > Clean border:
 > > ```{r}
@@ -327,12 +326,9 @@ The resulting grid is seen below:
 >
 > We will now clean the asplanted file:
 > ```{r}
-> asplanted <- st_read("data/asplanted.gpkg")
-> asplanted_utm <- st_transform_utm(asplanted)
-> # JPN new data
-> asplanted <- st_read("asplanted_new.gpkg")
+> asplanted <- st_read("data/asplanted_new.gpkg")
 > st_crs(asplanted)
-> asplanted_utm <- asplanted # st_transform_utm(asplanted)
+> asplanted_utm <- asplanted # already in utm!
 > asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
 > asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 > 
