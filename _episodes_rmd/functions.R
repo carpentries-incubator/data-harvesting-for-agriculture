@@ -225,13 +225,13 @@ make_abline <- function(LongA,LongB,LatA,LatB,projutm){
   return(ab_line)
 }
 
-make_grids <- function(bothfields, ab_line, long_in, short_in, length_ft, width_ft, set_seed=FALSE){
+make_grids <- function(trialarea, ab_line, long_in, short_in, length_ft, width_ft, set_seed=FALSE){
   
   # for the purposes of the workshop
   if (set_seed){
     set.seed(42) # 42, obvs :D
   }
-  bbox_field <- st_bbox(bothfields)
+  bbox_field <- st_bbox(trialarea)
   # +c(100,100,50,50)
   xmin <- bbox_field[1]
   ymin <- bbox_field[2]
