@@ -478,11 +478,7 @@ make_grids <- function(bothfields, ab_line, long_in, short_in, length_ft, width_
   }
   #--- combine all the grids ---#
   all_grids <- do.call(rbind,all_polygons_ls)
-<<<<<<< HEAD
   all_grids <- dplyr::rename(all_grids, geom = st_sfc.col_polygons_ls.)
-=======
-
->>>>>>> 2c8d9d48752a9c5e63c54e83f8f7f0ce129e5d52
   return(all_grids)
 }
 
