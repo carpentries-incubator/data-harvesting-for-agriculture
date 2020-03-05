@@ -180,6 +180,13 @@ source: Rmd
 > 
 {: .textchunk}
 
+> ## Lists of elements in R
+> You'll see this definition of a list of numbers (or text) in R with a `c()`. This is just a special way of saying all the elements in this list "belong" together, like with all of the numbers in a column of a spreadsheet "belonging" together.
+>
+>
+{: .callout}
+
+
 > # Generating Treatment Map
 > We are now ready to generate our treatment plot:
 > 
