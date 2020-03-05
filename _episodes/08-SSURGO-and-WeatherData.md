@@ -177,7 +177,7 @@ source: Rmd
 > 
 {: .textchunk}
 
-> ## Exercise 5: Create the Soil Map
+> ## Exercise: Create the Soil Map
 > 
 > Use `map_poly()` to make a map where the polygon color is informed by the soil names in
 `muname`.
@@ -441,7 +441,7 @@ source: Rmd
 > **What are all those ".." in the names under `data`?** These just denote spaces in the original column labels. While it can be a little confusing to look at at first, they are just the default formatting R gives to these columns.
 {: .textchunk}
 
-> ## Exercise 1: Explore the weather data
+> ## Exercise: Explore the weather data
 >
 >  1. Assign the column `data` in `weather` to a variable with the name `weather_data`. (Recall how we access a column with `$` and how variables are assigned with a `<-`).
 >  2. How is the date reported? 
@@ -568,14 +568,14 @@ source: Rmd
 {: .textchunk}
 
 
-> ## Exercise 2: Unit Conversions
+> ## Exercise: Unit Conversions
 >
 > There are two temperature columns in our dataset: `tmax..deg.c.` and `tmin..deg.c.` which give the minimum and maximum temperature measured on a particular day.
 > 1. Convert the two temperature variables into fahrenheit from celsius using the function `c_to_f()`. The function `c_to_f()` is like the `mm_to_in` column but instead of taking in a precipitation column it takes in a temperature column.
 > 2. Save these to new columns called `tmax` and `tmin`.
 > 3. What is the maximum and minimum temperature recorded? (Hint: recall the `min` and `max` functions from the previous episodes)
 >
-> > ## Exercise 2 Solutions
+> > ## Exercise Solutions
 > >
 > > Let's start by looking at our original columns:
 > > 
@@ -783,12 +783,12 @@ source: Rmd
 >
 {: .callout}
 
-> ## Exercise 3: Subsetting
+> ## Exercise: Subsetting
 >
 > 1. Find the total precipitation in June of 2015.
 > 2. Create a subset of `by_month_year` that contain all the years *except* 2018.  Call this new variable `monthprec_not_2018`.
 > 
-> > ## Exercise 3 Solution
+> > ## Exercise Solution
 > > 
 > > ~~~
 > > monthprec_2015 <- subset(by_month_year, year == 2015)
