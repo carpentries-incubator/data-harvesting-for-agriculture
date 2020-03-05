@@ -321,7 +321,7 @@ type to ask them to look at them and identify which is which and describe what t
 > 
 > 
 > ~~~
-> st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+> st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES')
 > ~~~
 > {: .language-r}
 > 

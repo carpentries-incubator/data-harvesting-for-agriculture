@@ -217,7 +217,7 @@ type to ask them to look at them and identify which is which and describe what t
 > Use `st_write()` to save an sf object. If you do not specify a directory, the working directory will be used. We include the object we are saving `boundaryutm` and the name we would like to give the saved file `"boundary_utm.gpkg"`. Additionally, we specify the `layer_options` and `update` values to enable overwriting an existing file with the same name. 
 > 
 > ```{r save}
-> st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES', update = TRUE)
+> st_write(boundaryutm, "boundary_utm.gpkg", layer_options = 'OVERWRITE=YES')
 > ```
 > 
 > The new .gpkg file will be visible in your working directory. (Check it out: Browse to your working directory in Windows File Explorer or Mac Finder and see the date and time on your new file.)
