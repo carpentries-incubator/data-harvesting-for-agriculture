@@ -194,7 +194,7 @@ map_yieldog
 >
 > 
 > ```{r dataClean5}
-> yield <- clean_sd(yield, yield$Yld_Vol_Dr)
+> yield <- clean_sd(yield, yield$Yld_Vol_Dr, sd_no=3)
 > ```
 > 
 {: .textchunk}
@@ -243,7 +243,7 @@ map_yieldog
 > Looking at the names in the planting file, there are quite a few columns that look similar. But it appears that `Rt_A_C_` is the applied rate and `Tgt_Rt_` is the target rate. We also know from when we loaded this file into the environment that it contains SpatialPoints not polygons, so we will use `map_points()`.  
 > 
 > ```{r seedmap_new}
-> planting <- clean_sd(planting,planting$Rt_Apd_Ct_)
+> planting <- clean_sd(planting,planting$Rt_Apd_Ct_, sd_no=3)
 > map_asplanted <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
 map_planting_comp <- tmap_arrange(map_asplanted, tgts, ncol = 2, nrow = 1)
 map_planting_comp
@@ -258,7 +258,7 @@ map_planting_comp
 > Now we will look at the nitrogen application map. First, we will remove outliers in the data as we did for the yield map. Then we make a map called `map_nitrogen` with the application and compare it to the map we made earlier `tgtn`.
 > 
 > ```{r nitrogenmap }
-> nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli)
+> nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli, sd_no=3)
 > map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
 > map_nitrogen
 > map_nitrogen_comp <- tmap_arrange(map_nitrogen, tgtn, ncol = 2, nrow = 1)
