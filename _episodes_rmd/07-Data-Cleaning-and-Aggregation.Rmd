@@ -155,6 +155,8 @@ yield_utm <- yield
 > 
 > We need to remove the yield observations that are on the border of the plots, and also at the end of the plots.  The reason for this is that along the edge of a plot, the harvester is likely to collect from two plots. Therefore, the yield is an average of both plots.  Additionally, plants growing at the edge of the field are likely to suffer from wind and other effects, lowering their yields.  
 >
+> <img src="../figure/Alignment Graph.png" width="70%">
+> 
 > <img src="../figure/Yield Average.png" width="70%">
 >
 > There is a function in `functions.R` called clean_buffer which creates a buffer around the input `buffer_object` and reports the points in `data` that are outside of the buffer. We need to decide how wide the buffer wil be using the input `buffer_ft`. In general this will be something around half the width of the machinery or section.
