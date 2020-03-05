@@ -367,7 +367,7 @@ The resulting grid is seen below:
 > ```
 > 
 > ```{r}
-data <- rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
+data <- dplyr::rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
 > ```
 > 
 > ```{r}
