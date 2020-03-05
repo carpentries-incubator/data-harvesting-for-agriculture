@@ -423,6 +423,6 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 {: .callout}
 
-<font color="magenta">Dena asks: Do we add in a financial data exercise here?</font>
+<!-- <font color="magenta">Dena asks: Do we add in a financial data exercise here?</font> -->
 
 
