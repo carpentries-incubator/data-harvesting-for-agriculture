@@ -11,11 +11,12 @@ getwd()
 setwd("C:/DataHarvestingWin/WorkingDir")
 
 # Source R scripts particular to this class
-# If you saved your environment configuration file as
-# package_load_and_test.R, do this.
-# (You could also navigate to it in File-> Open and use
+# If you need to reload and saved your environment configuration file as
+# package_load_and_test.R, remove the # before source.
+# (You could also navigate to your file with File-> Open and use
 # the Source button.)
-source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
+#
+# source('C:/DataHarvestingWin/WorkingDir/package_load_and_test.R')
 
 # Let's load up some trial data and look at it.
 planting <- read_sf("data/asplanted_new.gpkg")
@@ -62,7 +63,7 @@ error_data
 mean(error_data, na.rm=TRUE)
 
 # Let's try some cleaning on our real data now
-yield <- clean_sd(yield, yield$Yld_Vol_Dr)
+yield <- clean_sd(yield, yield$Yld_Vol_Dr, sd_no=3)
 
 # Here's what the cleaned map looks like
 map_yieldcl <- map_points(yield, 'Yld_Vol_Dr', 'Yield (bu/ac)')
@@ -81,7 +82,7 @@ trial_map <- tmap_arrange(tgts, tgtn, ncol = 2, nrow = 1)
 trial_map
 
 # Let's work with planting files now
-planting <- clean_sd(planting,planting$Rt_Apd_Ct_)
+planting <- clean_sd(planting,planting$Rt_Apd_Ct_, sd_no=3)
 map_asplanted <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
 
 # Compare planting target to what actually happened
@@ -89,7 +90,7 @@ map_planting_comp <- tmap_arrange(map_asplanted, tgts, ncol = 2, nrow = 1)
 map_planting_comp
 
 # Nitrogen files next
-nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli)
+nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli, sd_no=3)
 map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
 map_nitrogen
 
