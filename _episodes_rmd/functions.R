@@ -786,7 +786,8 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
 	       "https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/abline.gpkg", 
 	       "https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/boundary.gpkg",
 	       "https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/trial.gpkg",
-	       "https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/yield.gpkg")
+	       "https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/yield.gpkg",
+	       "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/data/fertilizer_use.csv")
 
   # URLs of simulated data
   simsURLS = c("https://github.com/data-carpentry-for-agriculture/trial-lesson/raw/gh-pages/_episodes_rmd/data/asapplied_new.gpkg", 
