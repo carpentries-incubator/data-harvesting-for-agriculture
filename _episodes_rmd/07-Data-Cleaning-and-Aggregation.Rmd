@@ -36,6 +36,7 @@ library(gridExtra)
 library(measurements)
 library(knitr)
 library(httr)
+library(data.table)
 source("../bin/chunk-options.R")
 source("./functions.R")
 ```

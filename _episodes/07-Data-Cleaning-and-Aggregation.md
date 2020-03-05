@@ -591,19 +591,6 @@ The resulting grid is seen below:
 > 
 > ~~~
 > graphs <- profit_graphs(data, s_ls, n_ls, s_sq, n_sq, Pc, Ps, Pn, other_costs)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in data.table(.): could not find function "data.table"
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > graphs[1]
 > ~~~
 > {: .language-r}
@@ -611,10 +598,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in eval(expr, envir, enclos): object 'graphs' not found
+> [[1]]
 > ~~~
-> {: .error}
+> {: .output}
 > 
+> <img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 > 
 > 
 > ~~~
@@ -625,10 +613,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in eval(expr, envir, enclos): object 'graphs' not found
+> [[1]]
 > ~~~
-> {: .error}
+> {: .output}
 > 
+> <img src="../fig/rmd-unnamed-chunk-32-2.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 > 
 > 
 > ~~~
@@ -639,10 +628,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in eval(expr, envir, enclos): object 'graphs' not found
+> [[1]]
 > ~~~
-> {: .error}
+> {: .output}
 > 
+> <img src="../fig/rmd-unnamed-chunk-32-3.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 > 
 > 
 > ~~~
@@ -653,9 +643,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in eval(expr, envir, enclos): object 'graphs' not found
+> [[1]]
 > ~~~
-> {: .error}
+> {: .output}
+> 
+> <img src="../fig/rmd-unnamed-chunk-32-4.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
 > 
 > The other options do not need to be changed when you go to use the function on other datasets. 
 > 
