@@ -191,7 +191,7 @@ yield_utm <- yield
 > 
 > As in lesson 4, we use the `clean_sd` from our `functions.R`:
 > ```{r 3sd}
-> yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr)
+> yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr, sd_no=3)
 > ```
 > 
 > Here again, we check the distribution of cleaned yield after taking out the yield observations that are outside the range of three standard deviations from the mean.
@@ -246,7 +246,7 @@ the mean.
 > > ```
 > > Clean by standard deviation:
 > > ```{r}
-> > nitrogen_clean <- clean_sd(nitrogen_clean_border, nitrogen_clean_border$Rate_Appli)
+> > nitrogen_clean <- clean_sd(nitrogen_clean_border, nitrogen_clean_border$Rate_Appli, sd_no=3)
 > > ```
 > > Plot our final result on a map:
 > > ```{r}
@@ -333,7 +333,7 @@ The resulting grid is seen below:
 > asplanted <- st_read("data/asplanted_new.gpkg")
 > st_crs(asplanted)
 > asplanted_utm <- asplanted # already in utm!
-> asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
+> asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_, sd_no=3)
 > asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
 > 
 > map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
