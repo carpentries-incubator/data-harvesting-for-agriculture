@@ -54,7 +54,6 @@ source("functions.R")
 >
 > How do I minimize the cost of inputs (seed and nitrogen) while maximizing yield (bushels per acre) at the current cost of seed and nitrogen?
 >
-> <font color="magenta">So far, this cost analysis is not yet in this design - I think this is what Aolin is putting in?</font>
 >
 > In order to help figure this out, we create a grid over the field in which we combine areas of high, medium, and low rates of seed and fertilizer independently of each other. Some of the potential variations on this grid include:
 >  * High seed and high fertilizer
