@@ -1009,3 +1009,107 @@ run_workshop_test <- function(){
   dev.off()
 }
 
+profit_graphs <- function(data, s_ls, n_ls, s_sq, n_sq, Pc, Ps, Pn, other_costs){
+  model <- mgcv::gam(yield~
+                       s(s, k = 3) +
+                       s(n, k = 3),
+                     data = data)
+  
+  beta <- model$coef
+  V_beta <- model$Vp
+  
+  data_new <- expand.grid(s_ls, n_ls) %>% 
+    data.table() %>% 
+    setnames(names(.),c('s','n'))
+  
+  yhat <- predict(model, newdata = data_new, se.fit=TRUE)
+  
+  data_pi <- data_new %>%  
+    .[,y_hat:=yhat$fit] %>% 
+    .[,y_hat_se:=yhat$se.fit] %>% 
+    .[,pi_hat:=Pc*y_hat-Ps*s-Pn*n - other_costs] %>% 
+    .[,pi_hat_se:=Pc*y_hat_se] 
+  
+  data_seed <- data_pi[n == n_sq,]
+  data_nitrogen <- data_pi[s == s_sq,]
+  
+  opt_s <- data_seed[,.SD[which.max(pi_hat),]][,s]
+  opt_n <- data_nitrogen[,.SD[which.max(pi_hat),]][,n]
+  
+  #--- get the model matrix for seed---#
+  base_X <- predict(model, newdata = data_seed[s == opt_s,],type='lpmatrix') 
+  comp_data <- data_seed[s != opt_s,]
+  comp_X <- predict(model, newdata = comp_data,type='lpmatrix')
+  
+  for (i in 1:(length(s_ls)-1)){
+    temp_X <- base_X - comp_X[i,]
+    comp_data[i,a:=Pc*(temp_X %*% beta)]
+    comp_data[i,b:=Ps*(opt_s-s)]
+    comp_data[i,pi_dif:=a-b]
+    comp_data[i,pi_dif_se:=temp_X %*% V_beta %*% t(temp_X) %>% sqrt()*Pc]
+  }
+  
+  profitdiffs <- ggplot(data=comp_data) +
+    geom_point(aes(y=-pi_dif,x=factor(s)), color='red') +
+    geom_errorbar(aes(ymin=-(pi_dif-1.96*pi_dif_se), ymax=-(pi_dif+1.96*pi_dif_se),x=factor(s)), width=.2,position=position_dodge(.9)) +
+    ylab('Profit Diff ($/acre)') +
+    xlab('Seed Rate')
+  profitdiffs
+  
+  # making nitrogen graph
+  base_X <- predict(model, newdata=data_nitrogen[n==opt_n,], type='lpmatrix') 
+  comp_data <- data_nitrogen[n!=opt_n,]
+  comp_X <- predict(model, newdata=comp_data, type='lpmatrix')
+  
+  for (i in 1:(length(n_ls)-1)){
+    temp_X <- base_X - comp_X[i,]
+    comp_data[i,a:=Pc*(temp_X %*% beta)]
+    comp_data[i,b:=Pn*(opt_n-n)]
+    comp_data[i,pi_dif:=a-b]
+    comp_data[i,pi_dif_se:=temp_X %*% V_beta %*% t(temp_X) %>% sqrt()*Pc]
+  }
+  
+  profitdiffn <- ggplot(data=comp_data) +
+    geom_point(aes(y=-pi_dif,x=factor(n)), color='red') +
+    geom_errorbar(aes(ymin=-(pi_dif-1.96*pi_dif_se), ymax=-(pi_dif+1.96*pi_dif_se),x=factor(n)), width=.2,position=position_dodge(.9)) +
+    ylab('Profit Diff ($/acre)') +
+    xlab('Nitrogen Rate')
+  profitdiffn
+  
+  ## now for the profit response curves 
+  s.seq = seq(min(s_ls), max(s_ls), by = 500)
+  n.seq = seq(min(n_ls), max(n_ls), by = 10)
+  
+  data_new <- expand.grid(s.seq, n.seq) %>% 
+    data.table() %>% 
+    setnames(names(.),c('s','n'))
+  
+  yhat <- predict(model, newdata = data_new, se.fit=TRUE)
+  
+  data_pi <- data_new %>%  
+    .[,y_hat:=yhat$fit] %>% 
+    .[,y_hat_se:=yhat$se.fit] %>% 
+    .[,pi_hat:=Pc*y_hat-Ps*s-Pn*n - other_costs] %>% 
+    .[,pi_hat_se:=Pc*y_hat_se] 
+  
+  data_seed <- data_pi[n == n.seq[(round(length(n.seq)/2))],]
+  data_nitrogen <- data_pi[s == s.seq[(round(length(s.seq)/2))],]
+  
+  profits <- ggplot() +
+    geom_smooth(data=data_seed, method = "loess", aes(y=pi_hat, x=s), size = 0.5,se=FALSE) +
+    ylab('Profit ($/acre)') +
+    xlab('Seed') + 
+    theme_grey(base_size = 12)
+  profits
+  
+  profitn<- ggplot() +
+    geom_smooth(data=data_nitrogen, method = "loess", aes(y=pi_hat,x=n), size = 0.5,se=FALSE) +
+    ylab('Profit ($/acre)') +
+    xlab('Nitrogen') +
+    theme_grey(base_size = 12)
+  
+  graphs <- list(profitdiffs, profits, profitdiffn, profitn)
+  
+  return(graphs)
+}
+
