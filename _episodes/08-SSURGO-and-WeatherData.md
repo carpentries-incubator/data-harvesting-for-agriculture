@@ -905,7 +905,13 @@ source: Rmd
 >
 > We will now use a function `month_prec_graph()` to make a graph with the monthly precipitation represented by the height of the bar, and the color of the bar is determined by whether the 2018 precipitation was above or below the average precipitation.
 >
+> 
+> ~~~
 > month_prec_graph(prec_merged)
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-precgraph-1.png" title="plot of chunk precgraph" alt="plot of chunk precgraph" width="612" style="display: block; margin: auto;" />
 >
 > The most notable feature of the weather graph is the below average rainfall in July, the most 
 critical growing period for corn. To understand whether this affected yield on the field, we
