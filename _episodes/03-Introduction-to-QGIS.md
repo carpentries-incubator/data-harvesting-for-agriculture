@@ -75,8 +75,10 @@ source: Rmd
 > {: .windowsUsers}
 >
 > > ## Mac Users: Click here for more details
-> >
-> > <font color="magenta"> JPN will put in details </font>
+> > To open QGIS, click on its icon in your Applications folder:
+> > <img src="../figure/qgis_macInstall_applications.png" width="50%">
+> > When you double click QGIS should open up:
+> > <img src="../figure/qgis_macInstall_opened.png" width="75%">
 > >
 > {: .windowsUsers}
 > 
