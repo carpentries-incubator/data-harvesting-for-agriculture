@@ -809,19 +809,19 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
     #print('Data directory exists!')
     if (reDownloadData){
       for (i in 1:length(dataURLS)){
-	# get names of files
-	myList = strsplit(dataURLS[i],'/')
-	fname = tail(myList[[1]],1)
-	download.file(dataURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE)
+      	# get names of files
+      	myList = strsplit(dataURLS[i],'/')
+      	fname = tail(myList[[1]],1)
+      	download.file(dataURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE, mode="wb")
       }    
     }
     # also update new ones
     if (reDownloadTrialData){
       for (i in 1:length(simsURLS)){
-	# get names of files
-	myList = strsplit(simsURLS[i],'/')
-	fname = tail(myList[[1]],1)
-	download.file(simsURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE)
+      	# get names of files
+      	myList = strsplit(simsURLS[i],'/')
+      	fname = tail(myList[[1]],1)
+      	download.file(simsURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE, mode="wb")
       }    
     }  
   } else { # create
@@ -831,14 +831,14 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
       # get names of files
       myList = strsplit(dataURLS[i],'/')
       fname = tail(myList[[1]],1)
-      download.file(dataURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE)
+      download.file(dataURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE, mode="wb")
     }
     if (reDownloadTrialData){
       for (i in 1:length(simsURLS)){
-	# get names of files
-	myList = strsplit(simsURLS[i],'/')
-	fname = tail(myList[[1]],1)
-	download.file(simsURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE)
+      	# get names of files
+      	myList = strsplit(simsURLS[i],'/')
+      	fname = tail(myList[[1]],1)
+      	download.file(simsURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE, mode="wb")
       }    
     }  
   }

@@ -440,44 +440,9 @@ the mean.
 > Let's plot what these grids will look like using the basic `plot()` function:
 > 
 > ~~~
-> plot(design_grids_utm$st_sfc.col_polygons_ls.)
+> plot(design_grids_utm$geom)
 > ~~~
 > {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Warning in min(x): no non-missing arguments to min; returning Inf
-> ~~~
-> {: .warning}
-> 
-> 
-> 
-> ~~~
-> Warning in max(x): no non-missing arguments to max; returning -Inf
-> ~~~
-> {: .warning}
-> 
-> 
-> 
-> ~~~
-> Warning in min(x): no non-missing arguments to min; returning Inf
-> ~~~
-> {: .warning}
-> 
-> 
-> 
-> ~~~
-> Warning in max(x): no non-missing arguments to max; returning -Inf
-> ~~~
-> {: .warning}
-> 
-> 
-> 
-> ~~~
-> Error in plot.window(...): need finite 'xlim' values
-> ~~~
-> {: .error}
 > 
 > <img src="../fig/rmd-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="612" style="display: block; margin: auto;" />
 > 
