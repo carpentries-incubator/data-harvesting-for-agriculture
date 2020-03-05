@@ -290,16 +290,9 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> yield <- clean_sd(yield, yield$Yld_Vol_Dr)
+> yield <- clean_sd(yield, yield$Yld_Vol_Dr, sd_no=3)
 > ~~~
 > {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in eval(e, x, parent.frame()): argument "sd_no" is missing, with no default
-> ~~~
-> {: .error}
 > 
 {: .textchunk}
 
@@ -360,20 +353,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> planting <- clean_sd(planting,planting$Rt_Apd_Ct_)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in eval(e, x, parent.frame()): argument "sd_no" is missing, with no default
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
+> planting <- clean_sd(planting,planting$Rt_Apd_Ct_, sd_no=3)
 > map_asplanted <- map_points(planting, 'Rt_Apd_Ct_', "Applied Seeding Rate")
 > map_planting_comp <- tmap_arrange(map_asplanted, tgts, ncol = 2, nrow = 1)
 > map_planting_comp
@@ -392,20 +372,7 @@ Make a map of the yield in bushels per acre from the `yield` file using `map_poi
 > 
 > 
 > ~~~
-> nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in eval(e, x, parent.frame()): argument "sd_no" is missing, with no default
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
+> nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli, sd_no=3)
 > map_nitrogen <- map_points(nitrogen, 'Rate_Appli', 'Nitrogen')
 > map_nitrogen
 > ~~~

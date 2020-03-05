@@ -224,9 +224,9 @@ source: Rmd
 > 
 > We need to remove the yield observations that are on the border of the plots, and also at the end of the plots.  The reason for this is that along the edge of a plot, the harvester is likely to collect from two plots. Therefore, the yield is an average of both plots.  Additionally, plants growing at the edge of the field are likely to suffer from wind and other effects, lowering their yields.  
 >
-> <img src="../figure/Alignment Graph.png" width="70%">
+> <img src="../figure/Alignment Graph.png" width="50%">
 > 
-> <img src="../figure/Yield Average.png" width="70%">
+> <img src="../figure/Average Yield.png" width="70%">
 >
 > There is a function in `functions.R` called clean_buffer which creates a buffer around the input `buffer_object` and reports the points in `data` that are outside of the buffer. We need to decide how wide the buffer wil be using the input `buffer_ft`. In general this will be something around half the width of the machinery or section.
 > 
@@ -271,16 +271,9 @@ source: Rmd
 > As in lesson 4, we use the `clean_sd` from our `functions.R`:
 > 
 > ~~~
-> yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr)
+> yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr, sd_no=3)
 > ~~~
 > {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in eval(e, x, parent.frame()): argument "sd_no" is missing, with no default
-> ~~~
-> {: .error}
 > 
 > Here again, we check the distribution of cleaned yield after taking out the yield observations that are outside the range of three standard deviations from the mean.
 > 
@@ -290,40 +283,17 @@ source: Rmd
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in hist(yield_clean$Yld_Vol_Dr): object 'yield_clean' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-view the distribution of cleaned yield data-1.png" title="plot of chunk view the distribution of cleaned yield data" alt="plot of chunk view the distribution of cleaned yield data" width="612" style="display: block; margin: auto;" />
 > 
 > This looks a lot more sensible!  We can double check by looking at our final, cleaned yield map:
 > 
 > ~~~
 > yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'yield_clean' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > yield_plot_clean
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in eval(expr, envir, enclos): object 'yield_plot_clean' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-yieldCleanPlot-1.png" title="plot of chunk yieldCleanPlot" alt="plot of chunk yieldCleanPlot" width="612" style="display: block; margin: auto;" />
 > 
 > ## Discussion
 > What do you think could have caused these outliers (extreme values)?  If you
@@ -387,43 +357,18 @@ the mean.
 > > Clean by standard deviation:
 > > 
 > > ~~~
-> > nitrogen_clean <- clean_sd(nitrogen_clean_border, nitrogen_clean_border$Rate_Appli)
+> > nitrogen_clean <- clean_sd(nitrogen_clean_border, nitrogen_clean_border$Rate_Appli, sd_no=3)
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(e, x, parent.frame()): argument "sd_no" is missing, with no default
-> > ~~~
-> > {: .error}
 > > Plot our final result on a map:
 > > 
 > > ~~~
 > > nitrogen_plot_clean <- map_points(nitrogen_clean, "Rate_Appli", "Nitrogen, Cleaned")
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in as.list.environment(environment()): object 'nitrogen_clean' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > nitrogen_plot_clean
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(expr, envir, enclos): object 'nitrogen_plot_clean' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="612" style="display: block; margin: auto;" />
 > > And as a histogram:
 > > 
 > > ~~~
@@ -431,12 +376,7 @@ the mean.
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error in hist(nitrogen_clean$Rate_Appli): object 'nitrogen_clean' not found
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="612" style="display: block; margin: auto;" />
 > >
 > {: .solution}
 {: .challenge}
@@ -580,13 +520,6 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in .class1(object): object 'yield_clean' not found
-> ~~~
-> {: .error}
-> 
 > And let's finally take a look!
 > 
 > ~~~
@@ -594,12 +527,7 @@ The resulting grid is seen below:
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'subplots_data' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now clean the asplanted file:
@@ -642,115 +570,36 @@ The resulting grid is seen below:
 > 
 > ~~~
 > asplanted_utm <- asplanted # already in utm!
-> asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in eval(e, x, parent.frame()): argument "sd_no" is missing, with no default
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
+> asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_, sd_no=3)
 > asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
-> ~~~
-> {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in sf::st_intersects(x, y): object 'asplanted_clean' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'asplanted_clean' not found
-> ~~~
-> {: .error}
-> 
-> 
+> <img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in .class1(object): object 'subplots_data' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Elevation_", fn = median)
-> ~~~
-> {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in .class1(object): object 'subplots_data' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'subplots_data' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-unnamed-chunk-28-2.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
 >
 >
 > We will now aggregate the asapplied which we already cleaned above:
 > 
 > ~~~
 > subplots_data <- deposit_on_grid(subplots_data, nitrogen_clean, "Rate_Appli", fn = median)
-> ~~~
-> {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in .class1(object): object 'subplots_data' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > map_poly(subplots_data, 'Rate_Appli', "Nitrogen")
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'subplots_data' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
 >
 >
 > ### Making Plots of Relationships between Variables
@@ -775,11 +624,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in fortify(data): object 'subplots_data' not found
+> Warning: Removed 112 rows containing non-finite values (stat_smooth).
 > ~~~
-> {: .error}
+> {: .warning}
 > 
-> 
+> <img src="../fig/rmd-jpnt23405-1.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > ggplot() +
@@ -793,11 +642,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in fortify(data): object 'subplots_data' not found
+> Warning: Removed 112 rows containing non-finite values (stat_smooth).
 > ~~~
-> {: .error}
+> {: .warning}
 > 
-> 
+> <img src="../fig/rmd-jpnt23405-2.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 > 
 > ~~~
 > ggplot() +
@@ -811,9 +660,11 @@ The resulting grid is seen below:
 > 
 > 
 > ~~~
-> Error in fortify(data): object 'subplots_data' not found
+> Warning: Removed 19 rows containing non-finite values (stat_smooth).
 > ~~~
-> {: .error}
+> {: .warning}
+> 
+> <img src="../fig/rmd-jpnt23405-3.png" title="plot of chunk jpnt23405" alt="plot of chunk jpnt23405" width="612" style="display: block; margin: auto;" />
 >
 >
 >
@@ -821,27 +672,10 @@ The resulting grid is seen below:
 > 
 > ~~~
 > subplots_data <- deposit_on_grid(subplots_data, trial_utm, "SEEDRATE", fn = median)
-> ~~~
-> {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in .class1(object): object 'subplots_data' not found
-> ~~~
-> {: .error}
-> 
-> 
-> 
-> ~~~
 > map_poly(subplots_data, 'SEEDRATE', "Target Seed")
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in as.list.environment(environment()): object 'subplots_data' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
 {: .textchunk}
