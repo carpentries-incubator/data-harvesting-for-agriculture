@@ -185,7 +185,20 @@ design_grids_utm <- make_grids(trialarea, abline_utm,
 > ```{r}
 > head(whole_plot)
 > ```
-> And as plots:
+> Or, we can look at the plots one at a time using a `map_poly` function from `functions.R`.  For the seeding rate:
+> ```{r seedRate05}
+> seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+> seed_plot # to show our plot
+> ```
+> Here, we give `map_poly` our `whole_plot` geometry variable, what variable we want to show, in the above case, `SEEDRATE`, and the label to our legend, here `Seedrate Treatement`.
+>
+> We can also plot the nitrogen application rate:
+> ```{r nitroRate05}
+nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
+nitrogen_plot
+```
+> We can also use the function `tmap_arrange` to show these plots side-by-side;
+>
 > ```{r}
 > nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
 > seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")

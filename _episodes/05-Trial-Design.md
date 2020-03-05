@@ -238,7 +238,28 @@ source: Rmd
 > 6 ID6            7   200    37000 ((342066.2 4523203, 342044.5 4523203, 342044.…
 > ~~~
 > {: .output}
-> And as plots:
+> Or, we can look at the plots one at a time using a `map_poly` function from `functions.R`.  For the seeding rate:
+> 
+> ~~~
+> seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+> seed_plot # to show our plot
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-seedRate05-1.png" title="plot of chunk seedRate05" alt="plot of chunk seedRate05" width="612" style="display: block; margin: auto;" />
+> Here, we give `map_poly` our `whole_plot` geometry variable, what variable we want to show, in the above case, `SEEDRATE`, and the label to our legend, here `Seedrate Treatement`.
+>
+> We can also plot the nitrogen application rate:
+> 
+> ~~~
+> nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
+> nitrogen_plot
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-nitroRate05-1.png" title="plot of chunk nitroRate05" alt="plot of chunk nitroRate05" width="612" style="display: block; margin: auto;" />
+> We can also use the function `tmap_arrange` to show these plots side-by-side;
+>
 > 
 > ~~~
 > nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
