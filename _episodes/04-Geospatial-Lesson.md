@@ -96,6 +96,12 @@ source: Rmd
 > library("data.table")
 > library("broom")
 > library("ggplot2")
+> 
+> # load functions for this workshop
+> source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R')
+> 
+> # you need your specific working directory here with something like:
+> #setwd(YOUR DIR)
 > ~~~
 > {: .language-r}
 > Note: this will probably generate a lot of output, and some of it will be in red, but that is normal!
