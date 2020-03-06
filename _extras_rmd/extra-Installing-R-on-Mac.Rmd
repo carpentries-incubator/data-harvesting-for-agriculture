@@ -107,6 +107,11 @@ A window titled "RStudio" should pop up, looking something like this:
 3. To exit RStudio, click "RStudio" in the menu bar, then click "Quit RStudio". Alternatively, use the `Cmd-Q` shortcut. If prompted to save the workspace, do not save it.
 
 
+
+
+
+
+
 # Installing the geospatial and federal data packages
 
 When RStudio is open and working, create a new R script file.
@@ -179,7 +184,12 @@ source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-l
 
 <img src="../figure/firstSourceFunctions.png" width="75%">
 
-Next, we will run the test script to see what happens.  To do this, put `run_workshop_test()` in your script window (#1), and press `Source`.  You will see three text statements popping up in the Console window.  If you then click on your `Home` directory in the file browser (#2) (**OR if you have opened RStudio from a different location, you may need to navigate to this folder**) and locate the `test_images` folder (#3):
+Next, we will run the test script to see what happens.  When we run this script, it will create a new directory called `WorkingDir` to save all of our test images in.  This directory will also be used to store data for this workshop.  (You can change the default creation location for `WorkingDir` by calling the function as `run_workshop_test(workingDir='YOUR DIR')`, shown below is how this looks for the default):
+
+
+
+
+To do this, put `run_workshop_test()` in your script window (#1), and press `Source`.  You will see three text statements popping up in the Console window.  If you then click on your `Home` directory in the file browser (#2) (**OR if you have opened RStudio from a different location, you may need to navigate to this folder**) and locate the `test_images` folder (#3):
 
 <img src="../figure/run_workshop_test1.png" width="75%">
 
