@@ -869,7 +869,7 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
   # finally, download functions.R
   myList = strsplit(functionsURL,'/')
   fname = tail(myList[[1]],1)
-  download.file(functionsURL, paste0(getwd(),fname), method = "auto", quiet=FALSE)
+  download.file(functionsURL, paste0(getwd(),'/', fname), method = "auto", quiet=FALSE)
 }
 
 ## JPN: run test script
