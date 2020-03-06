@@ -122,7 +122,7 @@ A window titled "RStudio" should pop up, looking something like this:
 3. To exit RStudio, click "RStudio" in the menu bar, then click "Quit RStudio". Alternatively, use the `Cmd-Q` shortcut. If prompted to save the workspace, do not save it.
 
 
-### Installing the geospatial and federal data packages
+# Installing the geospatial and federal data packages
 
 When RStudio is open and working, create a new R script file.
 
@@ -184,7 +184,35 @@ install.packages("broom")
 ~~~
 {: .language-r}
 
+## Checking that the packages installed correctly
 
+We have a test script to make sure all packages have installed correctly.  To run this test script, we will "Source" it's location like we did above for the package installation script.
+
+In your script window you can type in:
+
+
+~~~
+source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R')
+~~~
+{: .language-r}
+
+... and then press the `Source` button.  This will look like:
+
+<img src="../figure/firstSourceFunctions.png" width="75%">
+
+Next, we will run the test script to see what happens.  To do this, put `run_workshop_test()` in your script window (#1), and press `Source`.  If you then click on your `Home` directory in the file browser (#2) (**OR if you have opened RStudio from a different location, you may need to navigate to this folder**) and locate the `test_images` folder (#3):
+
+<img src="../figure/run_workshop_test1.png" width="75%">
+
+Once you open this file, you should see several images:
+
+<img src="../figure/open_image_folder.png" width="75%">
+
+You can click on each of these to open them up.  Here is a grid of what each one should look like:
+
+&nbsp;    |  &nbsp;  |     &nbsp; 
+:---------:|:----------------------:
+one | two | three
 
 
 
