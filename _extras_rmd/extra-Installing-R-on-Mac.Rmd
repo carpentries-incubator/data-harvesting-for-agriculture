@@ -115,7 +115,11 @@ Here's where to make a new script:
 
 <img src="../figure/mac_open_new_script.png" width="50%">
 
-Once this is done copy the following into your script file:
+When you open a new script, your RStudio will now look like this (without the red labels):
+
+<img src="../figure/rstudio_with_script_window_names.png" width="75%">
+
+Once this is done copy the following into your script window:
 ```{r copyfuncscript, eval=FALSE}
 source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_install_script.R')
 ```
@@ -141,7 +145,25 @@ Once you copy and paste this in your script window, you can press the `Source` b
 * If the red stop sign in the top right corner of the console is still highlighted, an installation process is still running.
 * If you see a blue > in the console , you're ready to go.
 
-This action is "sourcing" i.e. running a bit of code from the internet that installs a bunch of libraries that provide fun
+This action is "sourcing" i.e. running a bit of code from the internet that installs a bunch of libraries that provide functionality that is not included with standard R installation.
+
+Alternatively, you can copy the following into the script window or console:
+
+```{r altInstall, eval=FALSE}
+install.packages("ggplot2")
+install.packages("rgdal") 
+install.packages("dplyr") 
+install.packages("sf")
+install.packages("gstat")
+install.packages("tmap")
+install.packages("measurements")
+install.packages("daymetr")
+install.packages("FedData")
+install.packages("lubridate")
+install.packages("raster")
+install.packages("data.table")
+install.packages("broom")
+```
 
 
 
