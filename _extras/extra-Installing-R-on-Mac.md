@@ -123,7 +123,26 @@ A window titled "RStudio" should pop up, looking something like this:
 
 
 ### Installing the geospatial and federal data packages
-  
+
+When RStudio is open and working, create a new R script file.
+
+Here's where to make a new script:
+
+<img src="../figure/mac_open_new_script.png" width="50%">
+
+Once this is done copy the following into your script file:
+
+~~~
+source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_install_script.R')
+~~~
+{: .language-r}
+
+And follow it by pressing the `Source` button.  You might get some red words showing up, and that is normal!  If you see any red with the word `Error` in it, this may indicate a problem however.
+
+This looks like:
+<img src="../figure/sourceInstallScript.png" width="75%">
+
+<!-- JPN: streamlined
 * When RStudio is open and working, create a new R script file and copy in the 
 contents of [this installation script file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). 
 
@@ -134,9 +153,12 @@ Here's where to make a new script:
 Once you copy and paste this in your script window, you can press the `Source` button to install the packages:
 
 <img src="../figure/copy_install_script.png" width="75%">
+-->
 
-* If the red stop sign in the top right corner of the console is still highlighted and the cursor is a gray \|, an installation process is still running.
+* If the red stop sign in the top right corner of the console is still highlighted, an installation process is still running.
 * If you see a blue > in the console , you're ready to go.
+
+This action is "sourcing" i.e. running a bit of code from the internet that installs a bunch of libraries that provide fun
 
 
 
