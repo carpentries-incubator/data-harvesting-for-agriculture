@@ -241,6 +241,11 @@ download_workshop_data()
 ~~~
 {: .language-r}
 
+If we navigate to our `WorkingDir` directory we will see that a folder called `data` and a script called `functions.R` have now appeared.  This process looks like:
+
+<img src="../figure/downloadData.png" width="80%">
+
+
 <!-- JPN this is in the intro
 
 ### Checking that the packages installed correctly

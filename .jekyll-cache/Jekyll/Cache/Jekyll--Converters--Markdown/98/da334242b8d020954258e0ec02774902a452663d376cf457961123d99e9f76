@@ -1,0 +1,220 @@
+I"[5<!-- start cut from Windows veresion -->
+<hr />
+
+<h2 id="if-you-choose-to-install-before-the-workshop-begins">If you choose to install before the workshop begins</h2>
+
+<p>If you’re installing R, R Studio, and QGIS before the workshop begins, you can follow these
+instructions instead of the USB instructions. (All the steps below have been taken on the USB drives.)</p>
+
+<h3 id="before-you-start">Before you start</h3>
+
+<p>Check that you have about 5 Gb of free space on your computer’s hard drive. On Windows 10, you can open File Manager and click This PC for a look at your drive space.</p>
+
+<p><img src="../figure/wininstall-1-file-mgr.PNG" width="50%" /></p>
+
+<h3 id="r-and-r-studio">R and R Studio</h3>
+
+<p>You’ll need to install R before R Studio, and after you’ve installed R Studio you’ll need to run some manual package installation and library loading scripts. We’ll start with R.</p>
+
+<ul>
+  <li>Download R from
+the <a href="http://cran.r-project.org/bin/windows/base/release.htm">CRAN website</a>.</li>
+  <li>Run the <code class="highlighter-rouge">.exe</code> file that was just downloaded</li>
+  <li>In the command line window that launches, you should see some R descriptive text and a “&gt;” symbol.</li>
+  <li>You can do some simple math on the command line (such as 5+12) to make sure it’s fully loaded and responding.</li>
+</ul>
+
+<p><img src="../figure/wininstall2-r.png" width="50%" /></p>
+
+<p>Next:</p>
+
+<ul>
+  <li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio download page</a></li>
+  <li>Under <em>Installers</em> select <strong>RStudio x.yy.zzz - Windows
+Vista/7/8/10</strong> (where x, y, and z represent version numbers)</li>
+  <li>Double click the file to install it</li>
+  <li>Once it’s installed, open RStudio to make sure it works and you don’t get any
+error messages.</li>
+</ul>
+
+<p><img src="../figure/wininstall3-rstudio.png" width="70%" /></p>
+
+<h1 id="installing-the-geospatial-and-federal-data-packages">Installing the geospatial and federal data packages</h1>
+
+<!-- JPN changed
+* When RStudio is open and working, create a new R script file and copy in the 
+contents of [this installation script file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R).
+-->
+
+<p>When RStudio is open and working, create a new R script file.</p>
+
+<p>Here’s where to make a new script:</p>
+
+<p><img src="../figure/wininstall4-rstudioinstallscript1.png" width="70%" /></p>
+
+<p>When you open a new script, your RStudio will now look like this (without the red labels):</p>
+
+<p><img src="../figure/rstudio_with_script_window_names.png" width="75%" /></p>
+
+<p>Once this is done copy the following into your script window:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_install_script.R'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And follow it by pressing the <code class="highlighter-rouge">Source</code> button.  You might get some red words showing up, and that is normal!  If you see any red with the word <code class="highlighter-rouge">Error</code> in it, this may indicate a problem however.</p>
+
+<p>This looks like:
+<img src="../figure/sourceInstallScript.png" width="75%" /></p>
+
+<!-- JPN: streamlined
+* When RStudio is open and working, create a new R script file and copy in the 
+contents of [this installation script file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). 
+
+Here's where to make a new script:
+
+<img src="../figure/mac_open_new_script.png" width="50%">
+
+Once you copy and paste this in your script window, you can press the `Source` button to install the packages:
+
+<img src="../figure/copy_install_script.png" width="75%">
+-->
+
+<ul>
+  <li>If the red stop sign in the top right corner of the console is still highlighted, an installation process is still running.</li>
+  <li>If you see a blue &gt; in the console , you’re ready to go.</li>
+</ul>
+
+<p>This action is “sourcing” i.e. running a bit of code from the internet that installs a bunch of libraries that provide functionality that is not included with standard R installation.</p>
+
+<p>Alternatively, you can copy the following into the script window or console:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s2">"ggplot2"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"rgdal"</span><span class="p">)</span><span class="w"> 
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"dplyr"</span><span class="p">)</span><span class="w"> 
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"sf"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"gstat"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"tmap"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"measurements"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"daymetr"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"FedData"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"lubridate"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"raster"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"data.table"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"broom"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="checking-that-the-packages-installed-correctly">Checking that the packages installed correctly</h2>
+
+<p>We have a test script to make sure all packages have installed correctly.  To run this test script, we will “Source” it’s location like we did above for the package installation script.</p>
+
+<p>In your script window you can type in:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>… and then press the <code class="highlighter-rouge">Source</code> button.  This will look like:</p>
+
+<p><img src="../figure/firstSourceFunctions.png" width="75%" /></p>
+
+<p>Next, we will run the test script to see what happens.  When we run this script, it will create a new directory called <code class="highlighter-rouge">WorkingDir</code> to save all of our test images in.  This directory will also be used to store data for this workshop.  (You can change the default creation location for <code class="highlighter-rouge">WorkingDir</code> by calling the function as <code class="highlighter-rouge">run_workshop_test(workingDir='YOUR DIR')</code>, shown below is how this looks for the default).</p>
+
+<p>Once we press the <code class="highlighter-rouge">Source</code> some things will download and be calculated, and a new file called <code class="highlighter-rouge">WorkingDir</code> will show up in our file list:</p>
+
+<p><img src="../figure/install_create_wd.png" width="80%" /></p>
+
+<p>To check that all our images have been created, we can click on <code class="highlighter-rouge">WorkingDir</code> in our <strong>File</strong> list in RStudio (see #2 in above figure), and then navigate to <code class="highlighter-rouge">test_images</code>:</p>
+
+<p><img src="../figure/intoTestimages.png" width="80%" /></p>
+
+<p>Once you open this file, you should see several images:</p>
+
+<p><img src="../figure/open_image_folder.png" width="75%" /></p>
+
+<p>You can click on each of these to open them up.  Here is a grid of what each one should look like:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">plot1_ggplot2.jpg <br /> <img src="../figure/test_images/plot1_ggplot2.jpg" width="250px" /></td>
+      <td style="text-align: center">plot2_sf.jpg <br /> <img src="../figure/test_images/plot2_sf.jpg" width="250px" /></td>
+      <td style="text-align: center">plot3_gstat.jpg <br /> <img src="../figure/test_images/plot3_gstat.jpg" width="250px" /></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">plot4_tmap.jpg <br /> <img src="../figure/test_images/plot4_tmap.jpg" width="250px" /></td>
+      <td style="text-align: center">plot5_daymetr.jpg <br /> <img src="../figure/test_images/plot5_daymetr.jpg" width="250px" /></td>
+      <td style="text-align: center">plot6_ssurgo.jpg <br /> <img src="../figure/test_images/plot6_ssurgo.jpg" width="250px" /></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">plot7_raster.jpg <br /> <img src="../figure/test_images/plot7_raster.jpg" width="250px" /></td>
+      <td style="text-align: center">plot8_datatable.jpg <br /> <img src="../figure/test_images/plot8_datatable.jpg" width="250px" /></td>
+      <td style="text-align: center">plot9_broom.jpg <br /> <img src="../figure/test_images/plot9_broom.jpg" width="250px" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="download-data-for-this-workshop">Download data for this workshop</h1>
+
+<p>The final thing we need to do for this workshop is to download the data.  To do this, we need to run one more function.  To avoid re-running our test function, we can put a little <code class="highlighter-rouge">#</code> in front of this line.  So the code in our script will now look like:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R'</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#run_workshop_test()</span><span class="w">
+
+</span><span class="n">download_workshop_data</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If we navigate to our <code class="highlighter-rouge">WorkingDir</code> directory we will see that a folder called <code class="highlighter-rouge">data</code> and a script called <code class="highlighter-rouge">functions.R</code> have now appeared.  This process looks like:</p>
+
+<p><img src="../figure/downloadData.png" width="80%" /></p>
+
+<!-- JPN changed
+ * Run each line in this script by selecting it and clicking Run. 
+ * Watch for any error messages along the way.
+ * If the red stop sign in the top right corner of the console is still highlighted and the cursor is a gray \|, an installation process is still running.
+ * If you see a blue > in the console , you're ready to run the next line.
+
+(Note that this process can take **3 - 4 hours on Windows 10** because of virus checking procedures
+that were already taken care of on the USB sticks. If you can wait for the USB sticks, you'll have
+a faster way to get up and running.)
+
+<img src="../figure/wininstall5-rstudioinstallscript2.png" width="50%">
+
+
+### Checking that the packages installed correctly
+
+* After you've run the installation items, create a new R script file and copy in the 
+contents of [the package load and test file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_load_and_test.R). 
+* Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
+
+<img src="../figure/wininstall6-rstudiolibraryload.png" width="50%">
+
+An example of one of the tests' output:
+
+<img src="../figure/wininstall7-rstudiotmaptest.png" width="75%">
+
+-->
+
+<h2 id="qgis">QGIS</h2>
+
+<p>To download QGIS, visit <a href="https://qgis.org/en/site/forusers/download.html">the QGIS download site</a> and choose one of the standalone installers. (Most people can run the 64 bit version, though if you’re not sure, use the 32 bit package, because 64 bit computers can run the 32 bit edition.)</p>
+
+<p>Note: This is a 500 Mb file, so it’s likely to take some time to download.</p>
+
+<p>Double-click the installation file once it’s downloaded and follow the prompts.</p>
+
+<p>Once you’ve completed the process, you’ll have a new Start Menu folder with several icons in it:</p>
+
+<p><img src="../figure/wininstall8-qgis-menuopts.png" width="40%" /></p>
+
+<p>Most of the time you’ll want the regular Desktop version.</p>
+
+<p><img src="../figure/wininstall9-qgis-launch.png" width="75%" /></p>
+
+:ET
