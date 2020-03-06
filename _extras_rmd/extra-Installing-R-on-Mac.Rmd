@@ -184,14 +184,15 @@ source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-l
 
 <img src="../figure/firstSourceFunctions.png" width="75%">
 
-Next, we will run the test script to see what happens.  When we run this script, it will create a new directory called `WorkingDir` to save all of our test images in.  This directory will also be used to store data for this workshop.  (You can change the default creation location for `WorkingDir` by calling the function as `run_workshop_test(workingDir='YOUR DIR')`, shown below is how this looks for the default):
+Next, we will run the test script to see what happens.  When we run this script, it will create a new directory called `WorkingDir` to save all of our test images in.  This directory will also be used to store data for this workshop.  (You can change the default creation location for `WorkingDir` by calling the function as `run_workshop_test(workingDir='YOUR DIR')`, shown below is how this looks for the default).
 
+Once we press the `Source` some things will download and be calculated, and a new file called `WorkingDir` will show up in our file list:
 
+<img src="../figure/install_create_wd.png" width="80%">
 
+To check that all our images have been created, we can click on `WorkingDir` in our **File** list in RStudio (see #2 in above figure), and then navigate to `test_images`:
 
-To do this, put `run_workshop_test()` in your script window (#1), and press `Source`.  You will see three text statements popping up in the Console window.  If you then click on your `Home` directory in the file browser (#2) (**OR if you have opened RStudio from a different location, you may need to navigate to this folder**) and locate the `test_images` folder (#3):
-
-<img src="../figure/run_workshop_test1.png" width="75%">
+<img src="../figure/intoTestimages.png" width="80%">
 
 Once you open this file, you should see several images:
 
@@ -206,8 +207,16 @@ You can click on each of these to open them up.  Here is a grid of what each one
 | plot7_raster.jpg <br> <img src="../figure/test_images/plot7_raster.jpg" width="250px"> | plot8_datatable.jpg <br> <img src="../figure/test_images/plot8_datatable.jpg" width="250px"> | plot9_broom.jpg <br> <img src="../figure/test_images/plot9_broom.jpg" width="250px"> | 
 
 
+# Download data for this workshop
 
+The final thing we need to do for this workshop is to download the data.  To do this, we need to run one more function.  To avoid re-running our test function, we can put a little `#` in front of this line.  So the code in our script will now look like:
+```{r codeCommentROut, eval=FALSE}
+source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R')
 
+#run_workshop_test()
+
+download_workshop_data()
+```
 
 <!-- JPN this is in the intro
 

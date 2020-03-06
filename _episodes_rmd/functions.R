@@ -808,8 +808,10 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
 		 "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson5.R",
 		 "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson6.R",
 		 "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson7.R",
-		 "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson8.R", 
-		 "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/functions.R")
+		 "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson8.R")
+
+  # functions.R download
+  functionsURL = "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R"
 
   # download the data
   if (dir.exists(paste0(getwd(),"/data"))){
@@ -863,6 +865,11 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
       download.file(scriptURLS[i], paste0(getwd(),"/lesson-catchup-scripts/",fname), method = "auto", quiet=FALSE)
     }  
   }
+
+  # finally, download functions.R
+  myList = strsplit(functionsURL,'/')
+  fname = tail(myList[[1]],1)
+  download.file(functionsURL, paste0(getwd(),fname), method = "auto", quiet=FALSE)
 }
 
 ## JPN: run test script
