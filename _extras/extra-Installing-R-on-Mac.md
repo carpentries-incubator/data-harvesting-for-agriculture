@@ -200,7 +200,7 @@ source('https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-l
 
 <img src="../figure/firstSourceFunctions.png" width="75%">
 
-Next, we will run the test script to see what happens.  To do this, put `run_workshop_test()` in your script window (#1), and press `Source`.  If you then click on your `Home` directory in the file browser (#2) (**OR if you have opened RStudio from a different location, you may need to navigate to this folder**) and locate the `test_images` folder (#3):
+Next, we will run the test script to see what happens.  To do this, put `run_workshop_test()` in your script window (#1), and press `Source`.  You will see three text statements popping up in the Console window.  If you then click on your `Home` directory in the file browser (#2) (**OR if you have opened RStudio from a different location, you may need to navigate to this folder**) and locate the `test_images` folder (#3):
 
 <img src="../figure/run_workshop_test1.png" width="75%">
 
@@ -210,9 +210,13 @@ Once you open this file, you should see several images:
 
 You can click on each of these to open them up.  Here is a grid of what each one should look like:
 
-&nbsp;    |  &nbsp;  |     &nbsp; 
-:---------:|:----------------------:
-one | two | three
+| &nbsp;    |  &nbsp;  |     &nbsp; |
+|:---------:|:-------:|:--------:|
+| plot1_ggplot2.jpg <br> <img src="../figure/test_images/plot1_ggplot2.jpg" width="250px"> | plot2_sf.jpg <br> <img src="../figure/test_images/plot2_sf.jpg" width="250px"> | plot3_gstat.jpg <br> <img src="../figure/test_images/plot3_gstat.jpg" width="250px"> | 
+| plot4_tmap.jpg <br> <img src="../figure/test_images/plot4_tmap.jpg" width="250px"> | plot5_daymetr.jpg <br> <img src="../figure/test_images/plot5_daymetr.jpg" width="250px"> | plot6_ssurgo.jpg <br> <img src="../figure/test_images/plot6_ssurgo.jpg" width="250px"> | 
+| plot7_raster.jpg <br> <img src="../figure/test_images/plot7_raster.jpg" width="250px"> | plot8_datatable.jpg <br> <img src="../figure/test_images/plot8_datatable.jpg" width="250px"> | plot9_broom.jpg <br> <img src="../figure/test_images/plot9_broom.jpg" width="250px"> | 
+
+
 
 
 

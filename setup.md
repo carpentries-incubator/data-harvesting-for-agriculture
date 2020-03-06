@@ -95,7 +95,7 @@ in switching the .env file that you're using.
 
 ### Alternate Method: Manual installation
 
-You can follow along with the installation instructions on the For Macs, you can follow the instructions at ["Installing R and R Studio on a Windows"](extra-Installing-R-on-Windows/index.html) page.  Note, this will take several hours to complete on a Windows machine.
+You can follow along with the installation instructions at ["Installing R and R Studio on a Windows"](extra-Installing-R-on-Windows/index.html) page.  Note, this will take several hours to complete on a Windows machine.
 
 <!-- JPN: old - ["Installing R and R Studio on Windows"](https://data-carpentry-for-agriculture.github.io/trial-lesson/11-Installing-R-on-Windows/index.html) -->
 

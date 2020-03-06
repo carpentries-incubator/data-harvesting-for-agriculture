@@ -1,0 +1,249 @@
+I"�4<!-- JPN: updated fig path here manually for plots to show, it turns out this is unneccesary though-->
+
+<h1 id="installing-r-and-rstudio">Installing R and RStudio</h1>
+
+<h2 id="before-you-start">Before you start</h2>
+
+<ol>
+  <li>Check which version of Mac OS you have. To do this, click on the Apple icon on the top-left of your screen, then click “About This Mac”. A little window should pop up with version information.</li>
+</ol>
+
+<p><img src="../figure/which_mac_version.png" width="50%" /></p>
+
+<ol>
+  <li>Make sure that you have about 500 MB of free space on your machine. We will need this space to install both R and RStudio, and when the program installs the compressed files expand to take much more space.</li>
+</ol>
+
+<h2 id="installing-r">Installing R</h2>
+
+<ol>
+  <li>
+    <p>Go to <a href="https://cran.r-project.org/bin/macosx/">this website</a>.</p>
+  </li>
+  <li>
+    <p>If your mac is OS X 10.11 and higher (this should be the case for most of you), click the <code class="highlighter-rouge">R-3.6.2.pkg</code> link. If your mac is OS X 10.9 or 10.10, click the <code class="highlighter-rouge">R-3.3.3.pkg</code> link.</p>
+  </li>
+  <li>
+    <p>After clicking on the link, the file (package installer) will be downloaded onto your computer. Once the file has been downloaded, click on the <code class="highlighter-rouge">.pkg</code> file that downloads in your default Download folder and walk through the installation process. Accept the default options for now.</p>
+  </li>
+</ol>
+
+<p>R is now <strong>installed</strong> on your computer.</p>
+
+<h3 id="testing-r">Testing R</h3>
+
+<ol>
+  <li>Double-click on the R icon in the Applications folder:</li>
+</ol>
+
+<p><img src="../figure/applications_folder_r.png" width="50%" /></p>
+
+<p>A window titled “R Console” should pop up:</p>
+
+<p><img src="../figure/R_Console.png" width="40%" /></p>
+
+<p>The <code class="highlighter-rouge">&gt;</code> character is called the prompt and is the place where we enter commands for the program to interpret. For instance, if you type <code class="highlighter-rouge">25+5</code> followed by the return/enter key, you will see:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">25+5</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 30
+</code></pre></div></div>
+
+<p><img src="../figure/R_console_using.png" width="50%" /></p>
+
+<ol>
+  <li>To quit R, call the quit function by going to <code class="highlighter-rouge">File -&gt; Quit R</code>.</li>
+</ol>
+
+<p>R will ask you if you want to save your work:</p>
+
+<p><img src="../figure/closing_r_dontSAve.png" width="50%" /></p>
+
+<p>Click on “Don’t Save”. You have now left R.</p>
+
+<p>We are not going to use R this way often, as we will use an integrated environment called RStudio.</p>
+
+<h2 id="installing-rstudio">Installing RStudio</h2>
+
+<ol>
+  <li>
+    <p>Go to <a href="https://rstudio.com/products/rstudio/download/">this website</a>.</p>
+  </li>
+  <li>Click on the <code class="highlighter-rouge">Free</code> link (note: there are paid options, but we won’t be using those!). The file download will begin.
+    <ul>
+      <li>If you have an older computer, you <em>may</em> have to find your installer on <a href="https://support.rstudio.com/hc/en-us/articles/206569407-Older-Versions-of-RStudio">this page</a>, but feel free to contact us about that!</li>
+    </ul>
+  </li>
+  <li>Once the file has been downloaded, click on it. A window should pop up:</li>
+</ol>
+
+<p><img src="../figure/Rstudio_download.png" width="50%" /></p>
+
+<p>Click on the RStudio icon and drag it into the Applications folder.</p>
+
+<p>RStudio is now <strong>installed</strong> on your computer.</p>
+
+<p><strong>Note</strong>: For RStudio to work, R needs to be installed first.</p>
+
+<h3 id="testing-rstudio">Testing RStudio</h3>
+
+<ol>
+  <li>Double-click on the RStudio icon in the Applications:</li>
+</ol>
+
+<p><img src="../figure/applications_folder.png" width="50%" /></p>
+
+<p>A window titled “RStudio” should pop up, looking something like this:</p>
+
+<p><img src="../figure/rstudio_opened.png" width="75%" /></p>
+
+<ol>
+  <li>Just as in R, the <code class="highlighter-rouge">&gt;</code> character in the Console window is where we enter commands for the program to interpret.  You can try entering something there and then hitting the <code class="highlighter-rouge">Enter</code> key to see:</li>
+</ol>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">25+5</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 30
+</code></pre></div></div>
+
+<ol>
+  <li>To exit RStudio, click “RStudio” in the menu bar, then click “Quit RStudio”. Alternatively, use the <code class="highlighter-rouge">Cmd-Q</code> shortcut. If prompted to save the workspace, do not save it.</li>
+</ol>
+
+<h1 id="installing-the-geospatial-and-federal-data-packages">Installing the geospatial and federal data packages</h1>
+
+<p>When RStudio is open and working, create a new R script file.</p>
+
+<p>Here’s where to make a new script:</p>
+
+<p><img src="../figure/mac_open_new_script.png" width="50%" /></p>
+
+<p>When you open a new script, your RStudio will now look like this (without the red labels):</p>
+
+<p><img src="../figure/rstudio_with_script_window_names.png" width="75%" /></p>
+
+<p>Once this is done copy the following into your script window:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_install_script.R'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And follow it by pressing the <code class="highlighter-rouge">Source</code> button.  You might get some red words showing up, and that is normal!  If you see any red with the word <code class="highlighter-rouge">Error</code> in it, this may indicate a problem however.</p>
+
+<p>This looks like:
+<img src="../figure/sourceInstallScript.png" width="75%" /></p>
+
+<!-- JPN: streamlined
+* When RStudio is open and working, create a new R script file and copy in the 
+contents of [this installation script file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). 
+
+Here's where to make a new script:
+
+<img src="../figure/mac_open_new_script.png" width="50%">
+
+Once you copy and paste this in your script window, you can press the `Source` button to install the packages:
+
+<img src="../figure/copy_install_script.png" width="75%">
+-->
+
+<ul>
+  <li>If the red stop sign in the top right corner of the console is still highlighted, an installation process is still running.</li>
+  <li>If you see a blue &gt; in the console , you’re ready to go.</li>
+</ul>
+
+<p>This action is “sourcing” i.e. running a bit of code from the internet that installs a bunch of libraries that provide functionality that is not included with standard R installation.</p>
+
+<p>Alternatively, you can copy the following into the script window or console:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s2">"ggplot2"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"rgdal"</span><span class="p">)</span><span class="w"> 
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"dplyr"</span><span class="p">)</span><span class="w"> 
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"sf"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"gstat"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"tmap"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"measurements"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"daymetr"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"FedData"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"lubridate"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"raster"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"data.table"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"broom"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="checking-that-the-packages-installed-correctly">Checking that the packages installed correctly</h2>
+
+<p>We have a test script to make sure all packages have installed correctly.  To run this test script, we will “Source” it’s location like we did above for the package installation script.</p>
+
+<p>In your script window you can type in:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/functions.R'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>… and then press the <code class="highlighter-rouge">Source</code> button.  This will look like:</p>
+
+<p><img src="../figure/firstSourceFunctions.png" width="75%" /></p>
+
+<p>Next, we will run the test script to see what happens.  To do this, put <code class="highlighter-rouge">run_workshop_test()</code> in your script window (#1), and press <code class="highlighter-rouge">Source</code>.  If you then click on your <code class="highlighter-rouge">Home</code> directory in the file browser (#2) (<strong>OR if you have opened RStudio from a different location, you may need to navigate to this folder</strong>) and locate the <code class="highlighter-rouge">test_images</code> folder (#3):</p>
+
+<p><img src="../figure/run_workshop_test1.png" width="75%" /></p>
+
+<p>Once you open this file, you should see several images:</p>
+
+<p><img src="../figure/open_image_folder.png" width="75%" /></p>
+
+<p>You can click on each of these to open them up.  Here is a grid of what each one should look like:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">plot1_ggplot2.jpg <br /> <img src="../figure/test_images/plot1_ggplot2.jpg" width="200px" /></td>
+      <td style="text-align: center">plot2_sf.jpg <br /> <img src="../figure/test_images/plot2_sf.jpg" width="200px" /></td>
+      <td style="text-align: center">plot3_gstat.jpg <br /> <img src="../figure/test_images/plot3_gstat.jpg" width="200px" /></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">plot4_tmap.jpg <br /> <img src="../figure/test_images/plot4_tmap.jpg" alt="" /></td>
+      <td style="text-align: center">plot5_daymetr.jpg <br /> <img src="../figure/test_images/plot5_daymetr.jpg" alt="" /></td>
+      <td style="text-align: center">plot6_ssurgo.jpg <br /> <img src="../figure/test_images/plot6_ssurgo.jpg" alt="" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- JPN this is in the intro
+
+### Checking that the packages installed correctly
+
+* After you've run the installation items, create a new R script file and copy in the 
+contents of [the package load and test file](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R). 
+* Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
+
+<img src="../figure/wininstall6-rstudiolibraryload.png" width="50%">
+
+An example of one of the tests' output:
+
+<img src="../figure/wininstall7-rstudiotmaptest.png" width="75%">
+-->
+
+<h1 id="download-and-install-qgis">Download and Install QGIS</h1>
+
+<p>To download QGIS, visit <a href="https://qgis.org/en/site/forusers/download.html">the QGIS download site</a> and choose one of the standalone installers. Be sure to check your Mac version to download the correct package.</p>
+
+<p>Note: This is a ~1Gb file, so it’s likely to take some time to download.</p>
+
+<p>You should see a new icon in your Applications folder:</p>
+
+<p><img src="../figure/qgis_macInstall_applications.png" width="50%" /></p>
+
+<p>When you double click QGIS should open up:</p>
+
+<p><img src="../figure/qgis_macInstall_opened.png" width="75%" /></p>
+
+<p>Citation: R/RStudio install structure from <a href="https://github.com/kjytay">Kenneth Tay</a></p>
+:ET
