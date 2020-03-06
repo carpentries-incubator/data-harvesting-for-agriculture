@@ -131,16 +131,18 @@ Here's where to make a new script:
 
 <img src="../figure/mac_open_new_script.png" width="50%">
 
-* Run each line in this script by selecting it and clicking Run. 
-* Watch for any error messages along the way.
+Once you copy and paste this in your script window, you can press the `Source` button to install the packages:
+
+<img src="../figure/copy_install_script.png" width="75%">
+
 * If the red stop sign in the top right corner of the console is still highlighted and the cursor is a gray \|, an installation process is still running.
-* If you see a blue > in the console , you're ready to run the next line.
-(Note that this process can take **3 - 4 hours on Windows 10** because of virus checking procedures
-that were already taken care of on the USB sticks. If you can wait for the USB sticks, you'll have
-a faster way to get up and running.)
+* If you see a blue > in the console , you're ready to go.
 
-<img src="../figure/wininstall5-rstudioinstallscript2.png" width="50%">
 
+
+
+
+<!-- JPN this is in the intro
 
 ### Checking that the packages installed correctly
 
@@ -153,7 +155,7 @@ contents of [the package load and test file](https://raw.githubusercontent.com/d
 An example of one of the tests' output:
 
 <img src="../figure/wininstall7-rstudiotmaptest.png" width="75%">
-
+-->
 
 
 
