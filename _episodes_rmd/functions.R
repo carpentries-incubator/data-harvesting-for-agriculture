@@ -811,6 +811,7 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
 		 "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/lesson8.R", 
 		 "https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/lesson-catchup-scripts/functions.R")
 
+  # download the data
   if (dir.exists(paste0(getwd(),"/data"))){
     #print('Data directory exists!')
     if (reDownloadData){
@@ -830,7 +831,7 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
       	download.file(simsURLS[i], paste0(getwd(),"/data/",fname), method = "auto", quiet=FALSE, mode="wb")
       }    
     }  
-  } else { # create
+  } else { # create directory if doesn't exist
     dir.create(paste0(getwd(),"/data"))
     # grab all data
     for (i in 1:length(dataURLS)){
@@ -851,7 +852,7 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
 
   # Also download all catchup scripts
   if (downloadScripts){
-    if (!(dir.exists(paste0(getwd(),"/lesson-catchup-scripts")))){
+    if (!(dir.exists(paste0(getwd(),"/lesson-catchup-scripts")))){ # check if directory exists, make it otherwise
       dir.create(paste0(getwd(),"/lesson-catchup-scripts"))
     } 
 
@@ -865,7 +866,7 @@ download_workshop_data <- function(reDownloadData = TRUE, reDownloadTrialData = 
 }
 
 ## JPN: run test script
-run_workshop_test <- function(){
+run_workshop_test <- function(workingDir="default"){
   # copied from before:
   library("rgdal")
   library("plyr")
@@ -886,8 +887,25 @@ run_workshop_test <- function(){
   #set margins
   par(mar=c(1,1,1,1))
 
-
-  if (!(dir.exists(paste0(getwd(),"/test_images")))){
+  # create working directory
+  if (workingDir != "default"){ # if not default, store there
+    print(paste0('You are going to install things in ', workingDir, "/WorkingDir"))
+    if (!(dir.exists(paste0(workingDir,"/WorkingDir")))){ 
+      dir.create(paste0(workingDir,"/WorkingDir"))
+      # set our working directory to what we have just created
+      setwd(paste0(workingDir,"/WorkingDir"))
+    }
+  } else { # default
+    print("Creating file: WorkingDir")
+    if (!(dir.exists(paste0(getwd(),"/WorkingDir")))){ 
+      dir.create(paste0(getwd(),"/WorkingDir"))
+      # set our working directory to what we have just created
+      setwd(paste0(getwd(),"/WorkingDir"))
+    }
+  }
+  
+  # make test images
+  if (!(dir.exists(paste0(getwd(),"/test_images")))){ # where to save test images, create dir if not there
     dir.create(paste0(getwd(),"/test_images"))
   }
 
@@ -922,7 +940,6 @@ run_workshop_test <- function(){
   # plot #3
   jpeg(paste0(getwd(),"/test_images/plot3_gstat.jpg"))
   # test gstat
-  library(sp)
   data(meuse)
   coordinates(meuse) = ~x+y
   data(meuse.grid)
