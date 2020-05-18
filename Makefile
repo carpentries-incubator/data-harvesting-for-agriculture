@@ -77,7 +77,6 @@ RMD_DST_EXTRAS = $(patsubst _extras_rmd/%.Rmd,_extras/%.md,$(RMD_SRC_EXTRAS))
 # Lesson source files in the order they appear in the navigation menu.
 MARKDOWN_SRC = \
   index.md \
-  CODE_OF_CONDUCT.md \
   setup.md \
   $(sort $(wildcard _episodes/*.md)) \
   reference.md \

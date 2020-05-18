@@ -1,6 +1,6 @@
 # Contributing
 
-[The Carpentries][c-site] ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and [Library Carpentry][lc-site]) are open source projects,
+Data Harvesting for Agriculture is an open source project,
 and we welcome contributions of all kinds:
 new lessons,
 fixes to existing material,
@@ -14,8 +14,6 @@ you agree that we may redistribute your work under [our license](LICENSE.md).
 In exchange,
 we will address your issues and/or assess your change proposal as promptly as we can,
 and help you become a member of our community.
-Everyone involved in [The Carpentries][c-site]
-agrees to abide by our [code of conduct](CODE_OF_CONDUCT.md).
 
 ## How to Contribute
 
@@ -82,22 +80,6 @@ Reviews from novices and newcomers are particularly valuable:
 it's easy for people who have been using these lessons for a while
 to forget how impenetrable some of this material can be,
 so fresh eyes are always welcome.
-
-## What *Not* to Contribute
-
-Our lessons already contain more material than we can cover in a typical workshop,
-so we are usually *not* looking for more concepts or tools to add to them.
-As a rule,
-if you want to introduce a new idea,
-you must (a) estimate how long it will take to teach
-and (b) explain what you would take out to make room for it.
-The first encourages contributors to be honest about requirements;
-the second, to think hard about priorities.
-
-We are also not looking for exercises or other material that only run on one platform.
-Our workshops typically contain a mixture of Windows, macOS, and Linux users;
-in order to be usable,
-our lessons must run equally well on all three.
 
 ## Using GitHub
 
