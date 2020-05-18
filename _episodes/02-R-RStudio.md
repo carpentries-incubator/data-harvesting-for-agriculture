@@ -609,7 +609,7 @@ Note that we can call the `head` function without this parameter and it will run
 > head(stats::ftable(Titanic))
 > </pre>
 > 
-> <hr /><div style="text-align: center;">[Package <em>utils</em> version 3.6.2 <a href="00Index.html">Index</a>]</div>
+> <hr /><div style="text-align: center;">[Package <em>utils</em> version 3.6.3 <a href="00Index.html">Index</a>]</div>
 {: .callout}
 -->
 
