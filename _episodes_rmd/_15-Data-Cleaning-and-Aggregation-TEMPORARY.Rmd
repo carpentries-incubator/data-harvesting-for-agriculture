@@ -1,0 +1,462 @@
+---
+title: "Ag Carpentry - Data Cleaning and Aggregation"
+author: "Aolin Gong"
+date: "11/4/2019"
+output: html_document
+include_overview: true
+questions:
+ - Why is it important to clean the data before proceeding with analysis?
+ - How can I quickly and efficiently identify problems with my data?
+ - How can identify and remove incorrect values from my dataset?
+objectives:
+ - Confirm that data are formatted correctly
+ - Enumerate common problems encountered with data formatting.
+ - Visualize the distribution of recorded values
+ - Identify and remove outliers in a dataset using R and QGIS
+ - Correct other issues specific to how data were collected
+keypoints:
+ - Comparison operators such as `>`, `<`, and `==` can be used to identify values that exceed or equal certain values.
+ - All the cleaning in the arcgis/qgis can be done by r, but we need to check the updated shapefile in Arcgis/qgis. Including removing observations that has greater than 2sd harvester speed, certain headlands, or being too close to the plot borders
+ - The `filter` function in `dplyr` removes rows from a data frame based on values in one or more columns.
+source: Rmd
+---
+
+```{r setup, include=FALSE}
+library(sf)
+library(fasterize)
+library(gstat)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+library(knitr)
+library(tmap)
+library(ggplot2)
+library(gridExtra)
+library(measurements)
+library(knitr)
+library(httr)
+source("../bin/chunk-options.R")
+source("./functions.R")
+```
+
+## Data cleaning and aggregation in the DIFM project
+
+After harvesting, we collect all the data needed for analysis, and in advance of
+running analysis, we clean and organize the data in order to remove machinary
+error and such. The common data that we collect for analysis includes yield
+(dry), seeding rate as-planted, nitrogen rate as-applied, electronic
+conductivity (EC), SSURGO, soil test, weather, etc. In particular, we need to
+clean yield data, as-planted data, as-applied data, and sometimes EC data. For
+public data, we simply import them into our aggregated data set
+without cleaning, since they have already been cleaned before being released to
+the public.
+
+## Introduction to data cleaning
+
+Data cleaning is the process of removing or correcting errors in a dataset, and
+is very important to do before any sort of analysis.  For example, say you were
+manually entering yield values into a spreadsheet, and then wanted to take the
+average of all values entered.  If you accidentally typed an extra zero into
+some of the cells, the average that you calculate is going to be much higher
+than the true average.
+
+```{r}
+real_data <- c(900, 450, 200, 320)
+error_data <- c(900, 4500, 200, 320)
+mean(real_data)
+mean(error_data)
+```
+
+Therefore, we want to check for values like this before we do anything else.  If
+the values were manually entered and the intended value is obvious, they can be
+manually corrected.  For larger scale datasets, however, it is often most
+practical to discard problematic data.
+
+For example, we can plot our `error_data` and look for values that may look off:
+
+```{r}
+plot(error_data) # use plot function on error rate
+```
+By eye we can see the 2nd measurement (at `index = 2`) looks a little fishy.  In this case
+we might want to apply a cut-off in our data so that we ignore all measurements above a
+certain threshold when we do calculations like taking the mean of our data.
+
+One way to do this is by setting any "weird" values to `NA`:
+
+```{r}
+error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
+error_data
+```
+
+Now we can take a mean, with removing `NA`'s as we do it and recover a mean that is closer to the correct value:
+```{r}
+mean(error_data, na.rm=TRUE)
+```
+
+
+Data cleaning is a major reason why there needs to be good communication between
+data scientists and end users, in agriculture or any other discipline.  As the person
+who generates the data, you know best where the likely sources of error might be.
+Those sources of error might be something that someone who sits behind a computer
+all day would never think of.  You also know best what values are reasonable,
+and what values are suspiciously high or low.
+
+For different types of data, we have different ways to clean them. Here are the
+main concerns of the original data for the major variables:
+
+Yield, as-planted, and as-applied data:
+
+* We remove observations where the harvester/planter/applicator is moving too slow or too fast.
+* We remove observations on the edges of the plot.
+* We remove observations that are below or above three standard deviations from the mean.
+* We then aggregate them onto our units of observation. <font color="magenta">Do they know what these units are? I don't have a frame of refrence for this terminology</font>
+
+<font color="magenta">This comes up in the 03 or 04 but we need to define what a standard devation is</font>
+ 
+*For aggregation, we need to generate subplots (units of observation) of the
+original trial design, and then aggregate the cleaned datasets for different
+variables onto the subplots.  Once we have one value per variable per subplot,
+we can begin examining the relationships between the variables.*
+
+<font color="magenta">Have steps listed somewhere before we start</font>
+
+## Step 1: Importing and transforming our shapefile datasets
+
+<!-- Let's apply this data-cleaning thinking to measurements of yields.  First, we will aggregate our yields into a grid overlayed on top of our boundary shapefile and look for measurements on this grid that seem too low or to high, and flag these as "outliers" of our dataset in our data-cleaning process. -->
+
+The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
+
+```{r boundary}
+boundary <- read_sf("data/boundary.gpkg")
+```
+What is the current coordinate reference system of this object?
+```{r boundary2}
+st_crs(boundary)
+```
+Let's transform it to the UTM projection & check out its new coordinate reference system:
+```{r boundary3}
+boundary_utm <- st_transform_utm(boundary)
+st_crs(boundary_utm)
+```
+Now we can see that the `+proj=longlat` has changed to `+proj=utm` and gives us that we are in UTM zone #17.
+
+In the last episode, we also imported our trial design, which we will do again here:
+```{r}
+trial <- read_sf("data/trial.gpkg")
+```
+
+Let's look at the coordinate reference system here as well:
+```{r}
+st_crs(trial)
+```
+<font color="magenta">Do we have a figure showing lat/long to UTM coversion somewhere?  I can add this</font>
+
+Our file is already in the UTM projection, but if we have one that is not we can convert this as well with:
+```{r}
+trial_utm <- st_transform_utm(trial)
+```
+
+> ## Exercise: Transform the yield data
+> Read in the yield shape file, look at its current CRS and transform it into the UTM projection.  Call this new, transformed variable `yield_utm`.
+>
+> > ## Solution
+> > First, load the data:
+> > ```{r}
+> > yield <- read_sf("data/yield.gpkg")
+> > ```
+> > Then take a look at the coordinate system:
+> > ```{r}
+> > st_crs(yield)
+> > ```
+> > And finally transform into UTM:
+> > ```{r}
+> > yield_utm <- st_transform_utm(yield)
+> > ```
+> >
+> {: .solution}
+{: .challenge}
+
+Finally, let's transform our abline file.  We read in the file:
+```{r}
+abline = st_read("data/abline.gpkg")
+```
+Check out its current coordinate reference system:
+```{r}
+st_crs(abline)
+```
+And transform it to UTM:
+```{r}
+abline_utm = st_transform_utm(abline)
+```
+
+## Step 2: Clean the yield data
+
+Now that we have our shapefiles in the same UTM coordinate system reference frame, we will apply some of our knowledget of data cleaning to take out weird observations.  We'll do this in 2 steps.
+
+First, we will take out observations we *know* will be weird because they are taken from the boarders
+
+
+# OLD IS BELOW
+
+The following steps read in a trial design shapefile, transform the projection
+of file to utm projection, and then save the file in a geopackage. In many
+cases, the trial design shapefile is already in the correct form, and we are
+just checking the file in advance of creating the subplots of the trial design.
+
+```{r}
+trial = read_sf("data/trial.gpkg")
+st_crs(trial)
+
+trialutm = trial
+```
+
+After we read in the trial design file, we use a function to generate the
+subplots for this trial. Because the code for generating the subplots is
+somewhat complex, we have included it as a
+[supplementary file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/making%20subplots.R).
+For now, we will import a shapefile that already has the subplot boundaries
+defined, and will convert the projection to UTM.
+
+```{r }
+boundary_grid_utm = subset(boundary_utm, Type == "Trial")
+plot(boundary_grid_utm$geom)
+
+abline = st_read("data/abline.gpkg")
+st_crs(abline)
+abline_utm = st_transform_utm(abline)
+
+# 24 m wide trial plots 
+width = m_to_ft(24)
+design_grids_utm = make_grids(boundary_grid_utm, abline_utm, long_in = 'NS', short_in = 'EW', length_ft = width, width_ft = width)
+st_crs(design_grids_utm) = st_crs(boundary_grid_utm)
+
+tm_shape(design_grids_utm) + tm_borders(col='blue')
+
+trial_grid_utm = st_intersection(boundary_grid_utm, design_grids_utm)
+tm_shape(trial_grid_utm) + tm_borders(col='blue')
+```
+
+
+
+
+### Plotting our transformed shapefiles
+
+After we read in the trial design files, we use a function to generate the
+subplots for this trial. Because the code for generating the subplots is
+somewhat complex, we have included it as a
+[supplementary file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/making%20subplots.R).
+For now, we will import a shapefile that already has the subplot boundaries
+defined, and will convert the projection to UTM.
+
+Here, we graph the subplots that we generated. Note that color indicates the ID
+number of the subplots, which starts from 1, at the right upper corner. We can
+check how many units of observation we are generating with this subplots shapefile.
+
+## Importing the yield data and removing border observations
+
+After confirming the subplots we generated (which will become our units of
+observation), we bring the data sets for different variable in for cleaning.
+For example, we will import and clean the yield data.  To match our subplots,
+boundary, and trial design, we will also convert the yield data to UTM.
+
+```{r yield}
+yield <- read_sf("data/yield.gpkg")
+yield_utm <- st_transform_utm(yield)
+```
+
+We check the distribution of the yield data as we clean them to monitor the
+change made by each cleaning step. First, view the distrubution of the original
+data.
+
+```{r vis yield data}
+hist(yield_utm$Yld_Vol_Dr)
+```
+
+As you can see, we have some extreme values that we will want to get rid of.
+
+We need to remove the yield observations that are on the border of the plots,
+and also at the end of the plots.  The reason for this is that along the edge
+of a subplot, the harvester is likely to measure a mixture of two subplots,
+and therefore the data won't be accurate for either subplot.  Additionally,
+plants growing at the edge of the field are likely to suffer from wind and other
+effects, lowering their yields.
+
+First we will use the function `st_buffer` to create a buffer for each plot.
+We set the buffer inside the trial plots to be 4 meters to the edges, and any
+yield observations that are within a 4-meter distance to the edge of the plots
+are considered on the border.
+
+Next, we determine which yield observations are inside the buffer as using the
+`st_over` function, and mark those observations as "out". Finally, we
+remove the yield observations that are not in the buffer zone.
+
+```{r observations on border}
+yield_clean <- clean_buffer(trialutm, 15, yield_utm)
+map_points(yield_clean, "Yld_Vol_Dr", "Yield")
+```
+
+Here again, we check the distribution of cleaned yield.
+
+```{r view the distribution of yield data after taking out the yield points on the boader}
+hist(yield_clean$Yld_Vol_Dr)
+```
+
+## Removing outliers
+
+Even if we don't know the source of error, we can tell that some observations
+are incorrect just because they are far too small or too large.  How can we
+remove these in an objective, automatic way?  For yield and our other variables,
+we will calculate the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
+to get an idea of how much the observations tend to be different from the mean.
+Then, we will remove observations that are three standard deviations higher or
+lower than the mean.  If the data followed a normal distribution (*i.e* a bell
+curve), this would eliminate about one in 1000 data points.  In a real dataset,
+we can be fairly certain that those points are errors.  Our cutoff of three
+standard deviations is arbitrary, which is why we have looked at histograms of
+the data to help confirm that our cutoff makes sense.
+
+In the next few steps, we use `sd` and `mean` to calculate the standard
+deviation and mean of the yield distribution, respectively. Then we remove the
+yield observations that are greater than mean + 3\*sd or less than mean - 3\*sd. 
+
+```{r 3sd}
+yield_clean <- clean_sd(yield_clean, yield_clean$Yld_Vol_Dr)
+```
+
+Here again, we check the distribution of cleaned yield after taking out the
+yield observations that are outside the range of three standard deviations from
+the mean.
+
+```{r view the distribution of cleaned yield data}
+hist(yield_clean$Yld_Vol_Dr)
+```
+
+Finally, we save cleaned file into a geopackage.
+
+```{r save yield}
+st_write(yield_clean, "data/yield_clean.gpkg", layer_options = 'OVERWRITE=YES')
+```
+
+### Discussion
+
+What do you think could have caused these outliers (extreme values)?  If you
+were working with yield data from your own fields, what other sources of error
+might you want to look for?
+
+### Exercise
+
+Import the shapefile for nitrogen as-applied.  Remove observations from the
+buffer zone, as well as observations more then three standard deviations from
+the mean.
+
+##  Yield Interpolation/Aggregation
+
+Interpolation is the estimation of a value at a point that we didn't measure
+that is between two or more points that we did measure.  Aggregation is the
+combining of multiple data points into a single data point.  What we'll do here
+is a combination of interpolation and aggregation, where we will use multiple
+measurements across each subplot to generate one value for the subplot. In this
+case we will take the median value within each subplot.  Typically when the data
+are not normally-distributed or when there are errors, the median is more
+representative of the data than the mean is.  Here we will interpolate and
+aggregate yield as an example.  The other variables can be processed in the same
+way.
+
+**Question from Lindsay: Why do we need to covert class here?  Please provide an
+explanation.**
+
+```{r sf2sp}
+grid_sp <- as(trial_grid_utm, "Spatial")
+crs(grid_sp)
+```
+
+**Explain more of what is happening in this code below**
+**Why is one line commented out?**
+
+```{r aggregate yield data}
+merge <- sp::over(grid_sp, as(yield_clean[,"Yld_Vol_Dr"], "Spatial"), fn = median)
+grid_sp@data <- cbind(merge, grid_sp@data)
+
+subplots_data <- st_as_sf(grid_sp) 
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
+```
+
+### Exercise
+
+Interpolate and aggregate nitrogen as-applied so that you have one value per
+sub-plot.
+
+**Solution**:
+
+```{r}
+asapplied <- st_read("data/asapplied.gpkg")
+asapplied_utm <- st_transform_utm(asapplied)
+
+conv_unit((24/2)*0.8, 'm', 'ft')
+asapplied_clean <- clean_sd(asapplied_utm, asapplied_utm$Rate_Appli)
+
+merge <- sp::over(grid_sp, as(asapplied_clean[,"Rate_Appli"], "Spatial"), fn = median)
+
+grid_sp@data <- cbind(merge, grid_sp@data)
+head(grid_sp@data)
+```
+
+Processing the other variables:
+
+```{r}
+#asplanted and elevation
+asplanted <- st_read("data/asplanted.gpkg")
+asplanted_utm <- st_transform_utm(asplanted)
+
+conv_unit((24/2)*0.8, 'm', 'ft')
+asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_)
+
+asplanted_clean <- clean_buffer(trialutm, 15, asplanted_clean)
+
+map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
+
+merge <- sp::over(grid_sp, as(asplanted_clean[,c("Rt_Apd_Ct_", "Elevation_")], "Spatial"), fn = median)
+
+grid_sp@data <- cbind(merge, grid_sp@data)
+head(grid_sp@data)
+
+subplots_data <- st_as_sf(grid_sp) 
+
+st_write(subplots_data, "data/data.gpkg", layer_options = 'OVERWRITE=YES')
+map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
+
+plot(subplots_data$Elevation_, subplots_data$Yld_Vol_Dr)
+plot(subplots_data$Rt_Apd_Ct_, subplots_data$Yld_Vol_Dr)
+plot(subplots_data$Rate_Appli, subplots_data$Yld_Vol_Dr)
+
+model <- lm(Yld_Vol_Dr ~ Rt_Apd_Ct_ +  Rate_Appli + Elevation_, data = subplots_data)
+summary(model)
+```
+
+## Conclusion
+
+Now, we have one value per subplot for all of our variables, and because we
+cleaned the data first, we can be confident that value is a good representation
+of the subplot.
+
+**Add code here to make a scatter plot of as-applied vs. yield, now that we
+have one value for each for each subplot**
+
+####Other Files To Be Cleaned/Aggregated
+1. As-applied Data
+2. As-planted Data
+4. EC Data
+5. Elevation Data (from Internet or Trial Yield/As-planted file)
+6. Topography Data (Slope and Aspect generated from Elevation Data)
+7. SSURGO Data (Specify the soil content)
+8. Weather Data (daily/weekly/monthly data)
+
+####Supplementary Code/Function
+1. Code to generate the suplots(unit of observations) of the orginal trial design.
+2. Code to clean yield data.
+3. Code to generate Topography data.
+4. Code to process SSURGO data.
+5. Code to download weather data.
