@@ -5,47 +5,35 @@ title: Setup
 
 ## Setup instructions
 
-Put together, there are about 4 to 5 Gb of software and data to install.
-This takes some time over most home network connections, so we are creating installed USB drives 
-that you can copy from.
+Put together, there are about 4 to 5 Gb of software and data to install.  This takes some time over most home network connections, so we also provide USB drives with pre-installed data that you can copy the necessary files from.
 
-**We will have time to do this installation process together at the start of the workshop**, but if you want to try on your own before, please see the "Manual Installation in advance" section at the bottom of this page.
+**We have scheduled some time to complete the basic installation process together at the start of the workshop (about 30 minutes total)**, but if you want to try on your own before, please see the "Manual Installation in advance" section at the bottom of this page.
 
-<!-- Windows installs (3-4 hours) take significantly longer than Mac (~20 minutes), so if you have a Windows machine and want to try to install anything before the workshop, be aware it will take some time. -->
-
-**R** and **RStudio** are separate programs. R is the
-underlying statistical computing environment, but using R alone is no
-fun. RStudio is a graphical integrated development environment (IDE) that makes
-using R much easier and more interactive. You need to install R before you
-install RStudio. Once installed, because RStudio is an IDE, RStudio will run R 
-in the background.  You do not need to run it separately.
+**R** and **RStudio** are separate programs. R is the underlying statistical computing software, but using R alone is more difficult and obscure. RStudio is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. You need to install R before you install RStudio. Once installed, because RStudio is an IDE, RStudio will run R in the background.  You do not need to run it separately.
 
 If you want to install on your own, Mac installation time should be much faster than what we've experienced on the Windows side:
- * Macs install the software in about 20 minutes
- * Windows install the software from scratch in 3-4 hours, but can be copied from one of our USB disks in about 10-20 minutes.  Note for Windows users: **If you want to take the software with you, you will need to copy it to your computer. The Center for Digital Agriculture needs the USB drives back at the end of the workshop.**
+
+- Macs tend to install the software quickly, in about 20 minutes
+- Windows machines install the software from scratch in 3–4 hours.  You can instead copy the programs from one of our USB disks in 10–20 minutes.  **If you want to take the software with you, you will need to copy it to your computer. The Center for Digital Agriculture needs the USB drives back at the end of the workshop.**
 
 
 ## Mac: Installation Instructions
 
-### Preferred Method: Internet-based Installation Instructions
+### Manual Installation (Preferred))
 
-<!--For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](https://data-carpentry-for-agriculture.github.io/trial-lesson/10-Installing-R-on-Mac/index.html).-->
-For Macs, you can follow the instructions at ["Installing R and R Studio on a Mac"](extra-Installing-R-on-Mac/index.html).
+For Macs, you can follow the instructions at ["Installing R and RStudio on a Mac"](extra-Installing-R-on-Mac/index.html).
 
-### Alternate: USB Installation Instructions
+### USB-Based Installation
 
 You can install from the USB drives at the workshop to save download time.
 Macs won't allow you to run software from a USB drive the way Windows will, but we've copied the installation files here to save you the downloading time.
 
 
-
 ## Windows: Installation instructions
 
-### Preferred Method: USB-based options
+### USB-Based Installation (Preferred)
 
-**Note: If you want to take the software with you, we recommend that you copy it to your
-computer's C drive. The Center for Digital Agriculture needs the USB drives back
-at the end of the workshop.**
+**Note: If you want to take the software with you, we recommend that you copy it to your computer's `C:` drive. The Center for Digital Agriculture needs the USB drives back at the end of the workshop.**
 
 The Windows manual installation process has taken 3-4 hours to complete in our test runs, so we have two much-faster options available for you based on our USB drives which should only take about 10-20 minutes.
 
@@ -55,54 +43,37 @@ The Windows manual installation process has taken 3-4 hours to complete in our t
 
 #### Steps to install using a USB drive:
 
-##### #1. Use the "start menu" folder for where you want to use it
-When these USB drives were created, they were assigned the letter D on a Windows computer.
-However, if you copy to your own computer's hard drive, that will probably be C.
+1.  Copy the USB folder data to the correct hard drive.
 
-On Windows, you can skip the 5 Gb download process by copying the DataHarvestingWin folder
-to the root level of your C drive and running it from  there. (Your new path should be
-C:\DataHarvestingWin\ as opposed to the old path of D:\DataHarvestingWin\.) 
+    When these USB drives were created, they were assigned the letter `D:` on a Windows computer.  However, if you copy to your own computer's hard drive, that will probably be `C:`.
 
-##### #2. Launching the programs 
-Within DataHarvestingWin, the **folders with Start Menu in their names** contain shortcuts
-to run the software.
+    On Windows, you can skip the 5 Gb download process by copying the `DataHarvestingWin` folder to the root level of your `C:` drive and running it from  there. (Your new path should be `C:\DataHarvestingWin` as opposed to the old path of `D:\DataHarvestingWin`.)
 
-Choose the version that corresponds to the drive you're planning to run it from --
-C if you copy the folders to your own computer, and probably D if you run from the USB
-drive. 
+2.  Launch the programs
 
-If you're running from USB but it wasn't assigned the letter D, find:
+    Within DataHarvestingWin, the **folders with Start Menu in their names** contain shortcuts to run the software.
 
- DataHarvestingWin/ProgramFiles/RStudio/bin/rstudio.exe
+    Choose the version that corresponds to the drive you're planning to run it on:  `C:` if you copy the folders to your own computer, and `D:` (most likely) if you run from the USB drive.
 
-and double-click it to run.
+    If you're running from USB but it wasn't assigned the letter D, find:
 
-The first time you run R Studio, you'll be prompted to select your installation of R. 
+        DataHarvestingWin/ProgramFiles/RStudio/bin/rstudio.exe
 
-1. Choose the **"Choose a specific version of R"** item next to the large text box.
-2. Use the **Browse** button to navigate to:
+    and double-click it to run.
 
- DataHarvestingWin/ProgramFiles/R/R-3.6.2/ 
+    The first time you run RStudio, you'll be prompted to select your installation of R.
 
-and choose **Select Folder.**
+    1. Choose the **"Choose a specific version of R"** item next to the large text box.
+    2. Use the **Browse** button to navigate to:
 
-3. You'll be given a choice between 32 bit and 64 bit; either should work, but 64 bit
-is likely to be what your computer is capable of.
+            DataHarvestingWin/ProgramFiles/R/R-3.6.2/
 
-If the Start folder's shortcut doesn't work for you in QGIS, and you get an error message about a 
-missing DLL, there's a location mismatch to resolve. Ask a class helper for assistance 
-in switching the .env file that you're using.
+        and choose **Select Folder.**
 
-### Alternate Method: Manual installation
+    3. You have a choice between 32-bit and 64-bit; either should work, but 64-bit is more likely to fit a computer manufactured in the past decade.
 
-You can follow along with the installation instructions at ["Installing R and R Studio on a Windows"](extra-Installing-R-on-Windows/index.html) page.  Note, this will take several hours to complete on a Windows machine.
+    If the Start folder's shortcut doesn't work for you in QGIS, and you get an error message about a missing DLL, there's a location mismatch to resolve. Ask a class helper for assistance in switching the `.env` file that you're using.
 
-<!-- JPN: old - ["Installing R and R Studio on Windows"](https://data-carpentry-for-agriculture.github.io/trial-lesson/11-Installing-R-on-Windows/index.html) -->
+### Manual Installation
 
-<hr>
-
-### Manual installation in advance
-If you'd like to get started before the workshop, and don't mind the download and installation time, you can also follow the manual installation instructions available here:
-
-* ["Installing R and R Studio on Windows"](extra-Installing-R-on-Windows/index.html)
-* ["Installing R and R Studio on a Mac"](extra-Installing-R-on-Mac/index.html)
+You can follow the installation instructions at ["Installing R and RStudio on a Windows"](extra-Installing-R-on-Windows/index.html) page.  This may take several hours to complete on a Windows machine, and you shouldn't plan on having time to complete this during the workshop itself.
