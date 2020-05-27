@@ -3,7 +3,7 @@ layout: page
 title: Setup
 ---
 
-## Setup instructions
+## Setup Instructions
 
 Put together, there are about 4 to 5 Gb of software and data to install.  This takes some time over most home network connections, so we also provide USB drives with pre-installed data that you can copy the necessary files from.
 

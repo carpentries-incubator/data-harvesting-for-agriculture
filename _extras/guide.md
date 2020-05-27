@@ -3,20 +3,57 @@ layout: page
 title: "Instructor Notes"
 ---
 
-## Dataset
+## Setup Instructions
 
-The data used for this lesson are in the figshare repository at: <https://figshare.com/articles/SAFI_Survey_Results/6262019>.
+We have found that setup can take an inordinately long amount of time, particularly on Windows machines which require a large download to install R and RStudio.  The setup instructions presume that the instructor or host will provide USB drives pre-loaded with the necessary materials for both Windows and Mac machines.  (We anticipate a vanishingly small segment of the farming community to be using Linux on their daily machines.)
 
-This lesson uses `SAFI_clean.csv`. The direct download link for this file is:
-<https://ndownloader.figshare.com/files/11492171>.
+These USB drives should contain the following, updated for current versions of the packages.
 
-When time comes in the lesson to use this file, we recommend that the
-instructors, place the `download.file()` command in the Etherpad, and that the
-learners copy and paste it in their scripts to download the file directly from
-figshare in their working directory. . If the learners haven't created the
-`data/` directory and/or are not in the correct working directory, the
-`download.file` command will produce an error. Therefore, it is important to use
-the stickies at this point.
+```
+.
+├── DataHarvestingMac
+│   ├── PackageTarFiles
+│   │   ├── broom_0.5.4.tgz
+│   │   ├── data.table_1.12.8.tgz
+│   │   ├── daymetr_1.4.tgz
+│   │   ├── dplR_1.7.0.tgz
+│   │   ├── FedData_2.5.7.tgz
+│   │   ├── ggplot2_3.2.1.tgz
+│   │   ├── gstat_2.0-4.tgz
+│   │   ├── list_of_locations_for_packages.txt
+│   │   ├── lubridate_1.7.4.tgz
+│   │   ├── measurements_1.4.0.tgz
+│   │   ├── raster_3.0-12.tgz
+│   │   ├── rgdal_1.4-8.tgz
+│   │   ├── sf_0.8-1.tgz
+│   │   └── tmap_2.3-2.tgz
+│   ├── qgis-macos-pr.dmg
+│   ├── R-3.3.3.pkg
+│   ├── R-3.6.2.pkg
+│   ├── RStudio-1.2.5033.dmg
+│   └── WorkingDir
+│       └── data
+├── DataHarvestingWin
+│   ├── C-path Start links
+│   │   ├── QGIS 3.10 Start Menu links
+│   │   └── R and R Studio Start Menu links
+│   ├── D-path Start links
+│   │   ├── QGIS 3.10 Start Menu links
+│   │   └── R and R Studio Start Menu links
+│   ├── ProgramFiles
+│   │   ├── QGIS 3.10
+│   │   ├── R
+│   │   └── RStudio
+│   ├── StandaloneInstallers
+│   │   ├── QGIS-OSGeo4W-3.10.2-2-Setup-x86_64.exe
+│   │   ├── R-3.6.2-win.exe
+│   │   └── RStudio-1.2.5033.exe
+│   └── WorkingDir
+│       └── data
+├── README.txt
+```
+
+<!-- TODO make a script for this and a GitHub repo -->
 
 ## RStudio and Multiple R Installs
 
@@ -81,7 +118,7 @@ The two main goals for this lessons are:
 * For this lesson make sure that learners are comfortable using pipes.
 * There is also sometimes some confusion on what the arguments of `group_by`
   should be, and when to use `filter()` and `select()`.
-  
+
 ### Visualizing data with ggplot2
 
 * This lesson is a broad overview of ggplot2 and focuses on (1) getting familiar
@@ -101,7 +138,7 @@ Alternatively you can go to CRAN and download the package and install from ZIP
 file
 -   Tools > Install Packages > set to 'from Zip/TAR'
 
-It is important that R, and the R packages be installed locally, not on a network drive. If a learner is using a machine with multiple users where their account is not based locally this can create a variety of issues (This often happens on university computers). Hopefully the learner will realize these issues before hand, but depending on the machine and how the IT folks that service the computer have things set up, it may be very difficult to impossible to make R work without their help. 
+It is important that R, and the R packages be installed locally, not on a network drive. If a learner is using a machine with multiple users where their account is not based locally this can create a variety of issues (This often happens on university computers). Hopefully the learner will realize these issues before hand, but depending on the machine and how the IT folks that service the computer have things set up, it may be very difficult to impossible to make R work without their help.
 
 If learners are having issues with one package, they may have issues with another. It's often easier to make sure they have all the needed packages installed at one time, rather then deal with these issues over and over. [Here is a list of all necessary packages for these lessons.](https://github.com/datacarpentry/R-ecology-lesson/blob/master/needed_packages.R)
 

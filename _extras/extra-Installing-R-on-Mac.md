@@ -13,10 +13,6 @@ source: Rmd
 ---
 
 
-<!-- JPN: updated fig path here manually for plots to show, it turns out this is unneccesary though-->
-
-
-
 # Installing R and RStudio
 
 ## Before you start
@@ -87,7 +83,7 @@ We are not going to use R this way often, as we will use an integrated environme
 
 <img src="../figure/Rstudio_download.png" width="50%">
 
-Click on the RStudio icon and drag it into the Applications folder. 
+Click on the RStudio icon and drag it into the Applications folder.
 
 RStudio is now **installed** on your computer.
 
@@ -122,12 +118,7 @@ A window titled "RStudio" should pop up, looking something like this:
 3. To exit RStudio, click "RStudio" in the menu bar, then click "Quit RStudio". Alternatively, use the `Cmd-Q` shortcut. If prompted to save the workspace, do not save it.
 
 
-
-
-
-
-
-# Installing the geospatial and federal data packages
+## Installing the geospatial and federal data packages
 
 When RStudio is open and working, create a new R script file.
 
@@ -151,19 +142,6 @@ And follow it by pressing the `Source` button.  You might get some red words sho
 This looks like:
 <img src="../figure/sourceInstallScript.png" width="75%">
 
-<!-- JPN: streamlined
-* When RStudio is open and working, create a new R script file and copy in the 
-contents of [this installation script file](https://github.com/data-carpentry-for-agriculture/trial-lesson/blob/gh-pages/_episodes_rmd/package_install_script.R). 
-
-Here's where to make a new script:
-
-<img src="../figure/mac_open_new_script.png" width="50%">
-
-Once you copy and paste this in your script window, you can press the `Source` button to install the packages:
-
-<img src="../figure/copy_install_script.png" width="75%">
--->
-
 * If the red stop sign in the top right corner of the console is still highlighted, an installation process is still running.
 * If you see a blue > in the console , you're ready to go.
 
@@ -174,8 +152,8 @@ Alternatively, you can copy the following into the script window or console:
 
 ~~~
 install.packages("ggplot2")
-install.packages("rgdal") 
-install.packages("dplyr") 
+install.packages("rgdal")
+install.packages("dplyr")
 install.packages("sf")
 install.packages("gstat")
 install.packages("tmap")
@@ -189,7 +167,7 @@ install.packages("broom")
 ~~~
 {: .language-r}
 
-## Checking that the packages installed correctly
+### Checking that the packages installed correctly
 
 We have a test script to make sure all packages have installed correctly.  To run this test script, we will "Source" it's location like we did above for the package installation script.
 
@@ -223,12 +201,12 @@ You can click on each of these to open them up.  Here is a grid of what each one
 
 | &nbsp;    |  &nbsp;  |     &nbsp; |
 |:---------:|:-------:|:--------:|
-| plot1_ggplot2.jpg <br> <img src="../figure/test_images/plot1_ggplot2.jpg" width="250px"> | plot2_sf.jpg <br> <img src="../figure/test_images/plot2_sf.jpg" width="250px"> | plot3_gstat.jpg <br> <img src="../figure/test_images/plot3_gstat.jpg" width="250px"> | 
-| plot4_tmap.jpg <br> <img src="../figure/test_images/plot4_tmap.jpg" width="250px"> | plot5_daymetr.jpg <br> <img src="../figure/test_images/plot5_daymetr.jpg" width="250px"> | plot6_ssurgo.jpg <br> <img src="../figure/test_images/plot6_ssurgo.jpg" width="250px"> | 
-| plot7_raster.jpg <br> <img src="../figure/test_images/plot7_raster.jpg" width="250px"> | plot8_datatable.jpg <br> <img src="../figure/test_images/plot8_datatable.jpg" width="250px"> | plot9_broom.jpg <br> <img src="../figure/test_images/plot9_broom.jpg" width="250px"> | 
+| plot1_ggplot2.jpg <br> <img src="../figure/test_images/plot1_ggplot2.jpg" width="250px"> | plot2_sf.jpg <br> <img src="../figure/test_images/plot2_sf.jpg" width="250px"> | plot3_gstat.jpg <br> <img src="../figure/test_images/plot3_gstat.jpg" width="250px"> |
+| plot4_tmap.jpg <br> <img src="../figure/test_images/plot4_tmap.jpg" width="250px"> | plot5_daymetr.jpg <br> <img src="../figure/test_images/plot5_daymetr.jpg" width="250px"> | plot6_ssurgo.jpg <br> <img src="../figure/test_images/plot6_ssurgo.jpg" width="250px"> |
+| plot7_raster.jpg <br> <img src="../figure/test_images/plot7_raster.jpg" width="250px"> | plot8_datatable.jpg <br> <img src="../figure/test_images/plot8_datatable.jpg" width="250px"> | plot9_broom.jpg <br> <img src="../figure/test_images/plot9_broom.jpg" width="250px"> |
 
 
-# Download data for this workshop
+## Download data for this workshop
 
 The final thing we need to do for this workshop is to download the data.  To do this, we need to run one more function.  To avoid re-running our test function, we can put a little `#` in front of this line.  So the code in our script will now look like:
 
@@ -246,24 +224,7 @@ If we navigate to our `WorkingDir` directory we will see that a folder called `d
 <img src="../figure/downloadData.png" width="80%">
 
 
-<!-- JPN this is in the intro
-
-### Checking that the packages installed correctly
-
-* After you've run the installation items, create a new R script file and copy in the 
-contents of [the package load and test file](https://raw.githubusercontent.com/data-carpentry-for-agriculture/trial-lesson/gh-pages/_episodes_rmd/package_load_and_test.R). 
-* Run each line by selecting it and clicking the Run key. Each test should let you know whether an error was encountered in the loading process.
-
-<img src="../figure/wininstall6-rstudiolibraryload.png" width="50%">
-
-An example of one of the tests' output:
-
-<img src="../figure/wininstall7-rstudiotmaptest.png" width="75%">
--->
-
-
-
-# Download and Install QGIS
+## Download and Install QGIS
 
 To download QGIS, visit [the QGIS download site](https://qgis.org/en/site/forusers/download.html) and choose one of the standalone installers. Be sure to check your Mac version to download the correct package.
 
