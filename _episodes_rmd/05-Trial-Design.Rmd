@@ -16,7 +16,6 @@ keypoints:
 source: Rmd
 ---
 
-
 ```{r setup, include=FALSE}
 library(knitr)
 library(sf)
@@ -45,170 +44,172 @@ source("../bin/chunk-options.R")
 source("functions.R")
 ```
 
-> ## Trial Design
-> To determine the most cost effective seed and fertilizer rates in a given field, we need to figure out:
->  * How much seed and nitrogen am I applying in this field now?
->  * How much does seed and nitrogen currently cost me?
->  * Should I apply more seed and/or nitrogen to improve profits?
->  * Could I apply less seed and/or nitrogen without reducing profits?
->
-> How do I minimize the cost of inputs (seed and nitrogen) while maximizing yield (bushels per acre) at the current cost of seed and nitrogen?
->
->
-> In order to help figure this out, we create a grid over the field in which we combine areas of high, medium, and low rates of seed and fertilizer independently of each other. Some of the potential variations on this grid include:
->  * High seed and high fertilizer
->  * Low seed and high fertilizer
->  * Low seed and low fertilizer
->  * Several middle-points between any of these combinations
->
-> Then we look at differences in yield data in the different areas of the field to determine:
->  * Whether more seed and more fertilizer made enough of a difference to be significant
->  * Where the most cost-effective seed and fertilizer rates are at the current prices of seed and nitrogen
->
-> For the next step, we will design our own experiments on the sample field. The only files we will need for the trial design are the boundary file and ab line.
-> 
-{: .textchunk}
+## Trial design
 
-> ## Read and transform shape files
-> 
-> We will start by reading in the shape files we need:
-> ```{r}
-> boundary <- read_sf("data/boundary.gpkg") # read in boundary
-> abline <- read_sf("data/abline.gpkg") # read in AB line
-> ```
-> 
-> Now let's check the coordinate references of our two files:
-> ```{r}
-> st_crs(boundary)
-> st_crs(abline)
-> ```
-> Since both of these are in lat/long and we want them in UTM, we'll transform them:
-> 
-> ```{r}
-> trialarea <- st_transform_utm(boundary)
-> abline_utm <- st_transform_utm(abline)
-> ```
-> 
-{: .textchunk}
+To determine the most cost effective seed and fertilizer rates in a given field, we need to figure out:
 
-> # Designing trials 
-> 
-> We need decide on the details of experiment design before we get into any of the code.  Relative parameters we need for the trial design include:
->  * plot dimensions
->  * number of treatments
->  * types of treatments, and
->  * treatment range.
-> 
-> ### Defining Parameters
-> In the following code, we are simply going to assign values to all the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not to worry about the consistency for the whole code.
-> 
-> Now let's design our grid with the following parameters:
-> ```{r}
-> width_in_meters <- 24 # width of grids is 24 meters
-> long_direction <- 'NS' # direction of grid that will be long in relation to AB line
-> short_direction <- 'EW' # direction of grid that will be short in relation to AB line
-> length_in_ft <- 180 # length of grids in feet
-> ```
-> 
-> ### Make Grids
-> We'll use our `make_grids` again function to generate this trial's grid:
-> ```{r}
-> width <- m_to_ft(24) # convert meters to feet
+ * How much seed and nitrogen am I applying in this field now?
+ * How much does seed and nitrogen currently cost me?
+ * Should I apply more seed and/or nitrogen to improve profits?
+ * Could I apply less seed and/or nitrogen without reducing profits?
+ * How do I minimize the cost of inputs (seed and nitrogen) while maximizing yield (bushels per acre) at the current cost of seed and nitrogen?
+
+
+In order to help figure this out, we create a grid over the field in which we combine areas of high, medium, and low rates of seed and fertilizer independently of each other. Some of the potential variations on this grid include:
+
+ * High seed and high fertilizer
+ * Low seed and high fertilizer
+ * Low seed and low fertilizer
+ * Several middle points between any of these combinations
+
+Then we look at differences in yield data in the different areas of the field to determine:
+
+ * Whether more seed and more fertilizer made enough of a difference to be significant
+ * Where the most cost-effective seed and fertilizer rates are at the current prices of seed and nitrogen
+
+For the next step, we will design our own experiments on the sample field. The only files we will need for the trial design are the boundary file and ab line.
+
+### Read and transform shape files
+
+We will start by reading in the shape files we need:
+
+```{r}
+boundary <- read_sf("data/boundary.gpkg") # read in boundary
+abline <- read_sf("data/abline.gpkg") # read in AB line
+```
+
+Now let's check the coordinate references of our two files:
+
+```{r}
+st_crs(boundary)
+st_crs(abline)
+```
+
+Since both of these are in lat/long and we want them in UTM, we'll transform them:
+
+```{r}
+trialarea <- st_transform_utm(boundary)
+abline_utm <- st_transform_utm(abline)
+```
+
+### Designing trials
+
+We need decide on the details of experiment design before we get into any of the code.  Relative parameters we need for the trial design include:
+
+ * plot dimensions
+ * number of treatments
+ * types of treatments, and
+ * treatment range.
+
+### Defining Parameters
+In the following code, we are simply going to assign values to all the parameters that might be involved in the trial design. In this way, if we ever want to change any parameters, we can do it here, and need not to worry about the consistency for the whole code.
+
+Now let's design our grid with the following parameters:
+
+```{r}
+width_in_meters <- 24 # width of grids is 24 meters
+long_direction <- 'NS' # direction of grid that will be long in relation to AB line
+short_direction <- 'EW' # direction of grid that will be short in relation to AB line
+length_in_ft <- 180 # length of grids in feet
+```
+
+### Make Grids
+
+We'll use our `make_grids` again function to generate this trial's grid:
+
+```{r}
+width <- m_to_ft(24) # convert meters to feet
 design_grids_utm <- make_grids(trialarea, abline_utm,
              long_in = long_direction,
 			       short_in = short_direction,
 			       length_ft = length_in_ft,
 			       width_ft = width)
-> ```
-> Next we want to make sure the coordinate reference frame of our `trialarea` is the same as our `design_grids_utm` grids and then take the intersection of these grids with our trial area as we did previously:
-> ```{r}
-> st_crs(design_grids_utm) <- st_crs(trialarea)
-> trial_grid <- st_intersection(trialarea, design_grids_utm)
-> ```
-> 
-> Let's check out what our trial subplots look like:
-> ```{r t3jpn}
-> plot(trial_grid$geom)
-> ```
-> 
-{: .textchunk}
+```
 
-> ## Determining subplot treatments
-> 
-> Now that we have the trial design plots, we need to assign different treatments to each plot.  We can use the `treat_assign` function from `functions.R` to randomly assign seed rates and nitrogen rates to each plot on our grid.
-> 
-> <img src="../figure/Nitrogen Response.png" width="70%">
-> 
-> We'll select 4 different seed rates and 4 different nitrogen rates to deposit randomly on our grid:
-> ```{r}
-> seed_rates <- c(31000, 34000, 37000, 40000)
-> nitrogen_rates <- c(160,200,225,250)
-> ```
-> The `seed_quo` and `nitrogen_quo` are the rates that will be applied to the headlands that are not part of the trial.
-> ```{r}
-> seed_quo <- 37000
-> nitrogen_quo <- 225
-> ```
-> 
-{: .textchunk}
+Next we want to make sure the coordinate reference frame of our `trialarea` is the same as our `design_grids_utm` grids and then take the intersection of these grids with our trial area as we did previously:
+
+```{r}
+st_crs(design_grids_utm) <- st_crs(trialarea)
+trial_grid <- st_intersection(trialarea, design_grids_utm)
+```
+
+Let's check out what our trial subplots look like:
+
+```{r t3jpn}
+plot(trial_grid$geom)
+```
+
+### Determining subplot treatments
+
+Now that we have the trial design plots, we need to assign different treatments to each plot.  We can use the `treat_assign` function from `functions.R` to randomly assign seed rates and nitrogen rates to each plot on our grid.
+
+<img src="../figure/Nitrogen Response.png" width="70%">
+
+We'll select 4 different seed rates and 4 different nitrogen rates to deposit randomly on our grid:
+
+```{r}
+seed_rates <- c(31000, 34000, 37000, 40000)
+nitrogen_rates <- c(160,200,225,250)
+```
+
+The `seed_quo` and `nitrogen_quo` are the rates that will be applied to the headlands that are not part of the trial.
+
+```{r}
+seed_quo <- 37000
+nitrogen_quo <- 225
+```
 
 > ## Lists of elements in R
+>
 > You'll see this definition of a list of numbers (or text) in R with a `c()`. This is just a special way of saying all the elements in this list "belong" together, like with all of the numbers in a column of a spreadsheet "belonging" together.
->
->
 {: .callout}
 
+### Generating Treatment Map
 
-> # Generating Treatment Map
-> We are now ready to generate our treatment plot:
-> ```{r message=FALSE, warning=FALSE}
-> whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
+We are now ready to generate our treatment plot:
+
+```{r message=FALSE, warning=FALSE}
+whole_plot <- treat_assign(trialarea, trial_grid, head_buffer_ft = width,
                            seed_treat_rates = seed_rates,
 			   nitrogen_treat_rates = nitrogen_rates,
 			   seed_quo = seed_quo,
 			   nitrogen_quo = nitrogen_quo,
 			   set_seed=TRUE)
 ```
-> 
-{: .textchunk}
 
 > ## Simulating yields
+>
 > Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  Because we want everybody to be using the same trial data we have set a flag `set_seed=TRUE` in our call to `treat_assign`.  When you do this on your own you can set this parameter to `FALSE` or just leave it out of the function call altogether.
-> 
->
->
 {: .callout}
 
+### Mapping Trials
 
-> ## Mapping Trial
-> Let's look at what our trial looks like.  First, as a shape file:
-> ```{r}
-> head(whole_plot)
-> ```
-> Or, we can look at the plots one at a time using a `map_poly` function from `functions.R`.  For the seeding rate:
-> ```{r seedRate05}
-> seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
-> seed_plot # to show our plot
-> ```
-> Here, we give `map_poly` our `whole_plot` geometry variable, what variable we want to show, in the above case, `SEEDRATE`, and the label to our legend, here `Seedrate Treatement`.
->
-> We can also plot the nitrogen application rate:
-> ```{r nitroRate05}
+Let's look at what our trial looks like.  First, as a shape file:
+
+```{r}
+head(whole_plot)
+```
+
+Or, we can look at the plots one at a time using a `map_poly` function from `functions.R`.  For the seeding rate:
+
+```{r seedRate05}
+seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+seed_plot # to show our plot
+```
+Here, we give `map_poly` our `whole_plot` geometry variable, what variable we want to show, in the above case, `SEEDRATE`, and the label to our legend, here `Seedrate Treatement`.
+
+We can also plot the nitrogen application rate:
+
+```{r nitroRate05}
 nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
 nitrogen_plot
 ```
-> We can also use the function `tmap_arrange` to show these plots side-by-side;
->
-> ```{r}
-> nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
-> seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
-> treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
-> treatment_plot_comp
-> ```
-> 
-{: .textchunk}
 
-<!-- Test
-Brittani testing whether I'm the problem with the rendering
--->
+We can also use the function `tmap_arrange` to show these plots side-by-side;
 
+```{r}
+nitrogen_plot <- map_poly(whole_plot, "NRATE", "Nitrogen Treatment")
+seed_plot <- map_poly(whole_plot, "SEEDRATE", "Seedrate Treatment")
+treatment_plot_comp <- tmap_arrange(nitrogen_plot, seed_plot, ncol = 2, nrow = 1)
+treatment_plot_comp
+```

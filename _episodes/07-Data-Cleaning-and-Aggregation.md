@@ -23,196 +23,200 @@ source: Rmd
 
 
 
-> # Data cleaning and aggregation in the DIFM project
->
-> We saw in the last episode that we can make graphs of our trial data, but right now they are all points that cannot easily be combined. For example, we do not know what the yield was at a specific nitrogen or seeding point on the field. But that is important if we are going to talk about the results of the trial. We need to know what the yield was when a certain seeding and nitrogen rate combination was applied. To do this, we first clean the trial points and then create a grid over the field. Inside that grid, we aggregate the points from each data type and report the median of the points that fall into each polygon of the grid. These will form a new dataset where we can directly relate a yield value to a given seed and nitrogen treatment. In the context of trials, the polygons of the grid are typically called the *units of observation.*
->
-{: .textchunk}
+## Data cleaning and aggregation in the DIFM project
 
-> ## Data Cleaning Details
->
-> After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinery error and such. In particular, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For public data, we simply import them into our aggregated data set without cleaning, as they have already been cleaned before being released to the public.
->
-> Here are the main concerns for yield, as-planted, and as-applied data:
->
-> * Observations where the harvester/planter/applicator is moving too slow or too fast
-> * Observations on the edges of the plot
-> * Observations that are below or above three standard deviations from the mean
->
-{: .textchunk}
+We saw in the last episode that we can make graphs of our trial data, but right now they are all points that cannot easily be combined. For example, we do not know what the yield was at a specific nitrogen or seeding point on the field. But that is important if we are going to talk about the results of the trial. We need to know what the yield was when a certain seeding and nitrogen rate combination was applied. To do this, we first clean the trial points and then create a grid over the field. Inside that grid, we aggregate the points from each data type and report the median of the points that fall into each polygon of the grid. These will form a new dataset where we can directly relate a yield value to a given seed and nitrogen treatment. In the context of trials, the polygons of the grid are typically called the *units of observation.*
 
-> ## Simulating yields
+
+### Data Cleaning Details
+
+After harvesting, we collect all the data needed for analysis, and in advance of running analysis, we clean and organize the data in order to remove machinery error and such. In particular, we need to clean yield data, as-planted data, as-applied data, and sometimes EC data. For public data, we simply import them into our aggregated data set without cleaning, as they have already been cleaned before being released to the public.
+
+Here are the main concerns for yield, as-planted, and as-applied data:
+
+ * Observations where the harvester/planter/applicator is moving too slow or too fast
+ * Observations on the edges of the plot
+ * Observations that are below or above three standard deviations from the mean
+
+
+## Simulating yields
+
 > Because you are generating your trial design "on the fly" in this workshop you will have different nitrogen and seed application rates than for the original dataset which measured the yields from a "real" trial.  In practice, whatever yield, asplanted, asapplied, and trial measurements you have stored can be used for this exercise, however **for this workshop only** have *simulated* the yields we'd expect to get out from your trial design.  These are the data files with the `_new` in their titles.
->
 {: .callout}
 
+### Step 1: Importing and transforming our shapefile datasets
 
-> ### Step 1: Importing and transforming our shapefile datasets
->
-> The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
->
-> 
-> ~~~
-> boundary <- read_sf("data/boundary.gpkg")
-> ~~~
-> {: .language-r}
-> What is the current coordinate reference system of this object?
-> 
-> ~~~
-> st_crs(boundary)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Coordinate Reference System:
->   User input: WGS 84 
->   wkt:
-> GEOGCRS["WGS 84",
->     DATUM["World Geodetic System 1984",
->         ELLIPSOID["WGS 84",6378137,298.257223563,
->             LENGTHUNIT["metre",1]]],
->     PRIMEM["Greenwich",0,
->         ANGLEUNIT["degree",0.0174532925199433]],
->     CS[ellipsoidal,2],
->         AXIS["geodetic latitude (Lat)",north,
->             ORDER[1],
->             ANGLEUNIT["degree",0.0174532925199433]],
->         AXIS["geodetic longitude (Lon)",east,
->             ORDER[2],
->             ANGLEUNIT["degree",0.0174532925199433]],
->     USAGE[
->         SCOPE["unknown"],
->         AREA["World"],
->         BBOX[-90,-180,90,180]],
->     ID["EPSG",4326]]
-> ~~~
-> {: .output}
-> Let's transform it to the UTM projection & check out its new coordinate reference system:
-> 
-> ~~~
-> boundary_utm <- st_transform_utm(boundary)
-> st_crs(boundary_utm)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Coordinate Reference System:
->   User input: EPSG:32617 
->   wkt:
-> PROJCRS["WGS 84 / UTM zone 17N",
->     BASEGEOGCRS["WGS 84",
->         DATUM["World Geodetic System 1984",
->             ELLIPSOID["WGS 84",6378137,298.257223563,
->                 LENGTHUNIT["metre",1]]],
->         PRIMEM["Greenwich",0,
->             ANGLEUNIT["degree",0.0174532925199433]],
->         ID["EPSG",4326]],
->     CONVERSION["UTM zone 17N",
->         METHOD["Transverse Mercator",
->             ID["EPSG",9807]],
->         PARAMETER["Latitude of natural origin",0,
->             ANGLEUNIT["degree",0.0174532925199433],
->             ID["EPSG",8801]],
->         PARAMETER["Longitude of natural origin",-81,
->             ANGLEUNIT["degree",0.0174532925199433],
->             ID["EPSG",8802]],
->         PARAMETER["Scale factor at natural origin",0.9996,
->             SCALEUNIT["unity",1],
->             ID["EPSG",8805]],
->         PARAMETER["False easting",500000,
->             LENGTHUNIT["metre",1],
->             ID["EPSG",8806]],
->         PARAMETER["False northing",0,
->             LENGTHUNIT["metre",1],
->             ID["EPSG",8807]]],
->     CS[Cartesian,2],
->         AXIS["(E)",east,
->             ORDER[1],
->             LENGTHUNIT["metre",1]],
->         AXIS["(N)",north,
->             ORDER[2],
->             LENGTHUNIT["metre",1]],
->     USAGE[
->         SCOPE["unknown"],
->         AREA["World - N hemisphere - 84°W to 78°W - by country"],
->         BBOX[0,-84,84,-78]],
->     ID["EPSG",32617]]
-> ~~~
-> {: .output}
-> Now we can see that the `+proj=longlat` has changed to `+proj=utm` and gives us that we are in UTM zone #17.
->
-> In the last episode, we also imported our trial design, which we will do again here:
-> 
-> ~~~
-> trial <- read_sf("data/trial_new.gpkg")
-> ~~~
-> {: .language-r}
->
-> Let's look at the coordinate reference system here as well:
-> 
-> ~~~
-> st_crs(trial)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Coordinate Reference System:
->   User input: WGS 84 / UTM zone 17N 
->   wkt:
-> PROJCRS["WGS 84 / UTM zone 17N",
->     BASEGEOGCRS["WGS 84",
->         DATUM["World Geodetic System 1984",
->             ELLIPSOID["WGS 84",6378137,298.257223563,
->                 LENGTHUNIT["metre",1]]],
->         PRIMEM["Greenwich",0,
->             ANGLEUNIT["degree",0.0174532925199433]],
->         ID["EPSG",4326]],
->     CONVERSION["UTM zone 17N",
->         METHOD["Transverse Mercator",
->             ID["EPSG",9807]],
->         PARAMETER["Latitude of natural origin",0,
->             ANGLEUNIT["degree",0.0174532925199433],
->             ID["EPSG",8801]],
->         PARAMETER["Longitude of natural origin",-81,
->             ANGLEUNIT["degree",0.0174532925199433],
->             ID["EPSG",8802]],
->         PARAMETER["Scale factor at natural origin",0.9996,
->             SCALEUNIT["unity",1],
->             ID["EPSG",8805]],
->         PARAMETER["False easting",500000,
->             LENGTHUNIT["metre",1],
->             ID["EPSG",8806]],
->         PARAMETER["False northing",0,
->             LENGTHUNIT["metre",1],
->             ID["EPSG",8807]]],
->     CS[Cartesian,2],
->         AXIS["(E)",east,
->             ORDER[1],
->             LENGTHUNIT["metre",1]],
->         AXIS["(N)",north,
->             ORDER[2],
->             LENGTHUNIT["metre",1]],
->     USAGE[
->         SCOPE["unknown"],
->         AREA["World - N hemisphere - 84°W to 78°W - by country"],
->         BBOX[0,-84,84,-78]],
->     ID["EPSG",32617]]
-> ~~~
-> {: .output}
-> Our file is already in the UTM projection, but if we have one that is not we can convert this as well with `trial_utm <- st_transform_utm(trial)`.  For the sake of naming, we'll rename it as `trial_utm`:
-> 
-> ~~~
-> trial_utm <- trial
-> ~~~
-> {: .language-r}
->
-{: .textchunk}
+The first step is to read in our boundary and abline shape files and transform them to UTM for later use.  Let's do this step-by-step, starting with reading in the boundary shapefile and projecting it:
+
+
+~~~
+boundary <- read_sf("data/boundary.gpkg")
+~~~
+{: .language-r}
+
+What is the current coordinate reference system of this object?
+
+
+~~~
+st_crs(boundary)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  User input: WGS 84 
+  wkt:
+GEOGCRS["WGS 84",
+    DATUM["World Geodetic System 1984",
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["geodetic latitude (Lat)",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["geodetic longitude (Lon)",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    USAGE[
+        SCOPE["unknown"],
+        AREA["World"],
+        BBOX[-90,-180,90,180]],
+    ID["EPSG",4326]]
+~~~
+{: .output}
+
+Let's transform it to the UTM projection & check out its new coordinate reference system:
+
+
+~~~
+boundary_utm <- st_transform_utm(boundary)
+st_crs(boundary_utm)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  User input: EPSG:32617 
+  wkt:
+PROJCRS["WGS 84 / UTM zone 17N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 17N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-81,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    USAGE[
+        SCOPE["unknown"],
+        AREA["World - N hemisphere - 84°W to 78°W - by country"],
+        BBOX[0,-84,84,-78]],
+    ID["EPSG",32617]]
+~~~
+{: .output}
+
+Now we can see that the `+proj=longlat` has changed to `+proj=utm` and gives us that we are in UTM zone #17.
+
+In the last episode, we also imported our trial design, which we will do again here:
+
+
+~~~
+trial <- read_sf("data/trial_new.gpkg")
+~~~
+{: .language-r}
+
+Let's look at the coordinate reference system here as well:
+
+
+~~~
+st_crs(trial)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  User input: WGS 84 / UTM zone 17N 
+  wkt:
+PROJCRS["WGS 84 / UTM zone 17N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 17N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-81,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    USAGE[
+        SCOPE["unknown"],
+        AREA["World - N hemisphere - 84°W to 78°W - by country"],
+        BBOX[0,-84,84,-78]],
+    ID["EPSG",32617]]
+~~~
+{: .output}
+
+Our file is already in the UTM projection, but if we have one that is not we can convert this as well with `trial_utm <- st_transform_utm(trial)`.  For the sake of naming, we'll rename it as `trial_utm`:
+
+
+~~~
+trial_utm <- trial
+~~~
+{: .language-r}
 
 > ## Exercise: Examine yield data and transform if necessary
 > Read in the yield shape file, look at its current CRS and transform it into the UTM projection.  Call this new, transformed variable `yield_utm`.
@@ -288,172 +292,177 @@ source: Rmd
 > {: .solution}
 {: .challenge}
 
-> Finally, let's transform our abline file.  We read in the file:
-> 
-> ~~~
-> abline = read_sf("data/abline.gpkg")
-> ~~~
-> {: .language-r}
-> Check out its current coordinate reference system:
-> 
-> ~~~
-> st_crs(abline)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Coordinate Reference System:
->   User input: WGS 84 
->   wkt:
-> GEOGCRS["WGS 84",
->     DATUM["World Geodetic System 1984",
->         ELLIPSOID["WGS 84",6378137,298.257223563,
->             LENGTHUNIT["metre",1]]],
->     PRIMEM["Greenwich",0,
->         ANGLEUNIT["degree",0.0174532925199433]],
->     CS[ellipsoidal,2],
->         AXIS["geodetic latitude (Lat)",north,
->             ORDER[1],
->             ANGLEUNIT["degree",0.0174532925199433]],
->         AXIS["geodetic longitude (Lon)",east,
->             ORDER[2],
->             ANGLEUNIT["degree",0.0174532925199433]],
->     USAGE[
->         SCOPE["unknown"],
->         AREA["World"],
->         BBOX[-90,-180,90,180]],
->     ID["EPSG",4326]]
-> ~~~
-> {: .output}
-> And transform it to UTM:
-> 
-> ~~~
-> abline_utm = st_transform_utm(abline)
-> ~~~
-> {: .language-r}
->
-{: .textchunk}
+Finally, let's transform our abline file.  We read in the file:
 
-> ### Step 2: Clean the yield data
->
-> Now that we have our shapefiles in the same UTM coordinate system reference frame, we will apply some of our knowledge of data cleaning to take out weird observations. We know we have "weird" measurements by looking at a histogram of our yield data:
-> 
-> ~~~
-> hist(yield_utm$Yld_Vol_Dr)
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
->
-> The fact that this histogram has a large tail where we see a few measurements far beyond the majority around 250 means we know we have some weird data points.
->
-> We will take out these weird observations in two steps:
->   1. First, we will take out observations we *know* will be weird because they are taken from the edges of our plot.
->   2. Second, we will take out observations that are too far away from where the majority of the other yield measurements lie.
->
-> Let's go through these one by one.
->
-> <br>
->
-> **1: Taking out border observations**
->
-> We need to remove the yield observations that are on the border of the plots, and also at the end of the plots.  The reason for this is that along the edge of a plot, the harvester is likely to collect from two plots. Therefore, the yield is an average of both plots.  Additionally, plants growing at the edge of the field are likely to suffer from wind and other effects, lowering their yields.  
->
-> <img src="../figure/Alignment Graph.png" width="50%">
->
-> <img src="../figure/Average Yield.png" width="70%">
->
-> There is a function in `functions.R` called clean_buffer which creates a buffer around the input `buffer_object` and reports the points in `data` that are outside of the buffer. We need to decide how wide the buffer wil be using the input `buffer_ft`. In general this will be something around half the width of the machinery or section.
->
-> In the example below, we clean the yield data using the `trial_utm` to define a 15 foot buffer.
->
-> 
-> ~~~
-> yield_clean_border <- clean_buffer(trial_utm, 15, yield_utm)
-> ~~~
-> {: .language-r}
->
-> Let's use our side-by-side plotting we did in the previous episode to compare our original and border-yield cleaned yield maps:
->
-> 
-> ~~~
-> yield_plot_orig <- map_points(yield_utm, "Yld_Vol_Dr", "Yield, Orig")
-> yield_plot_border_cleaned <- map_points(yield_clean_border, "Yld_Vol_Dr", "Yield, No Borders")
-> yield_plot_comp <- tmap_arrange(yield_plot_orig, yield_plot_border_cleaned, ncol = 2, nrow = 1)
-> yield_plot_comp
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
->
-> Here again, we also check the distribution of cleaned yield by making a histogram.
->
-> 
-> ~~~
-> hist(yield_clean_border$Yld_Vol_Dr)
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-tt2jpn2-1.png" title="plot of chunk tt2jpn2" alt="plot of chunk tt2jpn2" width="612" style="display: block; margin: auto;" />
-> Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.
->
-> <br>
->
-> **2: Taking out outliers far from the mean**
->
-> Even if we don't know the source of error, we can tell that some observations are incorrect just because they are far too small or too large.  How can we remove these in an objective, automatic way? As before, we remove observations that are three standard deviations higher or lower than the mean.  We look at histograms and maps of the data to help confirm that our cleaning makes sense.
->
-> As in lesson 4, we use the `clean_sd` from our `functions.R`:
-> 
-> ~~~
-> yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr, sd_no=3)
-> ~~~
-> {: .language-r}
->
-> Here again, we check the distribution of cleaned yield after taking out the yield observations that are outside the range of three standard deviations from the mean.
->
-> 
-> ~~~
-> hist(yield_clean$Yld_Vol_Dr)
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-view the distribution of cleaned yield data-1.png" title="plot of chunk view the distribution of cleaned yield data" alt="plot of chunk view the distribution of cleaned yield data" width="612" style="display: block; margin: auto;" />
->
-> This looks a lot more sensible!  We can double check by looking at our final, cleaned yield map:
-> 
-> ~~~
-> yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
-> yield_plot_clean
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-yieldCleanPlot-1.png" title="plot of chunk yieldCleanPlot" alt="plot of chunk yieldCleanPlot" width="612" style="display: block; margin: auto;" />
->
+
+~~~
+abline = read_sf("data/abline.gpkg")
+~~~
+{: .language-r}
+
+Check out its current coordinate reference system:
+
+~~~
+ st_crs(abline)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  User input: WGS 84 
+  wkt:
+GEOGCRS["WGS 84",
+    DATUM["World Geodetic System 1984",
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["geodetic latitude (Lat)",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["geodetic longitude (Lon)",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    USAGE[
+        SCOPE["unknown"],
+        AREA["World"],
+        BBOX[-90,-180,90,180]],
+    ID["EPSG",4326]]
+~~~
+{: .output}
+
+And transform it to UTM:
+
+
+~~~
+abline_utm = st_transform_utm(abline)
+~~~
+{: .language-r}
+
+### Step 2: Clean the yield data
+
+Now that we have our shapefiles in the same UTM coordinate system reference frame, we will apply some of our knowledge of data cleaning to take out weird observations. We know we have "weird" measurements by looking at a histogram of our yield data:
+
+~~~
+hist(yield_utm$Yld_Vol_Dr)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
+
+The fact that this histogram has a large tail where we see a few measurements far beyond the majority around 250 means we know we have some weird data points.
+
+We will take out these weird observations in two steps:
+ 1. First, we will take out observations we *know* will be weird because they are taken from the edges of our plot.
+ 2. Second, we will take out observations that are too far away from where the majority of the other yield measurements lie.
+
+Let's go through these one by one.
+
+#### Step 2.1: Taking out border observations
+
+We need to remove the yield observations that are on the border of the plots, and also at the end of the plots.  The reason for this is that along the edge of a plot, the harvester is likely to collect from two plots. Therefore, the yield is an average of both plots.  Additionally, plants growing at the edge of the field are likely to suffer from wind and other effects, lowering their yields.  
+
+<img src="../figure/Alignment Graph.png" width="50%">
+
+<img src="../figure/Average Yield.png" width="70%">
+
+There is a function in `functions.R` called clean_buffer which creates a buffer around the input `buffer_object` and reports the points in `data` that are outside of the buffer. We need to decide how wide the buffer wil be using the input `buffer_ft`. In general this will be something around half the width of the machinery or section.
+
+In the example below, we clean the yield data using the `trial_utm` to define a 15 foot buffer.
+
+
+~~~
+yield_clean_border <- clean_buffer(trial_utm, 15, yield_utm)
+~~~
+{: .language-r}
+
+Let's use our side-by-side plotting we did in the previous episode to compare our original and border-yield cleaned yield maps:
+
+
+~~~
+yield_plot_orig <- map_points(yield_utm, "Yld_Vol_Dr", "Yield, Orig")
+yield_plot_border_cleaned <- map_points(yield_clean_border, "Yld_Vol_Dr", "Yield, No Borders")
+yield_plot_comp <- tmap_arrange(yield_plot_orig, yield_plot_border_cleaned, ncol = 2, nrow = 1)
+yield_plot_comp
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
+
+Here again, we also check the distribution of cleaned yield by making a histogram.
+
+
+~~~
+hist(yield_clean_border$Yld_Vol_Dr)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-tt2jpn2-1.png" title="plot of chunk tt2jpn2" alt="plot of chunk tt2jpn2" width="612" style="display: block; margin: auto;" />
+
+Looking at both this histogram and the several very red dots in our de-bordered yield map, we see that there are still a lot of very high observations. So we need to proceed to step two, which will clean our observations based on how far they are from the mean of the observations.
+
+#### Step 2.2: Taking out outliers far from the mean
+
+Even if we don't know the source of error, we can tell that some observations are incorrect just because they are far too small or too large.  How can we remove these in an objective, automatic way? As before, we remove observations that are three standard deviations higher or lower than the mean.  We look at histograms and maps of the data to help confirm that our cleaning makes sense.
+
+As in lesson 4, we use the `clean_sd` from our `functions.R`:
+
+~~~
+yield_clean <- clean_sd(yield_clean_border, yield_clean_border$Yld_Vol_Dr, sd_no=3)
+~~~
+{: .language-r}
+
+Here again, we check the distribution of cleaned yield after taking out the yield observations that are outside the range of three standard deviations from the mean.
+
+
+~~~
+hist(yield_clean$Yld_Vol_Dr)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-view the distribution of cleaned yield data-1.png" title="plot of chunk view the distribution of cleaned yield data" alt="plot of chunk view the distribution of cleaned yield data" width="612" style="display: block; margin: auto;" />
+
+This looks a lot more sensible!  We can double check by looking at our final, cleaned yield map:
+
+
+~~~
+yield_plot_clean <- map_points(yield_clean, "Yld_Vol_Dr", "Yield, Cleaned")
+yield_plot_clean
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-yieldCleanPlot-1.png" title="plot of chunk yieldCleanPlot" alt="plot of chunk yieldCleanPlot" width="612" style="display: block; margin: auto;" />
+
 > ## Discussion
+>
 > What do you think could have caused these outliers (extreme values)?  If you
 were working with yield data from your own fields, what other sources of error
 might you want to look for?
->
-{: .textchunk}
+{: .callout}
 
 > ## Exercise: Cleaning Nitrogen from asapplied
 >
 > Import the `asapplied.gpkg` shapefile for and clean the nitrogen application data.
+>
 > 1. Remove observations from the buffer zone
 > 2. as well as observations more then three standard deviations from
 the mean.
 >
 > > ## Solution
+> >
 > > Load the data
+> >
 > > 
 > > ~~~
 > > nitrogen <- read_sf("data/asapplied_new.gpkg")
 > > ~~~
 > > {: .language-r}
+> >
 > > Check CRS
+> >
 > > 
 > > ~~~
 > > st_crs(nitrogen)
@@ -506,19 +515,25 @@ the mean.
 > >     ID["EPSG",32617]]
 > > ~~~
 > > {: .output}
+> >
 > > Since it's in already in UTM we don't have to transform it, just rename:
+> >
 > > 
 > > ~~~
 > > nitrogen_utm <- nitrogen
 > > ~~~
 > > {: .language-r}
+> >
 > > Clean border:
+> >
 > > 
 > > ~~~
 > > nitrogen_clean_border <- clean_buffer(trial_utm, 1, nitrogen_utm)
 > > ~~~
 > > {: .language-r}
+> >
 > > Check out our progress with a plot:
+> >
 > > 
 > > ~~~
 > > nitrogen_plot_orig <- map_points(nitrogen_utm, "Rate_Appli", "Nitrogen, Orig")
@@ -529,13 +544,17 @@ the mean.
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-nitrogenCompPlot-1.png" title="plot of chunk nitrogenCompPlot" alt="plot of chunk nitrogenCompPlot" width="612" style="display: block; margin: auto;" />
+> >
 > > Clean by standard deviation:
+> >
 > > 
 > > ~~~
 > > nitrogen_clean <- clean_sd(nitrogen_clean_border, nitrogen_clean_border$Rate_Appli, sd_no=3)
 > > ~~~
 > > {: .language-r}
+> >
 > > Plot our final result on a map:
+> >
 > > 
 > > ~~~
 > > nitrogen_plot_clean <- map_points(nitrogen_clean, "Rate_Appli", "Nitrogen, Cleaned")
@@ -544,7 +563,9 @@ the mean.
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="612" style="display: block; margin: auto;" />
+> >
 > > And as a histogram:
+> >
 > > 
 > > ~~~
 > > hist(nitrogen_clean$Rate_Appli)
@@ -552,321 +573,319 @@ the mean.
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="612" style="display: block; margin: auto;" />
-> >
 > {: .solution}
 {: .challenge}
 
-> # Designing Trials: Generating Grids and Aggregating
->
-> Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm. This happens in a few steps.
->
-> ## Step 1: Creating the grids
->
-> After we read in the trial design file, we use a function to generate the subplots for this trial. Because the code for generating the subplots is somewhat complex, we have included it as the `make_grids` function in `functions.R`.
->
->
-> ### Making Subplots
-> Now we will make subplots that are 24 meters wide which is the width of the original trial on this field:
->
-> 
-> ~~~
-> width = m_to_ft(24) # convert from meters to feet
-> ~~~
-> {: .language-r}
->
-> Now we use `make_grids` to calculate subplots for our shapefile. There are several inputs for this function:
-> * The boundary to make the grid over in UTM
-> * The abline for the field in UTM
-> * The direction of the grid that will be long
-> * The direction of the grid that will be short
-> * The length of grids in feet
-> * The width of grids plots in feet
->
-> We use the following code to make our grid.
-> 
-> ~~~
-> design_grids_utm = make_grids(boundary_utm,
->                              abline_utm, long_in = 'NS', short_in = 'EW',
-> 			      length_ft = width, width_ft = width)
-> ~~~
-> {: .language-r}
->
-> The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as `boundary_utm`:
-> 
-> ~~~
-> st_crs(design_grids_utm)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Coordinate Reference System: NA
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> st_crs(design_grids_utm) = st_crs(boundary_utm)
-> ~~~
-> {: .language-r}
->
-> Let's plot what these grids will look like using the basic `plot()` function:
-> 
-> ~~~
-> plot(design_grids_utm$geom)
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="612" style="display: block; margin: auto;" />
->
-> Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_utm`,
+
+## Designing Trials: Generating Grids and Aggregating
+
+Now that we have cleaned data we will go through the steps to aggregate this data on subplots of our shapefile of our farm. This happens in a few steps.
+
+### Step 1: Creating the grids
+
+After we read in the trial design file, we use a function to generate the subplots for this trial. Because the code for generating the subplots is somewhat complex, we have included it as the `make_grids` function in `functions.R`.
+
+
+#### Making Subplots
+Now we will make subplots that are 24 meters wide which is the width of the original trial on this field:
+
+
+~~~
+width = m_to_ft(24) # convert from meters to feet
+~~~
+{: .language-r}
+
+Now we use `make_grids` to calculate subplots for our shapefile. There are several inputs for this function:
+
+ * The boundary to make the grid over in UTM
+ * The abline for the field in UTM
+ * The direction of the grid that will be long
+ * The direction of the grid that will be short
+ * The length of grids in feet
+ * The width of grids plots in feet
+
+We use the following code to make our grid.
+
+
+~~~
+design_grids_utm = make_grids(boundary_utm,
+                             abline_utm, long_in = 'NS', short_in = 'EW',
+			      length_ft = width, width_ft = width)
+~~~
+{: .language-r}
+
+The grid currently does not have a CRS, but we know it is in UTM. So we assign the CRS to be the same as `boundary_utm`:
+
+
+~~~
+st_crs(design_grids_utm)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System: NA
+~~~
+{: .output}
+
+
+
+~~~
+st_crs(design_grids_utm) = st_crs(boundary_utm)
+~~~
+{: .language-r}
+
+Let's plot what these grids will look like using the basic `plot()` function:
+
+
+~~~
+plot(design_grids_utm$geom)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" width="612" style="display: block; margin: auto;" />
+
+Now we can see that the grid is larger than our trial area. We can use `st_intersection()` to only keep the section of the grid that overlaps with `boundary_utm`,
+
 The resulting grid is seen below:
->
-> 
-> ~~~
-> trial_grid_utm = st_intersection(boundary_utm, design_grids_utm)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Warning: attribute variables are assumed to be spatially constant throughout all
-> geometries
-> ~~~
-> {: .warning}
-> 
-> 
-> 
-> ~~~
-> plot(trial_grid_utm$geom)
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-25-1.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" width="612" style="display: block; margin: auto;" />
->
->
-> ## Step 2: Aggregation on our subplots
->
-> We will now aggregate our yield data over our subplots. In this case we will take the median value within each subplot. When the data are not normally-distributed or when there are errors, the median is often more representative of the data than the mean is.  Here we will interpolate and aggregate yield as an example. The other variables can be processed in the same way.
->
-> There is a function in our `functions.R` called `deposit_on_grid()` that will take the median of the points inside each grid. The function allows us to supply the grid, the data we will aggregate, and the column we want to aggregate. In this case, we will aggregate `Yld_Vol_Dr`.
->
-> 
-> ~~~
-> subplots_data <- deposit_on_grid(trial_grid_utm, yield_clean, "Yld_Vol_Dr", fn = median)
-> ~~~
-> {: .language-r}
->
-> And let's finally take a look!
-> 
-> ~~~
-> map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
->
->
-> We will now clean the asplanted file:
-> 
-> ~~~
-> asplanted <- read_sf("data/asplanted_new.gpkg")
-> st_crs(asplanted)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Coordinate Reference System:
->   User input: WGS 84 / UTM zone 17N 
->   wkt:
-> PROJCRS["WGS 84 / UTM zone 17N",
->     BASEGEOGCRS["WGS 84",
->         DATUM["World Geodetic System 1984",
->             ELLIPSOID["WGS 84",6378137,298.257223563,
->                 LENGTHUNIT["metre",1]]],
->         PRIMEM["Greenwich",0,
->             ANGLEUNIT["degree",0.0174532925199433]],
->         ID["EPSG",4326]],
->     CONVERSION["UTM zone 17N",
->         METHOD["Transverse Mercator",
->             ID["EPSG",9807]],
->         PARAMETER["Latitude of natural origin",0,
->             ANGLEUNIT["degree",0.0174532925199433],
->             ID["EPSG",8801]],
->         PARAMETER["Longitude of natural origin",-81,
->             ANGLEUNIT["degree",0.0174532925199433],
->             ID["EPSG",8802]],
->         PARAMETER["Scale factor at natural origin",0.9996,
->             SCALEUNIT["unity",1],
->             ID["EPSG",8805]],
->         PARAMETER["False easting",500000,
->             LENGTHUNIT["metre",1],
->             ID["EPSG",8806]],
->         PARAMETER["False northing",0,
->             LENGTHUNIT["metre",1],
->             ID["EPSG",8807]]],
->     CS[Cartesian,2],
->         AXIS["(E)",east,
->             ORDER[1],
->             LENGTHUNIT["metre",1]],
->         AXIS["(N)",north,
->             ORDER[2],
->             LENGTHUNIT["metre",1]],
->     USAGE[
->         SCOPE["unknown"],
->         AREA["World - N hemisphere - 84°W to 78°W - by country"],
->         BBOX[0,-84,84,-78]],
->     ID["EPSG",32617]]
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> asplanted_utm <- asplanted # already in utm!
-> asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_, sd_no=3)
-> asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
-> 
-> map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
-> 
-> ~~~
-> subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
-> subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Elevation_", fn = median)
-> 
-> map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-28-2.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
->
->
-> We will now aggregate the asapplied which we already cleaned above:
-> 
-> ~~~
-> subplots_data <- deposit_on_grid(subplots_data, nitrogen_clean, "Rate_Appli", fn = median)
-> 
-> map_poly(subplots_data, 'Rate_Appli', "Nitrogen")
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
->
->
-> ### Making Plots of Relationships between Variables
->
-> 
-> ~~~
-> Pc <- 3.5
-> Ps <- 2.5/1000
-> Pn <- 0.3
-> other_costs <- 400
-> s_sq <- 37000
-> n_sq <- 225
-> s_ls <- c(31000, 34000, 37000, 40000)
-> n_ls <- c(160, 200, 225, 250)
-> ~~~
-> {: .language-r}
->
-> 
-> ~~~
-> data <- dplyr::rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
-> ~~~
-> {: .language-r}
->
-> 
-> ~~~
-> graphs <- profit_graphs(data, s_ls, n_ls, s_sq, n_sq, Pc, Ps, Pn, other_costs)
-> graphs[1]
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [[1]]
-> ~~~
-> {: .output}
-> 
-> <img src="../fig/rmd-unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
-> 
-> 
-> ~~~
-> graphs[2]
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [[1]]
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> `geom_smooth()` using formula 'y ~ x'
-> ~~~
-> {: .output}
-> 
-> <img src="../fig/rmd-unnamed-chunk-32-2.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
-> 
-> 
-> ~~~
-> graphs[3]
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [[1]]
-> ~~~
-> {: .output}
-> 
-> <img src="../fig/rmd-unnamed-chunk-32-3.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
-> 
-> 
-> ~~~
-> graphs[4]
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [[1]]
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> `geom_smooth()` using formula 'y ~ x'
-> ~~~
-> {: .output}
-> 
-> <img src="../fig/rmd-unnamed-chunk-32-4.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" width="612" style="display: block; margin: auto;" />
->
-> The other options do not need to be changed when you go to use the function on other datasets.
->
-> We can also add the trial grid onto the data and use it for looking at the accuracy of the planting application.
-> 
-> ~~~
-> subplots_data <- deposit_on_grid(subplots_data, trial_utm, "SEEDRATE", fn = median)
-> 
-> map_poly(subplots_data, 'SEEDRATE', "Target Seed")
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" width="612" style="display: block; margin: auto;" />
-{: .textchunk}
+
+
+~~~
+trial_grid_utm = st_intersection(boundary_utm, design_grids_utm)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: attribute variables are assumed to be spatially constant throughout all
+geometries
+~~~
+{: .warning}
+
+
+
+~~~
+plot(trial_grid_utm$geom)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-25-1.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" width="612" style="display: block; margin: auto;" />
+
+### Step 2: Aggregation on our subplots
+
+We will now aggregate our yield data over our subplots. In this case we will take the median value within each subplot. When the data are not normally-distributed or when there are errors, the median is often more representative of the data than the mean is.  Here we will interpolate and aggregate yield as an example. The other variables can be processed in the same way.
+
+There is a function in our `functions.R` called `deposit_on_grid()` that will take the median of the points inside each grid. The function allows us to supply the grid, the data we will aggregate, and the column we want to aggregate. In this case, we will aggregate `Yld_Vol_Dr`.
+
+
+~~~
+subplots_data <- deposit_on_grid(trial_grid_utm, yield_clean, "Yld_Vol_Dr", fn = median)
+~~~
+{: .language-r}
+
+And let's finally take a look!
+
+
+~~~
+map_poly(subplots_data, 'Yld_Vol_Dr', "Yield (bu/ac)")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
+
+We will now clean the asplanted file:
+
+
+~~~
+asplanted <- read_sf("data/asplanted_new.gpkg")
+st_crs(asplanted)
+~~~
+{: .language-r}
+
+
+
+~~~
+Coordinate Reference System:
+  User input: WGS 84 / UTM zone 17N 
+  wkt:
+PROJCRS["WGS 84 / UTM zone 17N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 17N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-81,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    USAGE[
+        SCOPE["unknown"],
+        AREA["World - N hemisphere - 84°W to 78°W - by country"],
+        BBOX[0,-84,84,-78]],
+    ID["EPSG",32617]]
+~~~
+{: .output}
+
+
+
+~~~
+asplanted_utm <- asplanted # already in utm!
+asplanted_clean <- clean_sd(asplanted_utm, asplanted_utm$Rt_Apd_Ct_, sd_no=3)
+asplanted_clean <- clean_buffer(trial_utm, 15, asplanted_clean)
+
+map_points(asplanted_clean, "Rt_Apd_Ct_", "Seed")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+
+~~~
+subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Rt_Apd_Ct_", fn = median)
+subplots_data <- deposit_on_grid(subplots_data, asplanted_clean, "Elevation_", fn = median)
+
+map_poly(subplots_data, 'Rt_Apd_Ct_', "Seed")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-28-2.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+
+We will now aggregate the asapplied which we already cleaned above:
+
+
+~~~
+subplots_data <- deposit_on_grid(subplots_data, nitrogen_clean, "Rate_Appli", fn = median)
+
+map_poly(subplots_data, 'Rate_Appli', "Nitrogen")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
+
+#### Making Plots of Relationships between Variables
+
+Relating our input (experimental) factors to our output variables lets us make key decisions about how to maximize yield subject to our field constraints.
+
+
+~~~
+Pc <- 3.5
+Ps <- 2.5/1000
+Pn <- 0.3
+other_costs <- 400
+s_sq <- 37000
+n_sq <- 225
+s_ls <- c(31000, 34000, 37000, 40000)
+n_ls <- c(160, 200, 225, 250)
+
+data <- dplyr::rename(subplots_data, s = Rt_Apd_Ct_, n = Rate_Appli, yield = Yld_Vol_Dr)
+
+graphs <- profit_graphs(data, s_ls, n_ls, s_sq, n_sq, Pc, Ps, Pn, other_costs)
+graphs[1]
+~~~
+{: .language-r}
+
+
+
+~~~
+[[1]]
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+graphs[2]
+~~~
+{: .language-r}
+
+
+
+~~~
+[[1]]
+~~~
+{: .output}
+
+
+
+~~~
+`geom_smooth()` using formula 'y ~ x'
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-30-2.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+graphs[3]
+~~~
+{: .language-r}
+
+
+
+~~~
+[[1]]
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-30-3.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+graphs[4]
+~~~
+{: .language-r}
+
+
+
+~~~
+[[1]]
+~~~
+{: .output}
+
+
+
+~~~
+`geom_smooth()` using formula 'y ~ x'
+~~~
+{: .output}
+
+<img src="../fig/rmd-unnamed-chunk-30-4.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+
+The other options do not need to be changed when you go to use the function on other datasets.
+
+We can also add the trial grid onto the data and use it for looking at the accuracy of the planting application.
+
+
+~~~
+subplots_data <- deposit_on_grid(subplots_data, trial_utm, "SEEDRATE", fn = median)
+
+map_poly(subplots_data, 'SEEDRATE', "Target Seed")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
