@@ -80,67 +80,22 @@ ln -s /Library/Frameworks/R.framework/Versions/3.x.y /Library/Frameworks/R.frame
 
 Then restart RStudio.
 
-## Narrative
-
-### Before we start
-
-* The main goal here is to help the learners be comfortable with the RStudio
-  interface. We use RStudio because it helps make using R more organized and
-  user friendly.
-* Go very slowly in the "Getting setup section". Make sure everyone is following
-  along (remind learners to use the stickies). Plan with the helpers at this
-  point to go around the room, and be available to help. It's important to make
-  sure that learners are in the correct working directory, and that they create
-  a `data`  (all lowercase) subfolder.
-
-### Intro to R
-
-* When going over the section on assignments, make sure to pause for at least 30
-  seconds when asking "What do you think is the current content of the object
-  `area_acres`? 123.5 or 6.175?". For learners with no programming experience,
-  this is a new and important concept.
-* Given that the concept of missing data is an important feature of the R
-  language, it is worth spending enough time on it.
-
-### Starting with data
-
-The two main goals for this lessons are:
-
-* To make sure that learners are comfortable with working with data frames, and
-  can use the bracket notation to select slices/columns
-* To expose learners to factors. Their behavior is not necessarily intuitive,
-  and so it is important that they are guided through it the first time they are
-  exposed to it. The content of the lesson should be enough for learners to
-  avoid common mistakes with them.
-
-### Manipulating data with dplyr
-
-* For this lesson make sure that learners are comfortable using pipes.
-* There is also sometimes some confusion on what the arguments of `group_by`
-  should be, and when to use `filter()` and `select()`.
-
-### Visualizing data with ggplot2
-
-* This lesson is a broad overview of ggplot2 and focuses on (1) getting familiar
-  with the layering system of ggplot2, (2) using the argument `group` in the
-  `aes()` function, (3) basic customization of the plots.
-
 
 ## Technical Tips and Tricks
 
-Show how to use the 'zoom' button to blow up graphs without constantly resizing
+- Show how to use the `Zoom` button to blow up graphs without constantly resizing
 windows
 
-Sometimes a package will not install, try a different CRAN mirror
-- Tools > Global Options > Packages > CRAN Mirror
+- Sometimes a package will not install; in that case, try a different CRAN mirror: `Tools > Global Options > Packages > CRAN Mirror`
 
-Alternatively you can go to CRAN and download the package and install from ZIP
-file
--   Tools > Install Packages > set to 'from Zip/TAR'
+    Alternatively you can go to CRAN and download the package and install from ZIP file: `Tools > Install Packages`, set to `'from Zip/TAR'`
 
-It is important that R, and the R packages be installed locally, not on a network drive. If a learner is using a machine with multiple users where their account is not based locally this can create a variety of issues (This often happens on university computers). Hopefully the learner will realize these issues before hand, but depending on the machine and how the IT folks that service the computer have things set up, it may be very difficult to impossible to make R work without their help.
+    It is important that R, and the R packages be installed locally, not on a network drive. If a learner is using a machine with multiple users where their account is not based locally this can create a variety of issues (This often happens on university computers). Hopefully the learner will realize these issues before hand, but depending on the machine and how the IT folks that service the computer have things set up, it may be very difficult to impossible to make R work without their help.
 
-If learners are having issues with one package, they may have issues with another. It's often easier to make sure they have all the needed packages installed at one time, rather then deal with these issues over and over. [Here is a list of all necessary packages for these lessons.](https://github.com/datacarpentry/R-ecology-lesson/blob/master/needed_packages.R)
+    If learners are having issues with one package, they may have issues with another. It's often easier to make sure they have all the needed packages installed at one time, rather then deal with these issues over and over. [Here is a list of all necessary packages for these lessons.](https://github.com/datacarpentry/R-ecology-lesson/blob/master/needed_packages.R)
+
+- Many exercises produce data files that are necessary downstream.  Please complete all exercises or double-check carefully before skipping an exercise.
+
 
 ## Other Resources
 

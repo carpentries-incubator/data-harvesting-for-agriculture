@@ -151,7 +151,7 @@ By eye we can see the 2nd measurement (at `index = 2`) looks a little fishy.  In
 One way to do this is by setting any "weird" values to `NA`:
 
 ```{r dataClean3}
-error_data[error_data 2000] <- NA # set any values bigger than 2000 to the NA tag
+error_data[error_data > 2000] <- NA # set any values bigger than 2000 to the NA tag
 error_data
 ```
 

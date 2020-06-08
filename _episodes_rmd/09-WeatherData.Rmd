@@ -42,116 +42,11 @@ source("../bin/chunk-options.R")
 source("functions.R")
 ```
 
-<!-- TODO <font color="magenta">This could use a bit of re-writing - I just put the SSURGO stuff in with the weather data</font> -->
-
-## SSURGO Soil Data
-
-The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil description of your field on the Web Soil Survey website below. The SSURGO dataset has been developed over a century of surveying land and analyzing soil samples across the United States. While the website is one way to access the soil data, R also has a package called `FedData` with the function `get_ssurgo()` for accessing the soil data in the R environment.
-
-[The SSURGO site contains further details about their project.](https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx)
-
-### SSURGO Download
-
-The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
-
-```{r ssurgo, echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
-boundary <- read_sf("data/boundary.gpkg")
-boundary.sp <- as(boundary, "Spatial")
-ssurgo <- download_ssurgo("samplefield", boundary.sp)
-```
-
-### SSURGO Data
-
-The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` object contains the polygons of soil types for the field, and  `tabular` contains many dataframes with attributes collected for the soil and soil horizons.
-
-Note that these dataframes and their relationships with one another are very complex. To use these data, you must carefully read the SSURGO documentation. [The SSURGO Metadata Table Columns Desription document is available online](https://data.nal.usda.gov/system/files/SSURGO_Metadata_-_Table_Column_Descriptions.pdf), and some of the segments we're going to use are found around page 81.
-
-Merging the dataframes to have one value of the attributes for each soil polygon requires reducing the dimension of the data, often by weighting the attributes by horizon depth.
-
-Let's make a map of the soil types on this field. First, we need to locate the part of
-`tabular` with the soil names; these can be found in `muaggatt`. (From the Metadata Table Column Desriptions document linked in above, we can learn that 'muaggatt' stands for 'Map Unit Aggregated Attributes.')
-
-```{r names}
-names <- ssurgo$tabular$muaggatt
-```
-
-> ## Exercise: Soil Names
->
-> What are the soil types present on the field as seen in `names`? Are the soil defined by anything other than the soil type?
->
-> > ## Solution
-> > ```{r soilnames}
-> > names
-> > ```
-> {: .solution}
-{: .challenge}
-
-> ## Exercise Discussion
->
-> Looking at `names` we can see there are eight types of soil on the field, and the dataframe reports areas with different slopes with different names. We often know the slope of the field, and so we may want to combine areas of the field with the same soil type and different slopes.
-{: .callout}
-
-
-### Merging Dataframes
-
-We need one dataframe with both the soil name and spatial data. We will merge the soil data and the spatial data by the `musym`. Note that in one of the dataframes the variable is capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.  We also have to do this with the `mukey` variable as well.
-
-```{r soilmerge}
-spatial <- as(ssurgo$spatial, "sf")
-```
-
-```{r}
-spatial <- dplyr::rename(spatial, musym = MUSYM)
-spatial <- dplyr::rename(spatial, mukey = MUKEY)
-```
-
-```{r}
-spatial <- merge(spatial, names, by = "musym")
-```
-
-```{r}
-head(spatial$muname)
-```
-
-```{r}
-st_write(spatial, "data/ssurgo.gpkg", layer_options = 'OVERWRITE=YES')
-```
-
-
-> ## Exercise: Create the Soil Map
->
-> Use `map_poly()` to make a map where the polygon color is informed by the soil names in `muname`.
->
-> > ## Solution
-> >
-> >```{r map_soil_spatial}
-> > map_soil <- map_poly(spatial, 'muname', "Soil Type")
-> > map_soil
-> > ```
-> {: .solution}
-{: .challenge}
-
-> ## Exercise Discussion
->
-> The map shows that there are quite a few soil types on the field, and several show up in different sections of the field. However, most of the soils are silt loam. It might be difficult to understand the different soils without more information about soil weathering and texture. This is also provided within SSURGO and is likely something you know about in your own field.
-{: .callout}
-
-> ## Example with your own field
->
-> Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, we are going to make a table of the clay, silt, and sand content as well as the water content of the different soil types. There is a function `c_s_s_soil()` in `functions.R` that uses the soil depth to take an average of the soil measures for each soil type. The only parameter that needs to be set is:  <!-- TODO is this accurate? -->
->
-> ```{r soilmap}
-> soil_content <- c_s_s_soil(ssurgo = ssurgo)
-> soil_content
-> ```
-{: .challenge}
-
-
 ## Daymet Weather Data
 
-The Oak Ridge National Laboratory produces a datset called Daymet which contains predicted weather observations on a one meter grid. These data come from weather station climate observations in a climate model for prediction and include variables such as precipitation, snow water equivalent, temperature, day length, solar radians, and vapor pressure.
+The Oak Ridge National Laboratory produces a dataset called Daymet which contains predicted weather observations on a one meter grid. These data come from weather station climate observations in a climate model for prediction and include variables such as precipitation, snow water equivalent, temperature, day length, solar radians, and vapor pressure.
 
-There is a package in r `daymetr` that downloads the daymet weather data within the R environment. For a single point, you can use the command `download_daymet()`. (If you want to download the data for a set of points, there is also the command `download_daymet_batch()` which takes an argument a .csv of the points in lat/long. If you want to use this approach, we can give you an example.)
+There is a package in r `daymetr` that downloads the Daymet weather data within the R environment. For a single point, you can use the command `download_daymet()`. (If you want to download the data for a set of points, there is also the command `download_daymet_batch()` which takes an argument a `csv` of the points in lat/long. If you want to use this approach, we can give you an example.)
 
 ### Using `daymetr` to download weather
 
@@ -395,7 +290,7 @@ monthprec_2018 <- subset(by_month_year, year == 2018)
 > {: .solution}
 {: .challenge}
 
-<!-- TODO <font color="magenta">JPN: Do we need this subsetting here?  Do we ever use `&` again?  We haven't introduced boolean operations at all until right now so we should be sure we actually need it</font> -->
+#### Applying multiple criteria
 
 We could also find this by taking a subset with the year and month:
 
@@ -404,6 +299,23 @@ subset(by_month_year, year == 2015 & month == "Jun")
 ```
 
 Here we use the `&` to say we want *two different* conditions to be met in our subset.
+
+If we want to match two conditions and BOTH of them need to be present, we use the ampersand `&` ("and").  If we want to match EITHER of two conditions, we use the bar `|` ("or").  (These are called _boolean_ operators; basically, they logically combine pieces.)
+
+> ## Exercise: Multiple Conditions
+>
+> Find the total precipitation in January, February, and March of 2015.  Store this as `winter_prec`.  Display the first few lines.
+>
+> Hint: You can use parentheses to organize your logic.  Build an expression that finds one piece of what you want, then combine it to make the full expression.
+>
+> > ## Exercise Solution
+> >
+> > ```{r}
+> > winter_prec <- subset(by_month_year, (year == 2015 & month == "Jan") | (year == 2015 & month == "Feb") | (year == 2015 & month == "Mar") )
+> > head(winter_prec)
+> > ```
+> {: .solution}
+{: .challenge}
 
 
 #### Take the average of monthly rainfall
@@ -434,7 +346,3 @@ month_prec_graph(prec_merged)
 The most notable feature of the weather graph is the below average rainfall in July, the most critical growing period for corn. To understand whether this affected yield on the field, we woud also need to look at historic yield. But on your field, you will know those historic average and be able to have a pretty clear idea of how weather impacted the average yield in a growing season.
 
 There are many possible uses for this weather data. You can calculate cumulative rainfall when it rains for consecutive days or calculate the accumulated GDD. These are more complex operations, but we can help you with the code if you are interested.
-
-<!-- TODO
-<font color="magenta">JPN: Here we have to explain ggplot in more detail or we have to make this into a function that just takes in this dataframe and makes this plot.  My vote is to functionize it. Also, there are no legends on this plot. </font>
---->

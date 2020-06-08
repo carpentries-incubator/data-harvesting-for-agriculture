@@ -140,7 +140,7 @@ There are many functions for reading files into the environment, but `read_sf()`
 
 ## Check the coordinate reference system
 
-The function for retreiving the CRS of a simple feature is `st_crs().` Generally it is good practice to know the CRS of your files, but before combining files and performing operations on geospatial data, it is particularly important. Some commands will not work if the data is in the wrong CRS or if two dataframes are in different CRSs.
+The function for retreiving the CRS of a simple feature is `st_crs().` Generally it is good practice to know the CRS of your files, but it becomes critical when combining files and performing operations on geospatial data. Some commands will not work if the data is in the wrong CRS or if two dataframes are in different CRSs.
 
 ```{r checkCRS}
 st_crs(boundary)
@@ -150,7 +150,7 @@ The boundary file is projected in longitude and latitude using the WGS84 datum. 
 
 > ## Lost `.prj` files
 >
-> Sometimes when looking at a shapefile, the `.prj` file can be lost. Then `st_crs()` will return empty, but `sf` objects still contain a geometry column `geom`. We can see the geometric points for the vertices of each polygon or the points in the data.
+> Sometimes when looking at a shapefile, the `.prj` file may be lost. Then `st_crs()` will return empty, but `sf` objects still contain a geometry column `geom`. We can see the geometric points for the vertices of each polygon or the points in the data.
 >
 > ```{r geometry}
 > head(boundary$geom)
@@ -168,12 +168,9 @@ The UTM system divides the surface of Earth between 80°S and 84°N latitude int
 
 ### `st_transform` and ESPG Codes
 
-For reprojecting spatial data, the function `st_transform()` uses an ESPG code to transform a simple feature to the new CRS. EPSG Geodetic Parameter Dataset is a public registry of spatial reference systems, Earth ellipsoids, coordinate transformations and related units of measurement. The ESPG is one way to assign or transform the CRS in R.
+For reprojecting spatial data, the function `st_transform()` uses an ESPG code to transform a simple feature to the new CRS. The [ESPG Geodetic Parameter Dataset](https://beta.epsg.org/home.html) is a public registry of spatial reference systems, Earth ellipsoids, coordinate transformations and related units of measurement. The ESPG is one way to assign or transform the CRS in R.
 
 The ESPG for UTM always begins with "326" and the last numbers are the number of the zone. The ESPG for WGS84 is 4326. This is the projection your equipment reads, so any trial design files will need to be transformed back into WGS84 before you implement the trial. Also, all files from your machinery, such as yield, as-applied, and as-planted, will be reported in latitude and longitude with WGS84.
-
-<!-- TODO **Dena: I feel like this is a fantastic place to have an exercise with the name and/or first few lines of a file of each
-type to ask them to look at them and identify which is which and describe what that means, to check understanding?** -->
 
 
 ## Transforming
@@ -236,4 +233,24 @@ There are several ways to visualize spatial data. One way is to use `plot()` to 
 plot(boundary$geom)
 ```
 
-<!-- TODO address data types -->
+## Data Types
+
+There are many different geospatial data file types in use, which can make processing a bit complicated.  We have stuck to using `gpkg` in our work here because we feel there are fewer ways for the data to get corrupted (as by a lost `shp` file, for instance).  Some other types you may see include:
+
+- [`shp`](https://en.wikipedia.org/wiki/Shapefile).  Mentioned a moment ago as having several files to track, the `shp` format generates some required files and some optional files.
+
+    Required files include:
+
+    - `shp`, the geometry itself
+    - `shx`, the shape index file
+    - `sbf`, the attribute formats for each shape
+
+    Optional files which may be included are:
+
+    - `cpg`, the code page (or encoding) used with the `dbf` file
+    - `prj`, the project description and CRS
+    - `sbn`, `sbx`, spatial indices of features
+
+- [`geojson`](https://en.wikipedia.org/wiki/GeoJSON).  This is a plain text format which is quite flexible.
+
+- [`tif`](https://en.wikipedia.org/wiki/GeoTIFF).  This is a graphics file format which has been adapted for storing coordinate reference data with raster images.

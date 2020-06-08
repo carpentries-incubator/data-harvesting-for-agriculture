@@ -89,10 +89,6 @@ We launch RStudio by double clicking on its icon, as we would with other softwar
 <!-- ![starting R studio](../figure/Rstudio_blank.png) -->
 <img src="../figure/Rstudio_blank.png" width="80%">
 
-<!--
-<font color="magenta"> **TODO Do we want a screen shot of this instead of the R code?  Or will this be enough of a "following along" type of thing that that sort of thing isn't necessary? </font><font color="green">Dena: We do want a screen shot of a successful opening of R Studio so they have checkin points.)** </font>
--->
-
 
 ## Getting your RStudio workspace ready for the workshop
 
@@ -120,11 +116,6 @@ Under the **Session** menu, choose **Set Working Directory**, then **Choose Dire
 {: .windowsUsers}
 
 
-<!-- TODO JPN: use this if workingDir is not created yet THEY WILL HAVE TO PUT DATA IN BY HAND
-<img src="../figure/set_wd_mac_workingDir.png" width="70%">
-<img src="../figure/set_wd_mac_open.png" width="70%">
--->
-
 > ## Mac Users: Click here for more details
 >
 > <img src="../figure/set_wd_mac.png" width="70%">
@@ -132,6 +123,12 @@ Under the **Session** menu, choose **Set Working Directory**, then **Choose Dire
 > Selecting the `WorkingDir` file where we've copied the scripts and `data` directory.
 >
 > <img src="../figure/set_wd_mac_wdIsthere.png" width="70%">
+>
+> If you do not see a working directory `WorkingDir`, make sure you are in the right folder.  If you have not yet created a working directory, you can do so at this point:
+>
+> <img src="../figure/set_wd_mac_workingDir.png" width="70%">
+>
+> <img src="../figure/set_wd_mac_open.png" width="70%">
 >
 > Once selected, click `Open`.  Once you have your directory set you should see a `setwd` command show up in the console of RStudio:
 >
@@ -224,9 +221,9 @@ The instructions from here on out assume that you've set your working directory 
 
 We've automated bringing data sets in from our lesson as part of the setup script, but when you want to work with your own data, it'll help to know which directory you've stored it in.
 
-> ### Tip
+> ## Tip for Testing
 >
-> When you're testing things out, it's a good idea to work with copies of your files rather than with the originals. Making copies in a different working directory gives you the freedom to experiment and possibly make mistakes without damaging your original data.
+> When you're testing things out, it's a good idea to work with copies of your files rather than with the originals. Make copies in a different working directory to give yourself the freedom to experiment and make mistakes without damaging your original data.
 {: .callout}
 
 ## The stuff in your “kitchen”: Getting oriented with R Studio
@@ -260,37 +257,42 @@ Sometimes the recipe you received is dependent on other things that you want to 
 
 Here’s what that omelet process might look like in terms a step closer to programming:
 
-~~~
-# Note: This doesn't actually do anything; it's just a thought-example.
-# You don't need to copy this into RStudio.
-
-function make_omelet(how_many, todays_cheese, cheese_quantity, other_ingredients) {
-
-   # Multiply number of omelets wanted by 2 eggs each
-   eggs <- how_many * 2
-
-   # Multiply cheese per omelet by number of omelets to decide how much cheese is needed
-   total_cheese <- how_many * cheese_quantity
-
-   # Mix ingredients
-   for each bowl
-       crack eggs
-       discard shells
-       add total_cheese
-       if other_ingredients
-          bowl <- bowl + other_ingredients
-       else
-          ready to cook
-
-   # When ready to cook
-   pour bowl into hot pan
-	  # if more than 3 eggs, get more hot pans
-   cook
-   serve
-   wash_dishes
-}
-~~~
-{: .language-r}
+> ## Making an Omelet
+>
+> _Instructors: Build a process like this step-by-step on the board or screen if possible, incorporating student input._
+>
+> ~~~
+> > # Note: This doesn't actually do anything; it's just a thought-example.
+> > # You don't need to copy this into RStudio.
+> >
+> > function make_omelet(how_many, todays_cheese, cheese_quantity, other_ingredients) {
+> >
+> >   # Multiply number of omelets wanted by 2 eggs each
+> >   eggs <- how_many * 2
+> >
+> >   # Multiply cheese per omelet by number of omelets to decide how much cheese is needed
+> >   total_cheese <- how_many * cheese_quantity
+> >
+> >   # Mix ingredients
+> >   for each bowl
+> >       crack eggs
+> >       discard shells
+> >       add total_cheese
+> >       if other_ingredients
+> >          bowl <- bowl + other_ingredients
+> >       else
+> >          ready to cook
+> >
+> >   # When ready to cook
+> >   pour bowl into hot pan
+> >	  # if more than 3 eggs, get more hot pans
+> >   cook
+> >   serve
+> >   wash_dishes
+> > }
+> > ~~~
+> {: .language-r}
+{:callout}
 
 In this example, we’re telling the system these things:
   * A function (repeatable sequence of commands) named make_omelet takes several inputs (the ingredients list in parentheses)
@@ -410,7 +412,7 @@ Year,Crop,Nitrogen,Phosphate,Potash
 
 It can be opened in Excel if you want to get a quick look at it that way, or we can dive straight into looking at it in R.
 
-Next, we’ll use the function called `read.csv` to import data from a CSV (comma-separated value) file. (In this case the `.csv` is part of the name of the function, not the name of a separate file. We didn’t choose the name, which is admittedly a bit confusing here.)
+Next, we’ll use the function called `read.csv` to import data from a CSV (comma-separated value) file. (In this case the `csv` is part of the name of the function, not the name of a separate file. We didn’t choose the name, which is admittedly a bit confusing here.)
 
 To do this, put this line in your script area (upper left hand quadrant) and click `Run`.
 

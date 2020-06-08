@@ -1,0 +1,145 @@
+---
+title: "SSURGO & Weather Data"
+include_overview: true
+questions:
+ - What are the common file types in agricultural data?
+ - What publicly available datasets exist for my field?
+objectives:
+ - How to get key soil type data for your farm from the publicly available SSURGO database
+ - Describe the format of public weather and soil datasets
+ - Import weather data from the internet, eg. daymetr
+ - Access to elevation and ssurgo data with higher resolution
+ - Derive topography data from elevation data
+keypoints:
+ - sf is preferable for data analysis; it is easier to access the dataframe
+ - Projecting your data in utm is necessary for many of the geometric operations you perform (e.g. making trial grids and splitting plots into subplot data)
+ - Compare different data formats, such as gpkg, shp(cpg,dbf,prj,sbn,sbx),geojson,tif
+source: Rmd
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(sf)
+library(gstat)
+library(fasterize)
+library(raster)
+library(rjson)
+library(httr)
+library(rgdal)
+library(rgeos)
+library(maptools)
+require(tmap)
+require(ggplot2)
+require(gridExtra)
+library(daymetr)
+library(grid)
+library(readr)
+library(measurements)
+library(FedData)
+library(lubridate)
+library(plyr)
+source("../bin/chunk-options.R")
+source("functions.R")
+```
+
+## SSURGO Soil Data
+
+The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil description of your field on the Web Soil Survey website below. The SSURGO dataset has been developed over a century of surveying land and analyzing soil samples across the United States. While the website is one way to access the soil data, R also has a package called `FedData` with the function `get_ssurgo()` for accessing the soil data in the R environment.
+
+[The SSURGO site contains further details about their project.](https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx)
+
+### SSURGO Download
+
+The next line brings the SSURGO data into the R environment with the name `ssurgo` and the  object `boundary` from the geospatial lesson. Note here that the class of `boundary` needs  to be `spatial` rather than `sf`, so we transform the object with `as(boundary,"Spatial")`.
+
+```{r ssurgo, echo=TRUE, message=TRUE, warning=TRUE, include=TRUE}
+boundary <- read_sf("data/boundary.gpkg")
+boundary.sp <- as(boundary, "Spatial")
+ssurgo <- download_ssurgo("samplefield", boundary.sp)
+```
+
+### SSURGO Data
+
+The downloaded `ssurgo` is a list with 2 objects, `spatial` and `tabular`. The `spatial` object contains the polygons of soil types for the field, and  `tabular` contains many dataframes with attributes collected for the soil and soil horizons.
+
+Note that these dataframes and their relationships with one another are very complex. To use these data, you must carefully read the SSURGO documentation. [The SSURGO Metadata Table Columns Desription document is available online](https://data.nal.usda.gov/system/files/SSURGO_Metadata_-_Table_Column_Descriptions.pdf), and some of the segments we're going to use are found around page 81.
+
+Merging the dataframes to have one value of the attributes for each soil polygon requires reducing the dimension of the data, often by weighting the attributes by horizon depth.
+
+Let's make a map of the soil types on this field. First, we need to locate the part of
+`tabular` with the soil names; these can be found in `muaggatt`. (From the Metadata Table Column Desriptions document linked in above, we can learn that 'muaggatt' stands for 'Map Unit Aggregated Attributes.')
+
+```{r names}
+names <- ssurgo$tabular$muaggatt
+```
+
+> ## Exercise: Soil Names
+>
+> What are the soil types present on the field as seen in `names`? Are the soil defined by anything other than the soil type?
+>
+> > ## Solution
+> > ```{r soilnames}
+> > names
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Exercise Discussion
+>
+> Looking at `names` we can see there are eight types of soil on the field, and the dataframe reports areas with different slopes with different names. We often know the slope of the field, and so we may want to combine areas of the field with the same soil type and different slopes.
+{: .callout}
+
+
+### Merging Dataframes
+
+We need one dataframe with both the soil name and spatial data. We will merge the soil data and the spatial data by the `musym`. Note that in one of the dataframes the variable is capitalized and not in the other. We must rename the variable for consistency using `rename()` from `dplyr`.  We also have to do this with the `mukey` variable as well.
+
+```{r soilmerge}
+spatial <- as(ssurgo$spatial, "sf")
+```
+
+```{r}
+spatial <- dplyr::rename(spatial, musym = MUSYM)
+spatial <- dplyr::rename(spatial, mukey = MUKEY)
+```
+
+```{r}
+spatial <- merge(spatial, names, by = "musym")
+```
+
+```{r}
+head(spatial$muname)
+```
+
+```{r}
+st_write(spatial, "data/ssurgo.gpkg", layer_options = 'OVERWRITE=YES', append=FALSE)
+```
+
+
+> ## Exercise: Create the Soil Map
+>
+> Use `map_poly()` to make a map where the polygon color is informed by the soil names in `muname`.
+>
+> > ## Solution
+> >
+> >```{r map_soil_spatial}
+> > map_soil <- map_poly(spatial, 'muname', "Soil Type")
+> > map_soil
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Exercise Discussion
+>
+> The map shows that there are quite a few soil types on the field, and several show up in different sections of the field. However, most of the soils are silt loam. It might be difficult to understand the different soils without more information about soil weathering and texture. This is also provided within SSURGO and is likely something you know about in your own field.
+{: .callout}
+
+> ## Example with your own field
+>
+> Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, we are going to make a table of the clay, silt, and sand content as well as the water content of the different soil types. There is a function `c_s_s_soil()` in `functions.R` that uses the soil depth to take an average of the soil measures for each soil type. The only parameter that needs to be set is as follows:
+>
+> ```{r soilmap}
+> soil_content <- c_s_s_soil(ssurgo = ssurgo)
+> soil_content
+> ```
+{: .challenge}
