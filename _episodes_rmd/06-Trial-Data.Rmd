@@ -266,3 +266,48 @@ We can also do a visual comparison of yield and seed. While often the spatial pa
 {: .callout}
 
 <!-- TODO <font color="magenta">Dena asks: Do we add in a financial data exercise here?</font> -->
+
+> ## Joint Exercise: Costs per Grid
+>
+> With the seeding rate and the nitrogen application rate, we can calculate the cost per grid.  We will use the USDA's [Recent Costs and Returns](https://www.ers.usda.gov/data-products/commodity-costs-and-returns/commodity-costs-and-returns/#Recent%20Cost%20and%20Returns) database for corn, and the USDA's [Fertilizer Use and Price](https://www.ers.usda.gov/data-products/fertilizer-use-and-price/) database for the cost of nitrogen application.
+>
+> The database indicates that our seed cost per acre of corn for 2019 averaged $615.49 per acre, and that fertilizers and chemicals together come to $1,091.89 per acre.  For this exercise, we are going to simplify the model and omit equipment fuel and maintenance costs, irrigation water, and the like, and focus only on seed cost and "nitrogen".  We assume that the baseline seed rate is 37,000 seeds per acre (`seed_quo`) (although compare [this article](https://www.agry.purdue.edu/ext/corn/news/timeless/SeedingRateThoughts.html) which posits 33,000).
+>
+> We apply these base prices to our trial model to obtain a "seed rate" price of XXX and a "nitrogen rate" price of XXX.
+>
+> Using this information, produce a map like in the previous example with the cost indicated.
+>
+> > ## Solution
+> >
+> > ```{r sol map as pl1} XXX
+> > map_cost <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+> > map_cost
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Solo Exercise: Gross Profit per Grid
+>
+> The USDA database indicates $4,407.75 as the baseline gross value of production for corn per acre in 2019.  Assuming the baseline yield is 1,124 bushels per acre with a price per bushel of $3.91, produce a map with the gross profit per acre indicated.
+>
+> > ## Solution
+> >
+> > ```{r sol map as pl1} XXX
+> > map_gross <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+> > map_gross
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Solo Exercise: Net Profit per Grid
+>
+> Calculate the difference between the cost in each grid square and the gross profit in each grid square, thus the net profit, and produce a map with the net profit per acre indicated.
+>
+> > ## Solution
+> >
+> > ```{r sol map as pl1} XXX
+> > map_net <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+> > map_net
+> > ```
+> {: .solution}
+{: .challenge}

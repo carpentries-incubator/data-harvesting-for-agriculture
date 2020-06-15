@@ -3,6 +3,12 @@ layout: page
 title: "Instructor Notes"
 ---
 
+## A Note on Our Philosophy
+
+We are targeting working farmers and certified crop advisors (CCAs).  We do not and should not expect them to prepare complex analytical codes from scratch on the basis of a two-day workshop.  We have instead decided to package much of the analytical logic into a set of functions in `functions.R`, allowing us to focus on higher-level
+
+We highly recommend finding helpers who can help participants import data from various sources in order to understand how to adapt these tools to their own farm's working procedures.  Augment, don't displace, their tools.
+
 ## Setup Instructions
 
 We have found that setup can take an inordinately long amount of time, particularly on Windows machines which require a large download to install R and RStudio.  The setup instructions presume that the instructor or host will provide USB drives pre-loaded with the necessary materials for both Windows and Mac machines.  (We anticipate a vanishingly small segment of the farming community to be using Linux on their daily machines.)
@@ -83,18 +89,17 @@ Then restart RStudio.
 
 ## Technical Tips and Tricks
 
-- Show how to use the `Zoom` button to blow up graphs without constantly resizing
-windows
+- Show students how to use the `Zoom` button to examine graphs without constantly resizing windows.
 
-- Sometimes a package will not install; in that case, try a different CRAN mirror: `Tools > Global Options > Packages > CRAN Mirror`
+- Sometimes a package will not install.  In that case, you should try a different CRAN mirror:  `Tools > Global Options > Packages > CRAN Mirror`
 
     Alternatively you can go to CRAN and download the package and install from ZIP file: `Tools > Install Packages`, set to `'from Zip/TAR'`
 
-    It is important that R, and the R packages be installed locally, not on a network drive. If a learner is using a machine with multiple users where their account is not based locally this can create a variety of issues (This often happens on university computers). Hopefully the learner will realize these issues before hand, but depending on the machine and how the IT folks that service the computer have things set up, it may be very difficult to impossible to make R work without their help.
+    It is important that R and the R packages be installed locally, not on a network drive. If a learner is using a machine with multiple users where their account is not based locally this can create a variety of issues (This often happens on university computers). Hopefully the learner will realize these issues before hand, but depending on the machine and how the IT folks that service the computer have things set up, it may be very difficult to impossible to make R work without their help.
 
     If learners are having issues with one package, they may have issues with another. It's often easier to make sure they have all the needed packages installed at one time, rather then deal with these issues over and over. [Here is a list of all necessary packages for these lessons.](https://github.com/datacarpentry/R-ecology-lesson/blob/master/needed_packages.R)
 
-- Many exercises produce data files that are necessary downstream.  Please complete all exercises or double-check carefully before skipping an exercise.
+- Many exercises produce data files that are necessary downstream.  Please complete all exercises or double-check carefully before skipping an exercise.  If you need to catch someone up to a particular point, you can use the `lesson-catchup-scripts` to do so.
 
 
 ## Other Resources

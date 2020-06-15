@@ -1,6 +1,8 @@
 # Contributing
 
-Data Harvesting for Agriculture is an open source project,
+Data Harvesting for Agriculture is an open source project, sponsored by the [Center for Digital Agriculture](https://digitalag.illinois.edu) at the University of Illinois and housed under the Carpentries program.
+
+[The Carpentries][c-site] ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and [Library Carpentry][lc-site]) are open source projects,
 and we welcome contributions of all kinds:
 new lessons,
 fixes to existing material,
