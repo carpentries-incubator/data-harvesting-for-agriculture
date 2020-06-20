@@ -9,9 +9,13 @@ We are targeting working farmers and certified crop advisors (CCAs).  We do not 
 
 We highly recommend finding helpers who can help participants import data from various sources in order to understand how to adapt these tools to their own farm's working procedures.  Augment, don't displace, their tools.
 
+## Workshop Pages
+
+There are some places where our pages still refer to the University of Illinois' particular setup.  These are marked with `XXX` in HTML comment tags.  You should modify these instructions for your own hosting.  (Ultimately, these should be replaced with inclusions for Jekyll.)
+
 ## Setup Instructions
 
-We have found that setup can take an inordinately long amount of time, particularly on Windows machines which require a large download to install R and RStudio.  The setup instructions presume that the instructor or host will provide USB drives pre-loaded with the necessary materials for both Windows and Mac machines.  (We anticipate a vanishingly small segment of the farming community to be using Linux on their daily machines.)
+We have found that student setup can take an inordinate amount of time, particularly on Windows machines which require a large download to install R and RStudio.  The setup instructions presume that the instructor or host will provide USB drives pre-loaded with the necessary materials for both Windows and Mac machines.  (We anticipate a vanishingly small segment of the farming community to be using Linux on their daily machines.)
 
 These USB drives should contain the following, updated for current versions of the packages.
 

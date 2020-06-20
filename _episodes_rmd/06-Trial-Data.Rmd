@@ -271,9 +271,9 @@ We can also do a visual comparison of yield and seed. While often the spatial pa
 >
 > With the seeding rate and the nitrogen application rate, we can calculate the cost per grid.  We will use the USDA's [Recent Costs and Returns](https://www.ers.usda.gov/data-products/commodity-costs-and-returns/commodity-costs-and-returns/#Recent%20Cost%20and%20Returns) database for corn, and the USDA's [Fertilizer Use and Price](https://www.ers.usda.gov/data-products/fertilizer-use-and-price/) database for the cost of nitrogen application.
 >
-> The database indicates that our seed cost per acre of corn for 2019 averaged $615.49 per acre, and that fertilizers and chemicals together come to $1,091.89 per acre.  For this exercise, we are going to simplify the model and omit equipment fuel and maintenance costs, irrigation water, and the like, and focus only on seed cost and "nitrogen".  We assume that the baseline seed rate is 37,000 seeds per acre (`seed_quo`) (although compare [this article](https://www.agry.purdue.edu/ext/corn/news/timeless/SeedingRateThoughts.html) which posits 33,000).
+> The database indicates that our seed cost per acre of corn for 2019 averaged $615.49 per acre, and that fertilizers and chemicals together come to $1,091.89 per acre.  For this exercise, we are going to simplify the model and omit equipment fuel and maintenance costs, irrigation water, and the like, and focus only on seed cost and "nitrogen".  We assume that the baseline seed rate is 37,000 seeds per acre (`seed_quo`) (although compare [this article](https://www.agry.purdue.edu/ext/corn/news/timeless/SeedingRateThoughts.html) which posits 33,000).  We assume that the baseline nitrogen application rate is 172 lbs of nitrogen per acre (without specifying the source, urea or ammonia) as the 2018 baseline.
 >
-> We apply these base prices to our trial model to obtain a "seed rate" price of XXX and a "nitrogen rate" price of XXX.
+> We apply these base prices to our trial model to obtain a "seed rate" price of $615.49/37,000 = $0.0166 per seed and a "nitrogen rate" price of $1,091.89/172 = $6.35 per lb of nitrogen.
 >
 > Using this information, produce a map like in the previous example with the cost indicated.
 >

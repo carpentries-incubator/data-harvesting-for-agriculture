@@ -47,6 +47,8 @@ Here’s what to bring to this workshop:
 
 ## Getting connected to the campus network as a guest
 
+<!-- XXX:  customize to your locale -->
+
 The `IllinoisNet_Guest` network allows University visitors to access the wireless network.
 
  1. Connect to the `IllinoisNet_Guest` network.
