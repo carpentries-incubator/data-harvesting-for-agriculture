@@ -159,12 +159,9 @@ st_write(spatial, "data/ssurgo.gpkg", layer_options = 'OVERWRITE=YES', append=FA
 
 
 ~~~
-Deleting layer `ssurgo' using driver `GPKG'
-Writing layer `ssurgo' to data source `data/ssurgo.gpkg' using driver `GPKG'
-options:        OVERWRITE=YES 
-Writing 14 features with 43 fields and geometry type Multi Polygon.
+Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES", : unrecognized argument(s) append 
 ~~~
-{: .output}
+{: .error}
 
 
 > ## Exercise: Create the Soil Map
@@ -183,7 +180,7 @@ Writing 14 features with 43 fields and geometry type Multi Polygon.
 > >
 > >
 > >~~~
-> >Some legend labels were too wide. These labels have been resized to 0.64, 0.64, 0.64, 0.52, 0.49, 0.42, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+> >Some legend labels were too wide. These labels have been resized to 0.63, 0.63, 0.63, 0.52, 0.48, 0.42, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 > >~~~
 > >{: .output}
 > >

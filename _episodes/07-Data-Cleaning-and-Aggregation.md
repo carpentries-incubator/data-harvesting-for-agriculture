@@ -66,26 +66,8 @@ st_crs(boundary)
 
 ~~~
 Coordinate Reference System:
-  User input: WGS 84 
-  wkt:
-GEOGCRS["WGS 84",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS["geodetic latitude (Lat)",north,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433]],
-        AXIS["geodetic longitude (Lon)",east,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433]],
-    USAGE[
-        SCOPE["unknown"],
-        AREA["World"],
-        BBOX[-90,-180,90,180]],
-    ID["EPSG",4326]]
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
 ~~~
 {: .output}
 
@@ -102,46 +84,8 @@ st_crs(boundary_utm)
 
 ~~~
 Coordinate Reference System:
-  User input: EPSG:32617 
-  wkt:
-PROJCRS["WGS 84 / UTM zone 17N",
-    BASEGEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
-    CONVERSION["UTM zone 17N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-81,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    USAGE[
-        SCOPE["unknown"],
-        AREA["World - N hemisphere - 84°W to 78°W - by country"],
-        BBOX[0,-84,84,-78]],
-    ID["EPSG",32617]]
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -167,46 +111,8 @@ st_crs(trial)
 
 ~~~
 Coordinate Reference System:
-  User input: WGS 84 / UTM zone 17N 
-  wkt:
-PROJCRS["WGS 84 / UTM zone 17N",
-    BASEGEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
-    CONVERSION["UTM zone 17N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-81,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    USAGE[
-        SCOPE["unknown"],
-        AREA["World - N hemisphere - 84°W to 78°W - by country"],
-        BBOX[0,-84,84,-78]],
-    ID["EPSG",32617]]
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 
@@ -239,46 +145,8 @@ trial_utm <- trial
 > > 
 > > ~~~
 > > Coordinate Reference System:
-> >   User input: WGS 84 / UTM zone 17N 
-> >   wkt:
-> > PROJCRS["WGS 84 / UTM zone 17N",
-> >     BASEGEOGCRS["WGS 84",
-> >         DATUM["World Geodetic System 1984",
-> >             ELLIPSOID["WGS 84",6378137,298.257223563,
-> >                 LENGTHUNIT["metre",1]]],
-> >         PRIMEM["Greenwich",0,
-> >             ANGLEUNIT["degree",0.0174532925199433]],
-> >         ID["EPSG",4326]],
-> >     CONVERSION["UTM zone 17N",
-> >         METHOD["Transverse Mercator",
-> >             ID["EPSG",9807]],
-> >         PARAMETER["Latitude of natural origin",0,
-> >             ANGLEUNIT["degree",0.0174532925199433],
-> >             ID["EPSG",8801]],
-> >         PARAMETER["Longitude of natural origin",-81,
-> >             ANGLEUNIT["degree",0.0174532925199433],
-> >             ID["EPSG",8802]],
-> >         PARAMETER["Scale factor at natural origin",0.9996,
-> >             SCALEUNIT["unity",1],
-> >             ID["EPSG",8805]],
-> >         PARAMETER["False easting",500000,
-> >             LENGTHUNIT["metre",1],
-> >             ID["EPSG",8806]],
-> >         PARAMETER["False northing",0,
-> >             LENGTHUNIT["metre",1],
-> >             ID["EPSG",8807]]],
-> >     CS[Cartesian,2],
-> >         AXIS["(E)",east,
-> >             ORDER[1],
-> >             LENGTHUNIT["metre",1]],
-> >         AXIS["(N)",north,
-> >             ORDER[2],
-> >             LENGTHUNIT["metre",1]],
-> >     USAGE[
-> >         SCOPE["unknown"],
-> >         AREA["World - N hemisphere - 84°W to 78°W - by country"],
-> >         BBOX[0,-84,84,-78]],
-> >     ID["EPSG",32617]]
+> >   EPSG: 32617 
+> >   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 > > ~~~
 > > {: .output}
 > > This trial data is already in UTM so we don't need to transform it!  If we did, we could use `st_transform_utm` again to do this.
@@ -311,26 +179,8 @@ Check out its current coordinate reference system:
 
 ~~~
 Coordinate Reference System:
-  User input: WGS 84 
-  wkt:
-GEOGCRS["WGS 84",
-    DATUM["World Geodetic System 1984",
-        ELLIPSOID["WGS 84",6378137,298.257223563,
-            LENGTHUNIT["metre",1]]],
-    PRIMEM["Greenwich",0,
-        ANGLEUNIT["degree",0.0174532925199433]],
-    CS[ellipsoidal,2],
-        AXIS["geodetic latitude (Lat)",north,
-            ORDER[1],
-            ANGLEUNIT["degree",0.0174532925199433]],
-        AXIS["geodetic longitude (Lon)",east,
-            ORDER[2],
-            ANGLEUNIT["degree",0.0174532925199433]],
-    USAGE[
-        SCOPE["unknown"],
-        AREA["World"],
-        BBOX[-90,-180,90,180]],
-    ID["EPSG",4326]]
+  EPSG: 4326 
+  proj4string: "+proj=longlat +datum=WGS84 +no_defs"
 ~~~
 {: .output}
 
@@ -473,46 +323,8 @@ the mean.
 > > 
 > > ~~~
 > > Coordinate Reference System:
-> >   User input: WGS 84 / UTM zone 17N 
-> >   wkt:
-> > PROJCRS["WGS 84 / UTM zone 17N",
-> >     BASEGEOGCRS["WGS 84",
-> >         DATUM["World Geodetic System 1984",
-> >             ELLIPSOID["WGS 84",6378137,298.257223563,
-> >                 LENGTHUNIT["metre",1]]],
-> >         PRIMEM["Greenwich",0,
-> >             ANGLEUNIT["degree",0.0174532925199433]],
-> >         ID["EPSG",4326]],
-> >     CONVERSION["UTM zone 17N",
-> >         METHOD["Transverse Mercator",
-> >             ID["EPSG",9807]],
-> >         PARAMETER["Latitude of natural origin",0,
-> >             ANGLEUNIT["degree",0.0174532925199433],
-> >             ID["EPSG",8801]],
-> >         PARAMETER["Longitude of natural origin",-81,
-> >             ANGLEUNIT["degree",0.0174532925199433],
-> >             ID["EPSG",8802]],
-> >         PARAMETER["Scale factor at natural origin",0.9996,
-> >             SCALEUNIT["unity",1],
-> >             ID["EPSG",8805]],
-> >         PARAMETER["False easting",500000,
-> >             LENGTHUNIT["metre",1],
-> >             ID["EPSG",8806]],
-> >         PARAMETER["False northing",0,
-> >             LENGTHUNIT["metre",1],
-> >             ID["EPSG",8807]]],
-> >     CS[Cartesian,2],
-> >         AXIS["(E)",east,
-> >             ORDER[1],
-> >             LENGTHUNIT["metre",1]],
-> >         AXIS["(N)",north,
-> >             ORDER[2],
-> >             LENGTHUNIT["metre",1]],
-> >     USAGE[
-> >         SCOPE["unknown"],
-> >         AREA["World - N hemisphere - 84°W to 78°W - by country"],
-> >         BBOX[0,-84,84,-78]],
-> >     ID["EPSG",32617]]
+> >   EPSG: 32617 
+> >   proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 > > ~~~
 > > {: .output}
 > >
@@ -708,46 +520,8 @@ st_crs(asplanted)
 
 ~~~
 Coordinate Reference System:
-  User input: WGS 84 / UTM zone 17N 
-  wkt:
-PROJCRS["WGS 84 / UTM zone 17N",
-    BASEGEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
-            ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
-        PRIMEM["Greenwich",0,
-            ANGLEUNIT["degree",0.0174532925199433]],
-        ID["EPSG",4326]],
-    CONVERSION["UTM zone 17N",
-        METHOD["Transverse Mercator",
-            ID["EPSG",9807]],
-        PARAMETER["Latitude of natural origin",0,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8801]],
-        PARAMETER["Longitude of natural origin",-81,
-            ANGLEUNIT["degree",0.0174532925199433],
-            ID["EPSG",8802]],
-        PARAMETER["Scale factor at natural origin",0.9996,
-            SCALEUNIT["unity",1],
-            ID["EPSG",8805]],
-        PARAMETER["False easting",500000,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8806]],
-        PARAMETER["False northing",0,
-            LENGTHUNIT["metre",1],
-            ID["EPSG",8807]]],
-    CS[Cartesian,2],
-        AXIS["(E)",east,
-            ORDER[1],
-            LENGTHUNIT["metre",1]],
-        AXIS["(N)",north,
-            ORDER[2],
-            LENGTHUNIT["metre",1]],
-    USAGE[
-        SCOPE["unknown"],
-        AREA["World - N hemisphere - 84°W to 78°W - by country"],
-        BBOX[0,-84,84,-78]],
-    ID["EPSG",32617]]
+  EPSG: 32617 
+  proj4string: "+proj=utm +zone=17 +datum=WGS84 +units=m +no_defs"
 ~~~
 {: .output}
 

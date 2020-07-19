@@ -1,0 +1,93 @@
+I"�<p>Our motivation for creating this workshop is the recent, rapid increase in the volume of data produced on farms and the use of such data for decision making by farmers.  This material doesn’t claim to replace the data analysis services that are currently provided by the agricultural technology industry, but rather to arm you with knowledge to help you better communicate with such service providers.  Moreover, we believe that your data will be more valuable to you if you have some ability to analyze it yourself, regardless of whether you continue to do business with a particular company in the future.</p>
+
+<p>After attending our workshop, you will be able to develop small computer programs of your own for analysis, visualization, and decision making, and will be able to share those programs with others.</p>
+
+<p>Don’t worry:  we’re not asking you to develop research software from scratch! We’ll provide you with scripts and programs that perform much of the work for you.  However, helping you understand the way the software works will let you run different scenarios for yourself and decide between alternatives for your business.</p>
+
+<h2 id="what-youll-learn">What you’ll learn</h2>
+
+<p>By the end of this workshop, you will know more about:</p>
+
+<ul>
+  <li>How to understand the data coming from your agricultural equipment</li>
+  <li>What you can do with the data yourself using free and open source tools</li>
+  <li>Where to find historical data relevant to your own farm’s and county’s location and land</li>
+  <li>How to use both current and historical data about your own farm and county to develop custom fertilizing strategies that can improve the cost-effectiveness of application in your particular location</li>
+</ul>
+
+<p>To this end, we will introduce a few tools and concepts:</p>
+
+<ul>
+  <li><strong>RStudio</strong>, free and open source software used for creating both programs and visualizations</li>
+  <li><strong>Geospatial data types</strong> that you may encounter, how to tell them apart, and how to use them for your own location</li>
+  <li><strong>Commonly used file formats</strong> that your agricultural equipment may provide, how to tell them apart, and how to know what to do with each of them</li>
+  <li><strong>Basic data cleaning processes</strong> so that you’ll get more useful and effective results from analysis of your farm’s or your region’s data</li>
+  <li>Ways to calculate the most <strong>cost-effective application rates</strong> and assess the effectiveness of the results</li>
+  <li>How to design <strong>a custom set of variable application rates</strong> for your own farm, apply them, and analyze the results consistently across multiple years</li>
+</ul>
+
+<h2 id="what-to-bring-with-you">What to bring with you</h2>
+
+<p>While our lessons are taught with sample data so that everyone can follow along with the same set of numbers and values and check their results, you should see additional benefits from this workshop if you bring along some data that are relevant to your own farm.</p>
+
+<p>Here’s what to bring to this workshop:</p>
+
+<ul>
+  <li>A laptop (Windows, Mac, or Linux)</li>
+  <li>Past yield maps</li>
+  <li>A boundary file for areas you’d like to analyze</li>
+  <li>Machinery widths, if you have them (if not, we can estimate)</li>
+  <li>Any prescription maps you use for your fields</li>
+  <li>Past application maps, if you have already done variable rate application</li>
+  <li>A-B line or guidance line information</li>
+</ul>
+
+<h2 id="getting-connected-to-the-campus-network-as-a-guest">Getting connected to the campus network as a guest</h2>
+
+<!-- XXX:  customize to your locale -->
+
+<p>The <code class="highlighter-rouge">IllinoisNet_Guest</code> network allows University visitors to access the wireless network.</p>
+
+<ol>
+  <li>Connect to the <code class="highlighter-rouge">IllinoisNet_Guest</code> network.</li>
+  <li>Visit <a href="http://illinois.edu"><code class="highlighter-rouge">illinois.edu</code></a> and you’ll be redirected to the guest network portal.</li>
+  <li>Don’t use the NetID login section; that’s for University employees. Instead, click the guest link at the bottom of the page.</li>
+  <li>Follow the “Click Here for Wi-Fi Access” prompt.</li>
+  <li>Follow the prompts to provide the information to create a guest account.</li>
+  <li>When your browser is redirected to the <a href="http://illinois.edu"><code class="highlighter-rouge">illinois.edu</code></a> home page, you’ve completed the process.</li>
+  <li>Guest access is granted one day at a time; for the next day, you’ll need to log in to <code class="highlighter-rouge">IllinoisNet_Guest</code> again.</li>
+</ol>
+
+<h2 id="some-workshop-guidelines">Some workshop guidelines</h2>
+
+<p>We’ll have instructors and helpers available throughout the day to help you get over any hurdles if you get stuck.</p>
+
+<p>We’ll use two colors of sticky notes for quick check-ins around the room to see if everyone’s caught up or needs help. If you’d like to signal for a helper, put the “help” sticky note on the corner of your laptop screen and we’ll come to assist.</p>
+
+<h1 id="the-lesson-sequence">The lesson sequence</h1>
+
+<ol type="1">
+  <li> First, we’ll get you set up with R, R Studio, and QGIS software.</li>
+    <ol type="a">
+      <li> We’ll help you add some specialized components to R Studio for use with geospatial data in general and this lesson in specific. </li>
+      <li> We’ll introduce you to some of the sample files that we’ll be using in the lesson. </li>
+   	</ol>
+
+  <li> Next, we’ll introduce you to geospatial data, including file types and format types. </li>
+    <ol type="a">
+ 	  <li> The most common coordinate reference systems (CRSes) are latitude/longitude (WGS84) and UTM.</li>
+ 	  <li> The most common file format options are shape files (four or five separate files working together) or geopackages (everything bundled in one ‘box’ so it’s harder to lose a piece).</li>
+ 	  <li> We’ll teach you to understand which you’re looking at and how to convert them from one type to another in order to be able to work with data from different sources.</li>
+	</ol>
+
+  <li> Next, we’ll teach you how the DIFM project designs trials to determine the optimal cost-effective seed and nitrogen rate for particular fields and particular locations within those fields.</li>
+    <ol type="a">
+	  <li> We’ll design a grid and create a planting and fertilization map based upon it.</li>
+	  <li> We’ll look at some sample data which was created based on these principles.</li>
+	  <li> We’ll clean up the data to make sure that equipment errors, skews in the planting or fertilizing drive paths, and/or miscalculations don’t skew our results.</li>
+	  <li>We’ll use that cleaned data to calculate the best fertilizer and seed rates to apply in different areas of that field.</li>
+	</ol>
+
+  <li> We’ll look at some publicly available data such as weather history and soil types, which you can use with R Studio and QGIS to take a look at trends over time.</li>
+</ol>
+:ET

@@ -1,0 +1,234 @@
+I"dU<h2 id="ssurgo-soil-data">SSURGO Soil Data</h2>
+
+<p>The SSURGO data is probably a dataset you are familiar with already. You can obtain a soil description of your field on the Web Soil Survey website below. The SSURGO dataset has been developed over a century of surveying land and analyzing soil samples across the United States. While the website is one way to access the soil data, R also has a package called <code class="highlighter-rouge">FedData</code> with the function <code class="highlighter-rouge">get_ssurgo()</code> for accessing the soil data in the R environment.</p>
+
+<p><a href="https://websoilsurvey.sc.egov.usda.gov/App/WebSoilSurvey.aspx">The SSURGO site contains further details about their project.</a></p>
+
+<h3 id="ssurgo-download">SSURGO Download</h3>
+
+<p>The next line brings the SSURGO data into the R environment with the name <code class="highlighter-rouge">ssurgo</code> and the  object <code class="highlighter-rouge">boundary</code> from the geospatial lesson. Note here that the class of <code class="highlighter-rouge">boundary</code> needs  to be <code class="highlighter-rouge">spatial</code> rather than <code class="highlighter-rouge">sf</code>, so we transform the object with <code class="highlighter-rouge">as(boundary,"Spatial")</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boundary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_sf</span><span class="p">(</span><span class="s2">"data/boundary.gpkg"</span><span class="p">)</span><span class="w">
+</span><span class="n">boundary.sp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span><span class="w"> </span><span class="s2">"Spatial"</span><span class="p">)</span><span class="w">
+</span><span class="n">ssurgo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">download_ssurgo</span><span class="p">(</span><span class="s2">"samplefield"</span><span class="p">,</span><span class="w"> </span><span class="n">boundary.sp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Successfully downloaded SSURGO.
+</code></pre></div></div>
+
+<h3 id="ssurgo-data">SSURGO Data</h3>
+
+<p>The downloaded <code class="highlighter-rouge">ssurgo</code> is a list with 2 objects, <code class="highlighter-rouge">spatial</code> and <code class="highlighter-rouge">tabular</code>. The <code class="highlighter-rouge">spatial</code> object contains the polygons of soil types for the field, and  <code class="highlighter-rouge">tabular</code> contains many dataframes with attributes collected for the soil and soil horizons.</p>
+
+<p>Note that these dataframes and their relationships with one another are very complex. To use these data, you must carefully read the SSURGO documentation. <a href="https://data.nal.usda.gov/system/files/SSURGO_Metadata_-_Table_Column_Descriptions.pdf">The SSURGO Metadata Table Columns Desription document is available online</a>, and some of the segments we’re going to use are found around page 81.</p>
+
+<p>Merging the dataframes to have one value of the attributes for each soil polygon requires reducing the dimension of the data, often by weighting the attributes by horizon depth.</p>
+
+<p>Let’s make a map of the soil types on this field. First, we need to locate the part of
+<code class="highlighter-rouge">tabular</code> with the soil names; these can be found in <code class="highlighter-rouge">muaggatt</code>. (From the Metadata Table Column Desriptions document linked in above, we can learn that ‘muaggatt’ stands for ‘Map Unit Aggregated Attributes.’)</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ssurgo</span><span class="o">$</span><span class="n">tabular</span><span class="o">$</span><span class="n">muaggatt</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="exercise-soil-names">Exercise: Soil Names</h2>
+
+  <p>What are the soil types present on the field as seen in <code class="highlighter-rouge">names</code>? Are the soil defined by anything other than the soil type?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">names</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 9 x 40
+  musym muname mustatus slopegraddcp slopegradwta brockdepmin wtdepannmin
+  &lt;chr&gt; &lt;chr&gt;  &lt;lgl&gt;           &lt;dbl&gt;        &lt;dbl&gt; &lt;lgl&gt;             &lt;dbl&gt;
+1 BgB   Benni… NA                  4          3.9 NA                   22
+2 Cr    Condi… NA                  1          1   NA                    7
+3 HpE   Henne… NA                 30         30   NA                  153
+4 Lo    Lobde… NA                  1          1   NA                   69
+5 Pm    Pewam… NA                  1          1   NA                   15
+6 Sh    Shoal… NA                  1          1   NA                   31
+7 BeA   Benni… NA                  1          1.2 NA                   22
+8 Crd1… Cardi… NA                  3          2.8 NA                   46
+9 Crd1… Cardi… NA                  9          8.4 NA                   46
+# … with 33 more variables: wtdepaprjunmin &lt;dbl&gt;, flodfreqdcd &lt;chr&gt;,
+#   flodfreqmax &lt;chr&gt;, pondfreqprs &lt;dbl&gt;, aws025wta &lt;dbl&gt;, aws050wta &lt;dbl&gt;,
+#   aws0100wta &lt;dbl&gt;, aws0150wta &lt;dbl&gt;, drclassdcd &lt;chr&gt;, drclasswettest &lt;chr&gt;,
+#   hydgrpdcd &lt;chr&gt;, iccdcd &lt;lgl&gt;, iccdcdpct &lt;dbl&gt;, niccdcd &lt;dbl&gt;,
+#   niccdcdpct &lt;dbl&gt;, engdwobdcd &lt;chr&gt;, engdwbdcd &lt;chr&gt;, engdwbll &lt;chr&gt;,
+#   engdwbml &lt;chr&gt;, engstafdcd &lt;chr&gt;, engstafll &lt;chr&gt;, engstafml &lt;chr&gt;,
+#   engsldcd &lt;chr&gt;, engsldcp &lt;chr&gt;, englrsdcd &lt;chr&gt;, engcmssdcd &lt;chr&gt;,
+#   engcmssmp &lt;chr&gt;, urbrecptdcd &lt;chr&gt;, urbrecptwta &lt;dbl&gt;, forpehrtdcp &lt;chr&gt;,
+#   hydclprs &lt;dbl&gt;, awmmfpwwta &lt;dbl&gt;, mukey &lt;dbl&gt;
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote class="callout">
+  <h2 id="exercise-discussion">Exercise Discussion</h2>
+
+  <p>Looking at <code class="highlighter-rouge">names</code> we can see there are eight types of soil on the field, and the dataframe reports areas with different slopes with different names. We often know the slope of the field, and so we may want to combine areas of the field with the same soil type and different slopes.</p>
+</blockquote>
+
+<h3 id="merging-dataframes">Merging Dataframes</h3>
+
+<p>We need one dataframe with both the soil name and spatial data. We will merge the soil data and the spatial data by the <code class="highlighter-rouge">musym</code>. Note that in one of the dataframes the variable is capitalized and not in the other. We must rename the variable for consistency using <code class="highlighter-rouge">rename()</code> from <code class="highlighter-rouge">dplyr</code>.  We also have to do this with the <code class="highlighter-rouge">mukey</code> variable as well.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spatial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as</span><span class="p">(</span><span class="n">ssurgo</span><span class="o">$</span><span class="n">spatial</span><span class="p">,</span><span class="w"> </span><span class="s2">"sf"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spatial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dplyr</span><span class="o">::</span><span class="n">rename</span><span class="p">(</span><span class="n">spatial</span><span class="p">,</span><span class="w"> </span><span class="n">musym</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MUSYM</span><span class="p">)</span><span class="w">
+</span><span class="n">spatial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dplyr</span><span class="o">::</span><span class="n">rename</span><span class="p">(</span><span class="n">spatial</span><span class="p">,</span><span class="w"> </span><span class="n">mukey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MUKEY</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spatial</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="n">spatial</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"musym"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">spatial</span><span class="o">$</span><span class="n">muname</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Bennington silt loam, 0 to 2 percent slopes"
+[2] "Bennington silt loam, 0 to 2 percent slopes"
+[3] "Bennington silt loam, 0 to 2 percent slopes"
+[4] "Bennington silt loam, 2 to 6 percent slopes"
+[5] "Bennington silt loam, 2 to 6 percent slopes"
+[6] "Condit-Bennington silt loams"               
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">st_write</span><span class="p">(</span><span class="n">spatial</span><span class="p">,</span><span class="w"> </span><span class="s2">"data/ssurgo.gpkg"</span><span class="p">,</span><span class="w"> </span><span class="n">layer_options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'OVERWRITE=YES'</span><span class="p">,</span><span class="w"> </span><span class="n">append</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in st_write.sf(spatial, "data/ssurgo.gpkg", layer_options = "OVERWRITE=YES", : unrecognized argument(s) append 
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="exercise-create-the-soil-map">Exercise: Create the Soil Map</h2>
+
+  <p>Use <code class="highlighter-rouge">map_poly()</code> to make a map where the polygon color is informed by the soil names in <code class="highlighter-rouge">muname</code>.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_soil</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_poly</span><span class="p">(</span><span class="n">spatial</span><span class="p">,</span><span class="w"> </span><span class="s1">'muname'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Soil Type"</span><span class="p">)</span><span class="w">
+</span><span class="n">map_soil</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Some legend labels were too wide. These labels have been resized to 0.63, 0.63, 0.63, 0.52, 0.48, 0.42, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-map_soil_spatial-1.png" title="plot of chunk map_soil_spatial" alt="plot of chunk map_soil_spatial" width="612" style="display: block; margin: auto;" /></p>
+  </blockquote>
+</blockquote>
+
+<blockquote class="callout">
+  <h2 id="exercise-discussion-1">Exercise Discussion</h2>
+
+  <p>The map shows that there are quite a few soil types on the field, and several show up in different sections of the field. However, most of the soils are silt loam. It might be difficult to understand the different soils without more information about soil weathering and texture. This is also provided within SSURGO and is likely something you know about in your own field.</p>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="example-with-your-own-field">Example with your own field</h2>
+
+  <p>Here we are going to download the SSURGO maps for your own field using your boundary file if you have one. Then, we are going to make a table of the clay, silt, and sand content as well as the water content of the different soil types. There is a function <code class="highlighter-rouge">c_s_s_soil()</code> in <code class="highlighter-rouge">functions.R</code> that uses the soil depth to take an average of the soil measures for each soil type. The only parameter that needs to be set is as follows:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">soil_content</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">c_s_s_soil</span><span class="p">(</span><span class="n">ssurgo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ssurgo</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |===                                                                   |   4%
+  |                                                                            
+  |=====                                                                 |   7%
+  |                                                                            
+  |========                                                              |  11%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |=============                                                         |  19%
+  |                                                                            
+  |================                                                      |  22%
+  |                                                                            
+  |==================                                                    |  26%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |=======================                                               |  33%
+  |                                                                            
+  |==========================                                            |  37%
+  |                                                                            
+  |=============================                                         |  41%
+  |                                                                            
+  |===============================                                       |  44%
+  |                                                                            
+  |==================================                                    |  48%
+  |                                                                            
+  |====================================                                  |  52%
+  |                                                                            
+  |=======================================                               |  56%
+  |                                                                            
+  |=========================================                             |  59%
+  |                                                                            
+  |============================================                          |  63%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |======================================================                |  78%
+  |                                                                            
+  |=========================================================             |  81%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |==============================================================        |  89%
+  |                                                                            
+  |=================================================================     |  93%
+  |                                                                            
+  |===================================================================   |  96%
+  |                                                                            
+  |======================================================================| 100%
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |========                                                              |  11%
+  |                                                                            
+  |================                                                      |  22%
+  |                                                                            
+  |=======================                                               |  33%
+  |                                                                            
+  |===============================                                       |  44%
+  |                                                                            
+  |=======================================                               |  56%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |======================================================                |  78%
+  |                                                                            
+  |==============================================================        |  89%
+  |                                                                            
+  |======================================================================| 100%
+</code></pre></div>  </div>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">soil_content</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    mukey AREASYMBOL SPATIALVER  MUSYM     clay     silt     sand water_storage
+1 1019357      OH033         10    BeA 30.88180 49.35860 19.75960      24.93720
+2  168539      OH033         10    BgB 31.09245 48.94345 19.96410      24.72030
+3  168557      OH033         10     Cr 33.80601 45.40116 20.79283      21.87375
+4  168570      OH033         10    HpE 28.17274 37.20299 34.62427      21.24000
+5  168578      OH033         10     Lo 23.32787 49.29454 27.37760      27.86000
+6  168588      OH033         10     Pm 34.08070 46.99515 18.92415      25.82340
+7  168591      OH033         10     Sh 21.67045 44.65005 33.67950      31.86120
+8 2996476      OH033         10 Crd1B1 30.17855 46.96980 22.85165      24.72070
+9 2996690      OH033         10 Crd1C2 29.92200 45.94210 24.13590      23.14610
+</code></pre></div>  </div>
+</blockquote>
+:ET
