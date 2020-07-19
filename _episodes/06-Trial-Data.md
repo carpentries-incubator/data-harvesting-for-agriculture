@@ -406,10 +406,15 @@ We can also do a visual comparison of yield and seed. While often the spatial pa
 >
 > > ## Solution
 > >
-> > ```{r sol map as pl1} XXX
-> > map_cost <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+> > 
+> > ~~~
+> > trial$COST = 0.0166*trial$SEEDRATE + 6.35*trial$NRATE
+> > map_cost = map_poly(trial, 'COST', 'Cost in US $')
 > > map_cost
-> > ```
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-sol map as pl1cost-1.png" title="plot of chunk sol map as pl1cost" alt="plot of chunk sol map as pl1cost" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

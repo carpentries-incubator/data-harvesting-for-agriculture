@@ -53,6 +53,7 @@ nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli, sd_no=3)
 
 # Cost = $0.0166 X (as planted rate) + $6.35 X (as applied nitrogen rate)
 #      = $0.0166 X (trial$SEEDRATE) + $6.35 X (trial$NRATE)
+# e.g. :
 #tgts <- map_poly(trial, 'SEEDRATE', 'Seed')
 #tgtn <- map_poly(trial, 'NRATE', 'Nitrogen')
 
