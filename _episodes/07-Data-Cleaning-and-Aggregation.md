@@ -663,3 +663,71 @@ map_poly(subplots_data, 'SEEDRATE', "Target Seed")
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" width="612" style="display: block; margin: auto;" />
+
+
+> ## Joint Exercise: Costs per Grid on Subplots
+>
+> Now we can revisit making maps of the cost, gross, and net profits after we have deposited them on our grid.  Let's first start by re-doing our calculation of cost on our subplots grid.  
+>
+> Recall our data from last time: the seed cost per acre of corn for 2019 averaged $615.49 per acre, and that fertilizers and chemicals together come to $1,091.89 per acre.  For this exercise, we are going to simplify the model and omit equipment fuel and maintenance costs, irrigation water, and the like, and focus only on seed cost and "nitrogen".  We assume that the baseline seed rate is 37,000 seeds per acre (`seed_quo`) (although compare [this article](https://www.agry.purdue.edu/ext/corn/news/timeless/SeedingRateThoughts.html) which posits 33,000).  We assume that the baseline nitrogen application rate is 172 lbs of nitrogen per acre (without specifying the source, urea or ammonia) as the 2018 baseline.
+>
+> We apply these base prices to our trial model to obtain a "seed rate" price of $615.49/37,000 = $0.0166 per seed and a "nitrogen rate" price of $1,091.89/172 = $6.35 per lb of nitrogen.
+>
+> Using this information, produce a map like in the previous example with the cost indicated *using our `subplots_data` variable*.  Because we have data from the trial as it was produced we can use the `Rt_Apd_Ct_` and `Rate_Appli` columns of the dataframe.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > subplots_data$MEDIAN_COST = 0.0166*subplots_data$Rt_Apd_Ct_ + 6.35*subplots_data$Rate_Appli
+> > map_cost = map_poly(subplots_data, 'MEDIAN_COST', 'Median Cost in US$')
+> > map_cost
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-sol map as pl1costsubplot-1.png" title="plot of chunk sol map as pl1costsubplot" alt="plot of chunk sol map as pl1costsubplot" width="612" style="display: block; margin: auto;" />
+> >
+> > Note here that we are saying this is the *median* cost per subplot because we have deposited on the grids using the median function.
+> {: .solution}
+{: .challenge}
+
+> ## Solo Exercise: Gross Profit per Grid on Subplots
+>
+> Now we will calculate the gross profit like in the previous lesson.  If we recall: the USDA database indicates $4,407.75 as the baseline gross value of production for corn per acre in 2019. Because we have deposited the column of `Yld_Vol_Dr` onto our grid in the `subplots_data` dataframe, we can use these yields instead of the fixed rate we used in the previous lesson.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > subplots_data$MEDIAN_GROSS_PROFIT = subplots_data$Yld_Vol_Dr*3.91
+> > map_gross <-  map_poly(subplots_data, 'MEDIAN_GROSS_PROFIT', 'Median Gross Profit in US$')
+> > map_gross
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-sol map as pl1gpsubplot-1.png" title="plot of chunk sol map as pl1gpsubplot" alt="plot of chunk sol map as pl1gpsubplot" width="612" style="display: block; margin: auto;" />
+> >
+> > As we can see, this is a single color map and that is because we have assumed a single yield rate for each subplot.  Of course, yield is something we can measure after we have designed and planted the trial subplots and we will revisit this idea in the next lesson.
+> {: .solution}
+> Because
+{: .challenge}
+
+> ## Solo Exercise: Net Profit per Grid on Subplots
+>
+> Once again calculate the difference between the cost in each grid square and the gross profit in each grid square using the `subplots_data` variable, thus the net profit, and produce a map with the net profit per acre indicated.  
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > subplots_data$MEDIAN_NET_PROFIT = subplots_data$MEDIAN_GROSS_PROFIT - subplots_data$MEDIAN_COST
+> > map_net <- map_poly(subplots_data, 'MEDIAN_NET_PROFIT', 'Median Net Profit in US$')
+> > map_net
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-sol map as pl1npsubplot-1.png" title="plot of chunk sol map as pl1npsubplot" alt="plot of chunk sol map as pl1npsubplot" width="612" style="display: block; margin: auto;" />
+> >
+> {: .solution}
+{: .challenge}
+
