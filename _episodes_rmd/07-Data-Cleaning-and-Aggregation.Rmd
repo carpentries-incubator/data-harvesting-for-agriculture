@@ -449,7 +449,6 @@ map_poly(subplots_data, 'SEEDRATE', "Target Seed")
 > >
 > > As we can see, this is a single color map and that is because we have assumed a single yield rate for each subplot.  Of course, yield is something we can measure after we have designed and planted the trial subplots and we will revisit this idea in the next lesson.
 > {: .solution}
-> Because
 {: .challenge}
 
 > ## Solo Exercise: Net Profit per Grid on Subplots
