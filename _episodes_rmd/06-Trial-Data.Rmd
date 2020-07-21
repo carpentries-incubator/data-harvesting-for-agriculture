@@ -281,7 +281,7 @@ We can also do a visual comparison of yield and seed. While often the spatial pa
 > >
 > > ```{r sol map as pl1cost} 
 > > trial$COST = 0.0166*trial$SEEDRATE + 6.35*trial$NRATE
-> > map_cost = map_poly(trial, 'COST', 'Cost in US $')
+> > map_cost = map_poly(trial, 'COST', 'Cost in US$')
 > > map_cost
 > > ```
 > {: .solution}
@@ -289,26 +289,34 @@ We can also do a visual comparison of yield and seed. While often the spatial pa
 
 > ## Solo Exercise: Gross Profit per Grid
 >
-> The USDA database indicates $4,407.75 as the baseline gross value of production for corn per acre in 2019.  Assuming the baseline yield is 1,124 bushels per acre with a price per bushel of $3.91, produce a map with the gross profit per acre indicated.
+> The USDA database indicates $4,407.75 as the baseline gross value of production for corn per acre in 2019.  Assume that *EVERY* subplot of the `trial` dataframe produces a yield of 1,124 bushels per acre with a price per bushel of $3.91 and produce a map with the gross profit per acre indicated.
+>
+> (This is of course inaccurate.  Different combinations of nitrogen and seeding rates will result in different yields -- this is the entire reason we want to make trial plots in the first place!  For now, just "go with" this inaccuracy and we'll revisit this idea in the next lesson.)
 >
 > > ## Solution
 > >
-> > ```{r sol map as pl1} XXX
-> > map_gross <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+> > ```{r sol map as pl1gp}
+> > trial$GROSS_PROFIT = 1124*3.91
+> > map_gross <-  map_poly(trial, 'GROSS_PROFIT', 'Gross Profit in US$')
 > > map_gross
 > > ```
+> >
+> > As we can see, this is a single color map and that is because we have assumed a single yield rate for each subplot.  Of course, yield is something we can measure after we have designed and planted the trial subplots and we will revisit this idea in the next lesson.
 > {: .solution}
 {: .challenge}
 
 > ## Solo Exercise: Net Profit per Grid
 >
-> Calculate the difference between the cost in each grid square and the gross profit in each grid square, thus the net profit, and produce a map with the net profit per acre indicated.
+> Calculate the difference between the cost in each grid square and the gross profit in each grid square in this trial plot, thus the net profit, and produce a map with the net profit per acre indicated.  Again, assume you can use the uniform gross profit calculated in the previous example, even though we know this is not 100% accurate.
 >
 > > ## Solution
 > >
-> > ```{r sol map as pl1} XXX
-> > map_net <- tmap_arrange(map_yieldcl, map_asplanted, ncol = 2, nrow = 1)
+> > ```{r sol map as pl1np}
+> > trial$NET_PROFIT = trial$GROSS_PROFIT - trial$COST
+> > map_net <- map_poly(trial, 'NET_PROFIT', 'Net Profit in US$')
 > > map_net
 > > ```
+> >
+> > Even though we know that the gross profits will in actuality vary for our different combinations of nitrogen and seeding rates, we can see already some difference in the net profits for each of our subplots due to the difference in costs associated with these different nitrogen and seeding rates.
 > {: .solution}
 {: .challenge}

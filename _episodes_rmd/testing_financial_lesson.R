@@ -56,4 +56,16 @@ nitrogen <- clean_sd(nitrogen, nitrogen$Rate_Appli, sd_no=3)
 # e.g. :
 #tgts <- map_poly(trial, 'SEEDRATE', 'Seed')
 #tgtn <- map_poly(trial, 'NRATE', 'Nitrogen')
+trial$COST = 0.0166*trial$SEEDRATE + 6.35*trial$NRATE
+map_cost = map_poly(trial, 'COST', 'Cost in US $')
+map_cost
+
+
+## ----------------------- ##
+
+## Solo Exercise: Gross Profit per Grid
+# The USDA database indicates $4,407.75 as the baseline gross value of production 
+#  for corn per acre in 2019. Assuming the baseline yield is 1,124 bushels per acre 
+#  with a price per bushel of $3.91, produce a map with the gross profit per acre indicated.
+
 
