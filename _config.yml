@@ -9,7 +9,7 @@ title: "Data Harvesting for Agriculture"
 
 # Life cycle stage of the lesson
 # possible values: "pre-alpha", "alpha", "beta", "stable"
-life_cycle: "beta"
+life_cycle: "alpha"
 
 # JPN
 port: 4007
