@@ -44,9 +44,11 @@ source("functions.R")
 
 ## Daymet Weather Data
 
-The Oak Ridge National Laboratory produces a dataset called Daymet which contains predicted weather observations on a one meter grid. These data come from weather station climate observations in a climate model for prediction and include variables such as precipitation, snow water equivalent, temperature, day length, solar radians, and vapor pressure.
+The Oak Ridge National Laboratory produces a dataset called Daymet (Thornton et al 2021) that contains historical estimates of daily weather variables interpolated from available weather stations to a one kilometer grid. Daymet provides daily precipitation, min and max temperature, snow water equivalent, temperature, day length, solar radiation, and vapor pressure, and are updated monthly.
 
 There is a package in r `daymetr` that downloads the Daymet weather data within the R environment. For a single point, you can use the command `download_daymet()`. (If you want to download the data for a set of points, there is also the command `download_daymet_batch()` which takes an argument a `csv` of the points in lat/long. If you want to use this approach, we can give you an example.)
+
+> Thornton, M.M., R. Shrestha, P.E. Thornton, S. Kao, Y. Wei, and B.E. Wilson. 2021. Daymet Version 4 Monthly Latency: Daily Surface Weather Data. ORNL DAAC, Oak Ridge, Tennessee, USA. https://doi.org/10.3334/ORNLDAAC/1904
 
 ### Using `daymetr` to download weather
 
